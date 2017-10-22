@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>房间信息</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+      <style>
+        html{
+          font-size: 10px;
+        }
+        #wrap{
+          background:#fff;
+          height:100%;
+        }
+         header{
+           background-color: #D71D34;
+           position: fixed;
+           top: 0rem;
+           z-index: 1000;
+           width: 100%;
+         }
+         header ul li {
+           height: 7.5rem;
+           text-align: center;
+           color: #fff;
+           position: relative;
+           font-size: 1.8rem;
+          }
+          .myMine{
+            padding-top: 4rem;
+          }
+          .myPiC{
+            position: absolute;
+            left: 0rem;
+            top: 0rem;
+            width: 10%;
+            padding-top: 3.7rem;
+            height: 7.5rem;
+          }
+          section ul .list{
+            position: relative;
+            background: #fff;
+            height: 4.4rem;
+            width: 100%;
+            border-bottom: 0.1rem solid #EBEBEB;
+            font-size: 1.4rem;
+            line-height: 4.4rem;
+          }
+          .methodLi{
+            position: relative;
+            background: #fff;
+            width: 100%;
+            border-bottom: 0.1rem solid #EBEBEB;
+            font-size: 1.4rem;
+          }
+          .text_left{
+           position: absolute;left: 3%
+          }
+          .text_right{
+           position: absolute;
+           right: 3%;
+           color: #999;
+          }
+          /* 成员列表*/
+          section{
+            background-color: #fff;
+          }
+          section #memList{
+            overflow: hidden;
+            list-style: none;
+            padding-left: 0.5rem;
+          }
+          section #memList li{
+            width:18.5%;
+            height:10rem;
+            margin-left: 1%;
+            list-style: none;
+            margin-top:0.5rem;
+            float: left;
+            text-align: center;
+          }
+          section #memList li img{
+            width:6rem;
+            height:6rem;
+            text-align: center;
+          }
+          section #memList li p{
+            overflow: hidden;
+            text-align: center;
+            font-size:1.4rem;
+            color: #979797;
+          }
+          .member{
+            margin-top:1rem;
+            font-size: 1.5rem;
+            margin-left: 1rem;
+          }
+          .ruler{
+            margin-top:1rem;
+            font-size: 1.5rem;
+            border-top: 0.1rem solid #EBEBEB;
+            padding-top:1rem;
+            padding-left: 1rem;
+          }
+          .rulerMessage{
+            font-size: 1.5rem;
+            color: #999;
+            margin-left: 1rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+      <header>
+          <ul>
+              <li class="border-b mine" >
+                  <div class="myMine">房间成员</div>
+                  <div class="myPiC">
+                    <img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;">
+                  </div>
+              </li>
+          </ul>
+      </header>
+      <section id = "roomMsg" style="margin-top: 7.5rem; background-color:#">
+        <ul>
+          <li class='list'>
+            <div class="text_left">房间ID</div>
+            <div class="text_right roomId">326589</div>
+          </li>
+          <li class='list'>
+            <div class="text_left">房间名称</div>
+            <div class="text_right roomName">投注百分百</div>
+          </li>
+          <li class='list'>
+            <div class="text_left">房间种类</div>
+            <div class="text_right lotteryId">重庆时时彩</div>
+          </li>
+          <li class='list'>
+            <div class="text_left">自定义钱币单位</div>
+            <div class="text_right coin">金币</div>
+          </li>
+          <li class='list'>
+            <div class="text_left">封盘时间</div>
+            <div class="text_right">60s</div>
+          </li>
+        </ul>
+      </section>
+      <!-- 成员列表 -->
+      <section id = "roomNum">
+        <div class="member">房间成员</div>
+        <ul id="memList">
+
+        </ul>
+      </section>
+      <section id = "ruler">
+        <div class="ruler">群规</div>
+        <div class="rulerMessage">sdcsincsincksjcnkjsdbcfkscnjas</div>
+      </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        // 获取房间id
+        var apiPage = api.pageParam,
+            groupId = apiPage.groupId;//群组id
+        var lotteryId=apiPage.lotteryId;//彩票id
+        var limits=apiPage.limits;//当前用户权限
+        var name=apiPage.name;//房间name
+        var userId = apiPage.userId;
+        var createId=apiPage.createId;//房主电话
+        var roomId=apiPage.roomId;//房间id
+        var typeStatus=apiPage.typeStatus;//彩票
+        var typeca=apiPage.typeca;//房间创建/加入
+        var userInfo=$api.getStorage('userInfo');
+            searchMember(groupId);//查询群成员
+        $('.roomId').html(roomId);//房间id显示
+        $('.roomName').html(name);//房间名称
+        if(lotteryId==1){
+          $('.lotteryId').html('重庆时时彩');
+        }
+        else{
+          $('.lotteryId').html('北京赛车');
+        }
+
+        // 查询群成员
+        function searchMember(groupId){
+          console.log(groupId);
+          api.ajax({
+              url: DATABASE_URL+'lottery-web/lottery/getRoomUsers?groupId='+groupId,
+              method: 'get'
+          }, function(ret, err) {
+             console.log(JSON.stringify(ret))
+              if (ret) {
+                var html='';
+                var list = ret.userlist;
+                for(var i=0;i<list.length;i++){
+                  var newName = list[i].louserName;
+                  if(newName == "无昵称" || newName == ''){
+                    newName = "用户"+list[i].id.substring(list[i].id.length-4)
+                  }else{
+                     newName = list[i].louserName
+                  }
+                  console.log(JSON.stringify(list[i]));
+                  if(list[i].louserName == list[i].lophone){
+                    html+='<li name='+list[i].lophone+' type='+typeStatus+'>\
+                    <img src="../../image/tou.png" alt="">\
+                   <p>'+newName+'</p>\
+                    </li>';
+                  }else{
+                    html+='<li name='+list[i].lophone+' type='+typeStatus+'>\
+                    <img src="../../image/tou.png" alt="">\
+                    <p>'+newName+'</p>\
+                    </li>';
+                  }
+                }
+                $('#memList').html(html);
+              } else {
+                toast('网络错误，请稍后');
+              }
+          });
+        }
+
+        $('#memList').on('click','li',function(){
+          var namePhone = $(this).attr('name');//群成员电话
+          // console.log(namePhone);
+          //当前用户有涉及到详细信息中的权限的要给予跳页功能
+          var qq=limits&43;
+          if(namePhone==userInfo.lophone||typeca==1||qq!=0){
+            if(namePhone==createId&&namePhone==userInfo.lophone){
+              api.openWin({
+                name: 'memberInfor',
+                url: './memberInfor.html',
+                pageParam: {
+                  groupId:groupId,
+                  roomId: roomId,//房间id
+                  name: namePhone,//群成员电话
+                  typeca:typeca,//房间创建/加入
+                  typeStatus:$(this).attr('type'),//彩票/红包
+                  lotteryId:lotteryId,
+                  userId:userId,
+                  limits:limits
+                }
+              });
+            }
+            else if(namePhone!=createId){
+              api.openWin({
+                name: 'memberInfor',
+                url: './memberInfor.html',
+                pageParam: {
+                  groupId:groupId,
+                  roomId: roomId,//房间id
+                  name: namePhone,//群成员电话
+                  typeca:typeca,//房间创建/加入
+                  typeStatus:$(this).attr('type'),//彩票/红包
+                  lotteryId:lotteryId,
+                  userId:userId,
+                  limits:limits
+                }
+              });
+            }
+          }
+        });
+
+        $(".myPiC").on('click',function(){
+          api.closeWin({
+          });
+        })
+        //踢人监听 memberInfor页发送监听
+        api.addEventListener({
+            name: 'delectMember'
+          }, function(ret, err){
+            if( ret ){
+                window.location.reload();
+            }else{
+                console.log( JSON.stringify( err ) );
+            }
+        });
+       // alert(lotteryId)
+        if(lotteryId){
+         getRoomMessage();
+        }else{
+         $('#roomMsg').css('display','none');
+         $('#ruler').css('display','none');
+         $('#roomNum').css('marginTop','7rem')
+        }
+        function getRoomMessage(){
+          api.ajax({
+              url: DATABASE_URL+'lottery-web/lottery/getLRoomByGroupId?id='+roomId+'&lotteryId='+lotteryId,
+              method: 'post'
+            },function(ret, err){
+              console.log(JSON.stringify(ret));
+              console.log(JSON.stringify(err));
+              if (ret) {
+                // console.log(ret.lotteryroom.coin);
+                // console.log(ret.lotteryroom.msgfrequencies);
+                var coin=ret.lotteryroom.coin;
+                //钱币单位
+                if(ret.lotteryroom.coin==""||ret.lotteryroom.coin==undefined){
+                  $('.coin').html('银币');
+                }
+                else{
+                  $('.coin').html(coin);
+                }
+                //封盘时间
+                if(ret.lotteryroom.entertainedTime==""||ret.lotteryroom.entertainedTime==undefined){
+                  $('.selectT').html('60s');
+                }
+                else{
+                  $('.selectT').html(ret.lotteryroom.entertainedTime+'s');
+                }
+                if(ret.lotteryroom.rule==""){
+                  $('.rulerMessage').html('无');
+                }
+                else{
+                  $('.rulerMessage').html(ret.lotteryroom.rule);
+                }
+              }
+              else{}
+          });
+        }
+      };
+  </script>
+  </html>

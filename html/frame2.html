@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>发现</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/zui.css">
+    <link rel="stylesheet" href="../css/aui.css">
+    <script type="text/javascript" src="../script/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../script/zui.js"></script>
+    <style>
+        html{
+          font-size: 10px;
+        }
+      /*tab css样式*/
+      #discover_nav{
+        float: left;
+        width: 100%;
+        background: #fff;
+        display: flex;
+        display:-webkit-flex;
+      }
+      #discover_nav li{
+        flex: 1;
+        -webkit-box-flex:1.0;
+        text-align: center;
+        float: left;
+        width:50%;
+      }
+      #discover_nav li a{
+        font-size: 1.4rem;
+        color: #333333;
+        width: 100%;
+        padding-top: 1.7rem;
+        padding-bottom: 1.7rem;
+        text-align: center;
+        text-decoration: none;
+      }
+      .discover_nav_active{
+        border-bottom: 1px solid #d71d34;
+      }
+      /*话题样式*/
+      #discover_content{
+        float: left;
+        width: 100%;
+        background: #fff;
+        margin-top:1rem;
+      }
+      .discover_content_topic{
+        width: 100%;
+        float: left;
+      }
+      .discover_content_topic_title{
+        width: 94%;
+        float: left;
+        margin-left: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+      }
+      .discover_content_topic_title_left{
+        width: 19.1rem;
+        height: 7.65rem;
+        float: left;
+      }
+      .discover_content_topic_title_left p{
+        font-size: 1.3rem;
+        color: #333333;
+      }
+      .discover_content_topic_title_left p:nth-child(2){
+        font-size: 1rem;
+        margin-top: 2.25rem;
+        line-height: 0.8rem;
+      }
+      .discover_content_topic_title_left_img{
+        width: 2.3rem;
+        height: 1.8rem;
+        float: right;
+        //margin-top:0.2rem;
+      }
+      .discover_content_topic_title_img{
+        width: 13.35rem;
+        height: 7.65rem;
+        float: right;
+        /*display: block;
+        max-width: 100%;
+        height: auto;*/
+      }
+      .discover_content_topic_container{
+        width: 94%;
+        float: left;
+        margin-left: 1rem;
+      }
+      .discover_content_topic_container p:nth-child(1){
+        font-size: 1.3rem;
+        padding-top: 1.3rem;
+        padding-bottom: 1.3rem;
+      }
+      .discover_content_topic_container p:nth-child(3){
+        font-size: 1rem;
+        padding-top: 1.3rem;
+        padding-bottom: 1.3rem;
+      }
+      .discover_content_topic_container_img{
+        /*width: 100%;*/
+        /*height: 16.5rem;*/
+        display: block;
+        max-width: 100%;
+         height: auto;
+      }
+      /*活动样式*/
+      #activity{
+        float: left;
+        width: 100%;
+        background: #fff;
+        margin-top:1rem;
+      }
+      .activity_list{
+        float: left;
+        width: 100%;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        padding-left: 1rem;
+        border-bottom: 1px solid #eeeeee;
+      }
+      .activity_list_img{
+        float: left;
+      }
+      .activity_list_img img{
+        width: 7.8rem;
+        height: 7.8rem;
+      }
+      .activity_list_content{
+        float: left;
+        margin-left: 1.5rem;
+        width:70%;
+      }
+      .activity_list_content p:nth-child(1){
+        font-size: 1.5rem;
+        color: #333333;
+      }
+      .activity_list_content p:nth-child(2){
+        font-size: 1.4rem;
+        color: #666666;
+      }
+      .activity_list_content p:nth-child(3){
+          color: #666666;
+          font-size: 1.3rem;
+          margin-top: 1.8rem;
+      }
+      .activity_list_content_span{
+        color: #ff8533;
+      }
+      .activity_list_content_span2{
+        float: right;
+      }
+    </style>
+</head>
+<body>
+  <ul id="discover_nav">
+    <li><a href="#" class="discover_nav_a discover_nav_active">话题</a></li>
+    <li><a href="#" class="discover_nav_a">活动</a></li>
+  </ul>
+  <section id="discover_content">
+      <section class="discover_content_topic">
+            <!-- <div class="discover_content_topic_title">
+                <div class="discover_content_topic_title_left">
+                    <p>有什么游戏适合俩个人没有话题的时候玩？</p>
+                    <p><span>7032万阅读</span></p>
+                </div>
+                <img src="../image/discover/discover_02.png" class="discover_content_topic_title_img">
+            </div>
+            <div class="discover_content_topic_title">
+                <div class="discover_content_topic_title_left">
+                    <p>有什么游戏适合俩个人没有话题的时候玩？</p>
+                    <p><span>7032万阅读</span></p>
+                </div>
+                <img src="../image/discover/discover_01.png" class="discover_content_topic_title_img">
+            </div>
+            <div class="discover_content_topic_container">
+              <p>午间话题红包:你玩过最好玩的游戏是什么</p>
+              <img src="../image/discover/discover_03.png" alt="" class="discover_content_topic_container_img">
+              <p>7312人 阅读</p>
+            </div> -->
+      </section>
+  </section>
+  <section id="activity">
+      <!-- <div class="activity_list">
+          <div class="activity_list_img">
+              <img src="../image/discover/activity_01.png" alt="">
+          </div>
+          <div class="activity_list_content">
+              <p>双剩新手礼包</p>
+              <p>注册送8元,下载送10元</p>
+              <p><span class="activity_list_content_span">火热进行中</span><span class="activity_list_content_span2">已有1234人参加</span></p>
+          </div>
+      </div>
+      <div class="activity_list">
+          <div class="activity_list_img">
+              <img src="../image/discover/activity_02.png" alt="">
+          </div>
+          <div class="activity_list_content">
+              <p>双剩新手礼包</p>
+              <p>注册送8元,下载送10元</p>
+              <p><span class="activity_list_content_span">火热进行中</span><span class="activity_list_content_span2">已有1234人参加</span></p>
+          </div>
+      </div>
+      <div class="activity_list">
+          <div class="activity_list_img">
+              <img src="../image/discover/activity_03.png" alt="">
+          </div>
+          <div class="activity_list_content">
+              <p>双剩新手礼包</p>
+              <p>注册送8元,下载送10元</p>
+              <p><span class="activity_list_content_span">火热进行中</span><span class="activity_list_content_span2">已有1234人参加</span></p>
+          </div>
+      </div>
+      <div class="activity_list">
+          <div class="activity_list_img">
+              <img src="../image/discover/activity_04.png" alt="">
+          </div>
+          <div class="activity_list_content">
+              <p>双剩新手礼包</p>
+              <p>注册送8元,下载送10元</p>
+              <p><span class="activity_list_content_span">火热进行中</span><span class="activity_list_content_span2">已有1234人参加</span></p>
+          </div>
+      </div> -->
+  </section>
+</body>
+<script type="text/javascript" src='../script/public.js'></script>
+<script type="text/javascript">
+  apiready = function(){
+      //初始化话切换事件
+
+      $("#discover_content").show();
+      $("#activity").hide();
+      //点击切换事件
+      $("#discover_nav").on("click","li",function(){
+        $(this).children().addClass('discover_nav_active');
+        $(this).siblings().children().removeClass('discover_nav_active');
+        if($(this).index() == 0){
+          $("#discover_content").show();
+          $("#activity").hide();
+        }else {
+          $("#activity").show();
+          $("#discover_content").hide();
+        }
+      })
+      //点击跳转话题详情页面
+      $(".discover_content_topic").on("click",".discover_content_topic_title",function(){
+        api.openWin({
+            name: 'discoverTopicDetails',
+            // url: '../html/discover/discoverTopicDetails.html',
+              url: '../html/discover/TopicDetails.html',
+            pageParam: {
+                titleID: $(this).attr("topId"),
+                content: $(this).attr("cont"),
+            }
+        });
+      })
+      //点击跳转活动详情页面
+      $("#activity").on("click",".activity_list",function(){
+        api.openWin({
+            name: 'activity_list',
+            url: '../html/discover/discoverActivityDetails.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+      })
+  //--------------请求话题-------------------
+        //var userInfo=$api.getStroage('userInfo');
+        getTopic();
+        //=-------------话题数据请求
+        function getTopic(){
+          $('.discover_content_topic').html('');
+          api.ajax({
+            url: propBaseUrl+'topic/getAllTopic?userId=56455',
+            method: 'get'
+          }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+              if (ret) {
+                  var list=ret.topicList;
+                  for(var i = 0 ; i< list.length ; i++){
+                    // console.log(list);
+                      var title=list[i].title;
+                      var src=propBaseUrl+list[i].imglogo;
+                      console.log(src);
+                      var topicId=list[i].id;
+                      var str='<div class="discover_content_topic_title" topId="'+topicId+'">'+
+                              '<div class="discover_content_topic_title_left">'+
+                              '<p>'+title+'</p>'+
+                              '</div>'+
+                              '<img src="'+src+'" class="discover_content_topic_title_img">'
+                              '</div>'
+                      $('.discover_content_topic').append(str);
+                     console.log(str);
+                  }
+
+              } else {
+                  console.log(JSON.stringify(err));
+              }
+          });
+        }
+//------------请求活动------------
+        getTopUpActivityTabs();
+        function getTopUpActivityTabs(){
+          $('#activity').html('');
+          api.ajax({
+            //  url: TOPIC_URL+'lottery-web/activity/getNowActivity',
+              url: propBaseUrl+'activity/getNowActivity',
+              method: 'get',
+          }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+              if (ret) {
+                  var activitylist=ret.activityList;
+
+                  for(var i=0;i<activitylist.length;i++){
+                          // console.log(activitylist);
+                    var name=activitylist[i].activityName;
+                          //  console.log(name);
+                    var img=activitylist[i].imgUrl;
+                         console.log(img);
+                    var str='<div class="activity_list">'+
+                            '<div class="activity_list_img">'+
+                            '<img src="'+propBaseUrl+img+'" alt="" >'+
+                            // '<img src="'+img+'" alt="">'+
+                            // '<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1506054255811&di=e473385381634b7b6379892196e8f58a&imgtype=0&src=http%3A%2F%2Fpic2.cxtuku.com%2F00%2F16%2F16%2Fb9274da4215b.jpg" alt="">'+
+                            '</div>'+
+                            '<div class="activity_list_content">'+
+                                '<p>'+name+'</p>'+
+                                '<p><span class="activity_list_content_span">火热进行中</span></p>'+
+                            '</div>'+
+                            '</div>'
+                        console.log(str);
+                        console.log(propBaseUrl);
+                      $('#activity').append(str);
+                  }
+
+
+              } else {
+                  console.log(JSON.stringify(err));
+
+              }
+          });
+        }
+
+        //下拉刷新模块
+        api.setCustomRefreshHeaderInfo({
+            bgColor: '#C0C0C0'
+          }, function() {
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            window.location.reload();
+        });
+        $("dom").on('touchstart',function(){
+          api.refreshHeaderLoading();
+        })
+        api.refreshHeaderLoadDone();
+  }
+
+</script>
+</script>
+</html>

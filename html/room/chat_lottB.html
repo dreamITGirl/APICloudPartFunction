@@ -1,0 +1,3012 @@
+
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>北京赛车</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/chatLotteryB.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/chat_lotteryB.css">
+      <link rel="stylesheet" href="../../css/swiper.css">
+      <style>
+        .appends{
+          width:36%;height:16rem;
+          position:fixed;background:#fff;z-index:666;
+          border:0.1rem solid #D2D2D2;
+          display: none
+        }
+        .appends img{
+          width:80%;margin-top:1rem;margin-left: 10%;
+        }
+        .appends div{
+          width: 100%;
+          margin-top: 1rem;
+          font-size: 1.6rem;
+          text-align: center;
+          color: #666666;
+        }
+        /*遮罩层*/
+        .addAddressTo{
+          width: 100%;
+          height: 100%;
+          position: fixed;
+          bottom: 0rem;
+          left: 0rem;
+          z-index: 1000000;
+        }
+        .addAddressTo .shade{
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.5)
+        }
+        .box_self{
+          position:absolute;width: 76%;
+          min-height: 25rem;
+          height: auto;
+          background: #fff;
+          top: 15rem;left: 12%;
+          border-radius: 1rem;
+        }
+        .box_self .title{
+          height: 4.5rem;width: 100%;text-align: center;line-height: 4.5rem;font-size: 1.6rem;
+        }
+        .box_self .bodyMain{
+          padding-bottom: 2rem;
+          min-height: 18rem;
+          height: auto;
+          width: 100%;
+          border-top: 0.1rem solid #999999;
+          border-bottom: 0.1rem solid #999999;
+        }
+        .box_self .foot{
+          color: #DA132A;
+        }
+        .foot_btn{
+          height: 2.5rem;width: 25%;border:0.1rem solid #999999;
+          margin-left: 15%;
+          margin-top: 1.5rem;
+          /*float: left;*/
+          line-height: 2.5rem;
+          text-align: center;
+          font-size: 1.5rem;
+        }
+        .foot_text{
+          /*float: left;*/
+          margin-left: 2%;
+          line-height: 2.5rem;
+          margin-top: 1.5rem;
+          font-size: 1.5rem;
+          color: #666666;
+        }
+
+        /*自定义编辑*/
+        .titleBtn{
+          float: right;margin-right: 6%;
+          height: 2.2rem;width: 28%;
+          font-size: 1.4rem;border: 0.1rem solid #666666;
+          margin-top: 1rem;line-height: 2.2rem;
+          border-radius: 0.5rem;
+        }
+        .body_text{
+          font-size: 1.7rem;width:100%;margin-top: 3rem;text-align: center;color: #D31D34
+        }
+        .width_float{
+          float: left!important;
+          width: 50%!important;
+        }
+        .editReset{
+          color: #333333!important;
+        }
+        .edit_box{
+          margin-left: 10%;height: 2.5rem;margin-top: 3.8rem;position: relative;line-height: 2.5rem;
+        }
+        .edit_box span{
+          width:30%;left: 5%;position: absolute;
+        }
+        .edit_box input{
+          left: 10%;position: absolute;float: auto;margin-top: 0;width: 50%;
+        }
+        /*客服消息*/
+        .service_news{
+          display: none;
+          position: fixed;
+          //top: 8.8rem;
+          top: 7.6rem;
+          width: 94%;
+          height: 22.2rem;
+          background: rgba(0,0,0,0.3);
+          z-index: 40;
+          margin-left: 3%;
+          border-radius: 0.5rem;
+          overflow: hidden;
+        }
+        .list_img{
+          width: 30%;
+          float: left;
+          height: 100%;
+          //background: red;
+        }
+        .message{
+          width: 70%;
+          float: left;
+          height: 100%;
+          background: rgba(0,0,0,0.5);
+        }
+        .news_content{
+          text-align: center;
+          margin-top: 1rem;
+        }
+        .news_img{
+          width: 3.95rem;
+          height: 3.95rem;
+          border-radius: 50%;
+          border: 1px solid #fff;
+          margin: 0 auto;
+        }
+        .new_info{
+          margin-top: 0.5rem;
+          text-align: center;
+          color: #fff;
+        }
+        .close_message{
+          width: 1.5rem;
+          height: 1.5rem;
+          position: relative;
+          top: -1.1rem;
+          right: 0.5rem;
+        }
+        .message_content{
+          width: 94%;
+          color: #fff;
+          font-size: 1.5rem;
+          margin-left: 1rem;
+          margin-top: 1rem;
+          line-height: 2.5rem;
+        }
+        .message2{
+          width: 100%;
+          height: 80%;
+        }
+        .message_send_input{
+          width: 70%;
+          height: 2.5rem;
+          outline: none;
+          background: #fff;
+          border-radius: 0.5rem;
+          margin-left: 1rem;
+          text-indent: 1rem;
+        }
+        .message_send_btn{
+          height: 2.5rem;
+          color: #fff;
+          background: #d71d34;
+          font-size: 1.4rem;
+          width: 5rem;
+          border-radius: 0.5rem;
+          outline: none;
+        }
+        .stop{
+          background-color: #ccc;
+          border: 1px solid #ccc;
+        }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical" >
+      <header id="header">
+        <ul>
+            <li class="border-b mine" >
+                <div class="myMine">北京赛车</div>
+                <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                <div class="myService" id="myMenu">
+                  <img src="../../icon/room/caidan.png">
+                </div>
+                <div class="myService myMenu messageIcon">
+                  <img src="../../icon/room/xiaoxi.png">
+                </div>
+            </li>
+        </ul>
+        <!--  菜单管理-->
+        <section class="menu hide">
+          <ul>
+            <li id="memberInfor">
+              <div class="menuIcon"><img src="../../icon/room/cj_chengyuan.png" style="height: 1.4rem"></div>
+              <div class="menuText">房间信息</div>
+            </li>
+            <li id='stopOrAct'>
+              <div class="menuIcon"><img src="../../icon/room/cj_zt.png" style="height: 1.4rem"></div>
+              <div class="menuText">暂停</div>
+            </li>
+            <li id="manageRoom">
+              <div class="menuIcon"><img src="../../icon/room/cj_guanli.png" style="height: 1.4rem"></div>
+              <div class="menuText">房间管理</div>
+            </li>
+            <li id='shareRoom'>
+              <div class="menuIcon"><img src="../../icon/room/cj_fenx.png" style="height: 1.4rem"></div>
+              <div class="menuText">分享</div>
+            </li>
+            <li id='copyRoom'>
+              <div class="menuIcon"><img src="../../icon/room/cj_fuzhi.png" style="height: 1.4rem"></div>
+              <div class="menuText">复制房间链接</div>
+            </li>
+            <li id='quit'>
+              <div class="menuIcon"><img src="../../icon/room/cj_tuichu.png" style="height: 1.4rem"></div>
+              <div class="menuText">退出房间</div>
+            </li>
+          </ul>
+        </section>
+      </header>
+      <!--侧边栏 -->
+      <section class="menuRight" falg="true">
+        <ul>
+          <li>
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>3元5包</p>
+            <span style="display:block">9</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_lei.png" alt="">
+            <p>10元7包</p>
+            <span style="display:block">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_long.png" alt="">
+            <p>3元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>100元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_lei.png" alt="">
+            <p>3元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_long.png" alt="">
+            <p>10元7包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img style="margin-top:1.7rem" src="../../icon/room/add.png" alt="">
+          </li>
+        </ul>
+      </section>
+      <section class="moveOut" id="move"></section>
+      <!--  -->
+      <div style="width:100%;height:8rem;"></div>
+      <!-- 彩票头部开奖信息 -->
+      <div class="main">
+        <div class="top">
+          <span class="yuce">预测</span>
+          <span class="shu project" id="testClick">3,6,5,9,10,冠军</span>
+          <span class="jihua">计划</span>
+          <img class="img" src="../../icon/room/time.png" alt="">
+        </div>
+        <div class="openTime">
+          <span>期数：</span>
+          <span class="red" id="kj">86542</span>
+          <span>期</span>
+          <span>距封盘</span>
+          <span class="time">0</span>
+          <span class="time">0</span>
+          <span class="red">:</span>
+          <span class="time">0</span>
+          <span class="time">0</span>
+        </div>
+        <div class="haoma">
+          <!-- <span>第20170809期中奖号码：</span><br>
+          <img src="../../icon/room/01.png" alt="">
+          <img src="../../icon/room/02.png" alt="">
+          <img src="../../icon/room/03.png" alt="">
+          <img src="../../icon/room/04.png" alt="">
+          <img src="../../icon/room/05.png" alt="">
+          <img src="../../icon/room/06.png" alt="">
+          <img src="../../icon/room/07.png" alt="">
+          <img src="../../icon/room/08.png" alt="">
+          <img src="../../icon/room/09.png" alt="">
+          <img src="../../icon/room/10.png" alt=""> -->
+        </div>
+      </div>
+
+      <!-- 聊天页面 -->
+      <div id="convo" style="margin-top:19.4rem">
+        <ul class="chat-thread" id="chatThread">
+          <!-- <div class="data" style="margin-bottom:1rem;">11:18</div> -->
+          <!-- <li class="othersInfo">
+            <img class="headPhoto otherHeadPhoto"  src="../../image/tou.png" alt="">
+            <p class="namePhone">18601006666</p>
+            <div class="info">
+              <p class="title">1~5</p>
+            </div>
+          </li>
+          <li class="myInfo">
+            <img class="headPhoto myHeadPhoto"  src="../../image/tou.png" alt="">
+            <p class="namePhone">渣渣啊啊啊啊啊</p>
+            <div class="info" name=18601001111>1111</div>
+          </li> -->
+       </ul>
+       <!-- style="height:0px; overflow:hidden" -->
+       <div id="msg_end"></div>
+      </div>
+      <!-- 投注 -->
+      <!-- 1~10 冠亚和 -->
+      <div class="swiper-container" id="myDiv">
+        <div class="swiper-wrapper">
+            <!-- 冠亚和 -->
+            <div class="swiper-slide dragon_tiger_tie">
+                 <div class="dragon_tiger_tie_title">
+                    冠亚和
+                  </div>
+                 <ul class="dragon_tiger_tie_content guanY">
+                   <li>3</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>4</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>5</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>6</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>7</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>8</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>9</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>10</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>11</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>12</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>13</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>14</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>15</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>16</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>17</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>18</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+                   <li>19</li>
+                   <li><span class="dragon_tiger_tie_content_span">1.98</span></li>
+
+                 </ul>
+                 <div class="amount" style="position:fixed;bottom:4.9rem;background:#fff;border-top:1px solid #e3e3e3;">
+                   <span class="count">单注金额</span> <input type="number" id="inputD" name="" value="" class="amount_input">
+                   <!-- <select class="amount_span">
+                       <option value ="1">分</option>
+                       <option value ="2">角</option>
+                       <option value="3">元</option>
+                       <option value="4">百</option>
+                  </select> -->
+                  <!-- <img src="../../icon/shanjiao.png" alt="" class="amount_image"> -->
+                 </div>
+                 <div class="bet_btn D_btn" style="position:fixed;bottom:0;">立即投注</div>
+            </div>
+            <!-- 1~5 -->
+            <div class="swiper-slide">
+              <div class="bravery_title">
+                1~5
+              </div>
+                <div class="bravery_title2" style="width: 100%;height: 4.75rem;float:left"></div>
+                <div class="ball_title">
+                  <a href="#" class="ball_title_content">组合</a>
+                  <a href="#" class="ball_title_content">冠军</a>
+                  <a href="#" class="ball_title_content">亚军</a>
+                  <a href="#" class="ball_title_content">第三名</a>
+                  <a href="#" class="ball_title_content">第四名</a>
+                  <a href="#" class="ball_title_content">第五名</a>
+                </div>
+              <div class="content">
+                <ul class="ballone">
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">大</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">小</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">单</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">双</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">龙</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">虎</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/1.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/2.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/3.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/4.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/5.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/6.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/7.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/8.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/9.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/10.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content1">
+
+                    </li>
+                  </ul>
+                <div style="width:100%;float:left;height:14rem;"></div>
+              </div>
+              <div class="amount" style="position:fixed;bottom:4.9rem;background:#fff;border-top:1px solid #e3e3e3;">
+                <span class="count">单注金额</span> <input id="inputB" type="number" name="" value="" class="amount_input">
+                <!-- <select class="amount_span">
+                    <option value ="1">分</option>
+                    <option value ="2">角</option>
+                    <option value="3">元</option>
+                    <option value="4">百</option>
+               </select> -->
+               <!-- <img src="../../icon/shanjiao.png" alt="" class="amount_image"> -->
+              </div>
+              <div class="bet_btn ball_btn" style="position:fixed;bottom:0;">立即投注</div>
+            </div>
+            <!-- 6~10 -->
+            <div class="swiper-slide">
+              <div class="bravery_title">
+                6~10
+              </div>
+              <div class="bravery_title2" style="width: 100%;height: 4.75rem;float:left"></div>
+              <div class="ball_title">
+                <a href="#" class="ball_title_content">组合</a>
+                <a href="#" class="ball_title_content">第六名</a>
+                <a href="#" class="ball_title_content">第七名</a>
+                <a href="#" class="ball_title_content">第八名</a>
+                <a href="#" class="ball_title_content">第九名</a>
+                <a href="#" class="ball_title_content">第十名</a>
+              </div>
+              <div class="content">
+                <ul class="ballsix">
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">大</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">小</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">单</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children">
+                        <span class="ball_children_title">双</span>
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/1.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/2.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/3.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/4.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/5.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/6.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/7.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/8.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/9.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content">
+                      <div class="ball_children img">
+                        <img src="../../icon/room/10.png" alt="">
+                      </div>
+                      <div class="ball_children">
+                         <span class="ball_children_btn">
+                           1.98
+                         </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                      <div class="ball_children">
+                        <span class="ball_children_btn">
+                          1.98
+                        </span>
+                      </div>
+                    </li>
+                    <li class="ball_content1">
+
+                    </li>
+                  </ul>
+                <div style="width:100%;float:left;height:14rem;"></div>
+              </div>
+              <div class="amount" style="position:fixed;bottom:4.9rem;background:#fff;border-top:1px solid #e3e3e3;">
+                <span class="count">单注金额</span> <input id="inputL" type="number" name="" value="" class="amount_input">
+                <!-- <select class="amount_span">
+                    <option value ="1">分</option>
+                    <option value ="2">角</option>
+                    <option value="3">元</option>
+                    <option value="4">百</option>
+               </select> -->
+               <!-- <img src="../../icon/shanjiao.png" alt="" class="amount_image"> -->
+              </div>
+              <div class="bet_btn ball_btn2" style="position:fixed;bottom:0;">立即投注</div>
+            </div>
+        </div>
+
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev btn"></div>
+        <div class="swiper-button-next btn"></div>
+      </div>
+      <!-- 确认投注 -->
+      <div class="confirm_bet" style="display:none;">
+        <div class="confirm_bet_title">确认投注信息<span style="color:#999999;">(1~5)</span></div>
+        <div class="confirm_bet_content">
+          <!-- <p class='star_content'>
+            <span>第一名:{0}@1.98</span><input type='text' class='star_input'>
+            <span class='star_add'>填</span><span class='star_delet'>删</span>
+          </p>
+          <p class='star_content'>
+            <span>第二名:{0}@1.98</span><input type='text' class='star_input'>
+            <span class='star_add'>填</span><span class='star_delet'>删</span>
+          </p>
+          <p class='star_content'>
+            <span>第三名:{0}@1.98</span><input type='text' class='star_input'>
+            <span class='star_add'>填</span><span class='star_delet'>删</span>
+          </p>
+          <p class='star_content'>
+            <span>第四名:{0}@1.98</span><input type='text' class='star_input'>
+            <span class='star_add'>填</span><span class='star_delet'>删</span>
+          </p>
+          <p class='star_content'>
+            <span>第五名:{0}@1.98</span><input type='text' class='star_input'>
+            <span class='star_add'>填</span><span class='star_delet'>删</span>
+          </p> -->
+        </div>
+        <div class="confirm_bet_list">
+          <span class="confirm_bet_list_1">金额:</span>
+          <span class="confirm_bet_list_2">￥<span>0</span></span>
+          <!-- <span class="confirm_bet_list_3">(赔率0.98)</span> -->
+          <span class="confirm_bet_list_4"><img src="../../icon/yuanquan.png" alt="" class="confirm_bet_list_4_img">私密投注</span>
+        </div>
+        <div class="confirm_bet_btn">
+          <span class="confirm_bet_btn_cancel">取消</span><span class="confirm_bet_btn_confirm" id="confirm_btn">确认下注</span>
+        </div>
+
+      </div>
+      <!-- 计划筛选 -->
+      <div class="addShade" style="display:none">
+        <div class="shade"></div>
+        <div class="plan">
+          <p style="height:4.9rem;width:100%;border:1px solid #dfdfdf;background-color:#fafafa;">
+            <span class="cancel" style="color:#929292;font-size:1.5rem;float:left;margin-left:2.3rem;line-height:4.9rem;">取消</span>
+            <span class="red achieve" style="font-size:1.5rem;float:right;margin-right:2.3rem;line-height:4.9rem;">完成</span>
+          </p>
+
+        </div>
+      </div>
+      <!-- 历史记录 -->
+      <div class="addHistory" style="display:none">
+        <div class="shade"></div>
+        <div class="history">
+          <ul>
+            <li>
+              <span class="gray qi">计划期间</span><span class="gray num">最终截至</span><span class="gray yn">计划结果</span><span class="gray number">预测值</span>
+            </li>
+            <li>
+              <span class="qi">027-029期</span><span class="num">第二期-028-11843</span><span class="green yn">中</span><span class="number">1289</span>
+            </li>
+            <li>
+              <span class="qi">027-029期</span><span class="num">第二期-028-11843</span><span class="green yn">中</span><span class="number">1289<br>3674</span>
+            </li>
+            <li>
+              <span class="qi">027-029期</span><span class="num">第二期-028-11843</span><span class="red yn">挂</span><span class="number">1289</span>
+            </li>
+            <li>
+              <span class="qi">027-029期</span><span class="num">第二期-028-11843</span><span class="red yn">等开</span><span class="number">1289</span>
+            </li>
+            <li>
+              <span class="qi">027-029期</span><span class="num">第二期-028-11843</span><span class="green yn">中</span><span class="number">1289</span>
+            </li>
+          </ul>
+        </div>
+        <div class="triangle_border_up">
+            <span></span>
+        </div>
+      </div>
+
+      <!--底部工具栏  -->
+      <footer class="footer">
+        <div class="chatTool">
+            <div class="record"><img src="../../icon/chat/luyin.png" alt=""></div>
+            <div class="inputBox" ><textarea class="text" id="inputText" name="name" rows="1" cols="2" ></textarea></div>
+            <div class="face"   id="face" flag="ture"><img src="../../icon/chat/face.png" alt=""></div>
+            <div class="append" id="append" flag="ture"><img src="../../icon/chat/append.png" alt=""></div>
+            <div class="state"><span class="send" id="send" style="display:none">发送</span><span class="bet betal">投注</span></div>
+        </div>
+        <article class="tool">
+              <div class="faceEmoticons" style="display:none">
+                    <ul id="Emoticons">
+
+                    </ul>
+              </div>
+              <div class="appendAction" style="display:none">
+                <div class="appendAction_content">
+                    <img src="../../icon/room/icon_paizhao.png" alt="">
+                    <p>拍照</p>
+                </div>
+                <div class="appendAction_content">
+                  <img src="../../icon/room/icon_zhaopian.png" alt="">
+                  <p>图片</p>
+                </div>
+                <div class="appendAction_content">
+                  <img src="../../icon/room/icon_hongbao.png" alt="">
+                  <p>红包</p>
+                </div>
+              </div>
+         </article>
+      </footer>
+
+      <!-- 遮罩层——自定义 -->
+      <div class="addAddressTo" style="display: none">
+        <div class="shade"></div>
+        <div class="box_self">
+          <!-- 定义所有自定义 -->
+          <div class="box_all" style="display: none;">
+            <div class="title">自定义</div>
+            <div class="bodyMain selfEdit">
+              <input type="text" class="foot_btn" value="跟投">
+              <input type="number" class="foot_btn" value="1">
+              <span class="foot_text">倍</span>
+
+              <input type="text" class="foot_btn" value="两倍">
+              <input type="number" class="foot_btn" value="2">
+              <span class="foot_text">倍</span>
+
+              <input type="text" class="foot_btn" value="五倍">
+              <input type="number" class="foot_btn" value="5">
+              <span class="foot_text">倍</span>
+
+              <div class="foot_btn addSelf">...</div>
+              <span class="foot_text addSelf" style="margin-left: 20%;position: absolute;bottom: 6.5rem;right: 20%">自定义</span>
+            </div>
+            <div class="title foot submit">确定</div>
+          </div>
+
+          <!-- 自定义编辑------------------------------------>
+          <div class="box_now">
+            <div class="title">
+              <div class="titleBtn">自定义</div>
+            </div>
+            <div class="bodyMain">
+              <div class="body_text">
+                {5}万-{0}千-{4}百-{8}十-{0}个
+              </div>
+              <div class="edit_box">
+                <span>自定义</span>
+                <input type="number" id="editNum" class="foot_btn">
+              </div>
+            </div>
+            <div class="title foot editReset width_float">取消</div>
+            <div class="title foot editSubmit width_float">确定</div>
+          </div>
+        </div>
+      </div>
+      <!-- 遮罩层 -->
+      <div id="fade" class="black_overlay"></div>
+      <!-- 消息弹窗 -->
+      <div class="service_news">
+        <div class="list_img">
+           <div class="list_img_content">
+              <div class="news_content"><img src="../../icon/news.png" class="close_message" class="close_news"><img src="../../image/tou.png" alt="" class="news_img"></div>
+              <p class="new_info">凌波</p>
+           </div>
+
+           <div class="list_img_content">
+              <div class="news_content"><img src="../../image/tou.png" alt="" class="news_img"></div>
+              <p class="new_info">凌波</p>
+           </div>
+
+           <div class="list_img_content">
+              <div class="news_content"><img src="../../image/tou.png" alt="" class="news_img"></div>
+              <p class="new_info">凌波</p>
+           </div>
+         </div>
+        <div class="message">
+           <div class="message2"><p class="message_k message_content"><span>凌波:</span>我的下注金额有问题帮我看一下</p>
+           <p class="message_m message_content"><span>我:</span><sapn>好的</sapn></p></div>
+           <div class="message_send">
+             <input type="text" name="" value="" class="message_send_input">
+             <button type="button" name="button" class="message_send_btn">发送</button>
+           </div>
+
+         </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/jquery-touch.js"></script>
+  <script type="text/javascript" src="../../script/keyBoardLottery.js"></script>
+  <script type="text/javascript" src="../../script/chatBoxLottery.js"></script>
+  <script type="text/javascript" src="../../script/openDate.js"></script>
+  <script type="text/javascript" src="../../script/plan.js"></script>
+  <script type="text/javascript" src="../../script/swiper.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript" src="../../script/chat.js"></script>
+  <script language="javascript1.2" type="text/javascript">
+  apiready = function(){
+    //openBjsc是北京赛车开奖时间数组
+    // console.log(openBjsc.length);
+    //页面渲染
+    var userInfo = $api.getStorage('userInfo');
+    var RoomName=api.pageParam.name;
+    var groupId=api.pageParam.groupId;//房间群组id
+    // console.log('groupId:'+groupId);
+    var roomId=api.pageParam.id;//房间id
+    var typeca=api.pageParam.typeca;//创建/加入
+    var mySwiper=null;
+    var lotteryId=api.pageParam.lotteryId;//房间彩票类型id
+    var selected=null;
+    var limits=api.pageParam.limits;//用户权限
+    var createId=null;
+    $('.myMine').html(RoomName);
+
+    console.log(roomId);
+    setRoom();
+    function setRoom(){
+      if(typeca!=1){
+        console.log(limits);
+        console.log((limits&4)==0);
+        if((limits&4)!=0){
+          $('#stopOrAct').show();
+        }
+        else{
+          $('#stopOrAct').hide();
+        }
+        if((limits&16)!=0){
+          $('#manageRoom').show();
+        }
+        else{
+          $('#manageRoom').hide();
+        }
+      }
+      else{
+        $('#manageRoom').show();
+        $('#stopOrAct').show();
+      }
+    }
+
+    getRoomOdds();//获得房间信息
+//---------------------获取开奖结果--------------------------
+    yonGetResult();
+    function yonGetResult(){//判断进入页面时 是否立刻调开奖接口
+      getBjDate();//获得下期开奖日期
+      getResult();
+      var num=bjBetDate;
+      var oldTime=null;//上期开奖时间
+      if(num==0){
+        oldTime=0;
+      }
+      else{
+        oldTime=openBjsc[num];
+      }
+      var data=new Date();
+      var nowTime=data.getHours()*60*60+data.getMinutes()*60+data.getSeconds();
+      var kaiTime=nowTime-oldTime;//距离上一期开奖时间
+      if(kaiTime<=40){
+        $('.haoma').hide();
+      }
+      else{
+        $('.haoma').show();
+      }
+    }
+    //请求开奖接口获得开奖结果
+    var n=0;
+    var q=0;
+    var betDate=null;
+    var nowDate=null;
+    var timeDate=null;
+    var openstatus=null;//判断停盘状态
+    function getResult(){
+      //请求开奖接口获得开奖结果
+      api.ajax({
+          url: DATABASE_URL+'lottery-web/lottery/getResultBjpk',
+          method: 'post'
+        },function(ret, err){
+          console.log(JSON.stringify(ret));
+          console.log(JSON.stringify(err));
+          if(ret){
+            var arr=[];
+            // openstatus=ret.list.lotteryopenstatus;
+            arr=ret.list.opencode.split(',');
+            var str='<span>第'+ret.list.expect+'期中奖号码：</span><br>'+
+                    '<img src="../../icon/room/'+arr[0]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[1]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[2]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[3]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[4]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[5]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[6]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[7]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[8]+'.png" alt="">'+
+                    '<img src="../../icon/room/'+arr[9]+'.png" alt="">'
+            $('.haoma').html(str);
+            nowDate=ret.list.expect;
+            betDate=(parseInt(nowDate)+1).toString();
+            timer=Date.parse(new Date(ret.list.opentime));//开奖时间戳
+            if(q<=6){
+              setTimeout(getResult(),4000);//连续7次请求
+              q++;
+            }
+            else{q=0;}
+          }
+          else {//请求7次未请求到  不再请求
+            if(n>=6){
+              var str='<span>第-期中奖号码：</span><br>'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'+
+                      '<img src="../../icon/room/-.png" alt="">'
+              $('.haoma').html(str);
+            }
+            else{
+              setTimeout(getResult(),4000);//请求失败后4秒后再次请求
+              n++;
+            }
+          }
+      });
+    }
+//-------------------------倒计时计算------------------------------
+    var Tim=null;//定时器
+    Tim=setInterval(function(){
+      getCountdown();
+    },1000);
+    function getCountdown(){
+      getBjDate();
+      var num=bjBetDate;
+      var oldTime=null;//上期开奖时间
+      if(num==178){
+        num=0;
+      }
+      if(num==0){
+        oldTime=0;
+      }
+      else{
+        oldTime=openBjsc[num];
+      }
+      var data=new Date();
+      var nowTime=data.getHours()*60*60+data.getMinutes()*60+data.getSeconds();
+      // console.log(nowTime);
+      var openTime=openBjsc[num+1];//下一期开奖时间
+      var downTime=openTime-nowTime;//距离下一期开奖时间
+      var kaiTime=nowTime-oldTime;//距离上一期开奖时间
+      var fenTime=60;//封盘时间
+      if(selected!=null&&selected!=''){
+        fenTime=selected;
+      }
+      var min=null;
+      var sec=null;
+      if(downTime<=fenTime&&downTime>=0){
+        $('.haoma').show();
+        min=Math.floor((downTime+40)/60);//封盘倒计时分钟
+        sec=(downTime+40)%60;//封盘倒计时秒
+        var str='<span>距离</span>'+
+                '<span class="red">开奖</span>'+
+                '<span>还剩</span>'+
+                '<span class="time">0</span>'+
+                '<span class="time">0</span>'+
+                '<span class="red">:</span>'+
+                '<span class="time">'+Math.floor(min/10)+'</span>'+
+                '<span class="time">'+min%10+'</span>'+
+                '<span class="red">:</span>'+
+                '<span class="time">'+Math.floor(sec/10)+'</span>'+
+                '<span class="time">'+sec%10+'</span>';
+        //封盘 禁止投注
+        $('.bet').removeClass('betal');
+        $('.bet').addClass('bet_open');
+      }
+      else if(kaiTime<=40){
+        timeDate=(parseInt(betDate)+1).toString();
+        min=Math.floor((40-kaiTime)/60);//开奖倒计时分钟
+        sec=(40-kaiTime)%60;//开奖倒计时秒
+        var str='<span>距离</span>'+
+                '<span class="red">开奖</span>'+
+                '<span>还剩</span>'+
+                '<span class="time">0</span>'+
+                '<span class="time">0</span>'+
+                '<span class="red">:</span>'+
+                '<span class="time">'+Math.floor(min/10)+'</span>'+
+                '<span class="time">'+min%10+'</span>'+
+                '<span class="red">:</span>'+
+                '<span class="time">'+Math.floor(sec/10)+'</span>'+
+                '<span class="time">'+sec%10+'</span>';
+        //可投注
+        $('.bet').removeClass('bet_open');
+        $('.bet').addClass('betal');
+        nowDate=parseInt(nowDate)+1;
+        if(min==0&&sec==0){
+          getResult();//请求开奖结果
+          zhongjian();//调取中奖记录
+        }
+      }
+      else if(downTime>=3600||downTime<0){
+        $('.haoma').show();
+        var str='<span class="red">停盘中</span>';
+        //封盘 禁止投注
+        $('.bet').removeClass('betal');
+        $('.bet').addClass('bet_open');
+      }
+      else{
+        $('.haoma').show();
+        timeDate=betDate;
+        min=Math.floor((downTime-fenTime)/60);//投注倒计时分钟
+        sec=(downTime-fenTime)%60;//投注倒计时秒
+        var str='<span>距离</span>'+
+                '<span class="red">'+timeDate+'</span>'+
+                '<span>期 封盘还剩</span>'+
+                '<span class="time">0</span>'+
+                '<span class="time">0</span>'+
+                '<span class="red">:</span>'+
+                '<span class="time">'+Math.floor(min/10)+'</span>'+
+                '<span class="time">'+min%10+'</span>'+
+                '<span class="red">:</span>'+
+                '<span class="time">'+Math.floor(sec/10)+'</span>'+
+                '<span class="time">'+sec%10+'</span>';
+        //可投注
+        $('.bet').removeClass('bet_open');
+        $('.bet').addClass('betal');
+      }
+      $('.openTime').html(str);
+      // console.log('投注期数：'+timeDate);
+    }
+//-------------------------获得房间赔率(显示到页面)------------------------
+
+    var roompwd=null;
+    var roomCode=null;//房间状态
+    function getRoomOdds(){
+      console.log(groupId)
+      api.ajax({
+          url: DATABASE_URL+'lottery-web/lottery/getLRoomByGroupId?id='+roomId+'&lotteryId=2',
+          method: 'post'
+      },function(ret, err){
+        console.log(JSON.stringify(ret));
+          if (ret) {
+              var room=ret.lotteryroom;
+              roompwd=room.roompassword;
+              // console.log(roompwd);
+              var fir=room.firstodds;//第一名赔率
+              var sec=room.secondodds;//第二名赔率
+              var thi=room.thirdodds;//第三名赔率
+              var four=room.fourthodds;//第四名赔率
+              var fif=room.fifthodds;//第五名赔率
+              var six=room.sixthodds;//第六名赔率
+              var seven=room.seventhodds;//第七名赔率
+              var eight=room.eighthodds;//第八名赔率
+              var nine=room.ninthodds;//第九名赔率
+              var ten=room.tenthodds;//第十名赔率
+              var guanY=room.gyhodds;//冠亚和赔率
+              createId=room.userId;//创建者id
+              selected=room.entertainedTime;//封盘时间
+              roomCode=room.roomcode;//房间状态
+              if(roomCode==0){
+                // $('.footer').hide();
+                $('#stopOrAct .menuText').html('开始');
+              }
+              var oli=$('.ballone .ball_content');
+              var sli=$('.ballsix .ball_content');
+              var gli=$('.guanY .dragon_tiger_tie_content_span');
+              //1~5赔率添加
+              for(var i=6;i<oli.length;i++){
+                 var li_cont=oli.eq(i).find('.ball_children_btn');
+                 li_cont.eq(0).html(fir[i-6]);
+                 li_cont.eq(1).html(sec[i-6]);
+                 li_cont.eq(2).html(thi[i-6]);
+                 li_cont.eq(3).html(four[i-6]);
+                 li_cont.eq(4).html(fif[i-6]);
+              }
+              for(var j=0;j<6;j++){
+                 var li_cont=oli.eq(j).find('.ball_children_btn');
+                 li_cont.eq(0).html(fir[j+10]);
+                 li_cont.eq(1).html(sec[j+10]);
+                 li_cont.eq(2).html(thi[j+10]);
+                 li_cont.eq(3).html(four[j+10]);
+                 li_cont.eq(4).html(fif[j+10]);
+              }
+              //6~10赔率添加
+              for(var n=4;n<sli.length;n++){
+                 var li_six=sli.eq(n).find('.ball_children_btn');
+                 li_six.eq(0).html(fir[n-4]);
+                 li_six.eq(1).html(sec[n-4]);
+                 li_six.eq(2).html(thi[n-4]);
+                 li_six.eq(3).html(four[n-4]);
+                 li_six.eq(4).html(fif[n-4]);
+              }
+              for(var m=0;m<4;m++){
+                 var li_six=sli.eq(m).find('.ball_children_btn');
+                 li_six.eq(0).html(fir[m+10]);
+                 li_six.eq(1).html(sec[m+10]);
+                 li_six.eq(2).html(thi[m+10]);
+                 li_six.eq(3).html(four[m+10]);
+                 li_six.eq(4).html(fif[m+10]);
+              }
+              //冠亚和赔率添加
+              for(var k=0;k<gli.length;k++){
+                gli.eq(k).html(guanY[k]);
+              }
+          }
+          else {
+            setTimeout(function(){
+              getRoomOdds();
+            },5000);//调取失败  5秒后重新调取
+          }
+      });
+    }
+
+//====================聊天========功能===========消息=====================-
+    rongFunListener(function(ret,err){
+        // console.log(JSON.stringify(ret))
+        if(ret.result.message.hasOwnProperty("targetId")){            // 判断是否还有当前targetID 属性
+            if(ret.result.message.targetId==groupId){          //  判断接受的 targetID 和当前的房间 id 是否一样
+              if(ret.result.message.hasOwnProperty("content")){      //判端 接受的消息 是否还有 content 的属性
+                var html  = '<li class="othersInfo"><img class="headPhoto otherHeadPhoto" src="../../image/tou.png" alt="" >'+ret.result.message.content.text+'</li>'
+                $("#chatThread").append(html);
+                //保证信息发送后显示到可视部分
+                document.getElementById('msg_end').scrollIntoView(false);
+              }
+            }
+        }
+    })
+    //  发送文本消息------------
+    $("#send").on("click",function(){
+      var Message = $("#inputText").val();
+      if(Message=="" || Message=="null" || Message==undefined){
+         toast("没有输入")
+       }else{
+            var text =  transText(Message,30,30)
+            var html = '<p class="namePhone">'+userInfo.louserName+'</p><div class="info" name='+userInfo.lophone+'>'+text+'</div>'
+            var extra='';
+            sendTextMessage('GROUP',groupId,html,extra,function(ret,err){
+             //console.log(JSON.stringify(ret));
+              if(ret.status=="prepare"){
+                     var message= ret.result.message
+                     if(message.hasOwnProperty("content")){
+                      content =  ret.result.message.content
+                      }
+              }else if(ret.status=="success"){
+                      if(content==""||content=="null"||content==undefined){
+                          toast("发送失败")
+                      }else{
+                         $("#inputText").val("");
+                        //  console.log(content.text);
+                         $("#chatThread").append('<li class="myInfo"><img class="headPhoto myHeadPhoto" src="../../image/tou.png" alt="" >'+content.text+'</li>');
+                         //保证信息发送后显示到可视部分
+                         document.getElementById('msg_end').scrollIntoView(false);
+                      }
+              }else if(ret.status == 'error'){
+                console.log(err.code);
+                if(err.code==22408){
+                  toast("您已被禁言");
+                }
+                else{
+                  toast("网络错误");
+                }
+                // console.log(JSON.stringify(err));
+              }
+          })
+       }
+       //隐藏表情
+       $api.attr($api.byId("face"),'flag',"ture");
+       $(".tool").hide(); //底部面板
+       $(".bet").show();// 投注打开
+       $(".send").hide();// 发送按钮显示
+       $("#convo").css("max-height",($(window).height()-0)+"px");
+    })
+
+    //  保存表情存放的
+   var sourcePath = "widget://res/emoticons/append1";//表情存放目录
+  //  调用转化路径方法 获得转换数据
+   getImgsPaths(sourcePath, function (emotion) {
+    emotionData = emotion;
+    //console.log(JSON.stringify(emotionData))
+    //  return emotionData;   // 返回数据
+    });
+
+//**********************************获取历史消息*********************************
+   getHistoryMessages("GROUP",groupId,function(ret,err){
+    //console.log(JSON.stringify(ret));
+    //console.log(JSON.stringify(err));
+    if(ret.status=="error"){
+       //  toast("没有聊天")
+      }else if(ret.status=="success"){
+        var result = ret.result;
+        for(var i= result.length-1;i>=0;i--){           //  这里是倒序 输出历史消息
+           var  data = result[i];
+            if(data.senderUserId==userInfo.lophone){            //  判断发送消息的用户手机 和 当前用户的手机 是否相同 如果是则是自己发送的消息  则消息列表 显示在左侧
+                 var flag = data.content.hasOwnProperty("text")  //  判断是否还有文本信息的属性   对应的是  用户发送的图片信息
+                 if(flag){
+                   var  text = data.content.text
+                   var html  = '<li class="myInfo"><img class="headPhoto myHeadPhoto" src="../../image/tou.png" alt="">'+text+'</li>';
+                   $api.append($api.byId("chatThread"),html);
+                   //保证信息发送后显示到可视部分
+                   document.getElementById('msg_end').scrollIntoView(false);
+                 }
+            }else {
+                var flag = data.content.hasOwnProperty("text")  //  判断是否还有文本信息的属性
+                if(flag){
+                  var  text = data.content.text
+                  var html  = '<li class="othersInfo"><img class="headPhoto otherHeadPhoto" src="../../image/tou.png" alt="" >'+text+'</li>';
+                  $api.append($api.byId("chatThread"),html);
+                  //保证信息发送后显示到可视部分
+                  document.getElementById('msg_end').scrollIntoView(false);
+                }
+            }
+        }
+
+      }
+   })
+//==========================================================================================
+//----------------调取最新中奖纪录--------------------------------
+    // getWinnRecord();
+    // function getWinnRecord(){
+    //   api.ajax({
+    //       url: DATABASE_URL+'lottery-web/lottery/getopenbjpkByUser?userId='+userInfo.lophone+'&cpfj_id='+roomId,
+    //       method: 'post'
+    //   },function(ret, err){
+    //       if (ret) {
+    //         if(ret.status==1){//查询成功
+    //           var html=null;
+    //           var type=null;
+    //           var list=ret.list;
+    //           for(var i=0;i<list.length;i++){
+    //             var typing=list[i].bettingtype;
+    //             switch(typing){
+    //               case '1':type='1~5';break;
+    //               case '2':type='6~10';break;
+    //               case '3':type='冠亚和';break;
+    //             }
+    //             if(list[i].lotterybetstatus==1){
+    //               html='<div class="prize div">第'+list[i].expect+'期('+type+')：中！金额：'+list[i].winningmoney+'元</div>';
+    //               $('#chatThread').append(html);
+    //             }
+    //             else{
+    //               html='<div class="noWin div">第'+list[i].expect+'期('+type+')：不中！</div>';
+    //               $('#chatThread').append(html);
+    //             }
+    //           }
+    //         }
+    //         else{}
+    //       }
+    //       else {}
+    //   });
+    //
+    // }
+
+//=====================================================================
+//--------------菜单-----------------------------
+        //点击别处 菜单隐藏
+        $('header').siblings().on('touchstart',function(){
+          $('.menu').addClass('hide');
+        })
+        //暂停、开始
+        $('#stopOrAct').on('click',function(){
+          var txt=$('#stopOrAct .menuText').html();
+          if(txt=='暂停'){
+            if(confirm('您确定要暂停房间吗？')){
+              $('#stopOrAct .menuText').html('开始');
+              //不可投注
+              roomCode=0;
+              // $('.footer').hide();
+              api.ajax({
+                  url: DATABASE_URL+'lottery-web/lottery/updateRoomCode?&cpfj_id='+roomId+'&lotteryId=2&roomcode=0',
+                  method: 'post'
+                },function(ret, err){
+                  if (ret) {
+                      if(ret.status==1){console.log('成功');}
+                  } else {
+                      console.log( JSON.stringify( err ) );
+                  }
+              });
+            }
+          }
+          else{
+            if(confirm('您确定要开始房间吗？')){
+              $('#stopOrAct .menuText').html('暂停');
+              //可投注
+              roomCode=1;
+              // $('.footer').show();
+              api.ajax({
+                  url: DATABASE_URL+'lottery-web/lottery/updateRoomCode?&cpfj_id='+roomId+'&lotteryId=2&roomcode=1',
+                  method: 'post'
+                },function(ret, err){
+                  if (ret) {
+                      if(ret.status==1){console.log('成功');}
+                  } else {
+                      console.log( JSON.stringify( err ) );
+                  }
+              });
+            }
+          }
+        })
+        //分享房间（密码）
+        $('#shareRoom').on('click',function(){
+          shareAction(roompwd);
+        })
+        //分享
+        function shareAction(_text){
+          var sharedModule = api.require('shareAction');
+          sharedModule.share({
+            text:_text,
+            type:'text'
+          });
+        }
+        //复制房间链接
+        $('#copyRoom').on('click',function(){
+          clicpBord(roompwd);
+        })
+        function clicpBord(value){
+          var clipBoard = api.require('clipBoard');
+          clipBoard.set({
+            value: value
+          }, function(ret, err) {
+            if (ret) {
+              toast('复制成功');
+            }
+          });
+        }
+        //退出房间
+        $('#quit').on('click',function(){
+          var userId=userInfo.lophone;
+          if(typeca==1){
+            if(confirm("你确定解散房间吗？")){
+              api.ajax({
+                  url: DATABASE_URL+'lottery-web/lottery/dismissBjpkRoom?userId='+userId+'&roomid='+roomId+'&groupId='+groupId,
+                  method: 'post'
+              },function(ret, err){
+                  if (ret) {
+                    if(ret.status==1){
+                      toast('解散成功');
+                      api.sendEvent({
+                          name: 'quitRoom',
+                          extra: {
+                              key1: 'value1',
+                              key2: 'value2'
+                            }
+                        });
+                      setTimeout(function(){
+                        api.closeWin({});
+                      },1000);
+                    }
+                    else{
+                      toast(ret.msg);
+                    }
+                  }
+                  else {
+                    console.log( JSON.stringify( err ) );
+                  }
+              });
+            }
+          }
+          else{
+            if(confirm("你确定退出房间吗？")){
+              api.ajax({
+                  url: DATABASE_URL+'lottery-web/lottery/quitRoom?userId='+userId+'&roomid='+roomId+'&groupId='+groupId,
+                  method: 'post'
+                },function(ret, err){
+                  if (ret) {
+                    if(ret.status==1){
+                      toast('退出成功');
+                      api.sendEvent({
+                          name: 'quitRoom',
+                          extra: {
+                              key1: 'value1',
+                              key2: 'value2'
+                            }
+                        });
+                        api.closeWin({});
+                    }
+                  }
+                  else {
+                      console.log( JSON.stringify( err ) );
+                  }
+              });
+            }
+          }
+        })
+//=================================================================================
+
+    $('#inputD').on('focus',function(){
+      mySwiper.slideTo(0,1000,false);
+    })
+    $('#inputB').on('focus',function(){
+      mySwiper.slideTo(1,1000,false);
+    })
+    $('#inputL').on('focus',function(){
+      mySwiper.slideTo(2,1000,false);
+    })
+    //点击头像 跳转到详情页
+    $('#chatThread').on('click','.myHeadPhoto',function(){
+      var nameP=$(this).siblings('.info').attr('name');//当前头像对应的电话
+      // console.log(nameP);
+      if(nameP==userInfo.lophone){
+        api.openWin({
+            name: 'memberInfor',
+            url: './memberInfor.html',
+            pageParam: {//name:电话号，roomId:房间id，typeca:创建/加入标记,typeStatus:彩票/红包,lotteryId:彩票id
+                name: nameP,
+                roomId:roomId,
+                typeca:typeca,//房间创建/加入
+                typeStatus:1,
+                lotteryId:lotteryId
+            }
+        });
+      }
+    })
+    //添加自定义编辑
+    $('.addSelf').on('click',function(){
+      var html = '<input type="text" class="foot_btn" value="自定义">\
+        <input type="number" class="foot_btn" value="1">\
+        <span class="foot_text">倍</span>';
+      $('.selfEdit').prepend(html);
+    });
+    //融云操作conversation.js中
+    //rong();
+    //点击自定义显示全部自定义编辑
+    $('.titleBtn').on('click',function(){
+      $('.box_now').hide();
+      $('.box_all').fadeIn();
+    });
+
+    //长按显示头像
+    $(".headPhoto").on('longTap',function(){
+        var top = $(this).offset().top;
+        var left = $(this).offset().left+$(this).width()/2;
+        var win = $(window).height()-top-$(this).height()/2;
+
+        $('.appends').fadeIn();
+        $('.appends').css('bottom',win+'px');
+        $('.appends').css('left',left+'px');
+        var html='<img src="../../image/tou.png" >\
+                  <div>王明明</div>';
+        $('.appends').html(html);
+        setTimeout(function(){
+          $('.appends').fadeOut();
+        }, 2000);
+      });
+
+    //点击...后的反应
+    $('.followBtn').on('click',function(){
+      var num = $(this).parent().find('.followBtn').index(this);
+      if(num==0){
+        $('#editNum').val('1');
+      }else if(num==1){
+        $('#editNum').val('2');
+      }else if(num==2){
+        $('#editNum').val('5');
+      }else{
+        $('#editNum').val('');
+      }
+      $('.addAddressTo').show();
+    });
+    $('.shade').on('click',function(){
+      $('.addAddressTo').hide();
+    });
+    //点击确定隐藏
+    $('.submit').on('click',function(){
+      $('.addAddressTo').hide();
+    });
+    //自定义编辑完成
+    $('.editSubmit').on('click',function(){
+      $('.addAddressTo').hide();
+      // 跳跳跳跳到确认下注的div--------------------
+    });
+     betSwiper();
+     $("#myDiv").hide();
+     $(".confirm_bet").hide();
+     //点击投注
+     $(".bet").on("click",function(){
+       if($('.bet').hasClass('betal')&&roomCode!=0){
+        bet2();
+       }
+       else if(roomCode==0){
+         api.toast({
+             msg: '房间暂停中，禁止投注',
+             duration: 2000,
+             location: 'bottom'
+         });
+       }
+       else{
+         api.toast({
+             msg: '封盘中，请勿投注',
+             duration: 2000,
+             location: 'bottom'
+         });
+       }
+
+     })
+      //投注交互效果
+    function bet2(){
+       betSwiper();
+       $("#myDiv").show();
+       $(".footer").hide();
+       ShowDiv('myDiv','fade');
+    }
+      //关闭遮罩层
+    $("#fade").click(function(){
+      CloseDiv('myDiv','fade');
+      $(".footer").show();
+    })
+
+    //确认投注取消按钮
+    $(".confirm_bet_btn_cancel").click(function(){
+       $(".confirm_bet").hide();
+      $(".footer").show();
+    })
+      // 投注
+    // betSwiper();
+    //投注方法
+    function betSwiper(){
+      mySwiper = new Swiper ('.swiper-container', {
+        //loop: true,
+        // 如果需要前进后退按钮
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        onSlideChangeEnd: function(swiper){
+          var index = swiper.activeIndex; //切换结束时，告诉我现在是第几个slide
+        }
+      })
+      mySwiper.slideTo(1,1000,false);
+    }
+    //龙虎和交互
+    $(".dragon_tiger_tie_content_span").click(function () {
+      if($(this).hasClass("active")){
+        $(this).removeClass("active");
+      }else {
+        $(this).addClass("active");
+      }
+    })
+
+    function addActivelist(type,_dom,_add,_remove){
+      if(type){
+        _dom.removeClass("bravery_content_list_active");
+        _add.removeClass(_remove);
+      }else{
+        _dom.addClass("bravery_content_list_active");
+        _add.addClass(_remove);
+      }
+    }
+    //1-5
+    $(".ball_children_btn").click(function(){
+      var type = $(this).hasClass("ball_active");
+      ball(type,$(this));
+    })
+    function ball(type,_dom){
+      if(type){
+        _dom.removeClass("ball_active");
+      }else{
+        _dom.addClass("ball_active");
+      }
+    }
+    //初始化添加面板
+    $(".appendAction").hide();
+    //私密投注交互
+    $(".confirm_bet_list_4").click(function () {
+      $(".confirm_bet_list_4_img").attr("src","../../icon/yuanquanxuanzhong.png")
+    })
+    //隐藏foot
+    //$(".footer").hide();
+
+    //----------计划----时间选择效果样式
+    var UICustomPicker = api.require('UICustomPicker');
+    var arrUIC1=['冠军','A'];
+    var arrUIC2=[1,1];
+    UICustomPicker.open({
+        id: 0,
+        rect: {
+            x: 0,
+            y: api.frameHeight / 2 + 100,
+            w: api.frameWidth - 180,
+            h: 340
+        },
+        styles: {
+            bg: 'rgba(0,0,0,0)',
+            normalColor: '#959595',
+            selectedColor: '#111',
+            selectedSize: 20,
+            tagColor: '#111',
+            tagSize: 12
+        },
+        data: [{
+            tag: '',
+            scope: ['冠军','亚军','第三名','第四名','第五名']
+        }, {
+            tag: '公式',
+            scope: ['A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+        }],
+        rows: 3,
+        fixedOn: api.frameName,
+        fixed: true
+      }, function(ret, err) {
+        if (ret) {
+           console.log(JSON.stringify(ret));
+           arrUIC1=ret.data;
+        } else {
+           console.log(JSON.stringify(err));
+        }
+      });
+    UICustomPicker.open({
+      id: 1,
+      rect: {
+          x: 180,
+          y: api.frameHeight / 2 + 100,
+          w: api.frameWidth - 190,
+          h: 340
+      },
+      styles: {
+          bg: 'rgba(0,0,0,0)',
+          normalColor: '#959595',
+          selectedColor: '#111',
+          selectedSize: 20,
+          tagColor: '#111',
+          tagSize: 12
+      },
+      data: [{
+          tag: '个',
+          scope: '1-9'
+      }, {
+          tag: '周期',
+          scope: '1-7'
+      }],
+      rows: 3,
+      fixedOn: api.frameName,
+      fixed: true
+      }, function(ret, err) {
+        if (ret) {
+          console.log(JSON.stringify(ret));
+          arrUIC2=ret.data;
+        } else {
+          console.log(JSON.stringify(err));
+        }
+      });
+    UICustomPicker.hide({
+        id: 0
+    });
+    UICustomPicker.hide({
+        id: 1
+    });
+//-----------计划点击事件-------
+    $(".jihua").on("click",function(){
+          $('.addShade').css('display','block');
+          UICustomPicker.show({
+              id: 0
+          });
+          UICustomPicker.show({
+              id: 1
+          });
+    })
+
+//----------计划取消事件--------------
+    $('.cancel').on('click',function(){
+      $('.addShade').css('display','none');
+      var UICustomPicker = api.require('UICustomPicker');
+      UICustomPicker.hide({
+          id: 0
+      });
+      UICustomPicker.hide({
+          id: 1
+      });
+    })
+//-----------计划完成事件--------------
+    $('.achieve').on('click',function(){
+      if(arrUIC1==undefined){arrUIC1=['冠军','A'];}
+      if(arrUIC2==undefined){arrUIC2=[1,1];}
+      planBJ('50145',parseInt(arrUIC2[0]));
+      $('#testClick').html(planStr+','+arrUIC1[0]);
+      $('.addShade').css('display','none');
+      var UICustomPicker = api.require('UICustomPicker');
+      UICustomPicker.hide({
+          id: 0
+      });
+      UICustomPicker.hide({
+          id: 1
+      });
+    })
+//--------------历史记录--------------
+    $('.main .top .img').on('click',function(){
+      $('.addHistory').css('display','block');
+    });
+    $('.addHistory').on("click",function(){
+      $('.addHistory').css('display','none');
+    });
+
+
+    drawFace();// 表情读取
+
+    //跳转到房间管理
+    var manageRoom = $api.dom('#manageRoom');
+    //（元素，打开窗口的name，新窗口路径，房间id，房间名字，彩票id，创建/加入标记）
+    clickWin(manageRoom,'manageRoom','manageRoom.html',roomId,RoomName,lotteryId,typeca);
+                                                    //roomId:房间id,RoomName:房间名称,lotteryId:彩票id,typeca:房主标记
+    //房间成员
+    $('#memberInfor').on('click',function(){
+      // console.log(limits);
+      //groupId:群组id，roomId:房间id,lotteryId:彩票id,typeca:房主标记
+      api.openWin({
+        name: 'memberRoom',
+        url: './memberRoom.html',
+        pageParam:{
+          name:RoomName,
+          groupId:groupId,
+          roomId:roomId,
+          typeStatus:1,//彩票
+          lotteryId:lotteryId,
+          typeca:typeca,
+          limits:limits,
+          createId:createId//创建者id
+        }
+      });
+    })
+    function clickWin(dom,name,url,grouId,id,type,typeca){
+      $api.addEvt(dom,'click',function(){
+        api.openWin({
+          name: name,
+          url: url,
+          pageParam:{
+            groupId:grouId,
+            roomName:id,
+            lotteryId:type,
+            typeca:typeca
+          }
+        });
+      });
+    }
+    ListenerkeyBoard(function(data,height){
+       var keyBoardStatus = data.keyBoardStatus;
+         if(keyBoardStatus==1){   //键盘打开
+            $(".bet").hide();
+            $(".send").show();
+            $(".tool").css("height","0px");
+            $("#convo").css("max-height",(openHeight-0)+"px");
+         }else if (keyBoardStatus==0) {  //键盘关闭
+            $(".bet").show();
+            $(".send").hide();
+            $(".tool").css("height","0px");
+            $("#convo").css("max-height",($(window).height()-0)+"px");
+         }
+    })
+    // 点击表情
+    $('#Emoticons').on("click","li",function(){
+        // console.log($(this))
+        var text = $(this).attr("text");
+        $("#inputText").val($("#inputText").val()+text)
+    })
+    //返回
+    $(".myPiC").on("click",function(){
+        api.closeWin({
+        });
+    });
+    //选择房间跳页
+    $('.menuRight').on('click',function(){
+      api.openWin({
+          name: 'selectRoom',
+          url: './selectRoom.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    })
+    //消息
+    $(".messageIcon").click(function () {
+      if($(this).hasClass("show")){
+        $(this).removeClass("show");
+        $(".service_news").show();
+        $(".footer").hide();
+      }else {
+        $(this).addClass("show");
+        $(".service_news").hide();
+        $(".footer").show();
+      }
+
+    })
+//--------------投注参数---------------
+    var play=0;//标记彩票玩法
+    var betAllmoney=0;//投注总金额
+    var betMoney=0;//单注金额
+    var arrArr=[0,0,0,0,0];//1-5
+    var lhhArr=[];//冠亚和数组
+    //----------投注信息确认按钮-------------------
+    $('#confirm_btn').on('click',function(){
+       if(play==1){
+         sendMess(timeDate,play,betAllmoney,betMoney,arrArr[0],arrArr[1],arrArr[2],arrArr[3],arrArr[4],0,0,0,0,0,0,oneArr,twoArr,threeArr,fourArr,fiveArr,lhhArr);//投注数据发送
+       }
+      else if(play==2){
+        sendMess(timeDate,play,betAllmoney,betMoney,0,0,0,0,0,arrArr[0],arrArr[1],arrArr[2],arrArr[3],arrArr[4],0,oneArr,twoArr,threeArr,fourArr,fiveArr,lhhArr);//投注数据发送
+      }
+      else{
+        sendMess(timeDate,play,betAllmoney,betMoney,0,0,0,0,0,0,0,0,0,0,lhh,oneArr,twoArr,threeArr,fourArr,fiveArr,lhhArr);//投注数据发送
+      }
+      var userInfo=$api.getStorage('userInfo');
+      //投注确认后收起信息确认框
+      $(".confirm_bet").hide();
+      $(".footer").show();
+    })
+    //-----投注数据发送------------------
+    function sendMess(str,play,allMoney,money,wan,qian,bai,shi,ge,six,seven,eight,nine,ten,gyh,wStr,qStr,bStr,sStr,gStr,lhhArr){
+      //getResult();
+      // console.log('期数：'+timeDate)
+      var userInfo=$api.getStorage('userInfo');
+      var groupId = api.pageParam;
+      var kind=null;
+      switch (play) {
+        case 1:kind='1~5';break;
+        case 2:kind='6~10';break;
+        case 3:kind='冠亚和';break;
+      }
+      //投注信息发送
+      api.ajax({
+        url: DATABASE_URL+'lottery-web/lottery/bettingBjpkByUser',
+        method: 'post',
+        data: {
+           values: {
+            userId:userInfo.lophone,//用户ID
+            betfirst:wan,//一/六
+            betsecond:qian,//二/七
+            betthird:bai,//三/八
+            betfourth:shi,//四/九
+            betfifth:ge,//五/十
+            betsixth:six,
+            betseventh:seven,
+            beteighth:eight,
+            betninth:nine,
+            bettenth:ten,
+            betgyh:gyh,
+            betmoney:money,//单注金额
+            id:roomId,//房间ID
+            bettotalmoney:allMoney,//投注总金额
+            expect:timeDate,//投注的期数
+            bettingtype:play,//彩票玩法
+            lotteryId:2//彩票种类
+           }
+          }
+        },function(ret, err){
+          if (ret) {
+            if(ret.status==1){
+              api.toast({
+                  msg: '投注成功',
+                  duration: 2000,
+                  location: 'bottom'
+              });
+              if(play==1||play==2){
+                html='<p class="namePhone">'+userInfo.louserName+'</p>'+
+                      '<div class="info" name='+userInfo.lophone+'>'+
+                       '<p class="title">'+kind+'('+str+')</p>'+
+                       '<p class="num">'+
+                         '{'+wStr+'}'+'{'+qStr+'}'+'{'+bStr+'}'+'{'+sStr+'}'+'{'+gStr+'}'+
+                       '</p>'+
+                       '<p class="money">金额：'+allMoney+'</p>'+
+                       '<span class="follow span followBtn">跟投</span>'+
+                       '<span class="double span followBtn">两倍</span>'+
+                       '<span class="add span followBtn">追加</span>'+
+                       '<span class="port span followBtn">...</span>'+
+                     '</div>';
+              }
+              else if(play==3){
+                html='<p class="namePhone">'+userInfo.louserName+'</p>'+
+                     '<div class="info" name='+userInfo.lophone+'>'+
+                     '<p class="title">'+kind+'('+str+')</p>'+
+                     '<p class="num">'+
+                       '{'+lhhArr+'}'+
+                     '</p>'+
+                     '<p class="money">金额：'+allMoney+'</p>'+
+                     '<span class="follow span followBtn">跟投</span>'+
+                     '<span class="double span followBtn">两倍</span>'+
+                     '<span class="add span followBtn">追加</span>'+
+                     '<span class="port span followBtn">...</span>'+
+                   '</div>';
+              }
+              var extra="";
+              sendTextMessage('GROUP',groupId.groupId,html,extra,function(ret,err){
+                  // console.log(JSON.stringify(ret));
+                  // console.log(JSON.stringify(err));
+                  if(ret.status=="prepare"){
+                         var message= ret.result.message
+                         if(message.hasOwnProperty("content")){
+                          content =  ret.result.message.content
+                          }
+                  }else if(ret.status=="success"){
+                          if(content==""||content=="null"||content==undefined){
+                              toast("发送失败")
+                          }else{
+                             $("#inputText").val("")
+                             $("#chatThread").append('<li class="myInfo"><img class="headPhoto myHeadPhoto" src="../../image/tou.png" alt="">'+content.text+'</li>');
+                             //保证信息发送后显示到可视部分
+                             document.getElementById('msg_end').scrollIntoView(false);
+                          }
+                  }else if(ret.status == 'error'){
+                          toast("网络错误")
+                  }
+              })
+            }
+            else{
+              api.toast({
+                  msg: ret.msg,
+                  duration: 2000,
+                  location: 'bottom'
+              });
+            }
+           }
+          else {
+            api.toast({
+                msg: '投注失败！',
+                duration: 2000,
+                location: 'bottom'
+            });
+
+          }
+      });
+    }
+    //调取中奖纪录 查询中奖结果
+    var userInfo=$api.getStorage('userInfo');
+    var r=0;
+    var n=0;
+    function zhongjian(){
+      console.log(nowDate+' '+roomId);
+      api.ajax({
+          url: DATABASE_URL+'lottery-web/lottery/getopenByUEBJ?userId='+userInfo.lophone+'&expect='+nowDate+'&cpfj_id='+roomId,
+          method: 'get'
+        },function(ret,err){
+          console.log(JSON.stringify(ret));
+          console.log(JSON.stringify(err));
+          if (ret.status==1) {
+            for(var i=0;i<ret.list.length;i++){
+              var word=null;
+              switch (ret.list[i].bettingtype) {
+                case '1':word='1~5';break;
+                case '2':word='6~10';break;
+                case '3':word='冠亚和';break;
+              }
+              if(ret.list[i].lotterybetstatus==1){
+                html='<div class="prize div">第'+nowDate+'期('+word+')：中！金额：'+ret.list[i].winningmoney+'元</div>';
+                $('#chatThread').append(html);
+                //保证信息发送后显示到可视部分
+                document.getElementById('msg_end').scrollIntoView(false);
+              }
+              else if(ret.list[i].lotterybetstatus==2){
+                html='<div class="noWin div">第'+nowDate+'期('+word+')：不中！</div>';
+                $('#chatThread').append(html);
+                //保证信息发送后显示到可视部分
+                document.getElementById('msg_end').scrollIntoView(false);
+              }
+              else{
+                if(n>=6){
+                  n=0;
+                  api.toast({
+                      msg: '开奖失败，请前往游戏记录查询！',
+                      duration: 2000,
+                      location: 'bottom'
+                  });
+                }
+                else{
+                  setTimeout(function(){
+                    zhongjian();
+                  },4000);//请求失败后4秒后再次请求
+                  n++;
+                }
+
+              }
+            }
+          }
+          else {
+            if(r>=6){
+              r=0;
+              api.toast({
+                  msg: '开奖显示失败，请前往游戏记录查询结果！',
+                  duration: 2000,
+                  location: 'bottom'
+              });
+            }
+            else{
+              setTimeout(function(){
+                zhongjian();
+              },4000);//请求失败后4秒后再次请求
+              r++;
+            }
+          }
+      });
+    }
+//-------------冠亚和---------------------
+    //-------冠亚和投注信息记录-----------
+    function getLottMessD(){
+      var gyhSpan=$('.dragon_tiger_tie_content span');
+      for(var i=0;i<gyhSpan.length;i++){
+        if(gyhSpan.eq(i).hasClass('active')){
+          lhh+=Math.pow(2,i);
+          lhhArr.push(i+3);
+          numz++;
+        }
+      }
+
+    }
+    //投注按钮点击事件（将投注信息添加到确认信息）
+    $('.D_btn').on('click',function(){
+      //初始化
+      play=3;
+      numz=0;
+      betAllmoney=0;//投注总金额
+      betMoney=0;//单注金额
+      lhh=0;//龙虎和
+      lhhArr=[];
+      if($('#inputD').val()==""){
+        api.toast({
+            msg: '单注金额不能为空！',
+            duration: 2000,
+            location: 'bottom'
+        });
+      }
+      else{
+        betMoney=$('#inputD').val();
+        getLottMessD();
+        if(numz==0){
+          toast('未投注');
+          return;
+        }
+        CloseDiv('myDiv','fade');
+        $(".footer").hide();
+        $(".confirm_bet").show();
+        betAllmoney=$('#inputD').val()*numz;
+        var str ="<p style='text-align:center;margin-top:1.5rem;'>{"+lhhArr+"}冠亚和</p>";
+        $(".confirm_bet_content").html(str);
+        $('.confirm_bet_list_2').html('￥'+betAllmoney);
+      }
+    });
+//-------------1~5--------------------
+    //-------1~5投注信息记录------------
+    var arrArr=[0,0,0,0,0];
+    var oneArr=[];
+    var twoArr=[];
+    var threeArr=[];
+    var fourArr=[];
+    var fiveArr=[];
+    var numB=0;
+    function getBallMess1(){
+      //获得单行li
+      var oli=$('.ballone .ball_content');
+      for(var i=6;i<oli.length;i++){
+         //获得li的span元素
+         var li_cont=oli.eq(i).find('.ball_children_btn');
+         for(var j=0;j<li_cont.length;j++){
+           if(li_cont.eq(j).hasClass('ball_active')){
+              arrArr[j]+=Math.pow(2,i-6);
+              switch(j){
+                case 0:oneArr.push(i-5);break;
+                case 1:twoArr.push(i-5);break;
+                case 2:threeArr.push(i-5);break;
+                case 3:fourArr.push(i-5);break;
+                case 4:fiveArr.push(i-5);break;
+              }
+              numB++;
+           }
+         }
+      }
+      for(var n=0;n<6;n++){
+        //获得li的span元素
+        var li_cont=oli.eq(n).find('.ball_children_btn');
+        for(var m=0;m<li_cont.length;m++){
+          var word=null;
+          if(li_cont.eq(m).hasClass('ball_active')){
+             arrArr[m]+=Math.pow(2,n+10);
+             switch(n){
+               case 0:word="大";break;
+               case 1:word="小";break;
+               case 2:word="单";break;
+               case 3:word="双";break;
+               case 4:word="龙";break;
+               case 5:word="虎";break;
+             }
+             switch(m){
+               case 0:oneArr.push(word);break;
+               case 1:twoArr.push(word);break;
+               case 2:threeArr.push(word);break;
+               case 3:fourArr.push(word);break;
+               case 4:fiveArr.push(word);break;
+             }
+             numB++;
+          }
+        }
+      }
+    }
+    $('.ball_btn').on('click',function(){
+      //初始化
+      play=1;
+      betMoney=0;
+      betAllmoney=0;
+      numB=0;
+      oneArr=[];
+      twoArr=[];
+      threeArr=[];
+      fourArr=[];
+      fiveArr=[];
+      arrArr=[0,0,0,0,0];
+      if($('#inputB').val()==""){
+        api.toast({
+            msg: '单注金额不能为空！',
+            duration: 2000,
+            location: 'bottom'
+        });
+      }
+      else{
+        betMoney=$('#inputB').val();
+        getBallMess1();
+        if(numB==0){
+          toast('未投注');
+          return;
+        }
+        CloseDiv('myDiv','fade');
+        $(".footer").hide();
+        $(".confirm_bet").show();
+        betAllmoney=$('#inputB').val()*numB;
+        var str ="<p style='text-align:center;margin-top:1.5rem;'>{"+oneArr+"}冠军</p><p style='text-align:center;margin-top:1.5rem;'>{"+twoArr+"}亚军</p><p style='text-align:center;margin-top:1.5rem;'>{"+threeArr+"}第三名</p><p style='text-align:center;margin-top:1.5rem;'>{"+fourArr+"}第四名</p><p style='text-align:center;margin-top:1.5rem;'>{"+fiveArr+"}第五名</p>"
+        $(".confirm_bet_content").html(str);
+        $('.confirm_bet_list_2').html('￥'+betAllmoney);
+      }
+    })
+
+//-------------6~10--------------------
+    //-------6~10投注信息记录------------
+    function getBallMess2(){
+      //获得单行li
+      var oli=$('.ballsix .ball_content');
+      for(var i=4;i<oli.length;i++){
+         //获得li的span元素
+         var li_cont=oli.eq(i).find('.ball_children_btn');
+         for(var j=0;j<li_cont.length;j++){
+           if(li_cont.eq(j).hasClass('ball_active')){
+              arrArr[j]+=Math.pow(2,i-4);
+              switch(j){
+                case 0:oneArr.push(i-3);break;
+                case 1:twoArr.push(i-3);break;
+                case 2:threeArr.push(i-3);break;
+                case 3:fourArr.push(i-3);break;
+                case 4:fiveArr.push(i-3);break;
+              }
+              numB++;
+           }
+         }
+      }
+      for(var n=0;n<4;n++){
+        //获得li的span元素
+        var li_cont=oli.eq(n).find('.ball_children_btn');
+        for(var m=0;m<li_cont.length;m++){
+          var word=null;
+          if(li_cont.eq(m).hasClass('ball_active')){
+             arrArr[m]+=Math.pow(2,n+10);
+             switch(n){
+               case 0:word="大";break;
+               case 1:word="小";break;
+               case 2:word="单";break;
+               case 3:word="双";break;
+             }
+             switch(m){
+               case 0:oneArr.push(word);break;
+               case 1:twoArr.push(word);break;
+               case 2:threeArr.push(word);break;
+               case 3:fourArr.push(word);break;
+               case 4:fiveArr.push(word);break;
+             }
+             numB++;
+          }
+        }
+      }
+    }
+    $('.ball_btn2').on('click',function(){
+      //初始化
+      play=2;
+      betMoney=0;
+      betAllmoney=0;
+      numB=0;
+      oneArr=[];
+      twoArr=[];
+      threeArr=[];
+      fourArr=[];
+      fiveArr=[];
+      arrArr=[0,0,0,0,0];
+      if($('#inputL').val()==""){
+        api.toast({
+            msg: '单注金额不能为空！',
+            duration: 2000,
+            location: 'bottom'
+        });
+      }
+      else{
+        betMoney=$('#inputL').val();
+        getBallMess2();
+        if(numB==0){
+          toast('未投注');
+          return;
+        }
+        CloseDiv('myDiv','fade');
+        $(".footer").hide();
+        $(".confirm_bet").show();
+        betAllmoney=$('#inputL').val()*numB;
+        var str ="<p style='text-align:center;margin-top:1.5rem;'>{"+oneArr+"}第六名</p><p style='text-align:center;margin-top:1.5rem;'>{"+twoArr+"}第七名</p><p style='text-align:center;margin-top:1.5rem;'>{"+threeArr+"}第八名</p><p style='text-align:center;margin-top:1.5rem;'>{"+fourArr+"}第九名</p><p style='text-align:center;margin-top:1.5rem;'>{"+fiveArr+"}第十名</p>"
+        $(".confirm_bet_content").html(str);
+        $('.confirm_bet_list_2').html('￥'+betAllmoney);
+      }
+    })
+
+//---------------------计划预测------------------------
+    $('.project').on('click',function(){
+      var strPlan=$(this).html();
+      var arrPlan=[];
+      arrPlan=strPlan.split(',');
+      var oUl=$('.ballone .ball_content');//li
+      oUl.find('.ball_children_btn').removeClass('ball_active');
+      var w=0;
+      console.log(arrPlan[arrPlan.length-1]);
+      switch (arrPlan[arrPlan.length-1]) {
+        case '冠军':w=0;break;
+        case '亚军':w=1;break;
+        case '第三名':w=2;break;
+        case '第四名':w=3;break;
+        case '第五名':w=4;break;
+      }
+
+      //打开投注页面
+      if($('.bet').hasClass('betal')){
+        // $('#inputL').attr('autofocus','autofocus');
+        for(var i=0;i<arrPlan.length-1;i++){
+          var k=parseInt(arrPlan[i])+5;
+          var oList=oUl.eq(k).find('.ball_children_btn');
+          oList.eq(w).addClass('ball_active');
+        }
+        betSwiper();
+        $("#myDiv").show();
+        $(".footer").hide();
+        ShowDiv('myDiv','fade');
+      }
+      else{
+        api.toast({
+            msg: '禁止投注',
+            duration: 2000,
+            location: 'bottom'
+        });
+      }
+    })
+
+
+  }
+  </script>
+  </html>

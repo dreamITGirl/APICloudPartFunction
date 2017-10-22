@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>龙虎和赔率设置</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+      <style>
+        html{
+          font-size: 10px;
+        }
+        #wrap{
+          background:#f2f2f2;
+          height:100%;
+        }
+         header{
+           background-color: #D71D34;
+           position: fixed;
+           top: 0rem;
+           z-index: 1000;
+           width: 100%;
+         }
+         header ul li {
+           height: 7.5rem;
+           text-align: center;
+           color: #fff;
+           position: relative;
+           font-size: 1.8rem;
+          }
+          .myMine{
+            padding-top: 4rem;
+          }
+          .myPiC{
+            position: absolute;
+            left: 0rem;
+            top: 0rem;
+            width: 10%;
+            padding-top: 3.7rem;
+            height: 7.5rem;
+          }
+          .save{
+            position: absolute;
+            right:1rem;
+            top:4rem;
+            font-size: 1.8rem;
+            color: #fff;
+          }
+          .box{
+            height:4.5rem;
+            width:100%;
+            background-color: #fff;
+            overflow: hidden;
+            margin-top:1rem;
+          }
+          .box span{
+            float: left;
+            margin-left: 1.5rem;
+            height:4.5rem;
+            line-height: 4.5rem;
+            font-size: 1.6rem;
+          }
+          .box input{
+            outline: none;
+            float: left;
+            margin-left:4.9rem;
+            margin-top:1.4rem;
+            font-size: 1.5rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+      <header>
+          <ul>
+              <li class="border-b mine" >
+                  <div class="myMine">龙虎和设置</div>
+                  <div class="myPiC">
+                    <img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;">
+                  </div>
+                  <span class="save">保存</span>
+              </li>
+          </ul>
+      </header>
+      <div style="height:8rem;width:100%;"></div>
+      <section>
+        <div class="box">
+          <span>总和大</span>
+          <input class="sumBig" type="text" placeholder="请填写赔率" value="1.98">
+        </div>
+        <div class="box">
+          <span>总和小</span>
+          <input class="sumSmall" type="text" placeholder="请填写赔率" value="1.98">
+        </div>
+        <div class="box">
+          <span>总和单</span>
+          <input class="sumSingle" type="text" placeholder="请填写赔率" value="1.98">
+        </div>
+        <div class="box">
+          <span>总和双</span>
+          <input class="sumDouble" type="text" placeholder="请填写赔率" value="1.98">
+        </div>
+        <div class="box">
+          <span>龙</span>
+          <input class="dragon" type="text" style="margin-left:7.9rem;" placeholder="请填写赔率" value="1.96">
+        </div>
+        <div class="box">
+          <span>虎</span>
+          <input class="tiger" type="text" style="margin-left:7.9rem;" placeholder="请填写赔率" value="1.96">
+        </div>
+        <div class="box">
+          <span>和</span>
+          <input class="sum" type="text" style="margin-left:7.9rem;" placeholder="请填写赔率" value="9.6">
+        </div>
+      </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+    apiready = function(){
+      var alldragonSet = $api.getStorage('alldragon');
+      if(alldragonSet){
+        $('.sumBig').val(alldragonSet[6]),
+        $('.sumSmall').val(alldragonSet[5]),
+        $('.sumSingle').val(alldragonSet[4]),
+        $('.sumDouble').val(alldragonSet[3]),
+        $('.dragon').val(alldragonSet[2]),
+        $('.tiger').val(alldragonSet[1]),
+        $('.sum').val(alldragonSet[0])
+      }
+      $('.myPiC').on('click',function(){
+        api.closeWin({
+        });
+      })
+
+
+    //------------保存按钮-------------
+      $('.save').on('click',function(){
+        api.sendEvent({
+            name: 'saveSettings',
+            extra: {
+                key1: 'value1'
+            }
+        });
+        var alldragon=[];
+        var dro=$('.box input');
+        for(var i=6;i>=0;i--){
+          alldragon.push(dro.eq(i).val());
+        }
+        console.log(alldragon);
+        //本地临时存储
+        var alldragonSet = $api.setStorage('alldragon',alldragon);
+        //console.log($api.jsonToStr($api.getStorage('alldragon')));
+        var leng=$('div input').length;
+        var flag=0;
+        for(var i=0;i<leng;i++)
+        {
+          if($('div input').eq(i).val()=='')
+          {
+            flag=1;
+          }
+        }
+        if(flag==1)
+        {
+          api.toast({
+          msg : '赔率不能为空！',
+          duration : 2000,
+          location : 'top'
+          });
+        }
+        else{
+          api.closeWin({});
+        }
+      })
+    }
+  </script>
+  </html>

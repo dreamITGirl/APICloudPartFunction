@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>房间详情</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+           z-index: 1;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           .myService{
+            position: absolute;right: 3%;width: 8%;top:4.2rem;
+           }
+           .myService img{
+            width: 80%;
+           }
+           .myMenu{
+            right: 13%;
+           }
+
+           .menu{
+              width: 45%;
+              height: 24rem;
+              z-index: 15;
+              background: #fff;
+              position: absolute;
+              right: 3%;
+              top: 7.5rem;
+              z-index: 666;
+              border: 0.1rem solid #EBEBEB;
+           }
+           .menu ul li{
+            position: relative;
+            height: 3.9rem;
+            width: 100%;
+            border-bottom: 0.1rem solid #f5f5f5;
+           }
+           .menuIcon{
+            position: absolute;
+            left: 5%;
+            width: 19%;
+            height: 2.5rem;
+            top: 1.2rem;
+           }
+           .menuText{
+            position: absolute;
+            left: 23%;
+            line-height: 3.9rem;
+            font-size: 1.6rem;
+            color: #333333;
+           }
+           .hide{
+            display: none;
+           }
+           .menuRight{
+             z-index: 10;
+             position: fixed;
+             right:0;
+             top:7.4rem;
+             height:54.8rem;
+             width:7.9rem;
+             display: none;
+             height:54rem;;
+             background-color: #fff;
+             overflow-x: hidden;
+             overflow-y: auto;
+           }
+           .menuRight ul{
+             list-style: none;
+             width:100%;
+             height:54.8rem;
+           }
+           .menuRight ul li{
+             width:100%;
+             height:7.6rem;
+             border:1px solid #c6c6c6;
+             position: relative;
+           }
+           .menuRight ul li img{
+             width:4.5rem;
+             height:4.5rem;
+             margin-top:0.9rem;
+             margin-left: 1.6rem;
+           }
+           .menuRight ul li p{
+             text-align: center;
+             font-size: 1.1rem;
+             margin-top:0.3rem;
+           }
+           .menuRight ul li span{
+             position: absolute;
+             top:0.1rem;
+             right:0.8rem;
+             width:1.7rem;
+             height:1.7rem;
+             border:1px solid #fff;
+             background: #ff1615;
+             color: #fff;
+             font-size: 1.2rem;
+             line-height: 1.7rem;
+             text-align: center;
+             display: inline-block;
+             border-radius: 2rem;
+           }
+           .moveIn{
+             width:3.8rem;
+             height:3.2rem;
+             position: fixed;
+             bottom:10rem;
+             right:7.6rem;
+             background-image: url(../../image/createRoom/icon_shouhui.png);
+             background-size:3.8rem 3.2rem;
+             background-repeat: no-repeat;
+           }
+           .moveOut{
+             width:3.8rem;
+             height:3.2rem;
+             position: fixed;
+             bottom:10rem;
+             right:-0.5rem;
+             background-image: url(../../image/createRoom/icon_huachu.png);
+             background-size:3.8rem 3.2rem;
+             background-repeat: no-repeat;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">三元五包</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                    <div class="myService" id="myMenu">
+                      <img src="../../icon/room/caidan.png">
+                    </div>
+                    <div class="myService myMenu">
+                      <img src="../../icon/room/kefu.png">
+                    </div>
+                </li>
+            </ul>
+        </header>
+    </div>
+<!-- - 右上角菜单栏- -->
+      <section class="menu hide">
+        <ul>
+          <li id="memberInfor">
+            <div class="menuIcon"><img src="../../icon/room/cj_chengyuan.png" style="height: 1.4rem"></div>
+            <div class="menuText">房间成员</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_zt.png" style="height: 1.4rem"></div>
+            <div class="menuText">暂停</div>
+          </li>
+          <li id="manageRoom">
+            <div class="menuIcon"><img src="../../icon/room/cj_guanli.png" style="height: 1.4rem"></div>
+            <div class="menuText">房间管理</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_fenx.png" style="height: 1.4rem"></div>
+            <div class="menuText">分享</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_fuzhi.png" style="height: 1.4rem"></div>
+            <div class="menuText">复制房间链接</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_tuichu.png" style="height: 1.4rem"></div>
+            <div class="menuText">退出房间</div>
+          </li>
+        </ul>
+      </section>
+     <!-- 右侧滑栏 --------------------------------->
+      <section class="menuRight">
+        <ul>
+          <li>
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>3元5包</p>
+            <span style="display:block">9</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_lei.png" alt="">
+            <p>10元7包</p>
+            <span style="display:block">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_long.png" alt="">
+            <p>3元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>100元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_lei.png" alt="">
+            <p>3元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_long.png" alt="">
+            <p>10元7包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img style="margin-top:1.7rem" src="../../icon/room/add.png" alt="">
+          </li>
+        </ul>
+      </section>
+      <section class="moveOut" id="move"></section>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        // 菜单栏的显示及隐藏
+        var menu = $api.dom('.menu'),
+            myMenu = $api.dom('#myMenu');
+        $api.addEvt(myMenu, 'click', function(){
+          $api.toggleCls(menu,'hide');
+        });
+        //跳转到房间管理
+        var manageRoom = $api.dom('#manageRoom');
+        clickWin(manageRoom,'manageRoom','manageRoom.html');
+
+        //房间成员
+        var memberInfor = $api.dom('#memberInfor');
+        clickWin(memberInfor,'memberInfor','memberInfor.html');
+
+        function clickWin(dom,name,url){
+          $api.addEvt(dom,'click',function(){
+            api.openWin({
+              name: name,
+              url: url
+            });
+          });
+        }
+      }
+
+//-------------侧边栏弹出隐藏（jq引入有问题，原生js）--------------------------
+      var move=document.getElementById("move");
+      var menuRight=document.getElementsByClassName("menuRight")[0];
+      move.onclick=function(){
+        if(menuRight.style.display=="block")
+        {
+          move.setAttribute("class","moveOut");
+          menuRight.style.display="none";
+        }
+        else{
+          move.setAttribute("class","moveIn");
+          menuRight.style.display="block";
+        }
+      }
+  </script>
+  </html>

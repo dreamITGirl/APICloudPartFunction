@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>房间管理</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         body{
+          background: #f8f9fb;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+          section{
+            height:52rem;
+            overflow: auto;
+            background-color: #efefef;
+          }
+          section .title{
+            height:4.5rem;
+            background-color: #fff;
+            overflow:hidden;
+            line-height: 4.5rem;
+          }
+          section .title img{
+            width:3.1rem;
+            height:3.1rem;
+            border-radius: 4rem;
+            margin-top:0.7rem;
+            margin-left: 1rem;
+            float: left;
+          }
+          section .title .tit{
+            font-size: 1.4rem;
+            margin-left: 1rem;
+            float: left;
+          }
+          .oUl{
+            background-color: #fff;
+            list-style: none;
+            margin-top:1.4rem;
+          }
+          .oUl .top{
+            height:4.6rem;
+            border-bottom: 1px solid #f2f2f2;
+            overflow: hidden;
+            font-size: 1.7rem;
+            line-height: 4.6rem;
+          }
+          .left{
+            float: left;
+            margin-left: 1rem;
+            color: #969696;
+          }
+          .right{
+            float: right;
+            max-width:20rem;
+            margin-right: 1rem;
+            color: #969696;
+          }
+          .oUl li{
+            overflow: hidden;
+            font-size: 1.4rem;
+            line-height: 2.1rem;
+            margin-top:0.3rem;
+            margin-bottom:0.3rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">最近彩票记录</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+      <section>
+        <div class="title">
+          <img src="../../image/tou.png" alt="">
+          <p class="tit">投注百分百</p>
+        </div>
+        <ul class="oUl">
+          <div class="top">
+            <p class="left">付款金额</p>
+            <p class="right" style="color:#353535">-50金币</p>
+          </div>
+          <li class="win">
+            <p class="left">是否中奖</p>
+            <p class="right" style="color:red">中</p>
+          </li>
+          <li class="winMoney">
+            <p class="left">中奖金额</p>
+            <p class="right">+20金币</p>
+          </li>
+          <li class="data">
+            <p class="left">投注期数</p>
+            <p class="right">第20170809期</p>
+          </li>
+          <li class="content">
+            <p class="left">投注内容</p>
+            <p class="right">{0,1,2,3,4}{0,1,2,3,4}{0,1,2,3,4}{0,1,2,3,4}{0,1,2,3,4}</p>
+          </li>
+          <li class="opencode">
+            <p class="left">开奖结果</p>
+            <p class="right">2,5,4,7,9</p>
+          </li>
+          <li class="time">
+            <p class="left">投注时间</p>
+            <p class="right">2017年08月09日</p>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+    apiready = function(){
+      var lophone=api.pageParam.lophone;//用户电话
+      var lotteryId=api.pageParam.lotteryId;//彩票id
+      var buyingId=api.pageParam.buyingId;//购彩记录id
+      var roomId=api.pageParam.roomId;//房间id
+      var mess=api.pageParam.message;//投注方式
+      console.log(buyingId);
+      getMessage();
+      function getMessage(){
+        api.ajax({
+            url: DATABASE_URL+'lottery-web/lottery/getBetResultById?lotteryId='+lotteryId+'&id='+buyingId,
+            method: 'post'
+        },function(ret, err){
+            if (ret) {
+              if(ret.status==1){
+                var openCode=ret.opencode;//开奖结果
+                var bettotalmoney=ret.lotteryBet.bettotalmoney;//付款金额
+                var winmoney=ret.lotteryBet.winningmoney;//中奖金额
+                var expect=ret.lotteryBet.expect;//投注期数
+                var date=ret.lotteryBet.addTime;
+                var year=date.substring(0,4);
+                var month=date.substring(4,6);
+                var day=date.substring(6,8);
+                var hour=date.substring(8,10);
+                var min=date.substring(10,12);
+                var sec=date.substring(12,14);
+                var time=year+'年'+month+'月'+day+'日 '+hour+':'+min+':'+sec;//投注时间
+                $('.title .tit').html(mess);//投注方式
+                $('.top .right').html(-bettotalmoney);//付款金额
+                if(openCode=='尚未开奖，敬请期待！'){
+                  $('.win .right').html('未开奖');
+                }
+                else{
+                  if(winmoney==0){//是否中奖
+                    $('.win .right').html('未中');
+                  }
+                  else{
+                    $('.win .right').html('中');
+                  }
+                }
+                $('.winMoney .right').html(winmoney);//中奖金额
+                $('.data .right').html(expect);//投注期数
+                $('.opencode .right').html(openCode);//开奖结果
+                $('.time .right').html(time);//投注时间
+                if(lotteryId==1){//重庆时时彩
+                  console.log(ret.lotteryBet.bettingtype);
+                  if(ret.lotteryBet.bettingtype==4){//龙虎和
+                    var lhh=ret.lotteryBet.lotterylhh;//龙虎和
+                    $('.content .right').html('{'+getCQStr(lhh,4)+'}');
+                  }
+                  else{
+                    var one=ret.lotteryBet.lotterywan;//万、1球
+                    var two=ret.lotteryBet.lotteryqian;//千、2球
+                    var three=ret.lotteryBet.lotterybai;//百、3球
+                    var four=ret.lotteryBet.lotteryshi;//十、4球
+                    var five=ret.lotteryBet.lotteryge;//个、5球
+                    var type=ret.lotteryBet.bettingtype;
+                    var str='{'+getCQStr(one,type)+'}{'+getCQStr(two,type)+'}{'+getCQStr(three,type)+'}{'+getCQStr(four,type)+'}{'+getCQStr(five,type)+'}';
+                    $('.content .right').html(str);
+                  }
+                }
+                else{//北京赛车
+                  if(ret.lotteryBet.bettingtype==1){//1-5
+                    var one=ret.lotteryBet.betfirst;//1
+                    var two=ret.lotteryBet.betsecond;//2
+                    var three=ret.lotteryBet.betthird;//3
+                    var four=ret.lotteryBet.betfourth;//4
+                    var five=ret.lotteryBet.betfifth;//5
+                    var type=ret.lotteryBet.bettingtype;
+                    var str='{'+getBJStr(one,type)+'}{'+getBJStr(two,type)+'}{'+getBJStr(three,type)+'}{'+getBJStr(four,type)+'}{'+getBJStr(five,type)+'}';
+                    $('.content .right').html(str);
+                  }
+                  else if(ret.lotteryBet.bettingtype==2){//6-10
+                    var six=ret.lotteryBet.betsixth;//6
+                    var seven=ret.lotteryBet.betseventh;//7
+                    var eight=ret.lotteryBet.beteighth;//8
+                    var nine=ret.lotteryBet.betninth;//9
+                    var ten=ret.lotteryBet.bettenth;//10
+                    var type=ret.lotteryBet.bettingtype;
+                    var str='{'+getBJStr(six,type)+'}{'+getBJStr(seven,type)+'}{'+getBJStr(eight,type)+'}{'+getBJStr(nine,type)+'}{'+getBJStr(ten,type)+'}';
+                    $('.content .right').html(str);
+                  }
+                  else{//冠亚和
+                    var gyh=ret.lotteryBet.betgyh;//冠亚和
+                    $('.content .right').html('{'+getBJStr(gyh,3)+'}');
+                  }
+                }
+              }
+            }
+            else {
+              console.log( JSON.stringify( err ) );
+            }
+        });
+
+      }
+      //获得北京赛车投注信息函数
+      function getBJStr(num,type){
+        var arr=[];
+        for(var i=0;i<20;i++){
+          if(num&1<<i){
+
+            if(type==3){//冠亚和
+              arr.push(i+3)
+            }
+            else{//1~10
+              if(i>=10){
+                switch(i){
+                  case 10:arr.push('大');break;
+                  case 11:arr.push('小');break;
+                  case 12:arr.push('单');break;
+                  case 13:arr.push('双');break;
+                  case 14:arr.push('龙');break;
+                  case 15:arr.push('虎');break;
+                }
+              }
+              else{
+                arr.push(i+1);
+              }
+            }
+          }
+        }
+        return arr;
+      }
+      //获得重庆时时彩投注信息函数(数字，投注方式)
+      function getCQStr(num,type){
+        var arr=[];
+        for(var i=0;i<15;i++){
+          if(num&1<<i){
+            if(type==4){//龙虎和
+              switch(i){
+                case 0:arr.push('和');break;
+                case 1:arr.push('虎');break;
+                case 2:arr.push('龙');break;
+                case 3:arr.push('双');break;
+                case 4:arr.push('单');break;
+                case 5:arr.push('总和小');break;
+                case 6:arr.push('总和大');break;
+              }
+            }
+            else{//1~5球 1~5星 定位胆
+              if(i>=10){
+                switch(i){
+                  case 10:arr.push('大');break;
+                  case 11:arr.push('小');break;
+                  case 12:arr.push('单');break;
+                  case 13:arr.push('双');break;
+                }
+              }
+              else{
+                arr.push(i);
+              }
+            }
+          }
+        }
+        return arr;
+      }
+      //页面关闭
+      $('.myPiC').on('click',function(){
+        api.closeWin({});
+      })
+
+    }
+  </script>
+  </html>

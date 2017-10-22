@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>设置新密码</title>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" href="../../css/public.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css">
+
+    <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <style type="text/css">
+        html{
+            font-size: 10px!important;
+        }
+        .floatleft{
+            float: left;
+        }
+        .floatright{
+            float: right;
+        }
+        .width50{
+            width: 50%;
+        }
+        .colorf6{
+            color:#fff
+        }
+        .color3{
+            color: #333333;
+        }
+        .color9{
+            color: #999999;
+        }
+        .fs14{
+            font-size: 1.4rem;
+        }
+        .fs16{
+            font-size: 1.6rem;
+        }
+        .fs12{
+            font-size: 1.2rem;
+        }
+        header{
+          background-color: #D71D34;
+        }
+        header ul li {
+          height: 7.5rem;
+          text-align: center;
+          color: #fff;
+          position: relative;
+          font-size: 18px;
+        }
+        .myMine{
+         padding-top: 4rem;
+       }
+       .myPiC{
+         position: absolute;
+         left: 0rem;
+         top: 0rem;
+         width: 10%;
+         padding-top: 3.7rem;
+         height: 7.5rem;
+       }
+        /*会员卡*/
+        .card-cards ul{
+            margin-top: 0.5rem;
+        }
+        .card-cards ul li{
+            background: #FFFFFF;
+            height: 5rem;
+            border-top: 0.2rem solid #F3F3F3;
+            line-height: 5rem;
+            padding: 0 3%;
+        }
+        .card-cards ul li:first-child{
+            padding-bottom: 1rem;
+        }
+        .card-cards ul li .partOne{
+            width: 25%;
+        }
+        .card-cards ul li input{
+            font-size: 1.5rem;height: 2.5rem;margin-top: 1rem;
+        }
+
+        .all-btn{
+            height: 4rem;            
+            margin: 1rem auto;
+            border-radius: 0.4rem;
+            line-height: 4rem;
+            text-align: center;
+        }
+        .card-cards ul li .messBtn{
+            width: 25%;
+            color: #05BF02;
+            border: 0.1rem solid #05BF02;
+            height: 2.5rem;
+            line-height: 2.5rem;
+        }
+        .edit-btn{
+            width: 94%;
+            color: #333333;
+            background: #fff;
+        }
+        .submit-btn{
+            margin-top: 2rem;
+            width: 94%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <ul>
+      <li class="border-b mine" >
+        <div class="myMine">修改密码</div>
+        <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+      </li>
+    </ul>
+  </header>
+    <section class="card-cards">
+        <ul>
+            <li class="fs14">
+                <div class="floatleft color3 fs16 partOne">密码</div>
+                <div class="floatleft">
+                    <input type="password" id="oldPass" placeholder="请输入当前密码">
+                </div>
+            </li>
+            <li class="fs14">
+                <div class="floatleft color3 fs16 partOne">新密码</div>
+                <div class="floatleft">
+                    <input type="password" id="newPass" placeholder="请输入新密码">
+                </div>
+            </li>
+            <li class="fs14">
+                <div class="floatleft color3 fs16 partOne">确认密码</div>
+                <div class="floatleft">
+                    <input type="password" id="rePass" placeholder="请再输一次">
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <ul>
+            <li class="all-btn submit-btn colorf6 fs16" id="submit" style="background: #D71D34;">
+                确认提交
+            </li>
+            <li class="all-btn edit-btn color3 fs16" id="close">
+                返回
+            </li>
+        </ul>
+    </section>
+</body>
+<script type="text/javascript">
+    apiready = function(){
+        //关闭页面
+        var closeBtn = $api.dom('#close');
+        $api.addEvt(closeBtn,'click',function(){
+            closeWin();
+        });
+        var userInfo = $api.getStorage('userInfo');
+        //修改密码
+        var oldPass = $api.dom('#oldPass'),
+            newPass = $api.dom('#newPass'),
+            rePass = $api.dom('#rePass'),
+            submit = $api.dom('#submit');
+        if(userInfo != '' && userInfo != undefined && userInfo != null){
+            $api.addEvt(submit, 'click', function(){
+                var oldPassVal = $api.val(oldPass),
+                    newPassVal = $api.val(newPass),
+                    rePassVal = $api.val(rePass);
+                if(oldPassVal==''||newPassVal==''||rePassVal==''){
+                    toast('密码输入不能为空');
+                }else if(newPassVal!=rePassVal){
+                    toast('两次密码输入不一致');
+                }else{
+                    ajaxPass(oldPassVal,newPassVal,rePassVal,userInfo.id);
+                }
+            });
+        }else{
+            toast('您还没有登录，请先登录');
+        }
+        
+        //修改密码
+        function ajaxPass(old,newPass,re,id){
+            api.ajax({
+                url: baseUrl+'user/updateUserPassWord?id='+id+'&newPassWord='+newPass+'&newPassWord1='+re+'&passWord='+old,
+                method: 'get'
+            }, function(ret, err) {
+                if (ret) {
+                    alert(JSON.stringify(ret));
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+        }
+    }
+        
+</script>
+</html>

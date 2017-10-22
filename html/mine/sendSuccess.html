@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的账户</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+
+         }
+         #wrap{
+           background: #fff;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           .successTitle{
+            height: 15rem;width:100%;
+            text-align: center;background: #fff;
+            border-bottom: 0.1rem solid #ebebeb;
+           }
+           .successTitle img{
+            height: 4.5rem;margin-top: 2.7rem;
+           }
+           .successTitle p{
+            line-height: 3.3rem;font-size: 1.4rem;
+           }
+           .successTitle div{
+            font-size: 1.2rem;color: #999999;
+           }
+           .successBody{
+            height: 7rem;width: 100%;
+            border-bottom: 0.1rem solid #f0f0f0;
+            line-height: 3.5rem;position: relative;
+            font-size: 1.4rem;
+           }
+           .successLeft{
+            position: absolute;left: 3%;color: #999999;
+           }
+           .successRight{
+            position: absolute;right: 3%;
+           }
+           .successTop{
+            top: 3.5rem;
+           }
+           .footer{
+            margin: 1.5rem auto;
+            width: 94%;
+            background: #D81E35;
+            height: 3.5rem;
+            border-radius: 0.5rem;
+            line-height: 3.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            color: #fff;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">我的账户</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section class="successTitle">
+          <img src="../../icon/mine/wodezhanghu_tijiaochenggong_icon.png">
+          <p class="warnText">提现申请已提交</p>
+          <div class="getMoney">将在1~6个工作日到账</div>
+        </section>
+        <section class="successBody">
+          <div class="successLeft successCard">银行卡</div>
+          <div class="successLeft successTop">金额</div>
+          <div class="successRight successCardNum">招商银行 尾号2456</div>
+          <div class="successRight successTop" id="editMoney">￥30.00</div>
+        </section>
+        <footer class="footer" id='submit'>
+          完 成
+        </footer>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var type = api.pageParam.type;
+            num = api.pageParam.value,
+            phone = api.pageParam.phone,
+            add = api.pageParam.add;
+        addMoney(num,type);
+        // //添加监听事件
+        // api.addEventListener({ name: 'allMoneyEvt' }, function(ret, err) { 
+        //   num = ret.value.value;
+        //   addMoney(num,type);
+        // });
+        
+        //充值
+        function addMoney(num,type){
+          if(add==1){
+            $('.getMoney').hide();
+            $('.warnText').text('充值成功');
+          }else{
+
+          }
+          // 0：支付宝提现,1微信，2：银行卡提现；
+          if(type == 0){
+            $('.successCard').html("支付宝");
+            $('.successCardNum').html('账号 '+phone.substr(0,3)+'****'+phone.substr(7));
+            $('#editMoney').html('￥'+num);
+          }else{
+            $('.successCard').html("银行卡");
+            $('.successCardNum').html('银行卡  尾号 '+phone.substr(phone.length-4));
+            $('#editMoney').html('￥'+num);
+          }
+        }
+
+        //点击完成
+        $('#submit').on('click',function(){
+          openWin('myAccount','myAccount.html');
+        });
+      };
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+  </script>
+  </html>

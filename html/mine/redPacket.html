@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>红包记录</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+          header{
+            background-color: #D71D34;
+            width:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            z-index:110000000;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           /*tab css样式*/
+           #tab_nav{
+             /*float: left;*/
+             width: 100%;
+             background: #fff;
+             display: flex;
+             display:-webkit-flex;
+             height:7rem;
+             z-index:1000000;
+           }
+           #tab_nav li{
+             /*flex: 1;
+             -webkit-box-flex:1.0;
+             text-align: center;
+             /*height:6rem;*/
+             /*height:5rem;*/
+             /*width:50%;*/
+             flex: 1;
+             -webkit-box-flex:1.0;
+             text-align: center;
+             float: left;
+             width:50%;
+           }
+           #tab_nav li a{
+             font-size: 1.4rem;
+             color: #333333;
+             width: 100%;
+             padding-top: 1.7rem;
+             padding-bottom: 1.7rem;
+             text-align: center;
+             text-decoration: none;
+             /*height:6rem;*/
+           }
+           .tab_nav_active{
+             border-bottom: 1px solid #d71d34;
+           }
+           /*话题样式*/
+           #tab_content,#activity{
+             float: left;
+             width: 100%;
+             background: #fff;
+             border-top: 0.5rem solid #EFEFEF;
+           }
+           /*活动样式*/
+          .tab_ul{
+            width: 100%;
+          }
+          .tab_ul li{
+            width: 100%;
+            height: 7rem;
+            /*height:4.5rem;*/
+            border-bottom: 1px solid #efefef;
+          }
+          .tab_ul .picture{
+             float: left;
+             width: 20%;
+             height: 7rem;
+          }
+          .picture img{
+            width: 5rem;
+            height: 5rem;
+            display: block;
+            margin-top: 1rem;
+            margin-left: 1.5rem;
+            border-radius: 2.5rem;
+          }
+            .tab_ul .headline{
+              float: left;
+              width: 59%;
+              margin-left: 1%;
+              height: 7rem;
+            }
+            .headline_title{
+              padding-top: 1.5rem;
+               font-size: 1.4rem;
+            }
+           .tab_ul .headline .headline_time{
+              display: block;
+              padding-top: 1rem;
+              font-size: 1.2rem;
+            }
+            .tab_ul .money{
+              float: left;
+              width: 20%;
+              height: 7rem;
+            }
+            .money{
+              font-size: 2rem;
+              line-height: 7rem;
+              color: #FC8D31;
+            }
+            #tab_content{
+              /*margin-top:7rem;*/
+            }
+            #activity{
+              /*margin-top:7rem;*/
+            }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">红包记录</div>
+                    <div class="myPiC"  onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <ul id="tab_nav" style="margin-top:8rem; height:7rem">
+          <li class="tab_nav_active"><a href="#" class="tab_nav_a">收到红包</a></li>
+          <li ><a href="#" class="tab_nav_a">发出红包</a></li>
+        </ul>
+        <div style = "clear:both"></div>
+        <section id="tab_content">
+              <!-- <ul class="tab_ul"> -->
+                         <!--   <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                              <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                              <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                              <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                              <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                              <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">收到红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">+100</div>
+                              </li> -->
+              </ul>
+        </section>
+        <section id="activity">
+          <!-- <ul class="tab_ul">
+            <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                                <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                               <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                               <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                               <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+                               <li>
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>
+                                   <div class="headline">
+                                      <div class="headline_title">发出红包</div>
+                                      <span class="headline_time">2017-09-27 08:17:27</span>
+                                   </div>
+                                   <div class="money">-100</div>
+                              </li>
+          </ul> -->
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script src="../../script/jquery-3.2.1.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+           var userInfo = $api.getStorage('userInfo');
+           var userId = userInfo.id;
+          // TODO收到红包
+          console.log(userId)
+          api.ajax({
+              url:GAMEDATABASE_URL+'lottery-web/JieLong/getRedreceive?receiveId='+userId,
+              method:'get'
+          },function(ret,err){
+               console.log(JSON.stringify(ret))
+               console.log(ret.length)
+              if(ret.length>0){
+                var html = '';
+                var len = 0;
+                 if(ret.length>10){
+                    len = (ret.length-10);
+                 }
+                 for(var i = ret.length-1;i>=len;i--){
+                    console.log(ret[i].receiveTime);
+                    // if
+                  html = html +' <ul class="tab_ul"><li>\
+                                   <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>\
+                                   <div class="headline">\
+                                      <div class="headline_title">收到红包</div>\
+                                      <span class="headline_time">'+ret[i].receiveTime+'</span>\
+                                   </div>\
+                                   <div class="money">+'+ret[i].receivePrice+'</div>\
+                              </li></ul>'
+                  }
+              };
+
+              $('#tab_content').html(html)
+          });
+           // TODO发出的红包
+          api.ajax({
+              url:GAMEDATABASE_URL+'lottery-web/JieLong/getRedsend?senderId='+userId,
+              method:'get'
+          },function(ret,err){
+             console.log(JSON.stringify(ret))
+
+              if(ret.length>0){
+                var html = '';
+                var len = 0;
+                 if(ret.length>10){
+                    len = (ret.length-10);
+                 }
+                for(var j = ret.length-1;j>=len;j--){
+                html = html +'<ul class="tab_ul"><li>\
+                                 <div class="picture"><img src="../../image/discover/activity_02.png" alt=""></div>\
+                                 <div class="headline">\
+                                    <div class="headline_title">发出红包</div>\
+                                    <span class="headline_time">'+ret[j].time+'</span>\
+                                 </div>\
+                                 <div class="money">-'+ret[j].price+'</div>\
+                            </li></ul>'
+                }
+              };
+
+              $('#activity').html(html)
+          })
+
+
+
+
+        $("#tab_content").show();
+        $("#activity").hide();
+        //点击切换事件
+        $("#tab_nav").on("click","li",function(){
+          $(this).siblings().removeClass('tab_nav_active');
+          $(this).addClass('tab_nav_active');
+          if($(this).index() == 0){
+            $("#activity").hide();
+            $("#tab_content").show();
+          }else {
+            $("#tab_content").hide();
+            $("#activity").show();
+          }
+        })
+        //返回
+        $(".myPiC").on("click",function(){
+          api.closeWin({
+          });
+        })
+        function closeWin(){
+          api.closeWin({
+          });
+        }
+        function openWin(name,url){
+          api.openWin({
+            name:name,
+            url: url,
+          });
+        }
+      }
+  </script>
+  </html>

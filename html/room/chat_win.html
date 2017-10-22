@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>无用</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/chat.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/chat_win.css">
+
+      <style>
+        .appends{
+          width:25%;height:12rem;
+          position:fixed;background:#fff;z-index:666;
+          border:0.1rem solid #D2D2D2;
+          display: none
+        }
+        .appends ul li{
+          height: 3.6rem;
+          line-height: 3.6rem;
+          font-size: 1.4rem;
+          padding: 0 10%;
+          border-bottom: 0.1rem solid #fafafa;
+        }
+        /*附加面板*/
+      .appendAction{
+        display: flex;
+        padding-top: 3.2rem;
+        padding-bottom: 3.2rem;
+      }
+      .appendAction_content img{
+        width: 5.5rem;
+        height: 5.5rem;
+        margin-left:28%;
+      }
+      .appendAction_content p{
+        text-align: center;
+        font-size: 1.4rem;
+        color: #8a8a8a;
+        margin-top: 1rem;
+      }
+      .appendAction_content{
+        flex: 1;
+        //background: red;
+      }
+      </style>
+  </head>
+  <body>
+    <div class="appends"></div>
+    <div id="wrap" class="flex-wrap flex-vertical" >
+      <header id="header">
+          <ul>
+              <li class="border-b mine" >
+                  <div class="myMine"></div>
+                  <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                  <div class="myService" id="myMenu">
+                    <img src="../../icon/room/caidan.png">
+                  </div>
+                  <div class="myService myMenu">
+                    <img src="../../icon/room/kefu.png">
+                  </div>
+              </li>
+          </ul>
+      </header>
+      <!--  菜单管理-->
+      <section class="menu hide">
+        <ul>
+          <li id="memberInfor">
+            <div class="menuIcon"><img src="../../icon/room/cj_chengyuan.png" style="height: 1.4rem"></div>
+            <div class="menuText">房间成员</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_zt.png" style="height: 1.4rem"></div>
+            <div class="menuText">暂停</div>
+          </li>
+          <li id="manageRoom">
+            <div class="menuIcon"><img src="../../icon/room/cj_guanli.png" style="height: 1.4rem"></div>
+            <div class="menuText">房间管理</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_fenx.png" style="height: 1.4rem"></div>
+            <div class="menuText">分享</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_fuzhi.png" style="height: 1.4rem"></div>
+            <div class="menuText">复制房间链接</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_tuichu.png" style="height: 1.4rem"></div>
+            <div class="menuText">退出房间</div>
+          </li>
+        </ul>
+      </section>
+
+      <!--侧边栏 -->
+      <section class="menuRight" falg="true">
+        <ul>
+          <li>
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>3元5包</p>
+            <span style="display:block">9</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_lei.png" alt="">
+            <p>10元7包</p>
+            <span style="display:block">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_long.png" alt="">
+            <p>3元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>100元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_lei.png" alt="">
+            <p>3元5包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img src="../../image/createRoom/cehua_long.png" alt="">
+            <p>10元7包</p>
+            <span style="display:none">11</span>
+          </li>
+          <li>
+            <img style="margin-top:1.7rem" src="../../icon/room/add.png" alt="">
+          </li>
+        </ul>
+      </section>
+      <section class="moveOut" id="move"></section>
+<!--  -->
+     <div style="width:100%;height:8rem;"></div>
+<!-- 聊天页面 -->
+      <div id="convo">
+         <ul class="chat-thread" id="chatThread">
+             <!--  <li class="myInfo">
+                  <img class="headPhoto myHeadPhoto" src="../../image/tou.png" alt="">
+                 <div class="info">fgfdg11111afgfdgafafga</div>
+            </li>
+           <li class="othersInfo">
+              <img class="headPhoto otherHeadPhoto"  src="../../image/tou.png" alt="">
+                <div class="info">ffdsfas12222dafadfadfasdf</div>
+          </li>
+          <li class="myInfo">
+              <img class="headPhoto myHeadPhoto" src="../../image/tou.png" alt="">
+             <div class="info">fgfdgaf33333gfdgafafga</div>
+        </li>
+       <li class="othersInfo">
+          <img class="headPhoto otherHeadPhoto"  src="../../image/tou.png" alt="">
+            <div class="info">ffdsfasda44444fadfadfasdf</div>
+      </li>
+      <li class="myInfo">
+          <img class="headPhoto myHeadPhoto" src="../../image/tou.png" alt="">
+         <div class="info">fgfdgafgfdgafafga</div>
+    </li>
+      <li class="othersInfo">
+      <img class="headPhoto otherHeadPhoto"  src="../../image/tou.png" alt="">
+        <div class="info">ffdsfasdafadfadfasdf</div>
+     </li>
+     <li class="othersInfo">
+     <img class="headPhoto otherHeadPhoto"  src="../../image/tou.png" alt="">
+       <div class="info">ffdsfasdafadfadfasdf</div>
+    </li>
+    <li class="othersInfo">
+    <img class="headPhoto otherHeadPhoto"  src="../../image/tou.png" alt="">
+      <div class="info">ffdsfasdafadfadfasdf</div>
+   </li> -->
+         </ul>
+     </div>
+
+<!--底部工具栏  -->
+     <footer class="footer">
+       <div class="chatTool">
+            <div class="record"><img src="../../icon/chat/luyin.png" alt=""></div>
+            <div class="inputBox" ><textarea class="text" id="inputText" name="name" rows="1" cols="2" ></textarea></div>
+            <div class="face"   id="face" flag="ture"><img src="../../icon/chat/face.png" alt=""></div>
+            <div class="append" id="append" flag="ture"><img src="../../icon/chat/append.png" alt=""></div>
+            <div class="state"><span class="send" style="display:none">发送</span><span class="bet" id='sendRed'>红包</span></div>
+       </div>
+       <article class="tool">
+            <div class="faceEmoticons" style="display:none">
+                  <ul id="Emoticons">
+
+                  </ul>
+            </div>
+            <div class="appendAction" style="display: none">
+              <div class="appendAction_content">
+                <img src="../../icon/room/icon_paizhao.png" alt="">
+                <p>拍照</p>
+              </div>
+              <div class="appendAction_content">
+                <img src="../../icon/room/icon_zhaopian.png" alt="">
+                <p>图片</p>
+              </div>
+              <div class="appendAction_content">
+                <img src="../../icon/room/icon_hongbao.png" alt="">
+                <p>红包</p>
+              </div>
+            </div>
+       </article>
+     </footer>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/jquery-touch.js"></script>
+  <script type="text/javascript" src="../../script/keyBoard.js"></script>
+  <script type="text/javascript" src="../../script/chatBox.js"></script>
+  <script type="text/javascript" src="../../script/clipboard.min.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript" src="../../script/conversation.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+          var userInfo = $api.getStorage('userInfo');//用户登录信息
+          var game = api.pageParam;
+          //融云聊天
+          rong(game.groupId,userInfo.lotoken);
+          console.log($api.jsonToStr(game));
+          $(".myMine").html(game.name);
+          drawFace();// 表情读取
+
+          //发红包
+          var sendRed = $api.dom('#sendRed');
+          clickWin(sendRed,'redEnvelope','redEnvelope.html');
+
+          //跳转到房间管理
+          var manageRoom = $api.dom('#manageRoom');
+          clickWin(manageRoom,'manageRoom','manageRoom.html');
+
+          //房间成员
+          var memberInfor = $api.dom('#memberInfor');
+          clickWin(memberInfor,'memberInfor','memberInfor.html');
+
+          function clickWin(dom,name,url){
+            $api.addEvt(dom,'click',function(){
+              api.openWin({
+                name: name,
+                url: url
+              });
+            });
+          }
+          var type=0;
+
+          //长按列表
+          $(".info").on('longTap',function(){
+            var top = $(this).offset().top+$(this).height();
+            var left = $(this).offset().left+$(this).width()/2;
+            var win = $(window).height()-top+$(this).height();
+            $(this).addClass('clip');
+            $('.appends').fadeIn();
+            if(win>200){
+              $('.appends').css('top',top+'px');
+            }else{
+              $('.appends').css('top','auto');
+              $('.appends').css('bottom',win+'px');
+            }
+            $('.appends').css('left',left+'px');
+            var html='<ul>\
+                      <li>复制</li>\
+                      <li>删除</li>\
+                      <li>撤回</li>\
+                    </ul>';
+            $('.appends').html(html);
+            type=1;
+          });
+          //选择文本框的操作
+          $('.appends').on('click','li',function(e){
+            type = 0;
+            if($(this).index()==0){
+              clicpBord($('.clip').text());
+            }else if($(this).index()==1){
+              alert('操作删除');
+            }else{
+              alert('操作撤回');
+            }
+            e.stopPropagation();
+            $('.appends').fadeOut();
+            $('.clip').removeClass('clip');
+          });
+
+          //下拉框消失
+          $('#wrap').on('touchstart',function(){
+              if(type==1){
+                $('.clip').removeClass('clip');
+                $('.appends').hide();
+                type = 0;
+              }
+          });
+
+
+          //复制-------------------------------------
+          function clicpBord(value){
+            var clipBoard = api.require('clipBoard');
+            clipBoard.set({
+              value: value
+            }, function(ret, err) {
+              if (ret) {
+                toast('复制成功');
+              } else {
+                alert(JSON.stringify(err));
+              }
+            });
+          }
+
+          ListenerkeyBoard(function(data,height){
+             var keyBoardStatus = data.keyBoardStatus
+            //  console.log($api.jsonToStr(data));
+               if(keyBoardStatus==1){   //键盘打开
+                  $(".bet").hide();
+                  $(".send").show();
+                  $(".tool").css("height","0px");
+                  $("#convo").css("max-height",(openHeight-150)+"px");
+               }else if (keyBoardStatus==0) {  //键盘关闭
+                  $(".bet").show();
+                  $(".send").hide();
+                  $(".tool").css("height","0px");
+                  $("#convo").css("max-height",($(window).height()-150)+"px");
+               }
+          })
+
+          // 点击表情
+          $('#Emoticons').on("click","li",function(){
+                  console.log($(this))
+                  var text= $(this).attr("text")
+                  $api.append($api.byId("inputText"),text);
+          })
+
+
+
+}
+          function closeWin(){
+            api.closeWin({
+            });
+
+          }
+  </script>
+  </html>

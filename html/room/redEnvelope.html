@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的账户</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         body{
+          background: #F7F7F7;
+          font-size: 1.4rem;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+          .detail_main{
+            height: 5rem;
+            line-height: 5rem;
+            width: 95%; 
+            margin: 1rem auto;
+            line-height: 5rem;
+          }
+          .main_detail ul li{
+            background: #fff;
+            position: relative;
+            color: #333333;
+          }
+          .detail_left{
+            position: absolute;
+            left: 2%;
+          }
+          .main_detail input{
+            position: absolute;
+            right: 15%;
+            line-height: 5rem;
+            color: #666666;
+            width: 20%;
+            outline: none;
+            text-align: right;
+          }
+          .detail_right{
+            position: absolute;
+            right: 2%;
+          }
+          .mine textarea{
+            margin-top: 1.5rem;
+            width:89%;height: 6rem;
+            background: #fff;
+            margin-left: 2.5%;
+            outline: none;
+            line-height: 3rem;
+            color: #666666;
+            padding: 0 3%;
+          }
+          .money_btn{
+            text-align: center;
+            line-height: 4.5rem;height: 4.5rem;
+            color: #fff;
+            margin: 0 auto;
+          }
+          .btnNo{
+            background: #E8909B;
+          }
+          .btnYes{
+            background: #D71D34;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">发红包</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section class="main_detail">
+          <ul>
+            <li class="detail_main">
+              <span class="detail_left">红包金额</span>
+              <input type="number" class="redPrice" value='3' disabled="disabled">
+              <div class="detail_right">金币</div>
+            </li>
+            <li class="detail_main">
+              <span class="detail_left">红包数量</span>
+              <input type="number" class="redNum" value='5' disabled="disabled">
+              <div class="detail_right">个</div>
+            </li>
+          </ul>
+        </section>
+        <section class="mine">
+          <textarea class="redMore" placeholder="输入地雷点数(0-9)"></textarea>
+          <!-- <input type="number" class="redMore" placeholder="输入地雷点数(0-9)"> -->
+        </section>
+        <section style="font-size: 2.25rem;text-align: center;margin: 2rem 0;">
+          <span class="redAll">3.00</span>
+          <span style="font-size: 1.3rem;">金币</span>
+        </section>
+        <div class="money_btn detail_main btnNo btnYes">
+          塞金币进红包
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <!-- <script type="text/javascript" src="../../script/conversation.js"></script> -->
+  <script type="text/javascript">
+      apiready = function(){
+        var userInfo = $api.getStorage('userInfo');
+        var redtype = api.pageParam.redType,
+            multiple = api.pageParam.multiple,
+            bankerId = api.pageParam.bankerId;
+
+        var price = $api.dom('.redPrice'),
+            num = $api.dom('.redNum'),
+            all = $api.dom('.redAll'),
+            more = $api.dom('.redMore'),
+            btn = $api.dom('.money_btn');
+             console.log(api.pageParam)
+        /*发红包类型
+        0、普通发红包
+        1、扫雷发红包*/
+        var type = 0;
+        if(type == 0){
+          $('.redMore').attr('placeholder','恭喜发财，大吉大利');
+          $('.redMore').attr('type','text');
+        }
+        //备注信息
+        $('.redMore').keyup(function(){
+          if(type==1){
+            NumberCheck($(this));
+          }else{
+            TextCheck($(this));
+          }
+        });
+
+        // 判断房间红包类型
+        if(redtype == 1){
+          $('.redPrice').val('3');
+          $('.redNum').val('5');
+          $('.redAll').html('3');
+        }else if(redtype == 2){
+          $('.redPrice').val('5');
+          $('.redNum').val('8');
+          $('.redAll').html('5');
+        }
+
+        $('.redPrice').keyup(function(){
+          inputNull(redtype);
+        });
+        $('.redNum').keyup(function(){
+          inputNull(redtype);
+        }); 
+        //价格及数目输入是否为空
+        function inputNull(redtype){
+          var price = $('.redPrice').val();
+          var num = $('.redNum').val();
+          $api.html(all,price);
+          if(price != null && num != null && price !="" && num!=""){
+            $api.removeCls(btn, 'btnNo');
+            $api.addCls(btn, 'btnYes');
+          }else{
+            $api.removeCls(btn, 'btnYes');
+            $api.addCls(btn, 'btnNo');
+          }
+
+          if(price == null || price == ""){
+            $api.html(all,'0.00');
+          }
+        }
+
+        // 点击发红包-----------------------------------
+        $api.addEvt(btn, 'click', function(){
+          //金额及数目都不为空时，可以发红包
+          if(bankerId == userInfo.id){
+            var price = $('.redPrice').val();
+            var num = $('.redNum').val();
+            var text = $('.redMore').val();
+            api.sendEvent({
+              name: 'sendRedMoney',
+              extra: {
+                money: price,
+                num: num,
+                text: text,
+                type: redtype,
+                multiple: multiple
+              }
+            });
+            api.closeWin({});
+          }else{
+            toast('您不是庄家，目前不能发红包');
+          }
+        /*if($api.hasCls(btn,'btnYes')){
+          //点击实现发红包显示
+          var price = $('.redPrice').val();
+          var num = $('.redNum').val();
+          var text = $('.redMore').val();
+          api.sendEvent({
+            name: 'sendRedMoney',
+            extra: {
+              money: price,
+              num: num,
+              text: text,
+              type: redtype,
+              multiple: multiple
+            }
+          });
+          api.closeWin({});
+        }*/
+        });
+
+        //实现数字只能输入0到9之间的数字
+        function NumberCheck(t){
+          var num = t.val();
+          var re= /^[0-9]{1}$/;
+          if(!re.test(num)){
+            isNaN(parseInt(num))?t.val(""):t.val(parseInt(num.substring(0,1)));
+          }
+        }
+        //输入的备注信息最多只能输入27字符
+        function TextCheck(t){
+          var text = t.val();
+          t.val(text.substring(0,27));
+        }
+      };
+  </script>
+  </html>

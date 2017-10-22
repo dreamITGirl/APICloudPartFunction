@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>签到</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <style>
+        html{
+          font-size: 10px;
+        }
+        #wrap{
+          background: #ebebeb;
+        }
+         header{
+           background-color: #D71D34;
+         }
+         header ul li {
+           height: 7.5rem;
+           text-align: center;
+           color: #fff;
+           position: relative;
+           font-size: 18px;
+          }
+          .myMine{
+            padding-top: 4rem;
+          }
+          .myPiC{
+            position: absolute;
+            left: 0rem;
+            top: 0rem;
+            width: 10%;
+            padding-top: 3.7rem;
+            height: 7.5rem;
+          }
+          .center{
+            width:100%;
+            height:30.2rem;
+            text-align: center;
+            background-image: url(../../image/mine/qiandao-beijing.png);
+            background-repeat: no-repeat;
+            background-size: 37.5rem 15.2rem;
+            background-color: #fff;
+            position: relative;
+          }
+          .center .me{
+            width:34rem;
+            height:5.9rem;
+            margin: auto;
+            background-color: #fce9eb;
+            border-radius: 1rem;
+            overflow: hidden;
+          }
+          .center .me .left{
+            float: left;
+            margin-left: 1rem;
+            width:7rem;
+            height:5.9rem;
+          }
+          .center .me .left .money{
+            margin-top:1.2rem;
+            font-size: 1.6rem;
+          }
+          .center .me .left .num{
+            padding-left: 2.3rem;
+            font-size: 1.6rem;
+            margin-top:0.1rem;
+            color:#f08700;
+            background-image: url(../../image/mine/jifen.png);
+            background-repeat: no-repeat;
+            background-size: 1.4rem 1.4rem;
+            background-position: 0.5rem 0.4rem;
+          }
+          .center .me img{
+            float: right;
+            margin-right:1rem;
+            width:4.3rem;
+            height:4.3rem;
+            margin-top:0.9rem;
+            border-radius: 5rem;
+          }
+          .center .qian{
+            margin:1.6rem auto;
+            width:7.5rem;
+            border-radius: 8rem;
+            background-color: #fff;
+            text-align: center;
+            height:7.5rem;
+            position:absolute;
+            left:14.34rem;
+            top:7.3rem;
+            z-index: 10;
+          }
+          .opc{
+            width:8.5rem;
+            height:8.5rem;
+            background-color: #f6c8cb;
+            opacity: 0.5;
+            margin:2.5rem auto;
+            border-radius: 9rem;
+            z-index: 1;
+          }
+          .center .qian .done{
+            color: #f08700;
+            margin: auto;
+            margin-top:2.2rem;
+            width:6.1rem;
+            font-size: 1.5rem;
+            border-bottom:1px solid #eaabbc;
+          }
+          .center .qian .lian{
+            color: #f08700;
+            font-size: 1.2rem;
+          }
+          .center .word{
+            color: #b0b0b0;
+            font-size:1.2rem;
+            text-align: center;
+          }
+          .sign{
+            background-color: #fff;
+            list-style: none;
+            margin-top:2rem;
+            padding-left:1.5rem;
+            overflow: hidden;
+          }
+          .sign li{
+            float: left;
+            margin-right: 2.4rem;
+            position: relative;
+          }
+          .sign li .quan{
+            width:2.3rem;
+            height:2.3rem;
+            border-radius: 5rem;
+          }
+          .sign li .ligt{
+            width:2rem;
+            height:0.2rem;
+            position: absolute;
+            left:2.6rem;
+            top:1.3rem;
+            border-radius: 0.1rem;
+            background-color:#d71d34;
+          }
+          .gry{background-color: #e5e5e5;}
+          .red{background-color: #d71d34;}
+          .border{border:1px solid #d71d34;}
+          .check{
+            background-image: url(../../icon/room/checked.png);
+            background-size: 2.6rem 2.6rem;
+            background-position: -0.1rem -0.1rem;
+          }
+          .touG{
+            position: absolute;
+            text-align: center;
+            top:25.5rem;
+            left:1.5rem;
+          }
+          .touG img{
+            width:0.9rem;
+            height:0.9rem;
+          }
+          .touG span{
+            font-size: 1.5rem;
+          }
+          .touR{
+            position: absolute;
+            text-align: center;
+            top:25.5rem;
+            right:2.7rem;
+          }
+          .touR img{
+            width:0.9rem;
+            height:0.9rem;
+          }
+          .touR span{
+            font-size: 1.5rem;
+          }
+          .rules{
+            margin-top:1rem;
+            font-size:1.6rem;
+            background: #fff;
+            padding-top:1rem;
+            padding-left: 1rem;
+            line-height: 2rem;
+            color: #636363;
+          }
+          .rules ul{
+            list-style: none;
+            margin-top:1rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">签到</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section class="center">
+          <div class="me">
+            <div class="left">
+              <p class="money">红包金币</p>
+              <p class="num">0</p>
+            </div>
+            <img src="../../image/tou.png" alt="">
+          </div>
+          <div class="qian">
+            <p class="done">今日未签</p>
+            <p class="lian">连续0天</p>
+          </div>
+          <div class="opc"></div>
+          <p class="word">每日签到，可获得红包奖励</p>
+          <ul class="sign">
+            <li>
+              <span class="quan border" style="border:1px solid #e5e5e5"></span>
+              <span class="ligt"></span>
+            </li>
+            <li>
+              <span class="quan border"></span>
+              <span class="ligt"></span>
+            </li>
+            <li>
+              <span class="quan border"></span>
+              <span class="ligt"></span>
+            </li>
+            <li>
+              <span class="quan border"></span>
+              <span class="ligt"></span>
+            </li>
+            <li>
+              <span class="quan border"></span>
+              <span class="ligt"></span>
+            </li>
+            <li>
+              <span class="quan border"</span>
+              <span class="ligt"></span>
+            </li>
+            <li>
+              <span class="quan border"</span>
+            </li>
+          </ul>
+          <div class="touG">
+            <img src="../../icon/room/tou-gray.png" alt=""><br>
+            <span>1天</span>
+          </div>
+          <div class="touR">
+            <img src="../../icon/room/tou-red.png" alt=""><br>
+            <span>7天</span>
+          </div>
+        </section>
+        <section class="rules">
+          <p class="title">签到规则</p>
+          <ul>
+            <li>1、每天签到一次</li>
+            <li>2、签到获得红包金币，金币自动进入账户</li>
+            <li>3、各个等级的会员签到领取的红包大小不同</li>
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+
+              var userInfo = $api.getStorage('userInfo');
+              // var money = userInfo.lomoney;
+              // alert(money)
+              if(userInfo){
+                var userLophone = userInfo.lophone;
+                var userId = userInfo.id
+              }
+              var data = new Date();
+              var str = '';
+              str = str+data.getFullYear()+data.getMonth()+data.getDate();
+            
+              var oldTime = $api.getStorage(userLophone+'time');
+              
+                
+              //比较之前日期和现在日期对比是否间隔签到---------------------------
+              var oneNum = Number(oldTime);
+              var two = Number(str);
+               // two = two+1;
+              if(two-oneNum>1){
+                  $api.setStorage(userLophone,0);
+              }
+             //比较之前日期和现在日期对比是否间隔签到---------------------------
+
+              var integral = 0;
+              var num = $api.getStorage(userLophone)?$api.getStorage(userLophone):0;
+              var money = parseInt($api.getStorage(userLophone+'money'));
+              // 每次进入页面模拟每日的更新
+
+              if(oneNum != two){
+                 $('.done').html('今日未签');
+              }else{
+                 $('.done').html('今日已签');
+                 $('.num').html('10')
+              }         
+
+             
+             // 每次进入页面模拟每日的更新
+
+              $('.lian').html('连续'+num+'天');
+
+              // 进入页面渲染签到的次数----------------------------------------
+              for(var i = 0;i<num%7;i++){
+                $('.sign>li:eq('+i+')>span:first').addClass('red gry check');
+              }
+              // 进入页面渲染签到的次数----------------------------------------
+
+
+            // 签到模块 点击签到
+             $('.done').on("click",function(){
+                    if($(this).html() == "今日已签"){
+                       return
+                     };
+                    money = money + 10;
+                    $('.num').html(money)     
+                    $api.setStorage(userLophone+'money',money);
+                    var checked = $('.sign>li>span.red').length
+                    $api.setStorage(userLophone+'time',str);
+                    $('.done').html('今日已签');
+                    $('.sign>li:eq('+num%7+')>span:first').addClass('red gry check');
+                    var count = Number(num)+1;
+                    $('.lian').html('连续'+count+'天');
+                    $api.setStorage(userLophone,count);
+                    weekClick(checked);
+                    function weekClick(indexCont){     
+                       if(indexCont == 7){
+                          alert(indexCont)
+                          $('.sign>li>span').each(function(val,index,obj){
+                            $(this).removeClass('red check');
+                          });
+                          $('.sign>li:eq(0)>span:first').addClass('red check gry')
+                        }
+                   };
+                   // return
+                  // 签到完以后获取用户会员等级
+                  api.ajax({
+                       url:baseUrl + 'user/getUserById?id='+userId,
+                       method:'get'
+                  },function(ret,err){
+                        if(ret.stateCode == 1){
+                          var louserGrade = JSON.stringify(ret.lotteryUserBean.louserGrade);
+                              // 签到完以后请求数据增加用户总金币
+                              addCode(louserGrade);
+                        }
+                  })
+             })
+             function addCode(type){
+                  var arrIntegral = [10,10.5,11,11.5,12,12.5,13,13.5,14,14.5];
+                       integral += arrIntegral[type];
+                api.ajax({
+                      // url:baseUrl + 'user/addUserGoldById?id='+userId+'&logold='+integral,
+                      // http://127.0.0.1:8080/lottery-web/user/addUserMoneyById?id=13bf61bc3fb0494da740dec215ddba39&lomoney=31
+                      url:baseUrl + 'user/addUserMoneyById?id='+userId+'&lomoney='+integral,
+                      method:"get"
+                },function(ret,err){
+                     if(ret.stateCode == 1){
+                        api.toast({
+                            msg: '签到成功金币已添加到账户',
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                        $('.num').html(integral);
+                     }else{
+                        api.toast({
+                            msg: '添加金币失败',
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                     }
+                
+                })
+
+             }
+               //退出返回
+              $(".myPiC").on("click",function(){
+                api.closeWin({
+                });
+              })
+
+            
+      };
+  </script>
+  </html>

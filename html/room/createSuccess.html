@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>创建成功</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+          .main_detail .cent{
+            text-align: center;
+            margin: auto;
+            width:100%;
+            height:20.7rem;
+            font-size: 1.7rem;
+          }
+          .main_detail .cent img{
+            margin-top:6.5rem;
+            width:7.7rem;
+            height:7.7rem;
+            margin-bottom: 1.3rem;
+          }
+          .main_detail .pwd{
+            text-align: center;
+            width:100%;
+            height:8rem;
+            background: #f6f6f6;
+            line-height: 8rem;
+            color: #d31e2f;
+            font-size: 1.8rem;
+          }
+          .main_detail .box{
+            margin-top:3.7rem;
+            overflow: hidden;
+            width:100%;
+          }
+          .main_detail .box .copy{
+            float: left;
+            width:16rem;
+            height:4.3rem;
+            line-height: 4.3rem;
+            font-size:1.7rem;
+            text-align: center;
+            background:#f7f7f7;
+            border: 1px solid #b6b6b6;
+            margin-left: 1.2rem;
+          }
+          .main_detail .box .fenx{
+            float: left;
+            width:16rem;
+            height:4.3rem;
+            line-height: 4.3rem;
+            font-size:1.7rem;
+            text-align: center;
+            background: #d71d34;
+            border:1px solid #d8183f;
+            margin-left: 0.8rem;
+            color: #fff;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">创建成功</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section class="main_detail">
+          <div class="cent">
+            <img src="../../image/createRoom/fangjian_cg.png" alt=""><br>
+            <p>房间创建成功！</p>
+          </div>
+          <div class="pwd">XS354SFHGH5232135</div>
+          <div class="box">
+            <span class="copy">复制房间链接</span>
+            <span class="fenx">分享好友</span>
+          </div>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/clipboard.min.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+          console.log(api.pageParam.name)
+          var roomCound = api.pageParam;
+          $(".pwd").html(roomCound.name);
+          $(".copy").click(function(){
+              $api.setStorage('roomPass',roomCound.name);
+              clicpBord(roomCound.name);
+          });
+          $(".fenx").click(function(){
+              shareAction(roomCound.name);
+          });
+
+          $(".myPiC").on("click",function(){
+              api.sendEvent({//发送监听
+                  name: 'createSuccessListen',
+              });
+
+          })
+
+          api.addEventListener({//监听键盘回退事件
+               name: 'keyback'
+           }, function(ret, err) {
+               api.closeWin({});
+               api.sendEvent({//发送监听
+                   name: 'createSuccessListen',
+               });
+
+           });
+
+
+      };
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+      //复制房间密码
+      function clicpBord(value){
+            var clipBoard = api.require('clipBoard');
+            clipBoard.set({
+              value: value
+            }, function(ret, err) {
+              if (ret) {
+                toast('复制成功');
+              }
+            });
+        }
+        //分享密码
+        function shareAction(_text){
+         var sharedModule = api.require('shareAction');
+         sharedModule.share({
+          text:_text,
+          type:'text'
+         });
+        }
+  </script>
+  </html>

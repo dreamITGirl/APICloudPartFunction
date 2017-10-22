@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>开宝箱</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/swiper.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         body{
+          width: 100%;
+          background: url('../../image/mine/dabaoxiang_bg.png') no-repeat;
+          background-size: 100% 100%;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           /*图片轮播*/
+           .swiper-container {
+            width: 100%;
+            padding-top: 6.6rem;
+          }
+          .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 65%;
+            height: 35rem;
+          }
+          /*按钮*/
+          .footer{
+            height: 12rem;width: 100%;
+            background: #0FA2B2;
+            position: fixed;
+            bottom: 0rem;
+          }
+          .footer_btn{
+            background-size:100% 100%;
+            float:left;
+            margin: 2.5rem 5.5%;
+            width: 38.5%;height: 4rem;
+            text-align: center;color: #622922;
+            font-size: 1.6rem;line-height: 4rem;
+            font-weight: 600;
+          }
+          .footer_btn_no{
+            background-image: url('../../image/mine/dabaoxiang_anniu_xiao.png');
+          }
+          .footer_btn_now{
+            background-image: url('../../image/mine/dabaoxiang_anniu_da.png');
+          }
+          .footer span{
+            border-left:transparent solid 1.5rem;
+            border-right:transparent solid 1.5rem;
+            border-top:#22C0D1 solid 1.5rem;
+            left: 21%;
+            position: absolute;
+          }
+
+          /*宝箱上信息*/
+  /*钥匙数量的样式*/
+        /*.keyCounts{
+             position: absolute;
+             right: 1.5%;
+             color: #FFD766;
+             top:9%;
+             font-size: 1.5rem
+            }*/
+          .position_a{
+            position: absolute;
+          }
+          .box_detail{
+            bottom:5rem;height: 8rem;width: 88%;left:6%;
+          }
+          .text_color{
+            font-size: 1.7rem;color: #FFD766;
+          }
+          .input_num{
+            width: 48%;
+            background: #066D6C;
+            height: 2.5rem;
+            left: 25%;
+            /*top:9%;*/
+            font-size: 1.7rem;
+            color: #fff;
+            text-align: center;
+          }
+
+          .box_num{
+            width:20%;height: 2rem;left: 2%;
+          }
+          .box_img{
+            width: 8%;
+            left: 78%;
+            top: 0.6rem;
+          }
+          .box_open{
+            text-align: center;width: 100%;bottom: 0.5rem;
+          }
+          .hide{display: none;}
+          .shadeOpen{
+            width: 100%;top: 10%;height: 45%;
+          }
+          .allIntegral{
+            position:absolute;
+            width:14rem;
+            height:3rem;
+            text-indent:1rem;
+            line-height:3rem;
+            top:1.5rem;
+            left:1.5rem;
+            background-color:#2dbbc7;
+            border-radius:.2rem;
+            color:#fff;
+            font-size:1rem;
+          }
+         .marginLeft {
+            margin-left:2.5rem;
+         }
+         .position_left {
+            position:absolute;
+            left:7.5rem;
+            top:0rem;
+         }
+         .integral {
+           position:absolute;
+           top:3rem;
+           left:6.5rem;
+           color:#fff;
+         }
+/*积分宝箱样式*/
+    .container{
+      /*border:1px solid #ddd;*/
+      margin-right: 2.5rem;
+      margin-left: 2.5rem;
+      padding-top:3rem;
+    }
+  .img-responsive{
+    display: block;
+    max-width: 100%;
+    height: auto;
+    /*margin-right: 3rem;*/
+    margin-top: 2.5rem;
+  }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">开宝箱</div>
+                    <div class="myPiC"  onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+
+                </li>
+            </ul>
+        </header>
+
+        <section id="propertyBox">
+          <div class="swiper-container swiper-container1">
+            <div class="swiper-wrapper">
+<!-- 银宝箱 -->
+              <div class="swiper-slide" style="background-image:url('../../image/mine/baoxiang_yin.png');">
+              <!-- 宝箱详情 -->
+                <!-- <div class="position_a box_open shadeOpen" name='0'></div> -->
+                <div class="position_a box_detail">
+                  <div class="position_a text_color box_num">数量</div>
+                  <input  type="number" onafterpaste="this.value=this.value.replace(/\D/g,'11')" class="position_a input_num" value="0">
+                  <img src="../../image/mine/kaibaox_key.png" class="position_a box_img">
+                  <!-- <span class="keyCounts">x3</span> -->
+                  <!-- <div class="position_a text_color box_num" style="left: 87%;top: 0.5rem;">X1</div> -->
+                  <span class="position_a text_color box_open"  name='0' values = "0"  boxType = "1">点击开启宝箱</span>
+                </div>
+              </div>
+<!-- 金宝箱 -->
+              <div class="swiper-slide" style="background-image:url('../../image/mine/baoxiang_bg_jin.png');">
+              <!-- 宝箱详情 -->
+                <!-- <div class="position_a box_open shadeOpen" name='1'></div> -->
+                <div class="position_a box_detail">
+                  <div class="position_a text_color box_num">数量</div>
+                  <input  type="number" onafterpaste="this.value=this.value.replace(/\D/g,'11')" class="position_a input_num" value="0">
+                  <img src="../../image/mine/kaibaox_key.png" class="position_a box_img">
+                    <!-- <span class="keyCounts">x5</span> -->
+                  <!-- <div class="position_a text_color box_num" style="left: 87%;top: 0.5rem;">X1</div> -->
+                  <span class="position_a text_color box_open"  name='1' values = "1"  boxType = "1">点击开启宝箱</span>
+                </div>
+
+              </div>
+<!-- 铜宝箱 -->
+              <div class="swiper-slide" style="background-image:url('../../image/mine/baoxiang_tong.png')">
+                <!-- 宝箱详情 -->
+                <!-- <div class="position_a shadeOpen box_open"  name='2'></div> -->
+                <div class="position_a box_detail">
+                  <div class="position_a text_color box_num">数量</div>
+                  <input  type="number" class="position_a input_num" value="0">
+                  <img src="../../image/mine/kaibaox_key.png" class="position_a box_img">
+                    <!-- <span class="keyCounts">x1</span> -->
+                  <!-- <div class="position_a text_color box_num" style="left: 87%;top: 0.5rem;">X2</div> -->
+                  <span class="position_a text_color box_open"  name='2' values = "2" boxType = "1">点击开启宝箱</span>
+                </div>
+              </div>
+<!-- 铁宝箱 -->
+              <div class="swiper-slide" style="background-image:url('../../image/mine/baoxiang_tie.png')">
+                <!-- <div class="position_a shadeOpen box_open"  name='3'></div> -->
+                <!-- 宝箱详情 -->
+                <div class="position_a box_detail">
+                  <div class="position_a text_color box_num">数量</div>
+                  <input  type="number" class="position_a input_num" value="0">
+                  <img src="../../image/mine/kaibaox_key.png" class="position_a box_img">
+                    <!-- <span class="keyCounts">x2</span> -->
+                  <!-- <div class="position_a text_color box_num" style="left: 87%;top: 0.5rem;">X3</div> -->
+                  <span class="position_a text_color box_open"  name='3' values = "3"  boxType = "1">点击开启宝箱</span>
+                </div>
+              </div>
+  <!-- 钻石宝箱   -->
+            <div class="swiper-slide" style="background-image:url('../../image/mine/baoxiang_zuanshi.png')">
+                <!-- <div class="position_a shadeOpen box_open"  name='4'></div> -->
+                <!-- 宝箱详情 -->
+                <div class="position_a box_detail">
+                  <div class="position_a text_color box_num">数量</div>
+                  <input  type="number" class="position_a input_num" value="0">
+                  <img src="../../image/mine/kaibaox_key.png" class="position_a box_img">
+                    <!-- <span class="keyCounts">x10</span> -->
+                  <!-- <div class="position_a text_color box_num" style="left: 87%;top: 0.5rem;">X3</div> -->
+                  <span class="position_a text_color box_open"  name='4' values = "4"  boxType = "1">点击开启宝箱</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+<!-- 积分宝箱 -->
+        <section id="gradeBox">
+            <!-- <div class = "allIntegral">
+              积分：
+              <span>
+                99999
+              </span>
+            </div> -->
+          <div class="swiper-container swiper-container2">
+            <div class="swiper-wrapper">
+  <!-- 三星宝箱-->
+              <div class="swiper-slide container" >
+                <img src="../../image/mine/sanxingjifen.png" class="img-responsive" >
+                <!-- style="background-image:url('../../image/mine/sanxingjifen.png');" -->
+              <!-- 宝箱详情 -->
+                <!-- <div class="position_a shadeOpen box_open"  name='00'></div> -->
+
+                <div class="position_a box_detail">
+                  <div class="position_a text_color box_num ">数量</div>
+                  <input  type="number" class="position_a input_num " value="1">
+                  <p class = "integral">所需积分100/次</p>
+                  <img src="../../image/mine/kaibaox_key.png" class="position_a box_img">
+                  <!-- <div class="position_a text_color box_num" style="left: 87%;top: 0.5rem;">X4</div> -->
+                  <span class="position_a text_color box_open"  name='02' values = "03">点击开启宝箱</span>
+                </div>
+              </div>
+<!-- 二星宝箱  -->
+              <div class="swiper-slide container" >
+                <img src="../../image/mine/erxingbaoxiang.png" alt="" class="img-responsive">
+                <!-- style="background-image:url('../../image/mine/ka_erxing.png')" -->
+                <!-- 宝箱详情 -->
+                <!-- 废<div class="position_a shadeOpen box_open"  name='00'></div> -->
+                <div class="position_a box_detail">
+                  <div class="position_a text_color box_num ">数量</div>
+                  <input  type="number" class="position_a input_num " value="1">
+                  <p class = "integral">所需积分200/次</p>
+                  <img src="../../image/mine/kaibaox_key.png" class="position_a box_img">
+                  <!-- 废<div class="position_a text_color box_num" style="left: 87%;top: 0.5rem;">X5</div> -->
+                 <span class="position_a text_color box_open"  name='00' values = "02">点击开启宝箱</span>
+                </div>
+              </div>
+<!-- 一星宝箱               -->
+              <div class="swiper-slide container" >
+                <!-- style="background-image:url('../../image/mine/ka_yixing.png')" -->
+               <img src="../../image/mine/yixingbaoxiang.png" alt="" class="img-responsive">
+                <!-- 宝箱详情 -->
+                <!-- 废<div class="position_a shadeOpen box_open"  name='01'></div> -->
+                <div class="position_a box_detail">
+                  <div class="position_a text_color box_num ">数量</div>
+                  <input  type="number" class="position_a input_num " value="1">
+                  <p class = "integral">所需积分300/次</p>
+                  <img src="../../image/mine/kaibaox_key.png" class="position_a box_img">
+                                <!-- 废 <div class="position_a text_color box_num" style="left: 87%;top: 0.5rem;">X6</div> -->
+                  <span class="position_a text_color box_open"  name='01' values = "01">点击开启宝箱</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+            <span class="grade" style="display: none"></span>
+            <span class="property" style="left: 70%;"></span>
+
+          <div class="footer_btn footer_btn_no" id="grade">
+            积分宝箱
+          </div>
+          <div class="footer_btn footer_btn_now" id="property">
+            道具宝箱
+          </div>
+        </footer>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/swiper.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+
+        var allNum = 0;//开箱次数
+        var codes = 0;
+        // var boxId = 'e370893fcd9242d6a57267b028a993ab';
+        var boxId;
+        var threeLottery=null;
+        var fourLottery=null;
+        var fiveLottery=null;
+        swiper('.swiper-container');
+        var userInfo = $api.getStorage('userInfo').id;
+
+        //console.log(JSON.stringify($api.getStorage('userInfo')));
+       console.log(JSON.stringify(userInfo));
+       console.log(userInfo)
+
+        $('#gradeBox').hide();
+
+        $('.input_num').keyup(function(){
+          var num = /^[0-9]*[1-9][0-9]*$/
+          var text=$(this).val();
+          console.log(text);//value值
+
+          if(!num.test(text)){
+            $(this).val('');
+          }
+        });
+
+        $('.input_num').blur(function(){
+          if($(this).val()==''){
+            $(this).val('1');
+          }else{
+          }
+        })
+
+ //道具宝箱
+        $('#property').click(function(){
+          $('.property').show();
+          $('.grade').hide();
+          $(this).addClass('footer_btn_now');
+          $('#grade').removeClass('footer_btn_now');
+          $('#grade').addClass('footer_btn_no');
+          $(this).removeClass('footer_btn_no');
+          $('#gradeBox').hide();
+          $('#propertyBox').show();
+          swiper('.swiper-container');
+
+          // 确定宝箱类型 1 是道具宝箱
+          $(".box_open").attr('boxType',1);
+        });
+
+  //积分宝箱
+        $('#grade').click(function(){
+          $('.grade').show();
+          $('.property').hide();
+          $(this).addClass('footer_btn_now');
+          $('#property').removeClass('footer_btn_now');
+          $('#property').addClass('footer_btn_no');
+          $(this).removeClass('footer_btn_no');
+          $('#gradeBox').show();
+          $('#propertyBox').hide();
+
+          swiper('.swiper-container2');
+
+          // 确定宝箱类型 0    1是道具宝箱
+          $(".box_open").attr('boxType',0);
+        });
+
+        //大小改变时
+        $(window).resize(function() {
+          var btnNo = $api.dom('.footer_btn_no');
+          var btnNow = $api.dom('.footer_btn_now');
+          $api.toggleCls(btnNo,'hide');
+          $api.toggleCls(btnNow,'hide');
+        });
+        function swiper(name){
+          var swiper = new Swiper(name, {
+              pagination: '.swiper-pagination',
+              slidesPerView: 2,
+              grabCursor: false,
+              centeredSlides: true,
+              loop:true,
+              slidesPerView:'auto',
+              coverflow: {
+                rotate: 20,
+                stretch: 0,
+                depth: 60,
+                modifier: 2,
+                slideShadows : false
+              }
+            });
+        }
+
+//点击开启宝箱-----------------------------------------------------
+        $('.box_open').on('click',function(){
+          // 判断开启宝箱需要的钥匙和积分是否够用--------------
+          //向后台请求，获取用户得到的钥匙数
+          console.log(keyNum);
+          getMessage(keyNum,allNum,boxType);
+          // 判断开启宝箱需要的钥匙和积分是否够用---------------
+
+          // $('.swiper-container').on('click','.box_open',function(){
+          var box_name = Number($(this).attr("name"));
+          console.log(box_name);
+          // box_name--;
+          var parentBox = $(this).parents('.swiper-slide');
+          var boxNum = Number(parentBox.find('.input_num').val());
+          var sameBox = $api.getStorage(userInfo+'box');
+          var newSameBox = $(this).attr('values');
+
+          console.log(box_name);
+          console.log(parentBox);
+          console.log(boxNum);
+          console.log(sameBox);
+          console.log(newSameBox);//03
+
+          // 确定宝箱类型1确定道具宝箱0确定积分宝箱
+          var boxType = $(this).attr("boxType");
+          var keyNum = 0;//钥匙的数量
+          var betDate=null;//投注期数
+          var nowDate=null;//当前期数
+
+           allNum += boxNum;
+          if(sameBox != newSameBox){
+             allNum = 0;
+          };
+          $api.setStorage(userInfo+'box',$(this).attr('values'));
+            // console.log($(this).attr('value'));
+            // return;
+          // 根据日期得到对应的重庆时时彩开奖期数--------------------------------------
+          getBetDate();
+          function getBetDate(){
+            var date=new Date();
+            var hour=date.getHours();//当前小时数
+            var min=date.getMinutes();//当前分钟数
+            var year=date.getFullYear().toString();//当前年份
+            var month=date.getMonth()+1;//当前月份
+            var day=date.getDate();//当前日
+            year = year.substring(2)
+            if(month<10){
+              month='0'+month;
+            }
+            else {
+              month=month.toString();
+            }
+            if(day<10){
+              day='0'+day;
+            }
+            if(hour<2){//0点-2点之间
+              betDate=hour*12+Math.floor(min/5)+1;//向上取整
+              nowDate=hour*12+Math.floor(min/5);
+            }
+            else if(hour>=2&&hour<10){
+              betDate=24;
+              nowDate=23;
+            }
+            else if(hour>=10&&hour<22){
+              betDate=24+(hour-10)*6+Math.floor(min/10)+1;
+              nowDate=24+(hour-10)*6+Math.floor(min/10);
+            }
+            else{
+              betDate=96+(hour-22)*12+Math.floor(min/5)+1;
+              nowDate=96+(hour-22)*12+Math.floor(min/5)
+            }
+            if(betDate<10){
+              betDate='00'+betDate;
+            }
+            else if(betDate<100){
+              betDate='0'+betDate;
+            }
+            if(nowDate<10){
+              nowDate='00'+nowDate;
+            }
+            else if(nowDate<100){
+              nowDate='0'+nowDate;
+            }
+            betDate=year+month+day+betDate;
+            nowDate=year+month+day+nowDate;
+            console.log(nowDate);
+            // 调去抽奖结果
+            getResult(nowDate);
+          }
+  // 根据日期得到对应的重庆时时彩开奖期数----------------------------------------
+
+          //请求开奖接口获得开奖结果----------------------------------------------------
+        //  console.log(nowDate);
+          function getResult(nowDate){
+          //  nowDate = 170909012;
+          console.log(nowDate);
+            api.ajax({
+                url: 'http://cp.360.cn/i/lotapi.html?datatype=json&do=qkjcode&lotID=255401&issue='+nowDate,//重庆时时彩接口
+                // url:TOPIC_URL+'lottery-web/box/userOpenBox?'
+                method: 'post'
+              },function(ret, err){
+                console.log(JSON.stringify(ret));
+                if (ret) {
+                  var arr=[];
+                  arr=ret[0].code.split(',');
+                 threeLottery = arr[2];
+                console.log(threeLottery);//0
+                  fourLottery = arr[3];
+                  fiveLottery = arr[4];
+                } else {
+                  setTimeout(getResult(),4000);//请求失败后4秒后再次请求
+                }
+            });
+          }
+         //请求开奖接口获得开奖结果----------------------------------------------------
+
+          // 查询宝箱类型---------------------------------------------------------------
+          serchBox(boxType,box_name);
+          function serchBox(boxType,box_name,boxId){
+            console.log(box_name);
+            console.log(boxType);//0
+                     api.ajax({
+                         url:propBaseUrl+'box/getAllBox?boxType='+boxType,
+                         method:'get'
+                     },function(ret,err){
+                    //   alert(2222222222)
+                    console.log(JSON.stringify(ret));
+
+                        console.log(box_name);
+                        // console.log(typeof box_name);
+                        console.log(JSON.stringify(ret.result1));
+                        if(!ret.result1){
+                          toast('请检查网络')
+                          return;
+                        }else{
+                          boxId = ret.result1[box_name].id;
+                          console.log(boxId);
+                             // 查询宝箱对应钥匙Id;
+                             serchKey(userInfo,boxId,boxType,box_name);
+                        }
+                        //console.log(ret.result1[2].id);
+                      //  var  boxId = ret.result1[box_name].id;
+
+
+                     })
+           };
+       // 查询宝箱类型---------------------------------------------------------------
+
+           // 查询宝箱对应钥匙Id获得钥匙Id;-----------------------------------------------
+           function serchKey(userId,boxId,boxType,box_name){
+             console.log(userId);//
+             console.log(boxId);//0e58c836653547a9876b71aff7c019ac
+             console.log(boxType);//1
+             console.log(box_name);//2
+                // 获取用户积分
+                if(boxType == 0){
+                    api.ajax({
+                         url:propBaseUrl+'user/getUserById?id='+userId,
+                         method:'get'
+                     },function(ret,err){
+                     console.log(JSON.stringify(ret));
+                     if(ret.stateCode==0){
+                       alert('暂无积分')
+                      return ;
+                     }
+                        //  codes = Number(ret.lotteryUserBean.lointegral);
+                        //  codes = codes%(100*(box_name+1));
+                     })
+                };
+                //判断用户的钥匙数量
+                console.log(boxId);
+                console.log(userId);
+               api.ajax({
+                         url:propBaseUrl+'prop/getUserPropByid?userId='+userId+'&boxId='+boxId,
+                        // url:propBaseUrl+'prop/getUserPropByid?userId='+userId+'&propId=216be9aaa98f4e6fa2f27dfbc7ecbb9e',
+                         method:'get'
+                     },function(ret,err){
+                       console.log(JSON.stringify(ret));
+                         // 通过钥匙id确定钥匙数量
+                          if(ret.stateCode == 1){
+                              keyNum = ret.number;
+                              console.log(keyNum);//0
+                              if(keyNum>boxNum){
+                                $api.setStorage('keyNum', keyNum);
+                               console.log('已获取钥匙数')
+                             }else{
+                               console.log('钥匙数不足，请及时充值');
+                             }
+                          }
+                          keyNum = $api.getStorage('keyNum');
+                          console.log(keyNum);
+                          if(keyNum==0){
+                            alert('没有足够的钥匙开启宝箱');
+                            return;
+                          }
+       // 当用户输入的开箱数量所需钥匙数大于他拥有的钥匙数时
+                          var useKey = $(".input_num").val();
+                          console.log(useKey);
+                          console.log(keyNum);
+                          getAllBox(userId,boxId,boxNum,parentBox);
+        if(useKey>keyNum){
+                             useKey=keyNum;
+                             console.log("您当前所拥有的钥匙数为"+useKey)
+                          }else{
+                              useKey-=1;
+                              console.log(useKey);//-1
+                          }
+                     })
+           }
+          // 查询宝箱对应钥匙Id获得钥匙Id;-----------------------------------------------
+
+          // 判断重庆时时彩开奖时间开完奖后一定时间不能开奖------------------------------
+           var data = new Date();
+           var hour = data.getHours();
+           var minute = data.getMinutes();
+           // minute = 2;
+          //  console.log(userInfo);
+          //  console.log(allNum);
+          //  console.log(boxId);
+           // hour = 23;
+           if(22<= hour && hour < 24){
+               var openTime = minute%5;
+               var x = 4 <= openTime && openTime <5;
+               x = 0
+               if(x){
+                  api.confirm({
+                      title: '提示信息',
+                      msg: '开奖时间快要到了请您等待下一轮开奖',
+                      buttons: ['确定', '取消']
+                    }, function(ret, err) {
+                      console.log(JSON.stringify(ret));
+                    })
+               }else if(keyNum >0&&keyNum<5){
+                  api.confirm({
+                      title: '提示信息',
+                      msg: '您确定要开启此宝箱吗？',
+                      buttons: ['确定', '取消']
+                      }, function(ret, err) {
+                         if(ret.buttonIndex == 1){
+                           // 判断开启宝箱需要的钥匙和积分是否够用
+                          //  getMessage(keyNum,allNum,boxType);
+                           //准备开启宝箱
+                           console.log(userInfo);
+                           console.log(allNum);
+                           console.log(boxId);
+                          //  getResult(nowDate);
+                          //  console.log(threeLottery);
+                           getAllBox(userInfo,boxId,allNum,parentBox);
+                        }
+
+                    })
+               };
+           }else{
+             // 判断开启宝箱需要的钥匙和积分是否够用--------------
+
+            //  getMessage(keyNum,allNum,boxType);
+             // 判断开启宝箱需要的钥匙和积分是否够用---------------
+
+              var openTime = minute%10;
+              var y = 9 <= openTime && openTime <10;
+              y = 0;
+              if(y){
+                      api.confirm({
+                      title: '提示信息',
+                      msg: '开奖时间快要到了请您等待下一轮开奖',
+                      buttons: ['确定', '取消']
+                    }, function(ret, err) {
+                      console.log(JSON.stringify(ret));
+                        if(ret.buttonIndex == 1){
+                             return ;
+                        }
+                    })
+               }else if(keyNum>0&&keyNum<5){
+                      api.confirm({
+                      title: '提示信息',
+                      msg: '您确定要开启此宝箱吗？',
+                      buttons: ['确定', '取消']
+                      }, function(ret, err) {
+                         if(boxNum == 0){
+                           alert('请填写开启宝箱数量');
+                           return;
+                         }
+                         if(ret.buttonIndex == 1){
+                            // console.log('已成功开启宝箱')
+                          $('.input_num').val('0')
+                          //  // 判断开启宝箱需要的钥匙和积分是否够用--------------
+                           //
+                          //  getMessage(keyNum,allNum,boxType);
+                          //  // 判断开启宝箱需要的钥匙和积分是否够用---------------
+                           console.log(threeLottery);//0
+
+                        }
+                    })
+               };
+           }
+          // 判断重庆时时彩开奖时间开完奖后一定时间不能开奖------------------------------
+          // 判断开启宝箱需要的钥匙和积分是否够用----------------------------------------
+           function getMessage(keyNum,allNum,boxType){
+                   keyNum = $api.getStorage('keyNum');
+               console.log(keyNum)
+               console.log(allNum)
+               if(boxType == 0){
+                   if(!(keyNum<allNum) || codes+keyNum<allNum){
+                      alert('您的积分和钥匙都不足,请充值');
+                      return;
+                   }
+               }else{
+                  if(keyNum<allNum){
+                      alert('您的钥匙剩余'+keyNum+'，请充值');
+
+                      // return;
+                   }
+               }
+           }
+
+        });
+//点击开启宝箱-----------------------------------------------------
+
+       // 定时给后台发送数据-------------------------------------------------------------
+      //  setInterval(function(){
+      //     var data = new Date();
+      //     var hour = data.getHours();
+      //     var minute = data.getMinutes();
+      //      console.log(hour);
+      //      console.log(minute);
+      //      if(22<=hour && hour <24){
+      //          var minute = minute%5;
+      //          if(minute == 0){
+      //             getAllBox(userInfo,boxId,allNum);
+      //          }
+      //      }else{
+      //          var minute = minute%10;
+      //          if(minute == 0){
+      //            console.log(threeLottery);
+      //             getAllBox(userInfo,boxId,allNum);
+      //          }
+      //      }
+      //     console.log(userInfo);
+      //     console.log(boxId);
+      //     console.log(allNum);
+      //  },3000)
+         // // 准备开奖-----------------------------------------------------------------
+           function getAllBox(userId,boxId,boxNum,parentBox){
+                  console.log(userId);//e2bca41e42c942deb0c82d5ddbd3e595
+                  console.log(boxId);//e370893fcd9242d6a57267b028a993ab
+                  // ++boxNum;
+                  console.log(boxNum);//1
+                  console.log(threeLottery);//0
+                  console.log(fourLottery);//3
+                  console.log(fiveLottery)//7
+                  console.log(boxId);
+                  console.log(userId);
+              //    alert(11)
+                 if(boxNum){
+                    api.ajax({
+                       url: propBaseUrl+'box/userOpenBox?threeLottery='+threeLottery+'&fourLottery='+fourLottery+'&fiveLottery='+fiveLottery+'&boxNumber='+boxNum+'&boxId='+boxId+'&userId='+userId,
+                       method:'post',
+                    },function(ret,err){
+                       console.log(JSON.stringify(ret));
+                       console.log(JSON.stringify(err));
+                      if(ret.stateCode == 1){
+                         alert(ret.stateMessage+'请查看开奖记录');
+                         boxNum = 0;
+                         parentBox.shake(2, 10, 400);
+                      }else if(ret.stateCode == 0){
+                        console.log('开启失败'+ret.stateMessage);
+                        alert('钥匙数量不足，请及时充值')
+                        boxNum = 0;
+                        // parentBox.shake(2, 10, 400);
+                      }
+                    })
+                 }
+
+            }
+
+      };
+
+      // 返回上一级
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+  </script>
+  </html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>详细信息</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+
+         }
+         #wrap{
+           background: #ebebeb;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           .member{
+              height: 6rem;
+              margin-top: 0.5rem;
+              width: 100%;
+              background: #fff;
+              position: relative;
+           }
+           .member .logo{
+            position: absolute;
+            left: 3%;
+            height: 4rem;
+            top: 1rem;
+            border-radius: 50%;
+           }
+           .member .name{
+            line-height: 6rem;
+            position: absolute;
+            left: 21%;
+            font-size: 1.5rem;
+           }
+           .more{
+            position: absolute;right: 3%;height: 2rem;top: 2rem;
+           }
+           section ul{
+            margin-top: 0.5rem;
+           }
+           section ul li{
+            position: relative;
+            height: 4.4rem;
+            background:#fff;
+            width: 100%;
+            border-bottom: 0.1rem solid #efefef
+           }
+           section ul li .choose{
+            position: absolute;left: 3%;
+           }
+           section ul li .choose_right{
+            position: absolute;right: 9%;color: #666666;
+           }
+           .text{
+            line-height: 4.4rem;font-size: 1.5rem;
+           }
+           .text_right{
+            line-height: 4.4rem;font-size: 1.3rem;
+           }
+           .list{
+            top: 1.2rem;
+           }
+           .footer{
+            width: 94%;margin: 0.5rem auto;
+            background: #D81E35;
+            height: 4.4rem;
+            color: #fff;text-align: center;
+            border-radius: 0.4rem;
+           }
+          .sendMess{
+            position: fixed;height: 4.4rem;text-align: center;width: 100%;background: #fff;bottom: 0;
+          }
+          .doMess{bottom: 4.4rem;}
+          .delMess{
+            color: #666666;
+          }
+          .editMess{
+            color: #D81E35;
+          }
+
+          /*遮罩层*/
+          .addAddressTo{
+            display: none;
+            width: 100%;
+            height: 60rem;
+            position: fixed;
+            top: 0rem;
+            left: 0rem;
+            z-index: 1000000;
+          }
+          .addAddressTo .shade{
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5)
+          }
+          .addAddressTo .shadeAddress{
+            display: none;
+            width: 90%;
+            margin: -40rem auto;
+            height: 17rem;
+            background: #fff;
+            z-index: 666;
+            border-radius: 0.5rem;
+            position: relative;
+          }
+          .shadeAddress p{
+            text-align: center;
+            position: absolute;
+            top: 2.7rem;
+            width: 100%;
+            font-size: 2rem;
+          }
+          .shadeAddress img{
+            position: absolute;
+            top: 7rem;
+            height: 1.8rem;
+            left: 17%;
+          }
+          .shadeAddress span{
+            top: 6.9rem;
+            position: absolute;
+            left: 24%;
+            font-size: 1.6rem;
+            color: #999999;
+          }
+          .shadeAddress .btn{
+            position: absolute;
+            top: 12rem;
+            width: 40%;
+            height: 3.1rem;
+            font-size: 1.5rem;
+            line-height: 3.3rem;
+            text-align: center;
+            border-radius: 0.5rem;
+          }
+          .submit{
+            right: 7%;
+            background: #D81E35;
+            border:0.1rem solid #D81E35;
+            color: #fff;
+          }
+          .reset{
+            left: 7%;
+            border:0.1rem solid #B6B6B6;
+            background: #F7F7F7;
+            color: #3C3C3C;
+          }
+          .shadeMoney{
+            width: 80%;
+            margin: -40rem auto;
+            padding-top:1rem;
+            height: 18rem;
+            background: #fff;
+            z-index: 666;
+            border-radius: 0.5rem;
+            position: relative;
+          }
+          .shadeMoney p{
+            overflow: hidden;
+            text-align: center;
+            font-size:1.8rem;
+            margin-top:2rem;
+          }
+          .shadeMoney p input{
+            width:9rem;
+            height:2.5rem;
+            line-height: 2.5rem;
+            outline: none;
+            border:1px solid #d1d1d1;
+            border-radius: 0.2rem;
+            color: #d5132d;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+          }
+          .shadeMoney .btn{
+            float: left;
+            width:49.3%;
+            height:4.9rem;
+            line-height: 4.9rem;
+            margin-top:3.5rem;
+            text-align: center;
+            font-size: 1.7rem;
+            border: 1px solid #dedede;
+          }
+          .Queren{
+            width: 80%;
+            margin: -40rem auto;
+            padding-top:1rem;
+            height: 18rem;
+            background: #fff;
+            z-index: 666;
+            border-radius: 0.5rem;
+            position: relative;
+          }
+          .Queren p{
+            text-align: center;
+            font-size:1.8rem;
+            margin-top:4rem;
+          }
+          .Queren .btn2{
+            float: left;
+            width:49.3%;
+            height:4.9rem;
+            line-height: 4.9rem;
+            margin-top:6.6rem;
+            text-align: center;
+            font-size: 1.7rem;
+            border: 1px solid #dedede;
+          }
+          .shadeSpeek{
+            width: 80%;
+            margin: -40rem auto;
+            padding-top:1rem;
+            height: 18rem;
+            background: #fff;
+            z-index: 666;
+            border-radius: 0.5rem;
+            position: relative;
+          }
+          .shadeSpeek p{
+            text-align: center;
+            font-size:1.8rem;
+            margin-top:4rem;
+          }
+          .shadeSpeek .btn3{
+            float: left;
+            width:49.3%;
+            height:4.9rem;
+            line-height: 4.9rem;
+            margin-top:6.6rem;
+            text-align: center;
+            font-size: 1.7rem;
+            border: 1px solid #dedede;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">详细信息</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section style="margin-bottom: 5rem;">
+          <div class="member">
+            <img src="../../image/tou.png" class="logo">
+            <div class="name">
+              <span id='name'>用户名</span>
+              <img src="../../icon/room/dengji.png" style="height: 1.3rem;">
+            </div>
+            <img src="../../icon/go_right.png" class="more">
+          </div>
+          <ul>
+            <li id="setMoney">
+              <div class="choose text">用户房间余额</div>
+              <div class="choose_right text_right" id='money' style="color: #D71D34">0金币</div>
+              <img src="../../icon/go_right.png" class="more list">
+            </li>
+          </ul>
+          <ul>
+            <li class="lottery" style="display:none">
+              <div class="choose text">最近彩票记录</div>
+              <img src="../../icon/go_right.png" class="more list">
+            </li>
+            <li class='red' style="display:none">
+              <div class="choose text">最近红包记录</div>
+              <img src="../../icon/go_right.png" class="more list">
+            </li>
+            <li class='moneyRecond'>
+              <div class="choose text">最近充值记录</div>
+              <img src="../../icon/go_right.png" class="more list">
+            </li>
+          </ul>
+          <ul class='editRank'>
+            <li id="sendMess">
+              <div class="choose text">禁言</div>
+              <div class="choose_right text_right notSay"></div>
+              <img src="../../icon/go_right.png" class="more list">
+            </li>
+            <li id="memberOut">
+              <div class="choose text">踢出房间</div>
+              <img src="../../icon/go_right.png" class="more list">
+            </li>
+            <li id="memberLimits">
+              <div class="choose text">权限设置</div>
+              <img src="../../icon/go_right.png" class="more list">
+            </li>
+          </ul>
+          <div class="text footer" style="display:none">
+            发消息
+          </div>
+        </section>
+        <footer>
+          <div class="text sendMess editMess doMess"  style="display: none;">
+            禁 言
+          </div>
+          <div class="text sendMess delMess doMess" style="display: none;">
+            取消禁言
+          </div>
+          <div class="text sendMess resetMess"  style="display: none;">
+            取消
+          </div>
+        </footer>
+        <!-- 提示信息 -->
+        <div class="addAddressTo">
+          <div class="shade"></div>
+          <div class="shadeAddress">
+            <p>确定要该用户从房间移除？</p>
+            <!-- <img src="../../icon/room/check.png" class="check">
+            <span>不再接收此人加房间申请</span> -->
+            <div class="btn reset">取 消</div>
+            <div class="btn submit">确 定</div>
+          </div>
+          <div class="shadeMoney">
+            <p>
+              <span>添加</span>
+              <input class="addMon" type="text" name="" value="" placeholder="金币个数">
+              <span style="color:#9b9b9b">金币</span>
+            </p>
+            <p>
+              <span>减少</span>
+              <input class="cutMon" type="text" name="" value="" placeholder="金币个数">
+              <span style="color:#9b9b9b">金币</span>
+            </p>
+            <div class="btn cancel" style="color:#979797">取 消</div>
+            <div class="btn quite" style="color:#d5132d">确 定</div>
+          </div>
+          <div class="Queren" style="display:none">
+            <p class="message">你确定添加此用户<span class="JinE" style="color:#d5132d">320金币</span>吗？</p>
+            <div class="btn2 cancel2" style="color:#979797">取 消</div>
+            <div class="btn2 quite2" style="color:#d5132d">确 定</div>
+          </div>
+          <div class="shadeSpeek">
+            <p class="messageSpeek">你确定禁言此用户吗？</p>
+            <p class="messageNoSpeek">你确定解除此用户的禁言吗？</p>
+            <div class="btn3 cancel3" style="color:#979797">取 消</div>
+            <div class="btn3 quite3" style="color:#d5132d">确 定</div>
+          </div>
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+    apiready = function(){
+      /*
+      type为1时未禁言，type为0时禁言中
+      */
+      var userInfo=$api.getStorage('userInfo');
+      var groupId=api.pageParam.groupId;
+      var limits=api.pageParam.limits;//当前用户权限
+      var lotteryId=api.pageParam.lotteryId;//彩票id
+      var namePhone=api.pageParam.name;//电话号
+      var roomId=api.pageParam.roomId;//房间id
+      var typeca=api.pageParam.typeca;//房间创建/加入
+      var status=api.pageParam.typeStatus;//彩票1  红包2
+      var userId = api.pageParam.userId;
+      var type=1;//未禁言
+      console.log(namePhone);
+      if(status==1){
+        $('.lottery').show();
+        $('.red').hide();
+      }
+      else{
+        $('.lottery').hide();
+        $('.red').show();
+      }
+      if(status == 1){
+        // 彩票接口
+        getMoney();
+      }else{
+        // 红包接口
+        getInfo()
+      }
+      function getInfo(){
+           if(!userId){
+            $('#name').html(namePhone);
+            return;
+           }
+          var num = Math.random()*100;
+          api.ajax({
+              url: baseUrl+'user/getUserById?id='+userId+'&num='+num,
+              method: 'get'
+          }, function(ret, err) {
+             console.log(JSON.stringify(ret));
+             // alert(JSON.stringify(ret))
+              if (ret) {
+                  $('#name').html(namePhone);
+                  $('#setMoney').find('.choose').html('用户金币')
+                  if(userId == userInfo.id){
+                    $('#money').html(ret.lotteryUserBean.lomoney.toFixed(2)+'金币');
+                  }else{
+                    $('#money').html('******金币')
+                  }
+              } else {
+                  alert(JSON.stringify(err));
+              }
+          });
+        }
+      // console.log(roomId);
+      function getMoney(){//获得用户在房间钱币及是否禁言
+        api.ajax({
+            url: DATABASE_URL+'lottery-web/lottery/getUserBalance?userId='+namePhone+'&cpfj_id='+roomId,
+            method: 'post'
+        },function(ret, err){
+          console.log(JSON.stringify(ret));
+            if (ret) {
+               $('#name').html(namePhone);
+               $('#money').html(ret.list.userbalance);
+               console.log(ret.list.shutupflag);
+               if(ret.list.shutupflag){
+                 if(ret.list.shutupflag==0){
+                   type=0;
+                   //禁言中
+                   $('footer').show();
+                   $('.editMess').hide();
+                   $('.delMess').show();
+                   $('footer').hide();
+                   $('.notSay').html('禁言中');
+                   $('.messageNoSpeek').show();
+                   $('.messageSpeek').hide();
+                 }
+                 else{
+                   type=1;
+                   $('footer').show();
+                   $('.editMess').show();
+                   $('.delMess').hide();
+                   $('footer').hide();
+                   $('.notSay').html('正常');
+                   $('.messageNoSpeek').hide();
+                   $('.messageSpeek').show();
+                 }
+               }
+               else{
+                 type=1;
+                 $('footer').show();
+                 $('.editMess').show();
+                 $('.delMess').hide();
+                 $('footer').hide();
+                 $('.notSay').html('正常');
+                 $('.messageNoSpeek').hide();
+                 $('.messageSpeek').show();
+               }
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+        });
+
+      }
+      //所有能进入到详细信息页的成员 均不能修改自己的权限及金额
+      if(namePhone==userInfo.lophone){//房主不能修改设置自己的权限
+        $('.editRank').hide();
+      }
+      //判断是否有修改金额的权限
+      if(typeca==1||(limits&8)!=0){
+        $('#setMoney').on('click',function(){
+          // alert('群主，可修改余额');
+          $('.addAddressTo').show();
+          $('.shadeAddress').hide();
+          $('.shadeSpeek').hide();
+          $('.shadeMoney').show();
+        })
+      }
+      else{
+        if((limits&1)!=0){//踢人权限
+          $('#memberOut').show();
+        }
+        else{
+          $('#memberOut').hide();
+        }
+        if((limits&32)!=0){//设置用户权限的权限
+          $('#memberLimits').show();
+        }
+        else{
+          $('#memberLimits').hide();
+        }
+      }
+      var add=0;
+      var cut=0;
+      //确定按钮
+      $('.quite').on('click',function(){
+        add=$('.addMon').val();
+        cut=$('.cutMon').val();
+        if(add==""&&cut=="")
+        {
+          api.toast({
+              msg: '金额未变化',
+              duration: 2000,
+              location: 'bottom'
+          });
+        }
+        else if(add==cut){
+          api.toast({
+              msg: '金额未输入',
+              duration: 2000,
+              location: 'bottom'
+          });
+        }
+        else{
+          var str=null;
+          if(add-cut>0){
+            str='你确定添加此用户<span class="JinE" style="color:#d5132d">'+(add-cut)+'金币</span>吗？';
+          }
+          else{
+            str='你确定减少此用户<span class="JinE" style="color:#d5132d">'+(cut-add)+'金币</span>吗？';
+          }
+          $('.message').html(str);
+          $('.shadeMoney').hide();
+          $('.Queren').show();
+        }
+      })
+      //取消按钮
+      $('.cancel').on('click',function(){
+        $('.addAddressTo').hide();
+        $('.Queren').hide();
+      })
+      //确认
+      $('.quite2').on('click',function(){
+        var money=add-cut;
+        console.log(money);
+        console.log(lotteryId);
+        api.ajax({
+            url: DATABASE_URL+'lottery-web/lottery/updateUserBalance',
+            method: 'post',
+            data:{
+              values: {
+                userId:namePhone,//用户电话
+                cpfj_id:roomId,//房间id
+                money:money,//变化金额
+                groupOwnerId:userInfo.lophone,//操作人id
+                lotteryId:lotteryId//彩票类型
+              }
+            }
+          },function(ret, err){
+            console.log(JSON.stringify(ret));
+            if (ret) {
+                api.toast({
+                    msg: '修改成功',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                $('.addAddressTo').hide();
+                $('.Queren').hide();
+                setTimeout(function(){
+                  getMoney();
+                },1000);
+
+            } else {
+                console.log( JSON.stringify( err ) );
+            }
+        });
+      })
+      //取消
+      $('.cancel2').on('click',function(){
+        $('.addAddressTo').hide();
+        $('.Queren').hide();
+      })
+      //最近彩票记录
+      $('.lottery').on('click',function(){
+        api.openWin({
+            name: 'recentlyLott',
+            url: './recentlyLott.html',
+            pageParam: {
+                lotteryId: lotteryId,
+                roomId:roomId
+            }
+        });
+
+      })
+      //红包记录
+      $('.red').on('click',function(){
+         if(userId == userInfo.id){
+           api.openWin({
+               name:'redPacket',
+               url:"../mine/redPacket.html",
+               pageParam: {
+                 userId:userId
+               }
+           });
+         }
+     })
+
+      $('.moneyRecond').on('click',function(){
+        api.openWin({
+            name: 'addMoneyRecent',
+            url: './addMoneyRecent.html',
+            pageParam: {
+                userPhone:namePhone,//用户电话
+                lotteryId: lotteryId,
+                roomId:roomId,
+                type:1
+            }
+        });
+      })
+      // if(type == 0){
+      //   $('.notSay').html('禁言中');
+      // }else{
+      //   $('.notSay').html('');
+      // }
+
+      $('.resetMess').click(function(){
+        $('footer').hide();
+      });
+      $('#sendMess').click(function(){
+        if(typeca==1||(limits&2)!=0){//房主 或者有禁言权限的用户
+          $('.resetMess').show();
+          $('footer').show();
+        }
+      });
+      var kk=0;
+      //禁言操作
+      $('.editMess').on('click',function(){
+        $('.addAddressTo').show();
+        $('.shadeAddress').hide();
+        $('.shadeSpeek').show();
+        $('.shadeMoney').hide();
+        kk=1;
+      })
+      $('.delMess').on('click',function(){
+        $('.addAddressTo').show();
+        $('.shadeAddress').hide();
+        $('.shadeSpeek').show();
+        $('.shadeMoney').hide();
+        kk=2;
+      })
+      $('.quite3').on('click',function(){
+        if(kk==1){
+          api.ajax({
+              url:DATABASE_URL+'lottery-web/lottery/addGagUser?userId='+namePhone+'&groupId='+groupId+'&minute=0&shutupId='+userInfo.lophone+'&cpfj_id='+roomId,
+              method: 'post'
+          },function(ret, err){
+              if (ret) {
+                if(ret.status==1){
+                  api.toast({
+                      msg: '禁言成功',
+                      duration: 2000,
+                      location: 'bottom'
+                  });
+                  $('footer').hide();
+                  setTimeout(function(){
+                    getMoney();
+                  },1000);
+                }
+              } else {
+                  console.log( JSON.stringify( err ) );
+              }
+          });
+        }
+        else if(kk==2){
+          api.ajax({
+              url:DATABASE_URL+'lottery-web/lottery/rollBackGagUser?userId='+namePhone+'&groupId='+groupId+'&relieveId='+userInfo.lophone+'&cpfj_id='+roomId,
+              method: 'post'
+          },function(ret, err){
+              if (ret) {
+                if(ret.status==1){
+                  api.toast({
+                      msg: '解除禁言成功',
+                      duration: 2000,
+                      location: 'bottom'
+                  });
+                  $('footer').hide();
+                  setTimeout(function(){
+                    getMoney();
+                  },1000);
+                }
+              } else {
+                  console.log( JSON.stringify( err ) );
+              }
+          });
+        }
+        $('.addAddressTo').hide();
+        $('.shadeSpeek').hide();
+      })
+      $('.cancel3').on('click',function(){
+        $('.addAddressTo').hide();
+        $('.shadeSpeek').hide();
+      })
+
+
+      //选择是否接收此人加房间申请
+      var check = $api.dom('.check');
+      $api.addEvt(check, 'click', function(){
+        if($api.hasCls(check,'checked')){
+          $api.removeCls(check,'checked');
+          $api.attr(check, 'src', '../../icon/room/check.png');
+        }else{
+          $api.addCls(check,'checked');
+          $api.attr(check, 'src', '../../icon/room/checked.png');
+        }
+      });
+
+      // 权限设置-------------------------------------------------
+      $('#memberLimits').on('click',function(){
+        api.openWin({
+            name: 'memberLimits',
+            url: './memberLimits.html',
+            pageParam: {
+                roomId: roomId,
+                namePhone:namePhone
+            }
+        });
+      })
+
+      //踢出该房间,显示提示信息------------------------------------
+      var memberOut = $api.dom('#memberOut');
+      $api.addEvt(memberOut, 'click', function(){
+        $('.addAddressTo').show();
+        $('.shadeMoney').hide();
+        $('.shadeSpeek').hide();
+        $('.shadeAddress').show();
+      });
+
+      //隐藏提示信息
+      $('.shade').on('click',function(){
+        $('.addAddressTo').hide();
+        $('.Queren').hide();
+      });
+
+      //点击取消按钮
+      $('.reset').on('click',function(){
+        $('.addAddressTo').hide();
+      });
+
+      //点击确定，将用户从房间移除
+      $('.submit').on('click',function(){
+        if(namePhone!=userInfo.lophone){
+          api.ajax({
+              url: DATABASE_URL+'lottery-web/lottery/quitRoom?userId='+namePhone+'&roomid='+roomId+'&groupId='+groupId,
+              method: 'post'
+            },function(ret, err){
+              if (ret) {
+                if(ret.status==1){
+                    toast('用户移除成功');
+                    api.sendEvent({
+                        name: 'delectMember',
+                        extra: {
+                            key1: 'value1',
+                            key2: 'value2'
+                        }
+                    });
+                    api.closeWin({});
+
+                }
+              } else {
+                  console.log( JSON.stringify( err ) );
+              }
+          });
+        }
+        else{
+          toast('对不起！您不能移除自己');
+        }
+
+        $('.addAddressTo').hide();
+      });
+      $('.myPiC').on('click',function(){
+        api.closeWin({});
+      })
+
+    }
+  </script>
+  </html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>道具</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           .all_prop{
+            margin: 1rem auto;
+            width: 95%;
+            position: relative;
+            /*float:left;*/
+           }
+           .all_detail{
+            width: 94%;
+            position: absolute;
+            height: 90%;
+            /*background: blue;*/
+            bottom: 5%;
+            left: 3%
+           }
+           table{
+            width: 100%;
+            height: 100%;
+           }
+           tr{
+            /*height: 25%;*/
+           }
+           td{
+            /*border:1px solid #fff;*/
+            height:105px;
+            position: relative;
+           }
+           .use_img{
+            position: absolute;top: 20%;width: 85%;left: 15%;
+                    height: 60%;
+           }
+           .use_price{
+            position: absolute;
+            top: 39%;
+            left: 45%;
+            color: #FAFEFF;
+            font-size: 1.25rem;
+           }
+           .use_text{
+            position: absolute;
+            bottom: 20%;right: 12%;
+            color: #FAFEFF;
+            font-size: 1.1rem;
+           }
+           .prop_mess{
+            position: absolute;
+            width: 45%;
+            min-height: 15%;
+            height: auto;
+            z-index: 6666;
+            left: 53%;
+            background: url('../../image/mine/prop/daoju_bj.png') no-repeat;
+            background-size: 100% 100%;
+            line-height: 1.8rem;
+            padding: 1rem 1%;
+            color: #fff;
+            display: none;
+           }
+
+          /* .wp{
+            width:100%;
+           }*/
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">道具</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section>
+            <div class="all_prop">
+              <div class="prop_mess">
+                <p style="text-align: center;">钻石钥匙</p>
+                <p>用于开启钻石钥匙，根据重庆时彩的最后一位得出宝箱内的中奖结果</p>
+              </div>
+              <img src="../../image/mine/prop/huojia.png" style="width: 100%;">
+              <div class="all_detail">
+                <table id = "tableMsg">
+                <!--    <tr>
+                    <td>
+                      <div class="use_img">
+                        <img src="../../image/mine/prop/jin.png" style="width: 70%">
+                      </div>
+                      <div class="use_text">X4</div>
+                    </td>
+                    <td>
+                      <div class="use_img">
+                        <img src="../../image/mine/prop/yin.png" style="width: 70%">
+                      </div>
+                      <div class="use_text">X4</div>
+                    </td>
+                    <td>
+                      <div class="use_img">
+                        <img src="../../image/mine/prop/zuan.png" style="width: 70%">
+                      </div>
+                      <div class="use_text">X4</div>
+                    </td>
+                    <td>
+                      <div class="use_img">
+                        <img src="../../image/mine/prop/tong.png" style="width: 70%">
+                      </div>
+                      <div class="use_text">X4</div>
+                    </td>
+                   </tr>
+                   <tr></tr> -->
+                  <!-- <tr>
+                    <td>
+                      <div class="use_img">
+                        <img src="../../image/mine/prop/tie.png" style="width: 70%">
+                      </div>
+                      <div class="use_text">X4</div>
+                    </td>
+                    <td>
+                      <div class="use_img">
+                        <img src="../../image/mine/prop/leika.png" style="width: 80%">
+                      </div>
+                      <div class="use_price">￥ 5</div>
+                      <div class="use_text">X4</div>
+                    </td>
+                    <td>
+                      <div class="use_img">
+                        <img src="../../image/mine/prop/longka.png" style="width: 80%">
+                      </div>
+                      <div class="use_price">￥ 5</div>
+                      <div class="use_text">X4</div>
+                    </td>-->
+                    <!-- <td class = "timeCard" type = 2>
+                      <div class="use_img" >
+                        <img src="../../image/mine/prop/jifenka.png" style="width: 80%">
+                      </div>
+                      <div class="use_price">￥ 5</div>
+                      <div class="use_text" >X4</div>
+                    </td> -->
+                <!--  </tr>
+                   <tr>
+                      <td>
+                        <div class="use_img">
+                          <img src="../../image/mine/prop/tie.png" style="width: 70%">
+                        </div>
+                        <div class="use_text">X4</div>
+                      </td>
+                      <td>
+                        <div class="use_img">
+                          <img src="../../image/mine/prop/leika.png" style="width: 80%">
+                        </div>
+                        <div class="use_price">￥ 5</div>
+                        <div class="use_text">X4</div>
+                      </td>
+                      <td>
+                        <div class="use_img">
+                          <img src="../../image/mine/prop/longka.png" style="width: 80%">
+                        </div>
+                        <div class="use_price">￥ 5</div>
+                        <div class="use_text">X4</div>
+                      </td>-->
+                      <!-- <td class = "timeCard" type = 2>
+                        <div class="use_img" >
+                          <img src="../../image/mine/prop/jifenka.png" style="width: 50%">
+                        </div>
+                        <div class="use_price">￥ 5</div>
+                        <div class="use_text" >X4</div>
+                      </td>
+                   </tr> -->
+                  <!-- <tr>
+                    <td class = "timeCard"  type = 3>
+                      <div class="use_img ">
+                        <img src="../../image/mine/prop/xianshi.png" style="width: 80%">
+                      </div>
+                      <div class="use_price">￥ 5</div>
+                      <div class="use_text" >X4</div>
+                    </td>
+                  </tr>  -->
+                </table>
+              </div>
+
+            </div>
+
+
+        </section>
+    </div>
+
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/swiper.js"></script>
+  <script type="text/javascript" src = "../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+            var userInfo = $api.getStorage('userInfo');
+           // alert(11)
+            $('#tableMsg').on('click','td',function(){
+
+              console.log($(this).attr('name'));
+              $('.prop_mess').hide();
+              var num = $(this).index();
+              // console.log(num);//每个单元格的下标
+              var num2 = $(this).parent('tr').index();
+              // console.log(num2);
+              var top = 22.5+22*num2;
+              if(num == 3){
+                $('.prop_mess').show().css('left','73%').css('top',top+'%').css('width','25%');
+                $('.prop_mess>p:eq(0)').html($(this).attr('name'));
+                $('.prop_mess>p:eq(1)').html($(this).attr('msg'));
+              }else{
+                $('.prop_mess').show().css('left',23*num+'%').css('top',top+'%').css('width','45%');
+                 $('.prop_mess>p:eq(0)').html($(this).attr('name'));
+                 $('.prop_mess>p:eq(1)').html($(this).attr('msg'));
+              }
+
+            });
+
+           // 查询系统全部道具
+
+           api.ajax({
+              url:Box_URL+'prop/getAllProp',
+              method:'get'
+           },function(ret,err){
+             console.log(JSON.stringify(ret))
+             if(ret.stateCode == 1){
+               console.log(JSON.stringify(ret))
+                var allProp = ret.result1;
+                var html = '';
+                var num = 0;
+                var arr = [];
+<<<<<<< .mine
+                       for(var i = 0;i<allProp.length;i++){
+
+                                   api.ajax({
+                                       url:propBaseUrl+'prop/getUserPropNumber?userId='+userInfo.id+'&propId='+allProp[i].id,
+                                       method:'get'
+                                   },function(ret,err){
+                                      console.log(JSON.stringify(ret))
+                                        if(ret.stateCode == 1){
+                                          arr.push(ret.number);
+                                        }
+
+                                   })
+||||||| .r567
+                       for(var i = 0;i<allProp.length;i++){
+
+                                   api.ajax({
+                                       url:propBaseUrl+'prop/getUserPropNumber?userId='+userInfo.id+'&propId='+allProp[i].id,
+                                       method:'get'
+                                   },function(ret,err){
+                                      console.log(JSON.stringify(ret))
+                                        if(ret.stateCode == 1){
+                                          arr.push(ret.number);
+                                        }
+                                      
+                                   })
+=======
+               for(var i = 0;i<allProp.length;i++){
+                   api.ajax({
+                       url:Box_URL+'prop/getUserPropNumber?userId='+userInfo.id+'&propId='+allProp[i].id,
+                       method:'get'
+                   },function(ret,err){
+                      console.log(JSON.stringify(ret))
+                        if(ret.stateCode == 1){
+                          arr.push(ret.number);
+>>>>>>> .r572
+                        }
+<<<<<<< .mine
+                        setTimeout(function(){
+                            for(var i = 0;i<allProp.length;i++){
+                                   html = html + '<td msg = '+allProp[i].propDescribe+' id = '+allProp[i].id+' name = '+allProp[i].propName+' >\
+                                                      <div class="use_img">\
+                                                      <img src="../../image/mine/prop/'+allProp[i].imgurl.slice(7)+'" style="width: 70%">\
+                                                      </div>\
+                                                      <div class="use_text">X'+arr[i]+'</div>\
+                                                    </td>'
+                             if(i != 0){
+                               if(i == 3 || i == 7 || i == 11 || i == 15){
+                                  html = html + '</tr><tr>';
+                                }
+                             }
+                             if(i>14){
+                               break;
+                              }
+                           }
+                           $('#tableMsg').html('<tr>'+html+'</tr>');
+                        },200)
+
+                }
+           });
+||||||| .r567
+                        setTimeout(function(){
+
+                            for(var i = 0;i<allProp.length;i++){
+                                   html = html + '<td msg = '+allProp[i].propDescribe+' id = '+allProp[i].id+' name = '+allProp[i].propName+' >\
+                                                      <div class="use_img">\
+                                                      <img src="../../image/mine/prop/'+allProp[i].imgurl.slice(7)+'" style="width: 70%">\
+                                                      </div>\
+                                                      <div class="use_text">X'+arr[i]+'</div>\
+                                                    </td>'
+                             if(i != 0){
+                               if(i == 3 || i == 7 || i == 11 || i == 15){
+                                  html = html + '</tr><tr>';
+                                }
+                             }
+                             if(i>14){
+                               break;
+                              }
+                           }
+                           $('#tableMsg').html('<tr>'+html+'</tr>');
+                        },200)
+            
+                }
+           });
+=======
+                      
+                   })
+                };
+                setTimeout(function(){
+                  for(var i = 0;i<allProp.length;i++){
+                     // alert(allProp[i].imgurl.slice(allProp[i].imgurl.lastIndexOf('/')+1));
+                     // alert(allProp[i].imgurl);
+                     // alert(Boolean(allProp[i].imgurl));
+                     // alert(arr)
+                     var propNum = arr[i];
+                     if(propNum == undefined){
+                        propNum = 0
+                     }
+                     console.log(propNum)
+                     html = html + '<td msg = "'+allProp[i].propDescribe+'" id = "'+allProp[i].id+'" name = "'+allProp[i].propName+'" >\
+                                    <div class="use_img">\
+                                      <img src="../../image/mine/prop/'+allProp[i].imgurl.slice(allProp[i].imgurl.lastIndexOf('/')+1)+'" style="width: 80%">\
+                                    </div>\
+                                    <div class="use_text">X'+propNum+'</div>\
+                                  </td>'
+                    if(i != 0){
+                      if(i == 3 || i == 7 || i == 11 || i == 15){
+                        html = html + '</tr><tr>';
+                      }
+                    };
+                    // var addTrNum = 4-allProp.length%4;
+                    // console.log(addTrNum);
+                    //  html = html +"</tr>"
+                    //  for(var j = 0;j<addTrNum;j++){
+                    //    html = html + "<tr></tr>"
+                    //  }
+                    if(i>14){
+                      break;
+                    }
+                 };
+                 console.log(html)
+                 $('#tableMsg').html('<tr>' + html +'</tr><tr></tr>');
+                 console.log($('#tableMsg').html())
+              },500)    
+            }
+        });
+>>>>>>> .r572
+
+           // <img src="'+propBaseUrl+allProp[i].imgurl+'" style="width: 70%">\
+           //<img src="../../image/mine/prop/'+allProp[i].imgurl.slice(allProp[i].imgurl.lastIndexOf('/')+1)+'" style="width: 80%">\
+         // 备用的img-------------------------------------------------------------------------
+
+         // 备用的img-------------------------------------------------------------------------
+
+
+
+          // 获取积分或者加倍积分卡
+          $('.timeCard').on('click',function(){
+             var type = $('this').attr('type');
+             console.log(type);
+              api.ajax({
+                 url:propBaseUrl+'prop/getAllPropByType?propType='+type,
+                 method:'get'
+                },function(ret,err){
+                  console.log(JSON.stringify(ret));
+                  if(ret.stateCode == 1){
+                       var id = ret.result1.id;
+                       api.ajax({
+                          url:propBaseUrl+'prop/userUseProp?userId='+userInfo.id+'&propId='+id,
+                          method:'get'
+                          },function(ret,err){
+                          // if(ret.stateCode == 1){
+                             alert('转换积分成功')
+                          // }
+                       })
+                  }
+              })
+          })
+
+      };
+
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+  </script>
+  </html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的推广</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <style>
+        html{
+          font-size: 10px;
+          background-color: #efefef;
+        }
+        #wrap{
+          background: #ebebeb;
+        }
+         header{
+           background-color: #D71D34;
+         }
+         header ul li {
+           height: 7.5rem;
+           text-align: center;
+           color: #fff;
+           position: relative;
+           font-size: 18px;
+          }
+          .myMine{
+            padding-top: 4rem;
+          }
+          .myPiC{
+            position: absolute;
+            left: 0rem;
+            top: 0rem;
+            width: 10%;
+            padding-top: 3.7rem;
+            height: 7.5rem;
+          }
+          /*******上层nav*********/
+          .iul{
+            overflow: hidden;
+            background-color: #fff;
+          }
+          .iul li{
+            height:6rem;
+            width:9rem;
+            float: left;
+          }
+          .iul li .red{
+            color: #d81e35;
+            font-size: 1.3rem;
+            text-align: center;
+            width:100%;
+            margin-top:1rem;
+          }
+          .iul li .gray{
+            color: #999;
+            margin-left:2.3rem;
+            margin-top: 0.5rem;
+            font-size: 1.2rem;
+          }
+          /*****推广tab样式******/
+          .title{
+            margin-top:1rem;
+            width:100%;
+            height:4.3rem;
+            overflow: hidden;
+            background-color: #fff;
+            border-bottom:1px solid #efefef;
+          }
+          .bottom{    /*tab选中样式*/
+            border-bottom:2px solid #d81e35;
+            color: #d81e35;
+          }
+          .title .left{
+            width:8.9rem;
+            height:4.1rem;
+            text-align: center;
+            margin-left:5.5rem;
+            line-height: 4.2rem;
+            font-size: 1.6rem;
+            float: left;
+          }
+          .title .right{
+            width:8.9rem;
+            height:4.1rem;
+            text-align: center;
+            font-size: 1.6rem;
+            float: left;
+            line-height: 4.2rem;
+            margin-left:5.5rem;
+          }
+          /**********推广的人列表css*********/
+          .section{
+            display: none;
+          }
+          .section ul{
+            list-style: none;
+            background-color: #fff;
+          }
+          .section ul li{
+            overflow: hidden;
+            width:100%;
+            height:5.7rem;
+            border-bottom:1px solid #eeeeee;
+            line-height: 5.7rem;
+          }
+          .section ul li .img{
+            float:left;
+            height:4.3rem;
+            width:4.3rem;
+            border-radius: 5rem;
+            margin-left:1.1rem;
+            margin-top:1rem;
+          }
+          .section ul li .cont{
+            float:left;
+            margin-left: 0.9rem;
+            width:20rem;
+            height:5.7rem;
+            line-height: 1.5rem;
+          }
+          .section ul li .cont .tit{
+            font-size: 1.5rem;
+            color: #000;
+            height:1.5rem;
+            margin-top:1.5rem;
+          }
+          .section ul li .cont .time{
+            font-size:1.2rem;
+            color: #9c9c9c;
+            height:1.2rem;
+            margin-top:0.8rem;
+          }
+          .section ul li .right{
+            float:right;
+            line-height: 5.7rem;
+            margin-right:1rem;
+            font-size: 1.5rem;
+          }
+          .red{
+            color: red;
+          }
+          .gry{
+            color: #999;
+          }
+          .block{
+            display: block;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">我的推广</div>
+                    <div class="myPiC">
+                    <img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <ul class="iul">
+            <li>
+              <p class="red" id = "generalizePeople">0</p>
+              <span class="gray">推广人数</span>
+            </li>
+            <li>
+              <p class="red" id = "generalizeValid">0</p>
+              <span class="gray">有效人数</span>
+            </li>
+            <li>
+              <p class="red" id = "generalizeTwo">0</p>
+              <span class="gray">二级人数</span>
+            </li>
+            <li>
+              <p class="red" id = "generalizeThree">0</p>
+              <span class="gray">三级人数</span>
+            </li>
+          </ul>
+        </section>
+        <div class="title">
+          <span class="left bottom">推广的人</span>
+          <span class="right">有效推广</span>
+        </div>
+        <section class="section block">
+          <ul id = "firstList">
+            <!-- <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">千里浮彩</p>
+                <p class="time">充值金额：0</p>
+              </div>
+              <span class="gry right">未加入</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">千里浮彩</p>
+                <p class="time">充值金额：2300</p>
+              </div>
+              <span class="red right">+23</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">千里浮彩</p>
+                <p class="time">充值金额：0</p>
+              </div>
+              <span class="gry right">未加入</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">千里浮彩</p>
+                <p class="time">充值金额：2300</p>
+              </div>
+              <span class="red right">+23</span>
+            </li> -->
+          </ul>
+        </section>
+        <section class="section none">
+          <ul id = "twoList">
+           <!--  <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">千里浮彩2</p>
+                <p class="time">充值金额：0</p>
+              </div>
+              <span class="gry right">未加入</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">千里浮彩2</p>
+                <p class="time">充值金额：2300</p>
+              </div>
+              <span class="red right">+23</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">千里浮彩2</p>
+                <p class="time">充值金额：0</p>
+              </div>
+              <span class="gry right">未加入</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">千里浮彩2</p>
+                <p class="time">充值金额：2300</p>
+              </div>
+              <span class="red right">+23</span>
+            </li> -->
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script src="../../script/jquery-3.2.1.js" charset="utf-8"></script>
+  <script type="text/javascript" src = "../../script/public.js"></script>
+  <script type="text/javascript">
+    apiready = function(){//apireadyStart
+
+        // 初始化页面渲染推广人数有效推广二级推广三级推广-------------------------------
+          var userInfo = $api.getStorage('userInfo');
+          var userPhone = userInfo.lophone;
+          // 得到二级推广人的人数-----------------------------------------------------
+          api.ajax({
+              url:Box_URL+'user/getAllInviter?lophone='+userPhone+'&type=2',
+              method:'get'
+          },function(ret,err){
+            console.log(JSON.stringify(ret))
+             if(ret.stateCode == 1){
+                var generalizeTwo = ret.total;
+                $('#generalizeTwo').html(generalizeTwo);
+             };
+          });
+          // 得到二级推广人的人数-----------------------------------------------------
+          // 得到三级推广人的人数------------------------------------------------------
+           api.ajax({
+              url:Box_URL+'user/getAllInviter?lophone='+userPhone+'&type=3',
+              method:'get'
+          },function(ret,err){
+             if(ret.stateCode == 1){
+                var generalizeThree = ret.total;
+                $('#generalizeThree').html(generalizeThree);
+             };
+          });
+          // 得到三级推广人的人数------------------------------------------------------
+          // 得到一级推广人的人数和有效推广--------------------------------------------
+            api.ajax({
+              url:Box_URL+'user/getAllInviter?lophone='+userPhone+'&type=1',
+              method:'get'
+          },function(ret,err){
+             console.log(JSON.stringify(ret));
+             // return;
+             if(ret.stateCode == 1){
+                var generalizePeople = ret.total;
+                $('#generalizePeople').html(generalizePeople);
+               
+                var userNum = 0;
+                if(ret.result1){
+                      var html = "";
+                      var html1 = "";
+                      var resultMsg = ret.result1;
+                      for(var i = 0;i<resultMsg.length;i++){
+                 
+                             var rechargeMoney = resultMsg[i].rechargeMoney;
+                             var louserName = resultMsg[i].louserName;
+                               if(louserName == "无昵称" || louserName == ''){
+                                   louserName = '用户'+resultMsg[i].id.slice(0,5)
+                               }
+                             if(!rechargeMoney){
+                               rechargeMoney = '暂无数据'
+                             }
+                             // 充值金额大于100时算有效推广--------------------------
+                             // 充值金额小于100时算一级推广--------------------------
+                             if(rechargeMoney > 100){
+                                //  userNum++;
+                                //  html1 = html1 + '<li>\
+                                //     <img class="img" src="../../image/tou.png" alt="" />\
+                                //     <div class="cont">\
+                                //       <p class="tit">'+louserName+'</p>\
+                                //       <p class="time">充值金额：'+rechargeMoney+'</p>\
+                                //     </div>\
+                                //     <span class="gry right"></span>\
+                                // </li>'     
+                              }else{
+                                  html = html + '<li>\
+                                      <img class="img" src="../../image/tou.png" alt="" />\
+                                      <div class="cont">\
+                                        <p class="tit">'+louserName+'</p>\
+                                        <p class="time">充值金额：'+rechargeMoney+'</p>\
+                                      </div>\
+                                      <span class="gry right"></span>\
+                                  </li>'     
+                              }
+                      };
+                      
+                      $('#firstList').html(html);
+                      // $('#twoList').html(html1);
+                };
+             };
+          })
+          // 得到一级推广人的人数和有效推广--------------------------------------------
+        
+        //退出返回----------------------------------------------------------------------
+        $(".myPiC").on("click",function(){
+          api.closeWin({
+          });
+        });
+        //退出返回----------------------------------------------------------------------
+        //--------------tab切换推广的人和有效推广------------------------------------
+        $(".title span").on("click",function(){
+            $(this).addClass("bottom").siblings().removeClass("bottom");
+            var i=$(".title span").index($(this));
+            $(".section").eq(i).addClass("block").siblings().removeClass("block");
+            if(i == 1){
+                api.ajax({
+                    url:Box_URL+'user/getInviterNumber?lophone='+userPhone,
+                    method:'get'
+                },function(ret,err){
+                   if(ret.stateCode == 1){
+                       if(ret.map){
+                          var map = ret.map;
+                          var arr = [];
+                          var html2 = '';
+                          $.each(map,function(k,v){
+                              arr.push(v);
+                          });
+                          for(var j = 0;j<arr.length;j++){
+                               var louserName = arr[i].louserName;
+                               if(louserName == "无昵称" || louserName == ''){
+                                   louserName = '用户'+arr[i].id.slice(0,5)
+                               };
+                               var rechargeMoney = arr[i].rechargeMoney;
+                               if(!rechargeMoney){
+                                 rechargeMoney = '暂无数据'
+                               }
+                               html2 = html2 + '<li>\
+                                    <img class="img" src="../../image/tou.png" alt="" />\
+                                    <div class="cont">\
+                                      <p class="tit">'+louserName+'</p>\
+                                      <p class="time">充值金额：'+rechargeMoney+'</p>\
+                                    </div>\
+                                    <span class="gry right"></span>\
+                                </li>'     
+                          }
+                         $('#twoList').html(html2);
+                         $('#generalizeValid').html(arr.length);
+                       }
+                   };
+                });
+            }
+        });
+        //--------------tab切换推广的人和有效推广------------------------------------
+    }//apireadyEnd
+
+
+  </script>
+  </html>

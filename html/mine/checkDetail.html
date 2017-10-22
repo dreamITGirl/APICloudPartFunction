@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>红包记录</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+          header{
+            background-color: #D71D34;
+            height: 7.5rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 666;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           /*tab css样式*/
+           #tab_nav{
+            /*margin-top: 7rem;*/
+             width: 100%;
+             height: 5rem;
+             background: #fff;
+             display: flex;
+             display:-webkit-flex;
+             position: fixed;
+             top: 7rem;
+             z-index: 8888;
+           }
+           #tab_nav li{
+             flex: 1;
+             -webkit-box-flex: 1.0;
+             text-align: center;
+             width:50%;
+           }
+            /*#tab_nav li:first-child{
+              margin-right:5rem;
+              margin-left: 5rem;
+            }*/
+           #tab_nav li a{
+             font-size: 1.4rem;
+             color: #333333;
+             width: 100%;
+             /*width:50%;*/
+             line-height: 5rem;
+             text-align: center;
+             text-decoration: none;
+           }
+           .tab_nav_active{
+             border-bottom: 1px solid #d71d34;
+           }
+
+           /*话题样式*/
+           #tab_content{
+             //float: left;
+             width: 100%;
+             background: #fff;
+             border-top: 0.5rem solid #EFEFEF;
+
+           }
+           /*活动样式*/
+          .tab_ul{
+            width: 100%;
+          }
+          .tab_ul li{
+            width: 100%;
+            height: 6rem;
+            line-height: 6rem;
+            position: relative;
+            border-bottom: 1px solid #efefef;
+          }
+            .tab_ul .headline{
+              position: absolute;
+              left: 3%;
+              line-height: 6rem;
+              font-size: 1.4rem;
+            }
+
+            .tab_ul .money{
+              position: absolute;
+              right: 3%;
+              font-size: 1.3rem;
+              color: #CF203D;
+            }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">账单明细</div>
+                    <div class="myPiC"  onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <!-- <div style="width: 100%;height: 7rem;"></div> -->
+        <ul id="tab_nav">
+          <li class="tab_nav_active"><a href="#" class="tab_nav_a">充值记录</a></li>
+          <li ><a href="#" class="tab_nav_a">提现记录</a></li>
+        </ul>
+        <div></div>
+        <section id="tab_content" style="border-top: 12.5rem solid #efefef;">
+            <ul class="tab_ul tab_append1" >
+
+            </ul>
+            <ul class="tab_ul tab_append2">
+
+            </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script src="../../script/jquery-3.2.1.js" charset="utf-8"></script>
+  <script src="../../script/public.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var numPage=0;
+        var changeType = 1;
+        var userInfo = $api.getStorage('userInfo');
+        $(".tab_append1").show();
+        $(".tab_append2").hide();
+        //充值记录
+        ajaxDetail(1,0);
+        //点击切换事件
+        $("#tab_nav").on("click","li",function(){
+
+          $(this).addClass('tab_nav_active');
+          $(this).siblings().removeClass('tab_nav_active');
+
+          if($(this).index() == 0){
+            //充值记录
+            changeType=1;
+            numPage=0;
+            $('.tab_append1').html('');
+            ajaxDetail(1,0);
+            $(".tab_append1").show();
+            $(".tab_append2").hide();
+          }else {
+            changeType=2;
+            //提现记录
+            numPage=0;
+            $('.tab_append2').html('');
+           ajaxDetail(2,0);
+            $(".tab_append2").show();
+            $(".tab_append1").hide();
+          }
+        })
+        //返回
+        $(".myPiC").on("click",function(){
+          api.closeWin({
+          });
+        })
+
+        // 账单明细ajax
+        function ajaxDetail(type,num){
+          api.ajax({
+              url: baseUrl+'bankcard/getAllRechargeRecord?userId='+userInfo.id+'&type='+type+'&page='+numPage,
+              method: 'get'
+          }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+              html='';
+              if(ret){
+                if (ret.stateCode==1) {
+                  console.log(JSON.stringify(ret));
+                  var list = ret.result_list;
+
+                  numPage = numPage+1;
+
+                  for(var i=0;i<list.length;i++){
+                    var name =list[i].topUpWay,
+                        money = list[i].topUpMoney;
+                    html += '<li>\
+                     <div class="headline">'+name+'\
+                     </div>\
+                     <div class="money">+'+money+'元</div>\
+                    </li>';
+                  }
+                  if(type==1&&numPage<ret.pagetotal+2){
+                    $('.tab_append1').append(html);
+                  }else if(type==2&&numPage<ret.pagetotal+2){
+                    $('.tab_append2').append(html);
+                  }else{
+                    toast('暂无数据');
+                  }
+                }else if(ret.stateCode==0){
+                    toast('暂无数据');
+                } else {
+                  toast('网络错误，请稍后');
+                }//
+              }
+
+          });
+        }
+
+        //上划加载
+        api.addEventListener({
+          name: 'scrolltobottom',
+          extra:{
+           threshold: 0
+         },
+       }, function(ret, err) {
+        ajaxDetail(changeType,0);
+       });
+
+        function openWin(name,url){
+          api.openWin({
+            name:name,
+            url: url,
+          });
+        }
+        function closeWin(){
+          api.closeWin({
+          });
+        }
+      }
+  </script>
+  </html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我创建的房间</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         body{
+           background-color: #f5f5f5;
+         }
+          header{
+            background-color: #D71D34;
+            position: fixed;
+            top: 0rem;
+            z-index: 1111111;
+            width: 100%;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           /*话题样式*/
+           #discover_content{
+             float: left;
+             width: 100%;
+             background: #fff;
+           }
+           .room{
+             width: 100%;
+             float: left;
+             padding-top: 1rem;
+             padding-bottom: 1rem;
+             border-bottom: 1px solid #e1e1e1;
+           }
+           .room_img{
+             float: left;
+             width: 4.05rem;
+             height: 4.05rem;
+             margin-left: 1rem;
+             border-radius: 0.5rem;
+           }
+           .room_num{
+             width: 80%;
+             float: left;
+             margin-left: 1rem;
+             font-size: 1.4rem;
+             color: #333333;
+           }
+           .room_type{
+             width: 80%;
+             float: left;
+             margin-left: 1rem;
+             font-size: 1.3rem;
+             color: #999999;
+             margin-top: 1rem;
+           }
+
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">我创建的房间</div>
+                    <div class="myPiC" onclick="api.closeWin({});"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <div style="width:100%;height:7.5rem;"></div>
+        <section id="discover_content">
+         <!--    <div class="room">
+              <img src="../../image/tou.png" alt="" class="room_img">
+              <p class="room_num"><span>房间:</span><span>1023</span></p>
+              <p class="room_type"><span>类型:</span><span>彩票</span></p>
+            </div>
+
+            <div class="room">
+              <img src="../../image/tou.png" alt="" class="room_img">
+              <p class="room_num"><span>房间:</span><span>1023</span></p>
+              <p class="room_type"><span>类型:</span><span>彩票</span></p>
+            </div> -->
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+           // 根据用户lophone获取加入的房间情况-----------------------------------------------------
+           var userInfo = $api.getStorage('userInfo');
+           api.ajax({
+               url:GAMEDATABASE_URL+'lottery-web/NNgame/findAllRoom?uid=' + userInfo.lophone,
+               method:'get'
+           },function(ret,err){
+               if(ret.lostatus == 1){
+                   var roomName = ['空','牛牛','接龙','扫雷'],html = '',list=ret.list;
+                   if(list){
+                      for(var i=0;i<list.length;i++){
+                       var html = html + '<div class="room" room='+list[i].roomid+'>\
+                                     <img src="../../image/tou.png" alt="" class="room_img">\
+                                     <p class="room_num"><span>房间:</span><span>'+list[i].groupName+'</span></p>\
+                                     <p class="room_type"><span>类型:</span><span>'+roomName[list[i].lotteryId]+'</span></p>\
+                                   </div>'
+                      }
+                   }
+                   $('#discover_content').html(html)
+               }else{
+                  $('#discover_content').html('网络错误请等待......')
+               }
+            });
+            // 根据用户lophone获取加入的房间情况-----------------------------------------------------
+            // 点击跳转对应的房间--------------------------------------------------------------------
+           $('#discover_content').on('click','div',function(){
+                var roomId = $(this).attr('room');
+                api.ajax({
+                   url:GAMEDATABASE_URL+'lottery-web/NNgame/enterRoom?id='+roomId,
+                   method:'get'
+                },function(ret,err){
+                     if(ret){
+                          if(ret.gameroom.roomType == '接龙'){
+                            api.openWin({
+                                name: 'tab_ulGames',
+                                url: '../room/chat_addwin.html',
+                                pageParam: {
+                                    groupId:ret.gameroom.id,
+                                    name:ret.gameroom.roomName,
+                                    NNmultiple: ret.gameroom.gameMultiple,
+                                    type:ret.gameroom.gameway,
+                                    pass:ret.gameroom.password
+                                }
+                            });
+                          }else if(ret.gameroom.roomType == '扫雷'){
+                            api.openWin({
+                                name: 'tab_ulGames',
+                                url: '../room/chat_winLei.html',
+                                pageParam: {
+                                     groupId:ret.gameroom.id,
+                                    name:ret.gameroom.roomName,
+                                    NNmultiple: ret.gameroom.gameMultiple,
+                                    type:ret.gameroom.gameway,
+                                    pass:ret.gameroom.password
+                                }
+                            });
+                          }else{
+                            api.openWin({
+                                name: 'tab_ulGame',
+                                url: '../room/chat_window.html',
+                                pageParam: {
+                                     groupId:ret.gameroom.id,
+                                    name:ret.gameroom.roomName,
+                                    NNmultiple: ret.gameroom.gameMultiple,
+                                    type:ret.gameroom.gameway,
+                                    pass:ret.gameroom.password
+                                }
+                            });
+                          }
+                     }
+                })
+
+           });
+            // 点击跳转对应的房间--------------------------------------------------------------------
+      };
+  </script>
+  </html>

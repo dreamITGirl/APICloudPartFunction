@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css"     href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../css/style.css">
+      <style>
+        html{
+           font-size: 10px;
+         }
+         body{
+           background: #F7F7F7;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             right: 2.6%;
+             top: 0rem;
+             font-size: 1.6rem;
+             width: 10%;
+             padding-top: 4.1rem;
+             height: 7.5rem;
+           }
+
+           /*用户名密码输入框*/
+           .input_body{
+                margin: 1rem auto;
+                width: 95%;
+           }
+           .input_name{
+                height: 4.9rem;
+                margin-bottom: 0.5rem;
+                background: #fff;
+                position: relative;
+           }
+            .input_name input{
+                position: absolute;
+                left: 12%;
+                width: 80%;
+                border: none; 
+                font-size: 1.3rem;
+                line-height: 4.9rem;
+                outline: none;
+            }
+           .icon{
+             position: absolute;
+             left: 1.6%;
+             top: 0rem;
+             font-size: 1.6rem;
+             width: 10%;
+             padding-top: 1.3rem;
+             height: 7.5rem;
+           }
+           .icon img{
+                width: 2rem;height: 2rem;
+           }
+
+            /*选则框*/
+            .check_choose{
+                margin-top: 1.5rem;
+                height: 1.8rem;
+                line-height: 1.8rem;
+                font-size: 1.3rem;
+                color: #8A8A8A;
+            }
+            .check_choose .check_text{
+                left: 10%;position: absolute;
+            }
+            .check_choose .check_btn{
+                width: 10%;position: absolute;left: 1.2%;
+            }
+            .check_choose .check{
+                width: 1.8rem;height: 1.8rem;
+            }
+            .login_btn{
+                margin-top: 1rem;text-align: center;
+                background: #D71D34;line-height: 4.9rem;
+                color: #fff;font-size: 1.5rem;
+            }
+
+            .more_login{
+                height: 1.4rem;margin-top:2.5rem;
+                font-size:1.35rem;position: relative;
+                color: #999999
+            }
+            .other_login{
+                position: absolute;left: 1.5%;
+            }
+            .not_login{
+                position: absolute;right: 1.5%;
+            }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">注册</div>
+                    <div class="myPiC">
+                        登录
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <section class="input_body">
+            <div class="input_name">
+                <input type="text" placeholder="账号（6-16位数字或字母）">
+                <div class="icon">
+                    <img src="../icon/username.png" alt="">
+                </div>
+            </div>
+            <div class="input_name">
+                <input type="password" placeholder="密码（6-16位数字或字母）">
+                <div class="icon">
+                    <img src="../icon/yaoshi.png" alt="">
+                </div>
+            </div>
+            <div class="input_name">
+                <input type="text" placeholder="推荐人ID">
+                <div class="icon">
+                    <img src="../icon/username.png" alt="">
+                </div>
+            </div>
+            <div class="input_name login_btn">
+                注册
+            </div>
+            <div class="more_login">
+                <div class="other_login"><a href="telRegister.html">使用手机号注册</a></div>
+                <div class="not_login">先随便看看</div>
+            </div>
+        </section>
+        <div style="width: 50%;height: 7rem;background: red">
+          <img src='' id='erNum'>
+        </div>
+    </div>
+    </body>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../script/public.js"></script>
+    <script type="text/javascript">
+        apiready = function(){
+          var ret = [{"id":"c1b63352f33b47af95d0668b5d4345ce","redId":"8129545173e24008960bfb529e8b821a","uid":"2ccddae416264a1993b213fce5dded47","uname":"无昵称","uImage":"img","price":0.67,"gname":"","bunko":"-4.00","status":0,"bankerRed":"0","getTime":"2017-09-13 07:41:16","redStatus":"1"},{"id":"77214f847ed048c9aa99393463b3aa28","redId":"8129545173e24008960bfb529e8b821a","uid":"13bf61bc3fb0494da740dec215ddba39","uname":"新了号","uImage":"images/-2a517b38801eeb18.jpg","price":0.13,"gname":"牛4","bunko":"0.000","status":4,"bankerRed":"1","getTime":"2017-09-13 07:39:27","redStatus":"1"},{"id":"3ea0ada1c7d844ff916a6335244337ee","redId":"8129545173e24008960bfb529e8b821a","uid":"8ce58c8d1c1741aba5f80d13c0aa89ae","uname":"嘿嘿","uImage":"images/1505117516968.jpg","price":0.73,"gname":"","bunko":"-4.00","status":0,"bankerRed":"0","getTime":"2017-09-13 07:41:35","redStatus":"1"},{"id":"8d1035ea91f14752854f057d78cdfa81","redId":"8129545173e24008960bfb529e8b821a","uid":"bc0d877497584e66a5915636797a1f74","uname":"bc0d877497584e66a5915636797a1f74","uImage":"img","price":0.92,"gname":"","bunko":"-4.00","status":0,"bankerRed":"0","getTime":"2017-09-13 07:41:29","redStatus":"1"},{"id":"e6745ca42df141a185fbd5a00ea6ebf1","redId":"8129545173e24008960bfb529e8b821a","uid":"ad0bcf5143564f57bef9d7b3b66609e1","uname":"ad0bcf5143564f57bef9d7b3b66609e1","uImage":"img","price":0.55,"gname":"对子","bunko":"+12.0","status":12,"bankerRed":"0","getTime":"2017-09-13 07:41:44","redStatus":"1"}];
+          alert(ret[3].uname)
+          var rong = api.require('rongCloud2');
+          rong.init(function(ret, err) {
+            alert(JSON.stringify(ret));
+            alert(JSON.stringify(err));
+            if (ret.status == 'error')
+              api.toast({ msg: err.code });
+          });
+
+          rong.connect({
+            token: 'MZotmBtFAh5dMHljrQdSoi1S0OWc7GiQ7PFTu/Rami6JyhRW/hDfzNDKCqjq+DN5CLyGjcRvkSMPQAJ1f8JavWm/7PVzOrvA'
+          },function(ret, err) {
+              alert(JSON.stringify(ret));
+              alert(JSON.stringify(err));
+              if (ret.status == 'success') api.toast({ msg: ret.result.userId });
+            });
+
+            var FNScanner = api.require('FNScanner');
+            FNScanner.encodeImg({
+              content: '5665884545d51555215415511',
+              saveToAlbum: true,
+              saveImg: {
+                path: 'fs://album.png',
+                w: 200,
+                h: 200
+              }
+            }, function(ret, err) {
+              if (ret.status) {
+                // $('#erNum').attr('src','fs://'+ret.imgPath);
+                $('#erNum').attr('src','fs:'+ret.albumPath);
+                console.log(baseUrl+ret.imgPath);
+                alert(JSON.stringify(ret));
+              } else {
+                alert(JSON.stringify(err));
+              }
+            });   
+            /*var FNScanner = api.require('FNScanner');
+            FNScanner.openScanner({
+              autorotation: true
+            }, function(ret, err) {
+              if (ret) {
+                var content = ret.content;
+                alert(JSON.stringify(ret));
+              } else {
+                alert(JSON.stringify(err));
+              }
+            });*/
+/*            $('.check').click(function(){
+                if($(this).attr('value')==1){
+                    $(this).attr('src','../icon/check.png');
+                    $(this).attr('value','0');
+                }else{
+                    $(this).attr('src','../icon/checked.png');
+                    $(this).attr('value','1');
+                }
+            });*/
+
+            //登录
+/*            var login = $api.dom('.myPiC');
+            $api.addEvt(login, 'click', function(){
+                api.openWin({
+                    name: 'login',
+                    url: 'login.html'
+                    reload:true
+                });
+            });*/
+            //使用手机号注册
+            /*var telReg = $api.dom('.other_login');
+            $api.addEvt(telReg,'click',function(){
+                api.openWin({
+                    name: 'telReg',
+                    url: 'telRegister.html'
+                });
+            });*/
+        };
+    </script>
+</html>

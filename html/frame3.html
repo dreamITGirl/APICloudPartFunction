@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+         html{
+           font-size: 10px;
+         }
+         .person{
+           width: 100%;
+           height: 10rem;
+         }
+         .person li{
+           float: left;
+           height:10rem;
+         }
+        .my_avatar {
+           width: 30%;
+        }
+        .my_info{
+          width: 60%;
+        }
+        .nickname{
+          width: 100%;
+          height: 5rem;
+          line-height: 8rem;
+          font-size: 1.5rem;
+          margin-bottom:0.5rem;
+        }
+        .nickname img{
+          width: 1.5rem;
+          height: 1.5rem;
+          margin-left: 1rem;
+        }
+        .grade{
+           width: 70%;
+           position: relative;
+           left: 0rem;
+           top:0rem;
+           margin-bottom:0.5rem;
+        }
+        .grade_num{
+           font-size: 1.1rem;
+        }
+        .go_right{
+          width: 10%;
+        }
+        .go_right img{
+          margin-top: 4rem;
+          width: 1rem;
+          height: 2rem;
+          display: block;
+          margin-left: 1rem;
+}
+  /* 字体颜色*/
+        .FScolor{
+          color: #333;
+          font-size:1.4rem;
+        }
+        .borderBottom{
+          border-bottom: 1px solid #EFEFEF;
+        }
+        .borderTopBto{
+          border-top: 0.5rem solid #EFEFEF;
+          border-bottom: 0.5rem solid #EFEFEF;
+        }
+
+        .setInfo,.takeOut{
+          width: 100%;
+          height: 5rem;
+          line-height: 5rem;
+        }
+        .BigTreasureBox{
+          width: 100%;
+        }
+        .BigTreasureBox li{
+          width: 100%;
+          height: 5rem;
+          line-height: 5rem;
+        }
+        .InforCollec{
+          width: 100%;
+        }
+        .InforCollec li,.features li{
+            width: 100%;
+            height: 5rem;
+            line-height: 5rem;
+        }
+        .takeOut{
+           text-align: center;
+           border-top: 1rem solid #EFEFEF;
+           border-bottom: 1rem solid #EFEFEF;
+        }
+      .left_icon{
+        width: 13%;
+        height: 5rem;
+        float: left;
+      }
+      .left_icon img {
+        display: block;
+        width: 2rem;
+        height: 2rem;
+        margin-top: 1.4rem;
+        margin-left: 1.5rem;
+      }
+     .character{
+        width: 87%;
+        height: 5rem;
+        float: left;
+     }
+     .treasureBox span{
+       float: left;
+       width: 90%;
+       height: 5rem;
+     }
+     .treasureBox img{
+        float: left;
+        display: block;
+        width: 2rem;
+        height: 2rem;
+        margin-top: 1.4rem;
+     }
+     /*分享样式*/
+    /* .share{
+        height: 18.75rem;
+        background-color: #fff;
+        position: fixed;
+        bottom: 0;
+        z-index: 33333;
+        display: none;
+
+     }
+     .word{
+        margin-top: 2rem;
+        margin-bottom: : 2rem;
+        font-size: 1.4rem;
+        color: #797979;
+        text-align: center;
+     }
+     .item{
+        margin-left: 2rem;
+        float: left;
+        width:5rem;
+     }
+     .qx{
+        width: 100%;
+        height: 5rem;
+        line-height: 5rem;
+        float: left;
+        font-size: 1.8rem;
+        color: #000;
+        text-align: center;
+        margin-top: 2.1rem;
+        border-top: 1px solid #F0F0F0;
+     }
+     .shadow{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top:0;
+        left:0;
+        z-index: 1000;
+        background-color: #666;
+        opacity: 0.8;
+        display: none;
+     }*/
+</style>
+</head>
+<body>
+   <!-- 头像部分 -->
+       <div class="person">
+          <ul>
+            <li class="my_avatar">
+                <img src="../image/img3.jpg" id="userLogo" style="width: 8rem;height: 8rem;display: block;border-radius: 5rem;margin-top: 1rem;margin-left:1.5rem;" alt="">
+            </li>
+            <li class="my_info" id="userMore" style="display: none">
+                  <div class="nickname"><span id="userName">万丈红尘相思苦</span><img class='imgUrl' src="../icon/mine/wode_dengji.png" alt=""> </div>
+                  <div class="grade">
+                    <span class="impression" style="width: 100%;height: 1rem;background: #D9D9D9;border-radius: 10px;position:relative;top:0rem;left:0rem;"></span>
+                    <span class="topcolor" style="width: 50%;height: 1rem;background: #D81E35;border-radius: 10px;position:absolute;top:0rem;left:0rem;"></span>
+                  </div>
+                  <div class="grade_num">1200/3000</div>
+            </li>
+            <li class="my_info" id="notLogin"  style="display: none">
+                  <div class="nickname" style="line-height: 10rem;"><span class="userLogin">登录</span>/<span class="userRegister">注册</span></div>
+            </li>
+            <li class="go_right">
+               <img src="../icon/mine/wode_jiantou.png" alt="">
+            </li>
+          </ul>
+       </div>
+<!-- 我的宝箱 -->
+      <div class="BigTreasureBox FScolor borderTopBto">
+          <ul>
+            <li id="cowryBox">
+               <div class="left_icon"><img src="../icon/mine/wode_xiangzi.png" alt=""></div>
+               <div class="character treasureBox">
+                  <span >大宝箱</span>
+                  <img class="" src="../icon/mine/wode_baoxiang.png" alt="">
+               </div>
+            </li>
+            <li id="dayTask">
+               <div class="left_icon"><img src="../icon/mine/wode_renwu.png" alt=""></div>
+               <div class="character treasureBox" style="position: relative;">
+                  <span >每日任务</span>
+                  <div style="position: absolute;top: 2rem;right: 6%;background: red;width: 1rem;height: 1rem;border-radius: 0.5rem;"></div>
+                  <!-- <img class="" src="../icon/mine/wode_baoxiang.png" alt=""> -->
+               </div>
+            </li>
+          </ul>
+      </div>
+
+    <div class="InforCollec FScolor ">
+          <ul>
+            <li class="borderBottom" id="message">
+               <div class="left_icon"><img src="../icon/mine/wode_xiaoxi.png" alt=""></div>
+               <div class="character">我的消息</div>
+            </li>
+            <li id="collect">
+               <div class="left_icon"><img src="../icon/mine/wode_shouc.png" alt=""></div>
+               <div class="character">我的收藏</div>
+            </li>
+            <!-- <li id="topic">
+               <div class="left_icon"><img src="../icon/mine/wode_fbht.png" alt=""></div>
+               <div class="character">发布的话题</div>
+            </li> -->
+          </ul>
+      </div>
+<!-- 功能合计 -->
+      <div class="features borderTopBto FScolor">
+            <ul>
+              <li class="borderBottom" id="account">
+                 <div class="left_icon"><img src="../icon/mine/wode_zhanghu.png" alt=""></div>
+                 <div class="character">我的账户</div>
+              </li>
+              <li class="borderBottom" >
+                 <div class="left_icon"><img src="../icon/mine/wode_jifen.png" alt=""></div>
+                 <div class="character myIntegral">我的积分</div>
+              </li>
+              <li class="borderBottom" id="myProp">
+                 <div class="left_icon"><img src="../icon/mine/wode_douju.png" alt=""></div>
+                 <div class="character">我的道具</div>
+              </li>
+              <li class="borderBottom" id="room">
+                 <div class="left_icon"><img src="../icon/mine/wode_fangjian.png" alt=""></div>
+                 <div class="character">创建的房间</div>
+              </li>
+              <li class="borderBottom" id="redPacket">
+                 <div class="left_icon"><img src="../icon/mine/wode_hbjl.png" alt=""></div>
+                 <div class="character">红包记录</div>
+              </li>
+                <li class="borderBottom" id="BoxPacket">
+                 <div class="left_icon"><img src="../icon/mine/wode_hbjl.png" alt=""></div>
+                 <div class="character">宝箱记录</div>
+              </li>
+              <li class="borderBottom" id="service">
+                 <div class="left_icon"><img src="../icon/mine/wode_kefu.png" alt=""></div>
+                 <div class="character">平台客服</div>
+              </li>
+              <li class="borderBottom myGeneralize" >
+                 <div class="left_icon"><img src="../icon/mine/wode_tuiguang.png" alt=""></div>
+                 <div class="character">我的推广</div>
+              </li>
+              <li class="borderBottom myShare" >
+                 <div class="left_icon"><img src="../icon/mine/wod_fenxianggeihaoyou.png" alt=""></div>
+                 <div class="character" onclick="">分享给好友</div>
+              </li>
+            </ul>
+      </div>
+      <div class="setInfo FScolor">
+          <ul>
+            <li class="set">
+               <div class="left_icon"><img src="../icon/mine/wode_shezhi.png" alt=""></div>
+               <div class="character">设置</div>
+            </li>
+          </ul>
+      </div>
+
+      <div class="takeOut FScolor" id="takeOut">退出</div>
+<!-- 分享遮罩层 -->
+      <!-- <div class="shadow">
+
+      </div>
+      <div class="share" style="text-align: center;overflow:hidden;">
+        <div class="word">分享</div><br>
+        <div class="item">
+            <a href="#"></a>
+            <img src="../icon/mine/weibo.png" alt="" style="width: 4.75rem;height:4.75rem">
+            <span>微博</span>
+        </div>
+        <div class="item">
+            <a href="#"></a>
+            <img src="../icon/mine/weixin1.png" style="width: 4.75rem;height:4.75rem">
+            <span>微信</span>
+        </div>
+        <div class="item">
+            <a href="#"></a>
+            <img src="../icon/mine/qq1.png" alt="" style="width: 4.75rem;height:4.75rem">
+            <span>QQ</span>
+        </div>
+        <div class="item">
+            <a href="#"></a>
+            <img src="../icon/mine/qqkj1.png" alt="" style="width: 4.75rem;height:4.75rem">
+            <span>QQ空间</span>
+        </div>
+        <div class="item">
+            <a href="#"></a>
+            <img src="../icon/mine/firendQ.png" alt="" style="width: 4.75rem;height:4.75rem">
+            <span>朋友圈</span>
+        </div>
+        <div class="qx">取消</div>
+      </div> -->
+
+</body>
+<script src="../script/api.js" charset="utf-8"></script>
+<script src="../script/jquery-3.2.1.js" charset="utf-8"></script>
+<script src="../script/jquery-touch.js" charset="utf-8"></script>
+<script src="../script/public.js" charset="utf-8"></script>
+<script type="text/javascript">
+        apiready = function() {
+          //用户退出登录
+
+          var takeOut = $api.dom('#takeOut');
+          $api.addEvt(takeOut,'click',function(){
+            $api.setStorage('userInfo', null); //清除登录的用户信息
+            api.sendEvent({
+              name: 'logOut',
+              extra: {
+               userInfo : $api.getStorage('userInfo')
+             }
+           });
+            setTimeout(function(){
+              api.closeWin({
+               name:"index"
+             });
+              api.openWin({
+                name: 'index',
+                url: '../index.html'
+              });
+            },500)
+          });
+
+          //用户基本信息
+          var userInfo = $api.getStorage("userInfo");
+          if(userInfo !='' && userInfo != null){
+            $('#userName').html(userInfo.lophone);
+            console.log(JSON.stringify(userInfo));
+            if(userInfo.loimg != "img"){
+              $('#userLogo').attr('src',userInfo.loimg);
+            }
+            $('#notLogin').hide();
+            $('#takeOut').show();
+            $('#userMore').show();
+            allClick();
+          }else{
+            $('li:not(.my_info)').click(function(){
+              toast("你还没有登录，请先登录");
+            });
+            $('#userLogo').attr('src','../icon/userLogo.png');
+            $('#notLogin').show();
+            $('#takeOut').hide();
+            $('#userMore').hide();
+          }
+
+          //用户信息修改监听事件
+          api.addEventListener({
+              name: 'userInfo'
+          }, function(ret, err){
+              if( ret ){
+                  api.ajax({
+                      url: DATABASE_URL+'lottery-web/user/getUserById?id='+userInfo.id,
+                      method: 'post'
+                  },function(ret, err){
+                      if (ret) {
+                          console.log( JSON.stringify( ret ) );
+                          $api.setStorage('userInfo',ret.user);  //  保存用户信息  ，记录用户的登录状态
+                      } else {
+                          alert( JSON.stringify( err ) );
+                      }
+                  });
+
+              }else{
+                   alert( JSON.stringify( err ) );
+              }
+          });
+
+          //登录
+          $('.userRegister').on('click',function(){
+            openWin("telRegister","telRegister.html");
+          });
+          //注册
+          $('.userLogin').on('click',function(){
+            openWin("login","login.html");
+          });
+
+          function allClick(){
+            //用户基本信息点击事件
+            $('#userMore').on('click',function(){
+              openWin("myInfo","./mine/myInfo.html");
+            });
+            //红包
+            $("#redPacket").on("click",function(){
+                openWin("redPacket","./mine/redPacket.html")
+            });
+            // 宝箱记录
+             $("#BoxPacket").on("click",function(){
+                openWin("redPacket","./mine/BoxPacket.html")
+            });
+            // 大宝箱
+            var cowryBox = $api.dom('#cowryBox');
+            $api.addEvt(cowryBox, 'click', function(){
+              openWin('cowryBox','./mine/openCowryBox.html');
+            });
+
+            //我的账号
+            var account = $api.dom('#account');
+            $api.addEvt(account, 'click', function(){
+              openWin('account','./mine/myAccount.html');
+            });
+
+            //我的道具
+            var myProp = $api.dom('#myProp');
+            $api.addEvt(myProp, 'click', function(){
+              openWin('myProp','./room/myProp.html');
+            });
+
+            //每日任务
+            var dayTask = $api.dom('#dayTask');
+            $api.addEvt(dayTask, 'click', function(){
+              openWin('everydayTask','./mine/everydayTask1.html');
+            });
+            //打开收藏
+            var collect = $api.dom('#collect');
+            $api.addEvt(collect, 'click', function(){
+              openWin('collect','./mine/collect.html');
+            });
+            //打开消息
+            var message = $api.dom('#message');
+            $api.addEvt(message, 'click', function(){
+              openWin('message','./mine/myMessage.html');
+            });
+            //打开发布的话题
+            // var topic = $api.dom('#topic');
+            // $api.addEvt(topic, 'click', function(){
+            //   openWin('message','./mine/topic.html');
+            // });
+            //打开创建的房间
+            var room = $api.dom('#room');
+            $api.addEvt(room, 'click', function(){
+              openWin('room','./mine/myRoom.html');
+            });
+            //打开客服
+            var service =$api.dom('#service');
+            $api.addEvt(service, 'click', function(){
+              openWin('service','./mine/chatService_win.html');
+            });
+            //-----------我的积分按钮操作-----------
+            $(".myIntegral").on("click",function(){
+              openWin('myIntegral','./mine/myIntegral.html');
+            })
+          //--------------我的推广按钮操作---------------
+            $(".myGeneralize").on("click",function(){
+              openWin('generalize','./mine/generalize.html');
+            })
+            //-------------分享给朋友操作-----------
+            $('.myShare').on("click",function(){
+               // $('.share').show();
+               // $('.shadow').show();
+               shareAction(11458);
+               var myshare=$api.getStorage('myshareR');
+               if(myshare){
+                $api.setStorage('myshareR',myshare++);
+               }
+               else{
+                $api.setStorage('myshareR',1);
+               }
+               console.log($api.getStorage('myshareR'));
+
+
+            })
+            // $('.qx').on("click",function(){
+            //    $('.share').hide();
+            //    $('.shadow').hide();
+
+            // })
+
+
+            //--------------设置按钮操作-----------
+            $(".set").on("click",function(){
+              openWin('setPage','./mine/setPage.html');
+            })
+          }
+  //
+          function openWin(name,url){
+              api.openWin({
+                  name:name,
+                  url: url,
+              });
+          }
+
+           function shareAction(_text){
+             var sharedModule = api.require('shareAction');
+             sharedModule.share({
+              text:_text,
+              type:'text'
+            });
+          }
+
+          //下拉刷新模块
+          api.setCustomRefreshHeaderInfo({
+              bgColor: '#C0C0C0'
+            }, function() {
+              //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+              //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+              window.location.reload();
+          });
+          $("dom").on('touchstart',function(){
+            api.refreshHeaderLoading();
+          })
+          api.refreshHeaderLoadDone();
+
+        }
+
+</script>
+</html>

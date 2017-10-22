@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>title</title>
+      <link rel="stylesheet" type="text/css"     href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../css/style.css">
+      <style>
+        html{
+           font-size: 10px;
+         }
+         body{
+           background: #F7F7F7;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             right: 2.6%;
+             top: 0rem;
+             font-size: 1.6rem;
+             width: 10%;
+             padding-top: 4.1rem;
+             height: 7.5rem;
+           }
+
+           /*用户名密码输入框*/
+           .input_body{
+                margin: 2.5rem auto;
+                width: 95%;
+           }
+           .input_name{
+                height: 4.9rem;
+                margin-bottom: 0.5rem;
+                background: #fff;
+                position: relative;
+           }
+            .input_name input{
+                position: absolute;
+                left: 12%;
+                width: 80%;
+                border: none;
+                font-size: 1.3rem;
+                line-height: 4.9rem;
+                outline: none;
+            }
+           .icon{
+             position: absolute;
+             left: 1.6%;
+             top: 0rem;
+             font-size: 1.6rem;
+             width: 10%;
+             padding-top: 1.3rem;
+             height: 7.5rem;
+           }
+
+            /*选则框*/
+            .check_choose{
+                margin-top: 1.5rem;
+                height: 1.8rem;
+                line-height: 1.8rem;
+                font-size: 1.3rem;
+                color: #8A8A8A;
+            }
+            .check_choose .check_text{
+                left: 10%;position: absolute;
+            }
+            .check_choose .check_btn{
+                width: 10%;position: absolute;left: 1.2%;
+            }
+            .check_choose .check{
+                width: 1.8rem;height: 1.8rem;
+            }
+            .login_btn{
+                margin-top: 2.2rem;text-align: center;
+                background: #D71D34;line-height: 4.9rem;
+                color: #fff;font-size: 1.5rem;
+            }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">登录</div>
+                    <div class="myPiC">
+                        注册
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <section class="input_body">
+            <div class="input_name">
+                <input type="text" placeholder="账号" id="phone">
+                <div class="icon">
+                    <img src="../icon/username.png" alt="" style=" width: 2rem;height: 2rem;">
+                </div>
+            </div>
+            <div class="input_name">
+                <input type="password" placeholder="密码" id="password" >
+                <div class="icon">
+                    <img src="../icon/yaoshi.png" alt="" style=" width: 2rem;height: 2rem;">
+                </div>
+            </div>
+            <div class="check_choose">
+                <div class="check_text">记住账号和密码</div>
+                <div class="check_btn">
+                    <img src="../icon/check.png" value="0" class="check">
+                </div>
+            </div>
+            <div class="input_name login_btn">
+                登录
+            </div>
+        </section>
+    </div>
+    </body>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../script/public.js"></script>
+    <script src="../script/keyBoard.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        apiready = function(){
+            $('.check').click(function(){
+                if($(this).attr('value')==1){
+                    $(this).attr('src','../icon/check.png');
+                    $(this).attr('value','0');
+                }else{
+                    $(this).attr('src','../icon/checked.png');
+                    $(this).attr('value','1');
+                }
+            });
+            //点击登录
+            var login = $api.dom('.login_btn');
+            //验证手机号
+            var tel = /^1[34578]\d{9}$/;
+
+            $api.addEvt(login,'click',function(){
+              var phone = $api.dom('#phone'),
+                  password = $api.dom('#password');
+              var phoneVal = $api.val(phone),
+                  passwordVal = $api.val(password);
+              //console.log(phoneVal+"=="+passwordVal);
+              // alert(11);
+              if(phoneVal == '' || passwordVal == ''){
+                toast('输入不能为空');
+              }else if(!tel.test(phoneVal)){
+                toast('手机号格式错误');
+              }else{
+                loginFun(phoneVal,passwordVal);
+              }
+            });
+            //登录
+            function loginFun(phone,pass){
+              var num = Math.random()*10000;
+              console.log(phone+' '+pass);
+              api.ajax({
+                  // url: baseUrl+'user/login?phone='+phone+'&passWord='+pass,
+                  // url:DATABASE_URL+'lottery-web/user/login?phone='+phone+'&passWord='+pass+'&num='+num,
+                  url:propBaseUrl+'user/login?phone='+phone+'&passWord='+pass+'&num='+num,
+                  // url:propBaseUrl+'lottery-web/user/login?phone='+phone+'&passWord='+pass+'&num='+num,
+                  method: 'get'
+              }, function(ret, err) {
+                if(ret){
+                  if (ret.successcode == 0) {
+                    $api.setStorage('userInfo',ret.user);  //  保存用户信息  ，记录用户的登录状态
+                    $api.setStorage('clickRedNum','');
+                      // 模拟做任务判断一下任务量里面每日的更新
+                        // var data = new Date();
+                        // var str = ''
+                        // str = str+data.getFullYear()+data.getMonth()+data.getDate();
+                       // alert(ret.user.id)
+                      // 模拟做任务判断一下任务量里面每日的更新
+                      var userIdMsg = ret.user.id.substring(0,22);
+                      console.log(ret.user.id.substring(0,22));
+                      // $api.setStorage(userIdMsg,'');
+                      // return;
+                      // 测试登录存储--------------
+                       var JudgeLogin = $api.getStorage(userIdMsg);
+                       console.log(JSON.stringify(JudgeLogin))
+                       console.log(Boolean(JudgeLogin));
+                       if(JudgeLogin){
+                          alert('已经存了信息')
+                       }else{
+                          alert('没存过信息重新存信息')
+                          var redObj = {};
+                          $api.setStorage(userIdMsg,redObj);
+                       }
+                      console.log(JSON.stringify(ret.user))
+                    // 测试登录存储--------------
+
+
+                    // 登陆成功以后存储房间里的基本信息---------------------------------------
+                    var slideMessage = "slideMessage"
+                    var newArr = [];
+                    for(var i = 0;i<7;i++){
+                        newArr[i]={
+                          "groupId":false,
+                          "gametypecode":false,
+                          "roomName":false,
+                          "gameMultiple":false,
+                          "gameway":false,
+                          "password":false,
+                          "createType":false,
+                          'index':false
+                        }
+                    }
+                    $api.setStorage(slideMessage,newArr);
+                      // 登陆成功以后存储房间里的基本信息---------------------------------------
+                     // console.log(ret.user.id)
+                     api.ajax({
+                         url:GAMEDATABASE_URL+'lottery-web/NNgame/findRedbyuser?uid='+ret.user.id,
+                         method:'get'
+                     },function(ret,err){
+                       console.log(JSON.stringify(ret));
+                       var clickRedNum = [];//存储最近点过的红包
+                       if(ret){
+                         if(ret.code == 1){
+                             for(var i = 0;i<ret.list.length;i++){
+                              if(ret.list[i].redId){
+                                 clickRedNum.push(ret.list[i].redId)
+                               }
+                             }
+                         }
+                       }
+                      //  console.log(clickRedNum[0]);
+                      //  console.log(clickRedNum)
+                      if(clickRedNum.length>1000){
+                           clickRedNum.splice(0,500);
+                      }
+                       $api.setStorage('clickRedNum',clickRedNum);
+                     });
+                     // var clickRedNum = ['cd82e5e24c814883b47c08489182a513','e5458772a1924c8b97e16ba40f35396b','a804d29551804e25b685fd2f7e851f58','6e888e4445364429905473efc484e4ed','b5666b3d7f224e1fb5e62b9c7aa92d91','30d34287a95e451eb430f9cef24fe880']
+                    api.sendEvent({
+                      name: 'doLogin',
+                      extra: {
+                       userInfo:$api.getStorage("userInfo")
+                     }
+                   });
+                    var numbers = Math.random()*100;
+                      api.openWin({
+                        name: 'index',
+                        url: '../index.html?num='+numbers,
+                        reload:true
+                      });
+                  } else {
+                    toast('用户名或密码错误');
+                  }
+                }
+                  // if (ret.successcode == 0) {
+                  //   $api.setStorage('userInfo',ret.user);  //  保存用户信息  ，记录用户的登录状态
+                  //   $api.setStorage('clickRedNum','');
+                  //     // 模拟做任务判断一下任务量里面每日的更新
+                  //       // var data = new Date();
+                  //       // var str = ''
+                  //       // str = str+data.getFullYear()+data.getMonth()+data.getDate();
+                  //      // alert(ret.user.id)
+                  //     // 模拟做任务判断一下任务量里面每日的更新
+                  //     var userIdMsg = ret.user.id.substring(0,22);
+                  //     console.log(ret.user.id.substring(0,22));
+                  //     // $api.setStorage(userIdMsg,'');
+                  //     // return;
+                  //     // 测试登录存储--------------
+                  //      var JudgeLogin = $api.getStorage(userIdMsg);
+                  //      console.log(JSON.stringify(JudgeLogin))
+                  //      console.log(Boolean(JudgeLogin));
+                  //      if(JudgeLogin){
+                  //         alert('已经存了信息')
+                  //      }else{
+                  //         alert('没存过信息重新存信息')
+                  //         var redObj = {};
+                  //         $api.setStorage(userIdMsg,redObj);
+                  //      }
+                  //     console.log(JSON.stringify(ret.user))
+                  //   // 测试登录存储--------------
+                  //
+                  //
+                  //   // 登陆成功以后存储房间里的基本信息---------------------------------------
+                  //   var slideMessage = "slideMessage"
+                  //   var newArr = [];
+                  //   for(var i = 0;i<7;i++){
+                  //       newArr[i]={
+                  //         "groupId":false,
+                  //         "gametypecode":false,
+                  //         "roomName":false,
+                  //         "gameMultiple":false,
+                  //         "gameway":false,
+                  //         "password":false,
+                  //         "createType":false,
+                  //         'index':false
+                  //       }
+                  //   }
+                  //   $api.setStorage(slideMessage,newArr);
+                  //     // 登陆成功以后存储房间里的基本信息---------------------------------------
+                  //    // console.log(ret.user.id)
+                  //    api.ajax({
+                  //        url:GAMEDATABASE_URL+'lottery-web/NNgame/findRedbyuser?uid='+ret.user.id,
+                  //        method:'get'
+                  //    },function(ret,err){
+                  //      console.log(JSON.stringify(ret));
+                  //      var clickRedNum = [];//存储最近点过的红包
+                  //      if(ret.code == 1){
+                  //          for(var i = 0;i<ret.list.length;i++){
+                  //           if(ret.list[i].redId){
+                  //              clickRedNum.push(ret.list[i].redId)
+                  //            }
+                  //          }
+                  //      }
+                  //     //  console.log(clickRedNum[0]);
+                  //     //  console.log(clickRedNum)
+                  //     if(clickRedNum.length>1000){
+                  //          clickRedNum.splice(0,500);
+                  //     }
+                  //      $api.setStorage('clickRedNum',clickRedNum);
+                  //    });
+                  //    // var clickRedNum = ['cd82e5e24c814883b47c08489182a513','e5458772a1924c8b97e16ba40f35396b','a804d29551804e25b685fd2f7e851f58','6e888e4445364429905473efc484e4ed','b5666b3d7f224e1fb5e62b9c7aa92d91','30d34287a95e451eb430f9cef24fe880']
+                  //   api.sendEvent({
+                  //     name: 'doLogin',
+                  //     extra: {
+                  //      userInfo:$api.getStorage("userInfo")
+                  //    }
+                  //  });
+                  //   var numbers = Math.random()*100;
+                  //     api.openWin({
+                  //       name: 'index',
+                  //       url: '../index.html?num='+numbers,
+                  //       reload:true
+                  //     });
+                  // } else {
+                  //   toast('用户名或密码错误');
+                  // }
+              });
+            }
+            //注册
+            var register = $api.dom('.myPiC');
+            $api.addEvt(register, 'click', function(){
+                api.openWin({
+                    name: 'telregister',
+                    url: 'telRegister.html'
+                });
+            });
+            //  监听键盘的高度变化
+            ListenerkeyBoard(function(data,height){
+               var code = data.keyBoardStatus;
+               if(code==1){
+                 $api.setStorage('openHeight', height);
+               }else if (code==0) {
+                 $api.setStorage('closeHeight', height);
+               }
+            })
+        };
+
+
+    </script>
+</html>

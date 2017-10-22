@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>北京赛车冠亚和</title>
+
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/chat_lotteryB.css">
+      <link rel="stylesheet" href="../../css/swiper.css">
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical" >
+      <header id="header">
+        <ul>
+            <li class="border-b mine" >
+                <div class="myMine">北京赛车</div>
+                <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                <!-- <div class="myService myMenu messageIcon"></div> -->
+                <div class="myService" id="myMenu" style="width:15%">
+                   保存
+                </div>
+            </li>
+        </ul>
+      </header>
+      <!-- 冠亚和 -->
+      <div class="swiper-container" style="height:100%;overflow;auto;position:absolute;top:8rem;" id="myDiv">
+        <div class="swiper-wrapper">
+            <!-- 冠亚和 -->
+            <div class="swiper-slide dragon_tiger_tie">
+                 <div class="dragon_tiger_tie_title" style="font-size:1.5rem">
+                    冠亚和
+                  </div>
+                 <ul class="dragon_tiger_tie_content">
+                   <li>3</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>4</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>5</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>6</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>7</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>8</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>9</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>10</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>11</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>12</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>13</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>14</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>15</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>16</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>17</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>18</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                   <li>19</li>
+                   <li><input type="text" class='dragon_tiger_tie_content_span' name="" value="16"></li>
+                 </ul>
+                 <div class="bitl" style="text-align:left;width:100%;height:3rem;">
+                   <input type="text" class="input_all dragon_tiger_tie_content_span" style="width:6rem;height:1.5rem;margin-left:2rem">
+                   <span class="allT" style="margin-left:1rem;font-size:1.3rem;border:1px solid #b8b8b8;display:inline-block;padding:0.3rem 0.4rem">全填</span>
+                   <span class="cancel" style="margin-left:1rem;font-size:1.3rem;border:1px solid #b8b8b8;display:inline-block;padding:0.3rem 0.4rem">清除</span>
+                 </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+   apiready=function(){
+     var list=$('.dragon_tiger_tie_content input');
+     //将本地数据显示
+     var guanYbj=$api.getStorage('bjGuanY');
+     if(guanYbj){
+       for(var i=0;i<list.length;i++){
+         list.eq(i).val(guanYbj[i]);
+       }
+     }
+     //全填
+      $('.allT').on('click',function(){
+        for(var i=0;i<list.length;i++){
+          list.eq(i).val($('.input_all').val());
+        }
+      })
+      //清除
+      $('.cancel').on('click',function(){
+        for(var i=0;i<list.length;i++){
+          list.eq(i).val('16');
+        }
+      })
+
+      //保存
+      var guanY=[];
+      $('#myMenu').on('click',function(){
+        for(var i=0;i<list.length;i++){
+          if(list.eq(i).val()==""){
+            api.toast({
+                msg: '赔率不能为空！',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+          }
+          guanY.push(list.eq(i).val());
+        }
+        api.sendEvent({
+            name: 'saveSettingBj',
+            extra: {
+                key1: 'value1'
+            }
+        });
+        $api.setStorage('bjGuanY', guanY);
+        api.toast({
+            msg: '保存成功',
+            duration: 2000,
+            location: 'bottom'
+        });
+        api.closeWin({});
+
+
+      })
+
+      $('.myPiC').on('click',function(){
+        api.closeWin({
+        });
+      });
+   }
+  </script>
+
+  </html>

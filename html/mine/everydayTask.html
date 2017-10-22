@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>每日任务</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         #wrap{
+           background: #ebebeb;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           /*头部背景图片*/
+           .bgHead{
+            width: 100%;
+            height: 15rem;
+            background: url('../../image/mine/renwu-banner-beijing.png');
+            background-color: #fff;
+            background-size: 100% 100%;
+            position: relative;
+           }
+           .bgHead .title{
+            position: absolute;
+            top: 2.6rem;
+            text-align: center;
+            width: 100%;
+            font-size: 3.2rem;
+            color: #fff;
+            font-weight: 600;
+            font-family: Tahoma;
+            -webkit-text-stroke: 0.01rem red;
+           }
+           .bgHead .text{
+            top:7.6rem;
+            text-shadow:5px 2px 6px #000;
+            -webkit-text-stroke: 0rem red;
+           }
+
+           /*当前任务*/
+           .detail_main ul{
+            width: 100%;
+            background: #fff;
+            margin-bottom: 1rem;
+           }
+           .detail_main ul li{
+            width: 94%;
+            margin: 0 auto;
+            position: relative;
+            height: auto;
+            min-height: 5rem;
+            font-size: 1.4rem;
+            line-height: 5rem;
+            border-bottom: 0.1rem solid #F0F0F0
+           }
+           .detail_main ul li p{
+            width: 78%;
+           }
+           /*.detail_main ul li .btn_done{*/
+        .btn_done{
+            position: absolute;
+            top:1rem;
+            right: 1%;
+            width: 18%;
+            height: 2.6rem;
+            border: 0.15rem solid #D71D34;
+            border-radius: 0.5rem;
+            color: #333;
+            font-size: 1.4rem;
+            line-height: 2.6rem;
+            text-align: center;
+           }
+           .detail_main ul li .btn_do{
+            color: #fff;
+            background: #D71D34 ;
+           }
+          .gameTask p.gameText{
+            width::80%;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="mine" >
+                    <div class="myMine">每日任务</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <div class="bgHead">
+          <div class="title">任务完成可获得</div>
+          <div class="title text">额外奖励</div>
+        </div>
+        <section class="detail_main">
+          <ul class="gameTitle"></ul>
+          <ul class="gameTask repeatClick">
+            <!-- <li class="taskTitle">
+              当前任务
+              <span class="counts">(0/2)</span>
+            </li> -->
+               <!-- 完成数量判断 -->
+            <!-- <li class="first">
+            <p style="width: 80%">
+                在牛牛游戏里玩10分钟以上(0/1)
+              </p>
+              <div class="btn_done">未完成</div> -->
+            <!-- </li>  -->
+            <!-- <li class="firstLi">
+               <p class="red" style="width: 80%">
+                在任意一游戏里发游戏红包10个(4/10)
+              </p>
+              <div class="btn_done first">未完成</div>
+          </li> -->
+            <!-- <li class="shareTask">
+              <p class="fx" style="width: 80%">
+                分享APP给朋友(0/1)
+              </p>
+              <div class=" btn_done second">未完成</div>
+            </li> -->
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        // var userRed;
+        // var myshareR;
+//获得用户等级信息
+      var userInfo= $api.getStorage('userInfo');
+      console.log(JSON.stringify(userInfo));
+      var louserGrade = userInfo.louserGrade;
+      console.log(louserGrade);//等级0
+      var usersId = userInfo.id;
+      var sendLotteryCount;
+      console.log(usersId);//1a69a01187fb4f159082b87280ce0e7f
+// 删除冲突1处
+                var arr=[],number=0;
+                // console.log(JSON.stringify($api.getStorage('userInfo')));
+//获取最后一次的登录时间
+               //获取用户的注册时间-----
+                  var reginsterTime = userInfo.loregisterTime;
+                  console.log(reginsterTime);
+               //获取用户的注册时间------
+                var lastLogintime = userInfo.logintime;
+                console.log(lastLogintime);
+                if(lastLogintime==reginsterTime){
+                        hadSendCount=0;
+                }else{
+                  console.log(typeof(lastLogintime));
+                  var str =  lastLogintime.split("-");
+                  var lastLoginYear = Number(str[0]);
+                  var lastLoginMonth=Number(str[1]);
+                  var lastLoginDate=Number(str[2]);
+                  //  console.log(lastLoginYear);
+                  //  console.log(lastLoginMonth);
+                  //  console.log(lastLoginDate);
+        // 获取当前时间
+                  var concentDate=new Date();
+                  var concentYear=concentDate.getFullYear();//当前年份
+                  var concentMonth=concentDate.getMonth()+1;//当前月份
+                  var concentDay=concentDate.getDate();//当前日
+                 console.log(concentYear);
+                 console.log(concentMonth);
+                 console.log(concentDay);
+        //判断时间是否一致，是否更新任务
+                     hadSendCount = $api.getStorage('sendLotteryCount');
+                if(hadSendCount===undefined){
+                   hadSendCount=0;
+                }
+              //不一致
+               if(concentYear>lastLoginYear || concentMonth >lastLoginMonth || concentDay > lastLoginDate){
+                   hadSendCount=0;//用户完成游戏的变量参数
+                    hadDoneNumber = [];
+               }
+                }
+
+
+//  获得用户在不同游戏类型中发红包的数量（本地缓存获取）
+      var userInfo = $api.getStorage('userInfo');
+      // console.log(JSON.stringify(userInfo));
+      var userIdMsg = usersId.substring(0,20);
+      // console.log(userIdMsg);//用户的id
+//删除冲突2
+// 向后台发送数据（已发送的红包数和分享次数），后台验证；传入用户等级，后台返回游戏类型
+        // console.log(propBaseUrl+'dailyTask/getLvTask?louserGrade=1');
+      var hadSendLottery = $api.getStorage(userIdMsg);
+      console.log(JSON.stringify(hadSendLottery));
+      if(hadSendLottery ==""){
+          api.ajax({
+            url: propBaseUrl+'dailyTask/getLvTask?louserGrade='+louserGrade,
+            method: 'post',
+          },function(ret,err){
+            if(ret){
+                console.log(JSON.stringify(ret));
+                //判断游戏类型
+                var  dailyTask = ret.dailyTask;
+                   console.log(JSON.stringify(dailyTask));
+        //for循环获取游戏的类型、次数
+              var gameNumber=[];
+            //  var  dailyTask = [];
+              var  len = ret.dailyTask.length;
+              console.log(len);
+                 var playType = [];
+                 var arr = [[],[],[]];
+              for(var j=0;j<len;j++){
+                console.log(j);
+               gameNumber.push(dailyTask[j].gameNumber);
+                dailyTask.push(ret.dailyTask[j]) ;
+               playType.push(ret.dailyTask[j].playType);
+                //判断后台返回的数据类型
+                console.log(playType);
+                console.log(gameNumber);
+                // gameNumber.push(ret.dailyTask[0].gameNumber);
+                // gameNumber.push(ret.dailyTask[1].gameNumber);
+                // gameNumber.push(ret.dailyTask[2].gameNumber);
+                console.log(playType.length);
+                          for(var i=0;i<playType.length;i++){
+                            arr[0].push(Number(playType[i].substr(0,2)));//arr[0]
+                            arr[1].push(Number(playType[i].substr(2,4)));//arr[1]
+                            arr[2].push(Number(playType[i].substr(6,9)));//arr[2]
+                            console.log(arr);
+                            if(arr[0][i]!=0){
+                                arr[2][i]--;
+                            }
+                          }
+                           console.log(arr[0]);//游戏房间[2,3,3]
+                          console.log(arr[1]);//玩的是几元的[5,3,5]
+                          console.log(arr[2]);//发的是几包的[8,5,8]
+                           console.log(playType);//[0200050009,0300030006,0300050009]
+                 var gameRoom = arr[0];
+                 var gameMoney = arr[1];
+                 var gameBao = arr[2];
+                 console.log(gameRoom);//
+                 console.log(gameMoney);//
+                 console.log(gameBao);
+              }
+              console.log(gameNumber);
+              console.log(playType);
+              //判断游戏类型
+              var gameName = [];
+                for(var i=0;i<gameRoom.length;i++){
+                  if(gameRoom[i]===1){
+                    console.log("牛牛");
+                    gameName.push("牛牛");
+                    console.log(gameName);
+                  }else if (gameRoom[i]===2) {
+                    console.log('接龙');
+                    gameName.push("接龙");
+                      console.log(gameName);
+                  }else if(gameRoom[i]===3){
+                     console.log('扫雷');
+                       gameName.push("扫雷");
+                         console.log(gameName);
+                  }
+                }//判断游戏类型结束标记
+                  console.log(gameName);
+           //拼接内容
+             var html = "";
+             html+='<li class="taskTitle">当前任务<span class="counts">('+0+'/'+len+')</span></li>';
+             $('.gameTitle').append(html);
+            var str = "";
+              var content = '未完成';
+              console.log(len);
+              for(var i=0;i<len;i++){
+                var playRoom = gameName[i];
+                console.log(playRoom);
+                var textType = gameMoney[i]+'元';
+                var bao = gameBao[i]+'包';
+                console.log(bao);
+                console.log(gameNumber[i]);
+                 str = '<li index='+i+'><p class="red" style="width: 80%">'+playRoom+textType+bao+'游戏里收发游戏红包'+gameNumber[i]+'个('+0+'/'+gameNumber[i]+')</p><div class="btn_done " index='+i+'>'+content+'</div></li>';
+                 $('.gameTask').append(str);
+                 console.log(str);
+              }
+            }else{
+              console.log(JSON.stringify(err));
+            }
+          })
+          alert('尚未发送红包');
+          return;
+      }
+      console.log(JSON.stringify(hadSendLottery));
+// 向后台发送数据（已发送的红包数和分享次数），后台验证；传入用户等级，后台返回游戏类型
+      //  console.log(propBaseUrl+'dailyTask/getLvTask?louserGrade=1');
+        api.ajax({
+        url: propBaseUrl+'dailyTask/getLvTask?louserGrade='+louserGrade,
+        method: 'post',
+        }, function(ret, err){
+        if (ret) {
+        console.log(JSON.stringify(ret));
+        var  dailyTask = ret.dailyTask;
+           console.log(JSON.stringify(dailyTask));
+
+//for循环获取游戏的类型、次数
+      var gameNumber=[];
+      var  dailyTask = [];
+      var  len = ret.dailyTask.length;
+      console.log(len);
+      var  missionRewards = [];
+      var  prop = [];
+         var  experience = [];
+        var  integral =[];
+         var playType = [];
+
+      for(var i=0;i<ret.dailyTask.length;i++){
+        gameNumber.push(ret.dailyTask[i].gameNumber);
+        dailyTask.push(ret.dailyTask[i]) ;
+          //  console.log(dailyTask);
+        missionRewards.push( ret.dailyTask[i].missionRewards);
+        prop.push(ret.dailyTask[i].missionRewards.prop);
+        experience.push(dailyTask[i].missionRewards.experience);
+        integral.push(dailyTask[i].missionRewards.integral);
+        playType.push(dailyTask[i].playType);
+      }
+      // $api.setStorage('prop', prop);
+      $api.setStorage('experience', experience);
+      $api.setStorage('integral', integral);
+
+
+
+console.log(gameNumber);//正常获取[3,5,4]
+// console.log(JSON.stringify(dailyTask));
+console.log(JSON.stringify(missionRewards));//正常获取
+
+console.log(experience);//[0,20,30]
+console.log(integral);//[20,0,10]
+console.log(playType);//[0200050009,0300030006,0300050009]
+// 解析完成任务的条件以及游戏类型
+      var content = null;
+         var arr=[[],[],[]],playRoom=null;
+//判断后台返回的游戏类型
+console.log(playType);
+          for(var i=0;i<playType.length;i++){
+            arr[0].push(Number(playType[i].substr(0,2)));//arr[0]
+            arr[1].push(Number(playType[i].substr(2,4)));//arr[1]
+            arr[2].push(Number(playType[i].substr(6,9)));//arr[2]
+            console.log(arr);
+            if(arr[0][i]!=0){
+                arr[2][i]--;
+
+            }
+          }
+           console.log(arr[0]);//游戏房间[2,3,3]
+          console.log(arr[1]);//玩的是几元的[5,3,5]
+          console.log(arr[2]);//发的是几包的[8,5,8]
+           console.log(playType);//[0200050009,0300030006,0300050009]
+
+ var gameRoom = arr[0];
+ var gameMoney = arr[1];
+ var gameBao = arr[2];
+ console.log(gameRoom);//
+ console.log(gameMoney);//
+ console.log(gameBao);
+ //从本地获取游戏发的是几元几包的个数
+ // var hasDoneNumber;
+ console.log(JSON.stringify(hadSendLottery));
+ var num = [];
+ function gameTypeName(m,playType){
+   console.log(JSON.stringify(hadSendLottery));
+   console.log(playType);
+   m=hadSendLottery[1];
+   console.log(JSON.stringify(m));
+  // console.log(Object.getOwnPropertyNames(m));
+  //判断本地发送的是什么类型的红包
+  var dish = [];
+    dish=Object.getOwnPropertyNames(m);
+    // dish.reverse();
+   console.log(dish);//[0300050009,0300030006]
+  //  console.log(dish instanceof Array);true
+   //处理已经发送的红包中的具体几包的问题
+    var hadArr = [[],[],[]];
+    for(var i=0;i<dish.length;i++){
+      dish[i] = String(dish[i]);
+      console.log(typeof(dish[i]));
+      console.log(dish[i]);//[0300030006]
+      console.log(i);
+      hadArr[0].push(Number(dish[i].substr(0,2)));//hadArr[0]
+      hadArr[1].push(Number(dish[i].substr(2,4)));//hadArr[1]
+      hadArr[2].push(Number(dish[i].substr(6,10)));//hadArr[2]
+      console.log(hadArr[2]);//[5,9]
+      console.log(hadArr[1]);//[3,5]
+      console.log(hadArr[0]);//[3,3]
+      console.log(hadArr);
+      if(hadArr[0][i]!=0){
+          hadArr[2][i]--;
+          console.log(11);
+      }
+      console.log(hadArr[2]);//[5,8]
+      console.log(hadArr[1]);//[3,5]
+      console.log(hadArr[0]);//[3,3]
+    }
+ console.log(dish);
+ console.log(hadArr);
+  playType.reverse();//[0200050009,0300030006,0300050009]
+ console.log(playType);//[0300050009,0300030006,0200050009]
+
+ console.log(dish);//[0300030006,0300050009]
+    for(var i=0,j=0;i<playType.length,j<dish.length;j++){
+      console.log(i);
+      console.log(dish[i]);
+      console.log(playType[i]);
+      if(playType[i]==dish[j]){
+          console.log(123);
+        console.log(playType[i]);
+        console.log(dish[j]);
+        var currentGame = dish[j];
+        console.log(currentGame);
+       console.log(JSON.stringify(m[currentGame]));
+      //  num = m[currentGame];
+      num.push(m[currentGame]);
+       console.log(num);
+
+       i++;
+     }else if(playType[i]==dish[j+1]){
+        // j++;
+//---------------------------------
+console.log(123);
+console.log(playType[i]);
+console.log(dish[j]);
+var currentGame = dish[j];
+console.log(currentGame);
+console.log(JSON.stringify(m[currentGame]));
+// num = m[currentGame];
+// console.log(num);
+num.push(m[currentGame]);
+console.log(num);
+i++;
+//-------------------------------
+        console.log(i);
+        console.log(j);
+      }
+      else if(playType[i]==dish[j+2]){
+        console.log(123);
+        console.log(playType[i]);
+        console.log(dish[j]);
+        var currentGame = dish[j];
+        console.log(currentGame);
+        console.log(JSON.stringify(m[currentGame]));
+        // num = m[currentGame];
+        // console.log(num);
+        num.push(m[currentGame]);
+         console.log(num);
+        i++;
+      }
+    }
+    return num;
+ }
+
+//判断游戏房间
+var gameName = [];
+  console.log(hadSendLottery.length);
+  for(var i=0;i<gameRoom.length;i++){
+    if(gameRoom[i]===1){
+      console.log("牛牛");
+      gameName.push("牛牛");
+      console.log(gameName);
+      var m=hadSendLottery[0];
+     gameTypeName(m,playType);
+     console.log(num);
+    }else if (gameRoom[i]===2) {
+      console.log('接龙');
+      gameName.push("接龙");
+        console.log(gameName);
+        var m=hadSendLottery[1];
+        console.log(m);
+       gameTypeName(m,playType);
+       console.log(num);
+    }else if(gameRoom[i]===3){
+       console.log('扫雷');
+         gameName.push("扫雷");
+           console.log(gameName);
+           var m=hadSendLottery[2];
+          gameTypeName(m,playType);
+        console.log(num);
+    }
+  }
+  console.log(gameName);
+  console.log(num);
+ //拼接内容的显示函数
+ console.log(len);
+    function gameTitle (number,len){
+      var html = "";
+      html+='<li class="taskTitle">当前任务<span class="counts">('+number+'/'+len+')</span></li>';
+      $('.gameTitle').append(html);
+    }
+    console.log(num);
+    if(num == undefined){
+      num = 0;
+    }
+
+//----判断任务是否完成
+// 判断是否完成任务
+function ishasDone (){
+  console.log(num);
+  for(var i=0;i<gameNumber.length;i++){
+    var hadSendCount = num[i];
+    $api.setStorage('SendLotteryCount', hadSendCount);
+
+    if(hadSendCount==undefined){
+      hadSendCount = 0;
+    }
+    console.log(i);
+    console.log(gameNumber[i]);//5
+    console.log(num>=gameNumber[i] || num == gameNumber[i]);//false
+    console.log(hadSendCount===gameNumber[i] || hadSendCount>=gameNumber[i]);//true
+    console.log(num == gameNumber[i]);//false
+    console.log(num[i]>=gameNumber[i]);
+    console.log(num[i]);
+     if(hadSendCount===gameNumber[i] || hadSendCount>=gameNumber[i]) {
+         number++;
+         hadSendCount = gameNumber[i]
+         $api.setStorage('number',number);
+         console.log(number);//1
+         console.log(num);//5
+         console.log(gameNumber[i]);//4
+         console.log(num);
+         // addcontent(playRoom,sendLotteryCount,len,content);
+       $('.gameTask li').eq(i).find('div').addClass('first');
+       $('.gameTask .first').html('完成');
+       $('.first').css("backgroundColor","#D71D34 ").css("color","#fff");
+            console.log(number);
+           //  return ;
+     }else{
+       console.log(i);
+     }
+}
+}
+
+//拼接具体的任务
+console.log(num);
+addContent(gameName,gameMoney,gameBao,num,gameNumber,content);
+ishasDone ()
+   function addContent(gameName,gameMoney,gameBao,num,gameNumber,content){
+     content = '未完成';
+     var str ="";
+     for(var i=0;i<len;i++){
+       alert(i);
+       alert(gameNumber[i])
+       var hadSendCount = num[i];
+       var playRoom = gameName[i];
+       console.log(playRoom);
+       var textType = gameMoney[i]+'元';
+       var bao = gameBao[i]+'包';
+       if(hadSendCount >gameNumber[i]){
+         hadSendCount = gameNumber[i]
+       }
+       if(hadSendCount==undefined){
+         hadSendCount=0;
+       }
+       console.log(gameNumber[i]);
+       alert(gameNumber[i])
+        str = '<li index='+i+'><p class="red" style="width: 80%">'+playRoom+textType+bao+'游戏里收发游戏红包'+gameNumber[i]+'个('+hadSendCount+'/'+gameNumber[i]+')</p><div class="btn_done " index='+i+'>'+content+'</div></li>';
+        $('.gameTask').append(str);
+        console.log(str);
+     }
+   }
+  // 判断是否完成任务
+//       for(var i=0;i<gameNumber.length;i++){
+//         var hadSendCount = num[i]
+//         console.log(i);
+//         console.log(gameNumber[i]);//5
+//         console.log(num>=gameNumber[i] || num == gameNumber[i]);//false
+//         console.log(hadSendCount===gameNumber[i] || hadSendCount>=gameNumber[i]);//true
+//         console.log(num == gameNumber[i]);//false
+//         console.log(num>=gameNumber[i]);
+//         console.log(num);
+//          if(hadSendCount===gameNumber[i] || hadSendCount>=gameNumber[i]) {
+//              number++;
+//              hadSendCount = gameNumber[i]
+//              $api.setStorage('number',number);
+//              console.log(number);//1
+//              console.log(num);//5
+//              console.log(gameNumber[i]);//0
+//              console.log(num);
+//              // addcontent(playRoom,sendLotteryCount,len,content);
+//            $('.gameTask li').eq(i).find('div').addClass('first');
+//            $('.gameTask .first').html('完成');
+//            $('.first').css("backgroundColor","#D71D34 ").css("color","#fff");
+//                 console.log(number);
+//                //  return ;
+//          }else{
+//            console.log(i);
+//          }
+// }
+
+//console.log(number);
+$api.getStorage('number');
+   console.log(number);
+       var html = null;
+       html ='<li class="taskTitle">当前任务<span class="counts">('+number+'/'+len+')</span></li>';
+       console.log(html);
+       $('.gameTitle').append(html);
+// gameTitles(number,len);
+    // }
+
+ //完成时点击获取奖励
+            console.log(len);
+            $('.gameTask .first').on('click',function(){
+              // console.log(JSON.stringify($(this)));
+              // alert($(this).attr('index'));
+              var xxxx = $(this).attr("index");//获取点击完成时的下标
+                 console.log(louserGrade);
+                 var prop = [];
+                 var  experience = [];
+                 var  integral =[];
+                 var taskId = [];
+                   //发送ajax 请求
+                   api.ajax({
+                       url: propBaseUrl+'dailyTask/getLvTask?louserGrade='+louserGrade,
+                       method: 'post',
+                   },function(ret, err){
+                       if (ret) {
+                           console.log( JSON.stringify( ret ) );
+                           //循环获取任务的道具、经验、积分和任务id
+                           for(var i=0;i<ret.dailyTask.length;i++){
+                               prop.push(ret.dailyTask[i].missionRewards.prop);//道具ID
+                              experience.push(ret.dailyTask[i].missionRewards.experience);
+                               integral.push(ret.dailyTask[i].missionRewards.integral);
+                              taskId.push(ret.dailyTask[i].id);
+                             }
+                             console.log(prop);//[,f2a55d18e4a040bba2855a4ca9dd09e6]
+                             console.log(experience);//[20,10]
+                             console.log(integral);//[5,5]
+                             console.log(taskId);//[5b6e46cc597942238e0b828e38da405c,6fa050f710b44b2cbfd7633045aa22d8]
+                          //获取道具名称
+                          for(var i=0;i<ret.dailyTask.length;i++){
+                            console.log(JSON.stringify(ret.dailyTask));
+                                 if(prop[i]==undefined){
+                                   // prop[i]==='暂无道具'
+                                   i++;
+                                 }
+                                 console.log(experience);
+                                 console.log(integral);
+                                 var experienceName = experience[i];
+                                 var integralName = integral[i];
+                                 console.log(experienceName);
+                                 console.log(integralName);
+                                   api.ajax({
+                                       url: propBaseUrl+'prop/getPropById?id='+prop[i],
+                                       method: 'post',
+                                   },function(ret, err){
+                                       if (ret) {
+                                           console.log(JSON.stringify(ret));
+                                           if(ret.stateCode ==0){
+                                            //  alert(ret.stateMessage);
+                                            //  return;
+                                            console.log('没有道具');
+                                            return;
+                                           }
+                                        var  propName = ret.propBean.propName;
+                                           console.log(propName);
+                                           console.log('您获得的奖励有：道具:'+propName+',经验值:'+experienceName+',积分:'+integralName);
+                                          //     info.push(fo);
+                                            //  $api.setStorage('info', info);
+                                               // alert('您获得的奖励有：道具:'+propName+',经验值:'+experienceName+',积分:'+integralName);
+                                              $api.setStorage('propName',propName);
+
+                                       } else {
+                                           console.log( JSON.stringify( err ) );
+                                       }
+                                   });
+                                      }//for循环结束
+                                    propName = $api.getStorage('propName');
+                                      console.log(propName);
+                                    //   doneTask(propName,experience,integral,taskId,usersId);
+                                    //   console.log($(this));
+                             //完成任务确认按钮的函数
+                               console.log(propName);
+                               console.log(experienceName);
+                               console.log(integral);
+                               api.confirm({
+                                     title: '领取奖励',
+                                  msg: '您获得的奖励有：道具:'+propName+',经验值:'+experienceName+',积分:'+integralName,
+                                  //  msg:info,
+                                     buttons: ['领取', '取消']
+                                   }, function(ret, err) {
+                                     console.log(JSON.stringify(ret));
+                                     var btnIndex = ret.buttonIndex;
+                                     console.log(btnIndex);
+                                     if(ret.buttonIndex === 1){
+                                        api.ajax({
+                                            url: propBaseUrl+'/dailyTask/preformTask?userId='+usersId+'&&taskId='+taskId,
+                                            method: 'post',
+                                        },function(ret, err){
+                                        //    alert(xxxx);
+                                            if (ret) {
+                                                console.log( JSON.stringify(ret));
+                                                if(ret.stateCode==0){
+                                                  console.log(ret.stateMessage);
+                                                }
+                                                 $('.first').eq(xxxx).css('backgroundColor',"#ddd").css("border","transparent");
+                                                 $('.first').eq(xxxx).html('已领取');
+                                                 console.log($('.first').eq(xxxx).html());
+                                                 var isRe = $('.first').eq(xxxx).html();
+                                                 if(isRe){
+                                                   console.log(12345);
+                                                  $('.first').eq(xxxx).unbind('click');
+                                                 }
+                                            } else {
+                                                console.log( JSON.stringify(err));
+                                            }
+                                        });//ajax 确认领取奖励
+
+                                     }else{
+                                       alert('已取消领取奖品');
+                                     }
+                                   });
+                       } else {
+                           console.log( JSON.stringify(err));
+                       }
+                   });
+               })//完成事件的结束
+
+           }
+        }
+    );
+
+   //完成任务确认按钮的函数
+    // var doneTask = function (propName,experience,integral,taskId,usersId){
+  //   function doneTask(propName,experienceName,integralName,taskId,usersId){
+  //    console.log(experienceName);
+  //    console.log(integralName);
+  //    api.confirm({
+  //        title: '领取奖励',
+  //        msg: '您获得的奖励有：道具:'+propName+',经验值:'+experienceName[1]+',积分:'+integralName[1],
+  //        buttons: ['领取', '取消']
+  //      }, function(ret, err) {
+  //        console.log(JSON.stringify(ret));
+  //        var btnIndex = ret.buttonIndex;
+  //        console.log(btnIndex);
+  //        if(ret.buttonIndex === 1){
+  //           api.ajax({
+  //               url: propBaseUrl+'/dailyTask/preformTask?userId='+usersId+'&&taskId='+taskId,
+  //               method: 'post',
+  //           },function(ret, err){
+  //               if (ret) {
+  //                   console.log( JSON.stringify(ret));
+  //                   if(ret.stateCode==0){
+  //                     console.log(ret.stateMessage);
+  //                   }
+  //                   console.log($('.btn_done').index());
+  //                   var indexs = $('.btn_done').attr('index');
+  //                   console.log(indexs);
+  //                   console.log($('.btn_done').index());
+  //                    $('.first').eq(1).css('backgroundColor',"#ddd").css("border","transparent");
+  //                    $('.first').eq(1).html('已领取');
+  //                    if($('.first').eq(1).html('已领取')){
+  //                      $('.first').eq(1).unbind('click');
+  //                    }
+   //
+  //                  // $('.first').eq(i).css('backgroundColor',"#aaa").css("border","transparent");
+  //                // $('.first').eq(i).unbind('click');
+  //               } else {
+  //                   console.log( JSON.stringify(err));
+  //               }
+  //           });//ajax 确认领取奖励
+   //
+  //        }else{
+  //          alert('已取消领取奖品');
+  //        }
+  //      });
+  //  }
+      }
+  </script>
+  </html>

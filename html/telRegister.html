@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>注册</title>
+      <link rel="stylesheet" type="text/css"     href="../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../css/style.css">
+      <style>
+        html{
+           font-size: 10px;
+         }
+         body{
+           background: #F7F7F7;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             right: 2.6%;
+             top: 0rem;
+             font-size: 1.6rem;
+             width: 10%;
+             padding-top: 4.1rem;
+             height: 7.5rem;
+           }
+
+           /*用户名密码输入框*/
+           .input_body{
+                margin: 1rem auto;
+                width: 95%;
+           }
+           .input_name{
+                height: 4.9rem;
+                margin-bottom: 0.5rem;
+                background: #fff;
+                position: relative;
+           }
+           .get_num{
+              border:0.1rem solid #999999;
+              width: 25%;height: 3rem;position: absolute;
+              right: 2%;margin-top: 0.9rem;border-radius: 0.4rem;
+              line-height: 3rem;text-align: center;
+              font-size: 1.4rem;
+              color: #666666;
+           }
+            .input_name input{
+                position: absolute;
+                left: 12%;
+                width: 80%;
+                border: none;
+                font-size: 1.3rem;
+                line-height: 4.9rem;
+                outline: none;
+            }
+           .icon{
+             position: absolute;
+             left: 1.6%;
+             top: 0rem;
+             font-size: 1.6rem;
+             width: 10%;
+             padding-top: 1.3rem;
+             height: 7.5rem;
+           }
+           .icon img{
+                width: 2rem;height: 2rem;
+           }
+
+            /*选则框*/
+            .check_choose{
+                margin-top: 1.5rem;
+                height: 1.8rem;
+                line-height: 1.8rem;
+                font-size: 1.3rem;
+                color: #8A8A8A;
+            }
+            .check_choose .check_text{
+                left: 10%;position: absolute;
+            }
+            .check_choose .check_btn{
+                width: 10%;position: absolute;left: 1.2%;
+            }
+            .check_choose .check{
+                width: 1.8rem;height: 1.8rem;
+            }
+            .login_btn{
+                margin-top: 1rem;text-align: center;
+                background: #D71D34;line-height: 4.9rem;
+                color: #fff;font-size: 1.5rem;
+            }
+
+            .more_login{
+                height: 1.4rem;margin-top:2.5rem;
+                font-size:1.35rem;position: relative;
+                color: #999999
+            }
+            .other_login{
+                position: absolute;left: 1.5%;
+            }
+            .not_login{
+                position: absolute;right: 1.5%;
+            }
+            .new_num{
+              border: 0.1rem solid #d71d34;
+              color: #d71d34;
+            }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">注册</div>
+                    <div class="myPiC">
+                        登录
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <section class="input_body">
+            <div class="input_name">
+                <input type="number" id="phone" style="width: 60%;" placeholder="请输入手机号">
+                <div class="icon">
+                    <img src="../icon/phone.png" alt="">
+                </div>
+                <div class="get_num">
+                  获取验证码
+                </div>
+            </div>
+            <div class="input_name">
+                <input type="number" id="verify" placeholder="请输入验证码">
+                <div class="icon">
+                    <img src="../icon/password.png" alt="">
+                </div>
+            </div>
+            <div class="input_name">
+                <input type="password" id="password" placeholder="请输入密码">
+                <div class="icon">
+                    <img src="../icon/yaoshi.png" alt="">
+                </div>
+            </div>
+            <div class="input_name">
+                <input type="text" id="inviter" placeholder="推荐人ID">
+                <div class="icon">
+                    <img src="../icon/username.png" alt="">
+                </div>
+            </div>
+            <div class="input_name login_btn">
+                注册
+            </div>
+            <div class="more_login">
+                <!-- <div class="other_login">手机不可用？<a href="register.html">账号注册</a></div> -->
+                <!-- <div class="not_login">先随便看看</div> -->
+            </div>
+        </section>
+    </div>
+    </body>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../script/public.js"></script>
+    <script type="text/javascript">
+        apiready = function(){
+            var number = $api.dom('.get_num');
+            //验证手机号
+            var tel = /^1[34578]\d{9}$/;
+            $('#phone').keyup(function(){
+              var phone = $(this).val();
+              if(!tel.test(phone)){
+                $(this).css('color','#d71d34');
+                $api.removeCls(number,'new_num');
+              }else{
+                $api.addCls(number,'new_num');
+                $(this).css('color','#333333');
+              }
+            });
+            $('.check').click(function(){
+                if($(this).attr('value')==1){
+                    $(this).attr('src','../icon/check.png');
+                    $(this).attr('value','0');
+                }else{
+                    $(this).attr('src','../icon/checked.png');
+                    $(this).attr('value','1');
+                }
+            });
+            var n=0;//判断验证码
+            // $('#verify').on('blur',function(){
+            //   api.ajax({
+            //       url: DATABASE_URL+'lottery-web/user/compareMessage?phone='+$('#phone').val()+'&code='+$('#verify').val(),
+            //       method: 'post'
+            //   },function(ret, err){
+            //     console.log(JSON.stringify(ret));
+            //     console.log(JSON.stringify(err));
+            //       if (ret) {
+            //         if(ret.status==0){
+            //           api.toast({
+            //               msg: '验证码错误!',
+            //               duration: 2000,
+            //               location: 'bottom'
+            //           });
+            //           n=1;
+            //         }
+            //         else{
+            //           api.toast({
+            //               msg: '验证码正确!',
+            //               duration: 2000,
+            //               location: 'bottom'
+            //           });
+            //           n=0;
+            //         }
+            //       }
+            //   });
+            // })
+            //登录
+            var login = $api.dom('.myPiC');
+            $api.addEvt(login, 'click', function(){
+                api.openWin({
+                    name: 'login',
+                    url: 'login.html'
+                });
+            });
+            //点击注册
+            // var baseUrl = 'http://192.168.1.110:8080/lottery-web/';
+            var register = $api.dom('.login_btn');
+            $api.addEvt(register,'click',function(){
+
+              var phone = $api.val($api.dom('#phone')),
+                  password = $api.val($api.dom('#password')),
+                  invite = $api.val($api.dom('#inviter')),
+                  verify = $api.val($api.dom('#verify'));
+
+              if(phone == ''){
+                toast('用户名输入不能为空！');
+              }else if(password == ''){
+                toast('密码输入不能为空！');
+              }else if(!tel.test(phone)){
+                toast('手机号格式错误！');
+              }else if(verify == ''){
+                toast('验证码不能为空');
+              }else{
+                if(n==1){
+                  toast('验证码有误！');
+                }
+                else{
+                  api.ajax({
+                    url: DATABASE_URL+'lottery-web/user/register',
+                    // url:propBaseUrl+'lottery-web/user/register'
+                    method: 'post',
+                    data: {
+                      values: {
+                        phone: phone,
+                        passWord: password,
+                        inviterId: invite
+                      }
+                    }
+                  }, function(ret, err) {
+                    console.log(JSON.stringify(ret));
+                    console.log(JSON.stringify(err));
+                    if (ret.successcode==0) {
+                      userRed = '0';
+                      $api.setStorage('userRed',userRed);
+                      toast('注册成功,请登录');
+                      setTimeout(function(){
+                        api.openWin({
+                          name: 'login',
+                          url: 'login.html'
+                        });
+                      },1000);
+                    } else {
+                      toast('网络错误');
+                    }
+                    // console.log(JSON.stringify(ret));
+                    // console.log(JSON.stringify(err));
+                  });
+                }
+              }
+            });
+            //获取验证码
+            var num=60;
+            $api.addEvt(number,'click',function(){
+              if($api.hasCls(number,'new_num')){
+                // api.ajax({
+                //     url: DATABASE_URL+'lottery-web/user/sendMessage?phone='+$('#phone').val(),
+                //     method: 'post'
+                // },function(ret, err){
+                //   console.log( JSON.stringify( ret ) );
+                //   console.log( JSON.stringify( err ) );
+                //     if (ret) {
+                //       if(ret.status==1){
+                //         api.toast({
+                //             msg: ret.msg,
+                //             duration: 2000,
+                //             location: 'bottom'
+                //         });
+                //       }
+                //     } else {
+                //         // console.log( JSON.stringify( err ) );
+                //     }
+                // });
+                $api.removeCls(number, 'new_num');
+                $api.html(number,num+'s');
+                time(num);
+
+              }
+            });
+            function time(num){
+              setInterval(function(){
+                num=num-1;
+                if(num>0){
+                  $api.html(number,num+'s');
+                }else{
+                  $api.addCls(number, 'new_num');
+                  $api.html(number,'获取验证码');
+                }
+              },1000);
+            }
+        };
+    </script>
+</html>

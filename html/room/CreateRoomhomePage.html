@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>彩票创建房间</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+      <script type="text/javascript" src="../../script/public.js"></script>
+      <style>
+         html{
+           font-size: 10px;
+         }
+         #wrap{
+           background:#ebebeb;
+         }
+          header{
+            background-color: #D71D34;
+            position: fixed;
+            top: 0rem;
+            z-index: 1000;
+            width: 100%;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 1.8rem;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+          .cont{
+            width:100%;
+            background: #fff;
+            margin-top: 7.5rem;
+          }
+          .cont .oUl{
+            list-style: none;
+            font-size: 1.5rem;
+            background-color: #ebebeb;
+            padding-bottom: 6rem;
+          }
+          .cont .oUl .list{
+            overflow: hidden;
+            line-height: 4rem;
+            background-color: #fff;
+            border-bottom:1px solid #e4e4e4;
+            position: relative;
+          }
+          .cont .oUl .list .left{
+            float: left;
+            margin-left: 2rem;
+          }
+          .cont .oUl .list .img{
+            position: absolute;
+            top:1rem;
+            right:2rem;
+            width:2rem;
+            height:2rem;
+          }
+          .cont .oUl .list .right{
+            float: right;
+            margin-right: 5rem;
+          }
+          .cont .oUl .list .word{
+            float: right;
+            margin-right: 5rem;
+          }
+          .cont .oUl .list .wordGry{
+            float: right;
+            margin-right: 5rem;
+          }
+          .cont .kinds{
+            list-style: none;
+            overflow: auto;
+            background: #fff;
+            width:47.7rem;
+          }
+          .cont .kinds li{
+            float: left;
+            width:15.9rem;
+            padding:2rem 0;
+
+          }
+          .cont .kinds li:hover{
+            background:#f7fff2;
+          }
+          .cont .kinds .box{
+            overflow: hidden;
+            width:100%;
+            border-right:1px solid #f1f1ef;
+          }
+          .cont .kinds .box img{
+            float: left;
+            margin-left: 0.9rem;
+            width:5.75rem;
+            height:5.75rem;
+            margin-top:0.5rem;
+          }
+          .cont .kinds .box .rig{
+            float: left;
+            width:7.1rem;
+            margin-left: 0.9rem;
+          }
+          .cont .kinds .box .rig .tit{
+            font-size: 1.4rem;
+            color: #363833;
+            line-height: 4rem;
+          }
+          .cont .kinds .box .rig .two{
+            font-size: 1.15rem;
+            color: #969a99;
+            line-height: 2rem;
+          }
+          .cont .props{
+            width:100%;
+            overflow: auto;
+            background: #fff;
+
+          }
+          ::-webkit-scrollbar {height: 0px;width: 0px}
+          .cont .props .kind1{
+            list-style: none;
+            width:43.3rem;
+            overflow: hidden;
+            background: #fff;
+          }
+          .cont .props .kind1 li{
+            height:8rem;
+            float: left;
+            border:1px solid #edeee9;
+            overflow: hidden;
+            float: left;
+            width:14.2rem;
+            height:11.5rem;
+            padding:1rem 0;
+          }
+          .cont .props .kind1 li .action{
+            width:9rem;
+            margin:0.5rem auto;
+            font-size: 1.1rem;
+            color: #999;
+          }
+          .cont .props .kind1 li:hover{
+            background:#f7fff2;
+          }
+          .cont .props .kind1 .box1{
+            overflow: hidden;
+            width:96%;
+            margin:auto;
+            height:7.5rem;
+            position: relative;
+            border-radius: 1rem;
+            background-color:#f6f6f6;
+          }
+          .cont .props .kind1 .box1 .check{
+            position: absolute;
+            right:0.8rem;
+            bottom:1.6rem;
+            width:2.4rem;
+            height:2.4rem;
+          }
+          .cont .props .kind1 .box1 img{
+            float: left;
+            margin-left: 1.2rem;
+            width:4.4rem;
+            height:4rem;
+            margin-top:1rem;
+          }
+          .cont .props .kind1 .box1 .rig{
+            float: left;
+            width:7.1rem;
+            margin-left: 0.5rem;
+          }
+          .cont .props .kind1 .box1 .tit{
+            font-size: 1.4rem;
+            color: #363833;
+            line-height: 4rem;
+          }
+          .cont .props .kind1 .box1 .rig .two{
+            font-size: 1.5rem;
+            background: #c6eafa;
+            border-radius: 1rem;
+            width:4.5rem;
+            padding-left: 0.7rem;
+            height:2.3rem;
+            color: #000;
+            line-height: 2.3rem;
+          }
+          .next{
+            height: 5rem;
+            width: 100%;
+            position: fixed;
+            background: #fff;
+            bottom: 0;
+            text-align: center;
+            line-height: 5rem;
+            font-size: 1.4rem;
+            color: #d71d34;
+          }
+          /*创建失败*/
+          .fail{
+            display: none;
+            width:10.4rem;
+            height:2.8rem;
+            line-height: 2.8rem;
+            font-size: 1.4rem;
+            border-radius: 0.5rem;
+            position: fixed;
+            margin: auto;
+            left:13.4rem;
+            bottom:23.1rem;
+            text-align: center;
+            background: #666666;
+            color: #fff;
+          }
+          .hidden{
+            display: none;
+          }
+          #rule{
+            width: 75%;
+            outline: none;
+            text-indent: 1rem;
+            /*background: red;*/
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+      <header>
+          <ul>
+              <li class="border-b mine" >
+                  <div class="myMine">创建彩票房间</div>
+                  <div class="myPiC">
+                    <img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;">
+                  </div>
+              </li>
+          </ul>
+      </header>
+      <div style="height:1rem;width:100%;"></div>
+      <div class="cont">
+        <ul class="oUl">
+          <li class="list">
+            <span class="left">名称</span>
+            <input class="lottName right" style="outline: none;text-align:right;margin-top:1rem;" value="" placeholder="请输入房间名称"/>
+          </li>
+          <li class="list" id="kinds">
+            <span class="left">种类</span><img class="img" src="../../icon/room/to_bottom.png" alt=""><span class="word"></span><br>
+          </li>
+          <!-- 类型选项 -->
+          <li class="list kindLi" style="overflow:auto;">
+            <ul class="kinds">
+              <li class="cq_lottery">
+                <div class="box">
+                  <img src="../../image/createRoom/tu_sscai.png" alt="">
+                  <div class="rig">
+                    <p class="tit">重庆时时彩</p>
+                    <p class="two">重庆时时彩</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="box">
+                  <img src="../../image/createRoom/cehua_lei.png" alt="">
+                  <div class="rig">
+                    <p class="tit">竞足单关</p>
+                    <p class="two">竞足单关</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="box">
+                  <img src="../../image/createRoom/cehua_lei.png" alt="">
+                  <div class="rig">
+                    <p class="tit">重庆时时彩</p>
+                    <p class="two">重庆时时彩</p>
+                  </div>
+                </div>
+              </li><br>
+              <li class="bj_lottery">
+                <div class="box">
+                  <img src="../../icon/room/tu_saiche.png" alt="">
+                  <div class="rig">
+                    <p class="tit">北京赛车</p>
+                    <p class="two">北京赛车</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="box">
+                  <img src="../../image/createRoom/cehua_lei.png" alt="">
+                  <div class="rig">
+                    <p class="tit">体育资讯</p>
+                    <p class="two">体育资讯</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="box">
+                  <img src="../../image/createRoom/cehua_lei.png" alt="">
+                  <div class="rig">
+                    <p class="tit">重庆时时彩</p>
+                    <p class="two">重庆时时彩</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="list custom">
+            <span class="left">自定义钱币（单位）</span>
+            <select class="wordGry money" style="border: solid 1px #fff;appearance:none;background-color:#fff;margin-top:1rem">
+              <option value="金币">金币</option>
+              <option value="银币">银币</option>
+              <option value="铜币">铜币</option>
+              <option value="钻石">钻石</option>
+            </select><br>
+          </li>
+          <li class="list" id="method" style="margin-top:2rem;">
+            <span class="left">赔率设置</span><img class="img" src="../../icon/room/to_bottom.png" alt="">
+          </li>
+          <!-- 赔率设置 -->
+          <li class="methodLi method_cq">
+            <ul class="method">
+              <li class="list ballOne">
+                <span class="left">1-5球</span><img class="img" src="../../icon/go_right.png" alt=""><span style="color:#999" class="wordGry balls">未设置</span>
+              </li>
+              <li class="list starOne">
+                <span class="left">1-5星定位</span><img class="img" src="../../icon/go_right.png" alt=""><span style="color:#999" class="wordGry star">未设置</span>
+              </li>
+              <li class="list posit">
+                <span class="left">1-定位胆</span><img class="img" src="../../icon/go_right.png" alt=""><span style="color:#999;" class="wordGry posit_set">未设置</span>
+              </li>
+              <li class="list draTig">
+                <span class="left">龙虎和</span><img class="img" src="../../icon/go_right.png" alt=""><span style="color:#999;" class="wordGry draTig_set">未设置</span>
+              </li>
+            </ul>
+          </li>
+          <!-- 北京赛车赔率 -->
+          <li class="methodLi method_bj" style="display:none">
+            <ul class="method">
+              <li class="list OneF">
+                <span class="left">1~5</span><img class="img" src="../../icon/go_right.png" alt=""><span style="color:#999" class="wordGry oneF">未设置</span>
+              </li>
+              <li class="list SixT">
+                <span class="left">6~10</span><img class="img" src="../../icon/go_right.png" alt=""><span style="color:#999" class="wordGry sixT">未设置</span>
+              </li>
+              <li class="list GuanY">
+                <span class="left">冠亚和</span><img class="img" src="../../icon/go_right.png" alt=""><span style="color:#999;" class="wordGry guanY">未设置</span>
+              </li>
+            </ul>
+          </li>
+          <li class="list" id="limit" style="margin-top:2rem;">
+            <span class="left">投注限额设置</span><img class="img" src="../../icon/room/to_bottom.png" alt="">
+          </li>
+          <!-- 投注限额设置 -->
+          <li class="limit limit_cq">
+            <ul class="method">
+              <li class="list">
+                <span class="left">单人单注投注限:</span><input class="singleMan" type="text" placeholder="请输入金额上限" value="" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">单个号码投注总上限:</span><input class="singleNum" type="text" value="" placeholder="请输入金额上限" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">房间投注总上限:</span><input class="room" type="text" placeholder="请输入房间金额上限" value="" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">一星投注上限:</span><input class="starOne_Li" type="text" placeholder="请输入一星金额上限" value="" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">二星投注上限:</span><input class="starTwo_Li" type="text" placeholder="请输入二星金额上限" value="" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">三星投注上限:</span><input class="starThree_Li" type="text" placeholder="请输入三星金额上限" value="" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">四星投注上限:</span><input class="starFour_Li" type="text" placeholder="请输入四星金额上限" value="" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">五星投注上限:</span><input class="starFive_Li" type="text" placeholder="请输入五星金额上限" value="" maxlength='12' style="outline: none;">
+              </li>
+            </ul>
+          </li>
+          <!-- 北京赛车投注限额设置 -->
+          <li class="limit limit_bj" style="display:none">
+            <ul class="method">
+              <li class="list">
+                <span class="left">1~10单注投注限额:</span><input class="oneT_bj" type="text" placeholder="请输入金额" value="" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">大小单双龙虎单注投注限额:</span><input class="lh_bj" type="text" value="" placeholder="请输入金额" style="outline: none;width:12rem" maxlength='12'>
+              </li>
+              <li class="list">
+                <span class="left">冠亚和单注投注限额:</span><input class="guanY_bj" type="text" placeholder="请输入金额" value="" maxlength='12' style="outline: none;">
+              </li>
+              <li class="list">
+                <span class="left">房间投注总上限:</span><input class="room_bj" type="text" placeholder="请输入总金额" value="" maxlength='12' style="outline: none;">
+              </li>
+            </ul>
+          </li>
+          <li class="list prop" style="margin-top:2rem;">
+            <span class="left">道具</span><span class="right" style="color:#999999;">请选择道具</span><img class="img" src="../../icon/room/to_bottom.png" alt="">
+          </li>
+          <!-- 道具-->
+          <li class="props">
+            <ul class="kind1">
+              <li>
+                <div class="box1">
+                  <img src="../../image/createRoom/tu_jiqiren.png" alt="">
+                  <div class="rig">
+                    <p class="tit">智能小方</p>
+                    <p class="two">￥20</p>
+                  </div>
+                  <img style="display:none;" class="check" src="../../icon/room/dui.png" alt="">
+                </div>
+                <p class="action">功能介绍：能够与人简单的对话，代替房主来管理房间</p>
+              </li>
+              <li style="background:#f7fff2;">
+                <div class="box1">
+                  <img src="../../image/createRoom/tu_jiqiren.png" alt="">
+                  <div class="rig">
+                    <p class="tit">预测功能</p>
+                    <p class="two">￥20</p>
+                  </div>
+                  <img style="display:block;" class="check" src="../../icon/room/dui.png" alt="">
+                </div>
+                <p class="action">功能介绍：能够与人简单的对话，代替房主来管理房间</p>
+              </li>
+              <li>
+                <div class="box1">
+                  <img src="../../image/createRoom/tu_jiqiren.png" alt="">
+                  <div class="rig">
+                    <p class="tit">智能小方</p>
+                    <p class="two">￥20</p>
+                  </div>
+                  <img style="display:none;" class="check" src="../../icon/room/dui.png" alt="">
+                </div>
+                <p class="action">功能介绍：能够与人简单的对话，代替房主来管理房间</p>
+              </li>
+            </ul>
+          </li>
+          <li class="list" style="margin-top:2rem;">
+            <input type="text" name="" value="" id="rule" placeholder="请输入规则..." >
+            <span class="left">规则</span>
+          </li>
+
+        </ul>
+        <footer class="next">下一步</footer>
+      </div>
+      <!-- 创建失败 -->
+      <div class="fail">
+        创建失败
+      </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/chat.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var n=0;//标记彩票类别
+//==========================================================
+//-----------------重庆时时彩---------------------
+        var ALLSTAR,BALLS,POSITIOND,ALLDRAGONSET;
+        api.addEventListener({
+          name: 'saveSettings'
+          }, function(ret, err) {
+            if(ret){
+              changeSettings();
+            }
+          });
+        changeSettings();
+
+        //文字改变方法
+        function changeSettings(){
+          //1-5星
+          var allStar = $api.getStorage('allStar');
+          //1-5球
+          var balls = $api.getStorage('allBall');
+          //定位胆
+          var positionD = $api.getStorage('positionD');
+          //龙虎和
+          var alldragonSet = $api.getStorage('alldragon');
+          //判断赔率是否设置
+          if(allStar==''||allStar==null){
+            $(".star").text("未设置");
+          }else {
+            $(".star").text("已设置");
+          }
+          if(balls==''||balls==null){
+            $(".balls").text("未设置");
+          }else {
+            $(".balls").text("已设置");
+          }
+          if(positionD==''||positionD==null){
+            $(".posit_set").text("未设置");
+          }else {
+            $(".posit_set").text("已设置");
+          }
+          if(alldragonSet==''||alldragonSet==null){
+            $(".draTig_set").text("未设置");
+          }else {
+            $(".draTig_set").text("已设置");
+          }
+        }
+
+//-------------定位胆赔率设置跳页---------------
+        $('.posit').on('click',function(){
+          api.openWin({
+              name: 'positionD',
+              url: './positionD.html',
+              pageParam: {
+                  name: 'test',
+                  type:0
+              }
+          });
+        });
+//------------龙虎和赔率设置------------------
+        $('.draTig').on('click',function(){
+          api.openWin({
+              name: 'draTig',
+              url: './draTig.html',
+              pageParam: {
+                  name: 'test',
+                  type:0
+              }
+          });
+        });
+//------------1-5星赔率设置-------------------
+        $('.starOne').on('click',function(){
+          api.openWin({
+              name: 'starOneF',
+              url: './starOneF.html',
+              pageParam: {
+                  name: 'test',
+                  type:0
+              }
+          });
+        });
+//-------------1-5球赔率设置--------------
+        $('.ballOne').on('click',function(){
+          api.openWin({
+              name: 'ballOneF',
+              url: './ballOneF.html',
+              pageParam: {
+                  name: 'test',
+                  type:0
+              }
+          });
+        });
+//=======================================================
+//---------------------北京赛车---------------------------
+        var BJONEF,BJSIXT,BJGUANY;
+        api.addEventListener({
+          name: 'saveSettingBj'
+          }, function(ret, err) {
+            if(ret){
+              changeSettingBj();
+            }
+          });
+        changeSettingBj();//判断赔率是否设置
+        function changeSettingBj(){
+          BJONEF=$api.getStorage('bjMarchOneF');//1~5赔率
+          BJSIXT=$api.getStorage('bjMarchSixT');//6~10赔率
+          BJGUANY=$api.getStorage('bjGuanY');//冠亚和赔率
+          //判断赔率是否设置
+          if(BJONEF==''||BJONEF==null){
+            $(".oneF").text("未设置");
+          }else {
+            $(".oneF").text("已设置");
+          }
+          if(BJSIXT==''||BJSIXT==null){
+            $(".sixT").text("未设置");
+          }else {
+            $(".sixT").text("已设置");
+          }
+          if(BJGUANY==''||BJGUANY==null){
+            $(".guanY").text("未设置");
+          }else {
+            $(".guanY").text("已设置");
+          }
+        }
+
+//------------1~5设置跳页--------------------
+        $('.OneF').on('click',function(){
+          api.openWin({
+              name: 'bjMarthCarOneF',
+              url: './bjMarthCarOneF.html',
+              pageParam: {
+                  name: 'test',
+                  type:0
+              }
+          });
+        })
+//-----------6~10赔率跳页-------------------
+        $('.SixT').on('click',function(){
+          api.openWin({
+              name: 'bjMarthCarsixT',
+              url: './bjMarthCarsixT.html',
+              pageParam: {
+                  name: 'test',
+                  type:0
+              }
+          });
+        })
+//----------冠亚和赔率跳页--------------------
+        $('.GuanY').on('click',function(){
+          api.openWin({
+              name: 'BJSFY',
+              url: './BJSFY.html',
+              pageParam: {
+                  name: 'test',
+                  type:0
+              }
+          });
+        })
+
+//===============================================
+        function closeWin(){
+          api.closeWin({
+          });
+        }
+
+//-------------重庆时时彩状态切换----------------
+        $('.cq_lottery').on('click',function(){
+          n=1;//重庆时时彩
+          //赔率切换
+          $('.method_cq').show();
+          $('.method_bj').hide();
+          //限额切换
+          $('.limit_cq').show();
+          $('.limit_bj').hide();
+        })
+//-------------北京赛车状态切换------------------
+        $('.bj_lottery').on('click',function(){
+          n=2;//北京赛车
+          //赔率切换
+          $('.method_cq').hide();
+          $('.method_bj').show();
+          //限额切换
+          $('.limit_cq').hide();
+          $('.limit_bj').show();
+        })
+
+//---------------- 道具收放----------------------
+        $(".prop").on("click",function(){
+          sf();
+        })
+        function sf(){
+          $api.toggleCls($api.dom(".props"),'hidden');
+        }
+//-----------------种类收放---------------------
+        $("#kinds").on("click",function(){
+          zl();
+        })
+        function zl(){
+          $api.toggleCls($api.dom(".kindLi"),'hidden');
+        }
+//----------------赔率设置收放-------------------
+        $("#method").on("click",function(){
+          pl();
+        })
+        function pl(){
+          $api.toggleCls($api.dom(".methodLi"), 'hidden');
+        }
+//----------------限额设置收放-------------------
+        $("#limit").on("click",function(){
+          xe();
+        })
+        function xe(){
+          $api.toggleCls($api.dom(".limit"), 'hidden');
+        }
+
+
+
+        $(".myPiC").on("click",function(){
+          closeWin();
+        });
+        $(".box").on("click",function(){
+          var tag=$(this).children("div").children("p.tit").html();
+          $(".word").html(tag);
+
+        })
+        //创建成功页面跳转
+        function nextRoom(ret){
+          api.closeWin({});
+          api.openWin({
+              name: 'createSuccess',
+              url: './createSuccess.html',
+              pageParam: {
+                  name: ret
+              }
+          });
+
+        };
+        var userInfo = $api.getStorage('userInfo');//用户登录信息
+        //点击下一步按钮
+        $(".next").on("click",function(){
+          if($('.lottName').val()=="")
+          {
+            toast('房间名不能为空');
+          }
+          else{
+            //判断房间名称是否重复
+            api.ajax({
+                url: DATABASE_URL+'lottery-web/lottery/getLRoomByIdAndName?userId='+userInfo.lophone+'&groupName='+$('.lottName').val(),
+                method: 'post'
+            },function(ret, err){
+                if (ret) {
+                  if(ret.status==0){toast(ret.msg)}
+                  else{
+                    //重庆时时彩
+                    if(n==1){
+                      ALLSTAR = $api.getStorage('allStar');
+                      //1-5球
+                      BALLS = $api.getStorage('allBall');
+                      //定位胆
+                      POSITIOND = $api.getStorage('positionD');
+                      //龙虎和
+                      ALLDRAGONSET = $api.getStorage('alldragon');
+                      //判断输入内容是否为空
+                      var leng=$('.limit_cq input').length;
+                      var xainE_cq=0;
+                      for(var i=0;i<leng;i++){
+                        //投注限额是否设置
+                        if($('limit_cq input').eq(i).val()=='')
+                        {
+                          xainE_cq=1;
+                        }
+                      }
+                      var peiL_cq=0;
+                      if(ALLSTAR&&BALLS&&POSITIOND&&ALLDRAGONSET){
+                        peiL_cq=0;
+                      }
+                      else{
+                        peiL_cq=1;
+                      }
+                      if(peiL_cq==1){
+                        api.toast({
+                        msg : '赔率未设置！',
+                        duration : 2000,
+                        location : 'top'
+                        });
+                      }
+                      else if(xainE_cq==1){
+                        api.toast({
+                        msg : '投注限额不能为空!',
+                        duration : 2000,
+                        location : 'top'
+                        });
+                      }
+                      else{
+                        createRoomSet(n);
+                      }
+                    }
+                    //北京赛车
+                    else if(n==2){
+                      BJONEF=$api.getStorage('bjMarchOneF');//1~5赔率
+                      BJSIXT=$api.getStorage('bjMarchSixT');//6~10赔率
+                      BJGUANY=$api.getStorage('bjGuanY');//冠亚和赔率
+                      //判断输入内容是否为空
+                      var leng=$('.limit_bj input').length;
+                      var xianE_bj=0;
+                      for(var i=0;i<leng;i++){
+                        //投注限额是否设置
+                        if($('limit_bj input').eq(i).val()=='')
+                        {
+                          xianE_bj=1;
+                        }
+                      }
+                      var peiL_bj=0;
+                      if(BJONEF&&BJSIXT&&BJGUANY){
+                        peiL_bj=0;
+                      }
+                      else{
+                        peiL_bj=1;
+                      }
+                      if(peiL_bj==1){
+                        api.toast({
+                        msg : '赔率未设置！',
+                        duration : 2000,
+                        location : 'top'
+                        });
+                      }
+                      else if(xianE_bj==1){
+                        api.toast({
+                        msg : '投注限额不能为空!',
+                        duration : 2000,
+                        location : 'top'
+                        });
+                      }
+                      else{
+                        createRoomSet(n);
+                      }
+                    }
+                    else{
+                      api.toast({
+                          msg: '未选择彩票种类',
+                          duration: 2000,
+                          location: 'top'
+                      });
+
+                    }
+                  }
+
+                }
+                 else {
+                    toast(err);
+                }
+            });
+
+
+          }
+        });
+
+        function toast(text){
+          api.toast({
+              msg: text,
+              duration: 2000,
+              location: 'top'
+          });
+        }
+        /*
+        userId;//创建人id
+        lrnumber;//房间编号
+        groupName;//彩票房间名称
+        lotteryId;//所玩彩票id
+        coin;//自定义钱币单位
+        singleman;//单人单注投注上限
+        singlenumber;//单个号码投注上限
+        total;//房间投注总上限
+        onestar;//一星投注总上限
+        twostar;//二星投注总上限
+        threestar;//三星投注总上限
+        fourstar;//四星投注总上限
+        fivestar;//五星投注总上限
+        lotteryOdds;//房间彩票赔率
+        rule;//房间规则
+        userids;//房间成员id
+        lotteryRoomId;//房间Id
+        firstodds;//第一球赔率
+        secondodds;//第二球赔率
+        thirdodds;//第三球赔率
+        fourthodds;//第四球赔率
+        fifthodds;//第五球赔率
+        onestarodds;//一星赔率
+        twostarodds;//二星赔率
+        threestarodds;//三星赔率
+        fourstarodds;//四星赔率
+        fivestarodds;//五星赔率
+        locationodds;//定位胆赔率
+        bigodds;//总和大赔率
+        smallodds;//总和小赔率
+        singleodds;//总和单赔率
+        bothodds;//总和双赔率
+        dragonodds;//龙赔率
+        tigerodds;//虎赔率
+        sumodds;//和赔率
+        */
+        function createRoomSet(n){
+          var lottName = $('.lottName').val();//房间名称
+          if(lottName==""){toast('房间名称不能为空');return;}
+          var money = $(".money option:selected").val();//自定义钱币
+          if(money==""){toast('钱币单位不能为空');return;}
+          //重庆时时彩
+          var singleMan_cq = $('.singleMan').val();//单人单注限额
+          var singleNum_cq = $('.singleNum').val();//单个号码限额
+          var room_cq = $('.room').val();//房间投注限额
+          var starOne_cq = $('.starOne_Li').val();//一星投注限额
+          var starTwo_cq = $('.starTwo_Li').val();//二星投注限额
+          var starThree_cq = $('.starThree_Li').val();//三星投注限额
+          var starFour_cq =$('.starFour_Li').val();//四星投注限额
+          var starFive_cq = $('.starFive_Li').val();//五星投注限额
+          var allStar_cq = $api.getStorage('allStar'); //一到五星定位赔率
+          var balls_cq = $api.getStorage('allBall');//一到五球设置
+          var positionD_cq = $api.getStorage('positionD');//定位胆
+          var alldragonSet_cq = $api.getStorage('alldragon');//龙虎和
+          //北京赛车
+          var oneT_bj=$('.oneT_bj').val();//1~10限额
+          var lh_bj=$('.lh_bj').val();//大小。。。限额
+          var guanY_bj=$('.guanY_bj').val();//冠亚和限额
+          var room_bj=$('.room_bj').val();//房间限额
+          var oneFodds=$api.getStorage('bjMarchOneF');//1~5赔率
+          var sixTodds=$api.getStorage('bjMarchSixT');//6~10赔率
+          var guanYodds=$api.getStorage('bjGuanY');//冠亚和赔率
+          var ruleC = $("#rule").val();
+
+          //重庆时时彩
+          if(n==1){
+            api.ajax({
+                url: DATABASE_URL+'lottery-web/lottery/createRoom?firstodds='+balls_cq.oneBall+'&secondodds='+balls_cq.twoBall+'&thirdodds='+balls_cq.threeBall+'&fourthodds='+balls_cq.fourBall+'&fifthodds='+balls_cq.fiveBall+'&lhhodds='+alldragonSet_cq,
+                method:'post',
+                data: {
+                    values: {
+                        userId:userInfo.lophone,//用户id
+                        groupName:lottName,//房间名称
+                        lotteryId:1,//彩票种类
+                        coin:money,//钱币单位
+                        singleman:singleMan_cq,//单人单注限额
+                        singlenumber:singleNum_cq,//单个号码限额
+                        total:room_cq,
+                        onestar:starOne_cq,
+                        twostar:starTwo_cq,
+                        threestar:starThree_cq,
+                        fourstar:starFour_cq,
+                        fivestar:starFive_cq,
+                        onestarodds:allStar_cq.oneStar,
+                        twostarodds:allStar_cq.twoStar,
+                        threestarodds:allStar_cq.threeStar,
+                        fourstarodds:allStar_cq.fourStar,
+                        fivestarodds:allStar_cq.fiveStar,
+                        locationodds:positionD_cq,
+                        rule:ruleC
+                    }
+                }
+              },function(ret, err){
+                if (ret) {
+                    //alert( JSON.stringify( ret ) );
+                    if(ret.status ==1){
+                      api.sendEvent({
+                          name: 'createLotteryListen',
+                          extra: {
+                              key1: 'value1',
+                              key2: 'value2'
+                          }
+                      });
+                      api.toast({
+                          msg: ret.msg,
+                          duration: 2000,
+                          location: 'bottom'
+                      });
+                      //移除本地缓存
+                      $api.rmStorage('allStar'); //一到五星定位赔率
+                      $api.rmStorage('allBall');//一到五球设置
+                      $api.rmStorage('positionD');//定位胆
+                      $api.rmStorage('alldragon');//龙虎和
+
+                      setTimeout(nextRoom(ret.roompassword),2000);
+                    }
+                }
+                else {
+                    console.log( JSON.stringify( err ) );
+                }
+            });
+          }
+          else if(n==2){
+            console.log(JSON.stringify(guanYodds));
+            api.ajax({
+                url: DATABASE_URL+'lottery-web/lottery/createRoombjpk?firstodds='+oneFodds.one+'&secondodds='+oneFodds.two+'&thirdodds='+oneFodds.three+'&fourthodds='+oneFodds.four+'&fifthodds='+oneFodds.five+'&sixthodds='+sixTodds.six+'&seventhodds='+sixTodds.seven+'&eighthodds='+sixTodds.eight+'&ninthodds='+sixTodds.nine+'&tenthodds='+sixTodds.ten+'&gyhodds='+guanYodds,
+                method:'post',
+                data: {
+                    values: {
+                        userId:userInfo.lophone,
+                        groupName:lottName,
+                        lotteryId:2,
+                        coin:money,
+                        onetotennumber:oneT_bj,
+                        dxdslhnumber:lh_bj,
+                        gyhnumber:guanY_bj,
+                        total:room_bj,
+                        rule:ruleC
+                    }
+                }
+              },function(ret, err){
+                if (ret) {
+                    //alert( JSON.stringify( ret ) );
+                    if(ret.status ==1){
+                      api.sendEvent({
+                          name: 'createLotteryListen',
+                          extra: {
+                              key1: 'value1',
+                              key2: 'value2'
+                          }
+                      });
+                      api.toast({
+                          msg: ret.msg,
+                          duration: 2000,
+                          location: 'bottom'
+                      });
+                      $api.rmStorage('bjMarchOneF');//1~5赔率
+                      $api.rmStorage('bjMarchSixT');//6~10赔率
+                      $api.rmStorage('bjGuanY');//冠亚和
+                      setTimeout(nextRoom(ret.roompassword),2000);
+                    }
+                }
+                else {
+                    console.log( JSON.stringify( err ) );
+                }
+            });
+          }
+        }
+
+    }
+  </script>
+  </html>

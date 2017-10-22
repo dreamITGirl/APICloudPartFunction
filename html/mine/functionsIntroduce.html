@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>关于彩票详情页</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+      html{
+        font-size: 10px;
+        background-color: #efefef;
+      }
+      #wrap{
+        background: #ebebeb;
+      }
+       header{
+         background-color: #D71D34;
+       }
+       header ul li {
+         height: 7.5rem;
+         text-align: center;
+         color: #fff;
+         position: relative;
+         font-size: 18px;
+        }
+        .myMine{
+          padding-top: 4rem;
+        }
+        .myPiC{
+          position: absolute;
+          left: 0rem;
+          top: 0.4rem;
+          width: 10%;
+          padding-top: 3.7rem;
+          height: 6.5rem;
+        }
+        /*#header{
+
+        }*/
+
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">功能说明</div>
+                    <div class="myPiC"  onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 1.5rem;height: 1.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section class="contentBox">
+            <!-- <h1></h1> -->
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script src="../../script/jquery-3.2.1.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+         api.ajax({
+             url: propBaseUrl+'manageClobalVars/getClobalVars?page=1&rows=1',
+             method: 'get',
+         },function(ret, err){
+             if (ret) {
+                 console.log( JSON.stringify( ret ) );
+                //  var title = ret.rows.aboutLottery;
+                //  console.log(title);
+                if(ret.rows[0]==undefined){
+                   alert('外网暂无数据')
+                  return ;
+                }else{
+                  var html="";
+                    html+=ret.rows[0].functionInfo;
+                    console.log(html);
+                    $('.contentBox').html(html);
+                    $('.contentBox span').css('padding','0.8rem');
+                    $('.contentBox h2').css('margin-bottom','0.5rem');
+                    $('.contentBox ').css('padding','0.8rem').css('background-color','#EBEBEB');
+
+                }
+
+             } else {
+                 console.log( JSON.stringify(err));
+             }
+         });
+
+
+        //返回
+
+        }
+
+
+  </script>
+  </html>

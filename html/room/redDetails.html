@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的账户</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+          header{
+            height: 27rem;
+            width: 100%;
+            background: url('../../image/redImg/kaibao--jine-yincang-beijing.png') no-repeat;
+            background-color: #f1f1f1;
+            background-size: 100% 13rem;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           .pw{
+              width: 94%;padding: 0.5rem 3%;
+              border-bottom: 0.1rem solid #f3f3f3;
+           }
+           section ul li{
+            height: 5rem;
+           }
+           .price_intro{
+            font-size: 1.4rem;
+            height: 2.5rem;color: #999999;line-height:2.5rem;
+           }
+           .position_a{
+            position: absolute;
+           }
+           .get_person{
+            width: 50%;left: 22%;height: 5rem;line-height: 2.5rem;
+           }
+           .get_person p:first-child{
+            color: #333333;
+            font-size: 1.6rem;
+           }
+           .get_person p:nth-child(2){
+            color: #666666;
+            font-size: 1.3rem;
+           }
+           .person_bj{
+            width: 100%;height: 8rem;
+            font-size:1.6rem;line-height: 2rem;
+            text-align: center;
+            font-size: 1.3rem;
+           }
+           .person_bj p{
+            font-size: 1.3rem;
+            color: #999999;
+           }
+           .person_bj span{
+            padding-top: 1.2rem;
+            font-size: 3rem;
+            color: #333333;
+           }
+           .person_bj img{
+            left: 38%;top: 9rem;width: 8rem;height: 8rem;border-radius: 50%;
+           }
+           .person_bj div{
+            margin-top: 10rem;
+            font-size: 1.7rem;
+           }
+           .price_get{
+            right: 3%;height: 5rem;
+            color:#D75940;
+            font-size: 1.5rem;line-height: 5rem;
+           }
+           .redhh{
+            display: none;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="mine" style="border: 0;">
+                    <div class="myMine">红包详情</div>
+                    <div class="myPiC"  onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+            <div class="person_bj">
+              <img src="../../image/tou.png" class="position_a redHead">
+              <div id="userName">Suddnjd</div>
+              <p>恭喜发财，大吉大利</p>
+              <span class="redhh redPrice">0</span>
+              <span class="redhh" style="font-size: 1.4rem;">金币</span>
+              <span class="redhh redType" style="color: #D75940;margin-left: 1rem;font-size: 1.4rem; "></span>
+            </div>
+        </header>
+        <section>
+          <div class="pw price_intro">
+            已经领取0个
+          </div>
+          <ul class="getPrice">
+
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var userInfo = $api.getStorage('userInfo');//用户登录信息
+        searchUserInfo(userInfo.id);
+        userInfo = $api.getStorage('userInfo');
+         console.log(userInfo.id)
+
+        if(userInfo.loimg == 'img' || userInfo.loimg == '' || userInfo.loimg == undefined){
+        
+        }else{
+          $('.redHead').attr('src',baseUrl+userInfo.loimg)
+        }
+        var username = userInfo.louserName;
+        if(userInfo.louserName == userInfo.id || userInfo.louserName.length>10){
+          var nn = userInfo.id;
+          nn="用户"+nn.substring(nn.length-4);
+          username = nn;
+          $('#userName').html(nn);
+        }else{
+          $('#userName').html(userInfo.louserName);
+        }
+
+        // 领取的用户为本用户时
+        // $('.redPrice').html(api.pageParam.price);
+        var gid = api.pageParam.groupId,
+            rid = api.pageParam.rid,
+            redType = api.pageParam.type;
+            console.log(JSON.stringify(api.pageParam));
+            console.log(redType)
+            console.log(gid)
+            console.log(rid)
+        api.ajax({
+            url: GAMEDATABASE_URL+'lottery-web/NNgame/getRedlist?rid='+rid,
+            method: 'get'
+        }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+             if(JSON.stringify(ret) == '[]'){
+                console.log(11)
+                setTimeout(function(){
+                 // window.location.reload();
+                },100)
+             }
+            
+            if (ret) {
+              var length = ret.length;
+              $('.price_intro').html('已经领取'+ret.length+'个');
+              console.log(length);
+              console.log(redType)
+              if ((length>4 && redType == 1)||(length>7 && redType == 2)) {
+                 console.log(111)
+                getResult(rid)
+              }else{
+                for(var i=0;i<ret.length;i++){
+                   // 判断是否是系统抢包-----------------------
+                   // if(ret[i].uid == '系统'){
+                   //    var length = ret.length-1;
+                   //    $('.price_intro').html('已经领取'+length+"个")
+                   //   continue;
+                   // }
+                    // 判断是否是系统抢包-----------------------
+                  var name=ret[i].uname,
+                      uid = ret[i].uid;
+                  if(ret[i].uid != "系统"){
+                     // alert("用户")
+                      // if(name = uid || name == '' || name.length>10){
+                            if(name == "无昵称"){
+                               name = "用户"+uid.substring(uid.length-4);
+                            }else{
+                               name = ret[i].uname;
+                            }
+                      // }
+                  }else{
+                      // alert("系统")
+                      name = "系统平台"
+                  }
+                  // alert(name)
+                    var html='<li class="pw">';
+                    if(ret[i].uid==userInfo.id){
+                      $('.redhh').show();
+                      var price = ret[i].price+"";
+                      var priceShow = price.substring(price.indexOf('.')+1,price.length);
+                      if(priceShow.length<2){
+                        price = price + '0';
+                      }
+                      $('.redPrice').html(price);
+                      if(userInfo.loimg=='' || userInfo.loimg == 'img'){
+                        html=html+'<img src="../../image/tou.png" class="position_a" style="width: 5rem;height:5rem;">'
+                      }else{
+                        html=html+'<img src="'+baseUrl+userInfo.loimg+'" class="position_a" style="width: 5rem;height:5rem;">'
+                      }
+                      html=html+'<div class="position_a get_person">\
+                        <p>'+name+'</p>\
+                          <p>'+ret[i].getTime+'</p>\
+                        </div>';
+                      html=html+'<div class="position_a price_get" style="color:#333333;">'+price+'金币</div></li>'
+
+                    }else{
+                      if(ret[i].uImage=='' || ret[i].uImage=='img' || ret[i].uImage==undefined){
+                        html=html+'<img src="../../image/tou.png" class="position_a" style="width: 5rem;height:5rem;">'
+                      }else{
+                        html=html+'<img src="'+baseUrl+ret[i].uImage+'" class="position_a" style="width: 5rem;height:5rem;">'
+                      }
+                      html=html+'<div class="position_a get_person">\
+                        <p>'+name+'</p>\
+                          <p>'+ret[i].getTime+'</p>\
+                        </div>';
+                      html=html+'<div class="position_a price_get">领取了一个红包</div></li>'
+                    }
+                    $('.getPrice').prepend(html);
+                }
+              }
+            } else {
+                toast('网络错误，请稍后重试');
+            }
+        });
+
+        // 红包被抢完，显示结果
+        function getResult(id){
+          api.ajax({
+            url: GAMEDATABASE_URL+'lottery-web/NNgame/getRedlist?rid='+rid,
+            method: 'get'
+        }, function(ret, err) {
+
+             console.log(JSON.stringify(ret));
+             if(!ret){
+               console.log(11)
+                window.location.reload();
+             }
+            if (ret) {
+              console.log('显示红包信息：'+JSON.stringify(ret));
+              for(var i=0;i<ret.length;i++){
+                // 判断是否是系统抢包-----------------------
+                   // if(ret[i].uid == '系统'){
+                   //    var length = ret.length-1;
+                   //    $('.price_intro').html('已经领取'+length+"个")
+                   //   continue;
+                   // }
+                    // 判断是否是系统抢包-----------------------
+                var name=ret[i].uname,
+                    uid = ret[i].uid;
+                if(ret[i].uid != "系统"){
+                      // if(name = uid || name == '' || name.length>10){
+                        if(name == "无昵称"){ 
+                          name="用户"+uid.substring(uid.length-4);
+                        }else{
+                           name = ret[i].uname;
+                        }
+                      // }
+                }else{
+                   name = "系统平台"
+                }
+                // alert(name)
+                var html='<li class="pw">';
+                if(ret[i].uid==userInfo.id){
+                  $('.redhh').show();
+                  var price = ret[i].price+"";
+                  var priceShow = price.substring(price.indexOf('.')+1,price.length);
+                  if(priceShow.length<2){
+                    price = price + '0';
+                  }
+                  $('.redPrice').html(price);
+                  if(userInfo.loimg=='' || userInfo.loimg == 'img'){
+                    html=html+'<img src="../../image/tou.png" class="position_a" style="width: 5rem;height:5rem;">'
+                  }else{
+                    html=html+'<img src="'+baseUrl+userInfo.loimg+'" class="position_a" style="width: 5rem;height:5rem;">'
+                  }
+                  $('.redPrice').html(price);
+                  html=html+'<div class="position_a get_person">\
+                    <p>'+name+'</p>\
+                      <p>'+ret[i].getTime+'</p>\
+                    </div>';
+                }else{
+                  if(ret[i].uImage=='' || ret[i].uImage == 'img' || ret[i].uImage == undefined){
+                    html=html+'<img src="../../image/tou.png" class="position_a" style="width: 5rem;height:5rem;">'
+                  }else{
+                    html=html+'<img src="'+baseUrl+ret[i].uImage+'" class="position_a" style="width: 5rem;height:5rem;">'
+                  }
+                  var price = ret[i].price+"";
+                  var priceShow = price.substring(price.indexOf('.')+1,price.length);
+                  if(priceShow.length<2){
+                    price = price + '0';
+                  }
+                  html=html+'<div class="position_a get_person">\
+                    <p>'+name+'</p>\
+                      <p>'+ret[i].getTime+'</p>\
+                    </div>';
+                }
+                  html=html+'<div class="position_a price_get" style="color:#333333;">'+price+'金币</div></li>'
+                $('.getPrice').prepend(html);
+
+              }
+            } else {
+                toast('网络错误，请稍后重试');
+            }
+        })
+        }
+      };
+  </script>
+  </html>

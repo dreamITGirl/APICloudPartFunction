@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的账户</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+
+         }
+         #wrap{
+           background: #fff;
+           text-align: center;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           section p{
+            margin: 1rem 0;
+            color: #999999;
+            font-size: 1.6rem;
+           }
+           .footer table{
+            width: 100%;height:24rem;
+           }
+           .footer table tr td{
+            border: 0.1rem solid #d0d0d0;
+            font-size: 1.6rem;
+            border-top: none;
+            width: 33.3%;
+            height: 6rem;
+           }  
+           .showPass{
+            width: 16.1%;height: 100%;float: left;border-left: 0.1rem solid #efefef;
+            line-height: 5rem;
+            font-size: 2rem;
+            font-weight: 800;
+           }
+           .editText{
+            padding: 0 3%;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">设置密码</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <p class="editText">请输入旧的支付密码，以验证身份</p>
+          <div class="inputPass" style="width: 94%;margin: 0 auto;border: 0.1rem solid #999999;height: 4.5rem;">
+            <div class="showPass"></div>
+            <div class="showPass"></div>
+            <div class="showPass"></div>
+            <div class="showPass"></div>
+            <div class="showPass"></div>
+            <div class="showPass"></div>
+          </div>
+        </section>
+        <footer class="footer" style="position: fixed;bottom: 0;height: 26.5rem;background: #f0f0f0;width: 100%;">
+          <div style="height: 2rem;border: 0.1rem solid #d0d0d0;">
+            <img src="../../icon/keydown.png" style="width: 10%;margin: 0 auto;height: 2rem;">
+          </div>
+          <table>
+            <tr>
+              <td class="num">1</td>
+              <td class="num">2</td>
+              <td class="num">3</td>
+            </tr>
+            <tr>
+              <td class="num">4</td>
+              <td class="num">5</td>
+              <td class="num">6</td>
+            </tr>
+            <tr>
+              <td class="num">7</td>
+              <td class="num">8</td>
+              <td class="num">9</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="num">0</td>
+              <td class="delBtn" style="position: relative;">
+                <img src="../../icon/keyDel.png" style="height: 2rem;width: 30%;">
+              </td>
+            </tr>
+          </table>
+        </footer>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <!-- <script type="text/javascript" src="../../script/jquery-touch.js"></script> -->
+  <script type="text/javascript">
+      apiready = function(){
+        var userInfo = $api.getStorage('userInfo');
+        var num='',num1='',pass='1',passVal='222222'; 
+        // type:1表示修改密码
+        // type:0表示设置密码
+        var type=1;
+        $('.num').on('touchstart',function(){
+          $(this).css('background','#d0d0d0');
+        });
+        $('.num').on('touchend',function(){
+          $(this).css('background','#f0f0f0');
+          if(num.length<6){
+            // toast(num);
+            num=num+$(this).text();
+            editPass(num);
+          }
+          if(num.length==6){
+            if(type==1){
+              editPassVal();
+            }else{
+              addNewPass();
+            }
+
+          }
+
+        });
+        //设置密码-------------------------------------------------------------
+        function addNewPass(){
+          if(num1==''){         //输入确认密码
+            num1=num;
+            num=''
+            toast('请确认输入密码');
+            clear();
+            $('.editText').html('请再次填写以确认')
+          }else if(num1!=''){    //确认两次密码输入一致
+            if(num==num1){
+              // 保存到数据库
+              payPass(num);
+            }else{
+              toast('两次密码输入不一致，请重新设置');
+              clear();
+              num='';
+              num1='';
+              $('.editText').html('请输入应用支付密码，切勿与银行卡取款密码相同');
+            }
+          }
+        }
+        //修改密码-------------------------------------------------------------
+        function editPassVal(){
+          if(num1==''&&pass!=''){         //输入确认密码
+            if(num==passVal){
+              toast('请输入新密码');
+              pass='';
+              num='';
+              $('.editText').html('请输入应用支付密码，切勿与银行卡取款密码相同');
+            }else{
+              num='';
+              toast('密码输入错误');
+            }
+            clear();
+          }else if(num1==''&&pass==''){  //重新输入密码
+            num1=num;
+            num='';
+            clear();
+            toast('请重新输入密码');
+            $('.editText').html('请再次填写以确认');
+          }else if(num1!=''){    //确认两次密码输入一致
+            if(num==num1){
+              // 保存到数据库
+              payPass(num);
+            }else{
+              toast('两次密码输入不一致，请重新设置');
+              clear();
+              num='';
+              num1='';
+              pass='1';
+              $('.editText').html('请输入应用支付密码，切勿与银行卡取款密码相同');
+            }
+          }
+        }
+
+        //点击删除按钮
+        $('.delBtn').click(function(){
+          num = num.substring(0,num.length-1);
+           editPass(num)
+        });
+
+        //编辑密码输入框的内容
+        function editPass(num){
+          clear();
+          for(var i=0;i<num.length;i++){
+            $('.showPass').eq(i).html('*');
+          }
+        }
+        //清空密码输入框的内容
+        function clear(){
+          $('.showPass').html("");
+        }
+        //保存到数据库----------------------------------
+        function payPass(num){
+          toast(num);
+          api.ajax({
+              url: baseUrl+'requestPath',
+              method: 'post',
+              data: {
+                  values: { 
+                      id: userInfo.id,
+                      pass: num
+                  }
+              }
+          }, function(ret, err) {
+              if (ret) {
+                openWin('myAccount','myAccount.html');
+                alert('密码设置成功');
+                console.log(JSON.stringify(ret));
+              } else {
+                console.log(JSON.stringify(err));
+              }
+          });
+        }
+      };
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+  </script>
+  </html>

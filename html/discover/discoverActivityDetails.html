@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>充值活动详情</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+          header{
+            background-color: #D71D34;
+            position: fixed;
+            top: 0rem;
+            z-index: 1111111;
+            width: 100%;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           #activity{
+             width: 100%;
+             /*height: 200px;*/
+             /*background: red;*/
+             position: absolute;
+             padding-bottom: 5rem;
+             background: #fff;
+             margin-top:7rem;
+           }
+           #nav_bottom{
+             width: 100%;
+             height: 5rem;
+             position: fixed;
+             bottom: 0;
+             display: flex;
+             display:-webkit-flex;
+             border-top: 1px solid #9f9f9f;
+             background: #fff;
+           }
+           #nav_bottom div:nth-child(2){
+             border-left: 1px solid #9f9f9f;
+           }
+           .nav_bottom_content{
+             flex: 1;
+             text-align: center;
+             height: 2rem;
+             margin-top: 1.3rem;
+             width:50%;
+           }
+            .nav_bottom_content span{
+              color: #333333;
+              font-size: 1.5rem;
+              padding-left: 1rem;
+            }
+           .nav_bottom_content img{
+             width: 2rem;
+             height: 2rem;
+           }
+           /*.activity_banner{
+              width: 100%;
+              float: left;
+           }
+           .activity_banner img{
+             width: 100%;
+           }*/
+           .activity_content{
+             width: 94%;
+             float: left;
+             font-size: 1.3rem;
+             color: #333333;
+             padding-left:1rem;
+             padding-right: 1rem;
+           }
+           .activity_content_title{
+             padding-top: 1.85rem;
+           }
+           .activity_content_time{
+             padding-top: 3rem;
+           }
+           .activity_content_information{
+             line-height: 2rem;
+             padding-top: 3.6rem;
+           }
+           .activity_content_message{
+             float: left;
+             width: 94%;
+             padding-left: 1rem;
+             font-size: 1.3rem;
+             color: #333333;
+             line-height: 2rem;
+           }
+           .activity_content_message p{
+             padding-top: 1rem;
+           }
+           /*充值活动*/
+           .activity_recharge{
+              width: 100%;
+              height: 60rem;
+              background:url(../../image/discover/czhuodong_beijing.png);
+              background-size:cover;
+              position: relative;
+           }
+           .time{
+              width: 100%;
+              height: 3.72rem;
+              line-height: 3.72rem;
+              background-color: #C5372D;
+              position: absolute;
+              top:15.8rem;
+              text-align: center;
+              font-size: 14px;
+           }
+           .time span b{
+              color: #fff;
+              font-weight: 900;
+              font-family: Microsoft YaHei;
+           }
+           .time span{
+              color: #fff;
+           }
+           .activity_recharge .number{
+              color: #fff;
+              text-align: left;
+              padding-left: 1.5rem;
+           }
+           .fram{
+              width: 85%;
+              margin: auto;
+              /*height: 26rem;*/
+              background-color: #fff;
+              border-radius: 1rem;
+              text-align: left;
+              padding: 1.5rem;
+              line-height: 2rem;
+              overflow: hidden;
+
+           }
+           .fram span{
+              color: #414141;
+           }
+           /*.fan{
+              width: 9.8rem;
+              height: 6.5rem;
+              border: 1px solid #A0A0A0;
+              margin-top: 1.2rem;
+              float: left;
+              margin-right: 0.2rem;
+           }
+           .fan .chong{
+              color: #000;
+              font-size: 20px;
+              margin: 1.1rem 0;
+              text-align: center;
+              font-weight: normal;
+           }
+           .fan span{
+              color: #000;
+              font-size: 14px;
+              text-align: center;
+              display: block;
+              margin-top: -0.5rem;
+           }
+
+           .selected{
+              border:1px solid #C5372D;
+              background:url(../../image/discover/xuanzhong_duigou.png) no-repeat;
+              background-color: #F9C4C0;
+              background-position: 7.8rem 4.5rem;
+              background-size: 2rem 2rem;
+           }*/
+           .transfer{
+              width: 29.8rem;
+              height: 4rem;
+              line-height: 4rem;
+              background-color: #FEE46B;
+              border-radius: 0.5rem;
+              margin: 4rem auto;
+              font-size: 14px;
+              color: #554601;
+              position: absolute;/*
+              bottom:0rem;
+              left:2rem;*/
+           }
+           .transfer p{
+            text-align: center;
+           }
+           .song{
+              width: 30.5rem;
+              height: 13.7rem;
+              line-height: 13.7rem;
+              background-image: url(../../image/discover/huodong1.png);
+              background-size: 30.5rem 13.7rem;
+              margin-top: 1rem;
+              text-align: center;
+              font-size: 30px;
+              color: #625205;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">充值活动</div>
+                    <div class="myPiC" onclick="api.closeWin({});">
+                      <img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;">
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <section id="activity">
+           <!--  <div class="activity_banner">
+              <img src="../../image/banner1.png" alt="">
+            </div> -->
+            <div class="activity_recharge">
+                <!-- <div class="time"> -->
+                  <!-- <span><b>【 时间 】</b>&nbsp;&nbsp;&nbsp;</span><span>9月20日10:00-10月1日11:00</span>
+                  <p class="number">参与人数:&nbsp;&nbsp;&nbsp;12062</p>
+                  <div class="fram">
+                    <span>活动详情：充值活动再次开启。</span>
+                    <span>
+                      9月20日10:00-10月1日11:00 只要您充值达到指定金额即可获得相应的充值奖励。感谢您对我们游戏的支持，<br>祝您游戏愉快。
+                    </span>
+                    <div class="fan selected">
+                      <p class="chong">充100元</p>
+                      <span>返10元</span>
+                    </div>
+                    <div class="fan">
+                      <p class="chong">充100元</p>
+                      <span>返10元</span>
+                    </div>
+                    <div class="fan">
+                      <p class="chong">充100元</p>
+                      <span>返10元</span>
+                    </div>
+                    <div class="fan">
+                      <p class="chong">充100元</p>
+                      <span>返10元</span>
+                    </div>
+                    <div class="fan">
+                      <p class="chong">充100元</p>
+                      <span>返10元</span>
+                    </div>
+                    <div class="fan">
+                      <p class="chong">充100元</p>
+                      <span>返10元</span>-->
+                    <!-- </div>  -->
+
+                    <!--  <div>
+                      <p class="song">充100<b>“送”</b>100</p>
+                      <img src="../../image/discover/huodong1.png" width="305px" height="137px">
+                    </div>-->
+                <!-- </div> -->
+                <!-- <div class="transfer">
+                  <p>确认充值</p>
+                </div> -->
+            </div>
+            <div class="activity_content">
+                <p class="activity_content_title">注册8元下载10元</p>
+                <p class="activity_content_time">即日起活动时间，另行通知</p>
+                <p class="activity_content_information">APP测试是必不可少的、只有通过各种测试、了解其中的一些细节问题来达到满足市场需要的产品才能做到无懈可击，与此同时，也要做好日常的参数策划，诸如APP客户端是什么类型的，软件的变体，英文名字，软件大小、分类、语言等等，做好这些准备可以更好的为后面的推广服务</p>
+            </div>
+            <div class="activity_content_message">
+                <p>活动规则</p>
+                <p>1.APP测试是必不可少的、只有通过各种测试、了解其中的一些细节问题来达到满足市场需要的产品才能做到无懈可击，与此同时，也要做好日常的参数策划</p>
+                <p>2.APP测试是必不可少的、只有通过各种测试、了解其中的一些细节问题来达到满足市场需要的产品才能做到无懈可击，与此同时，也要做好日常的参数策划</p>
+                <p>3.APP测试是必不可少的、只有通过各种测试、了解其中的一些细节问题来达到满足市场需要的产品才能做到无懈可击，与此同时，也要做好日常的参数策划</p>
+                <p>4.APP测试是必不可少的、只有通过各种测试、了解其中的一些细节问题来达到满足市场需要的产品才能做到无懈可击，与此同时，也要做好日常的参数策划</p>
+                <p>5.APP测试是必不可少的、只有通过各种测试、了解其中的一些细节问题来达到满足市场需要的产品才能做到无懈可击，与此同时，也要做好日常的参数策划</p>
+            </div>
+        </section>
+        <section id="nav_bottom">
+              <div id="share" class="nav_bottom_content">
+                <img src="../../image/discover/icon_fenxiang.png" alt="">
+                <span>分享</span>
+              </div>
+              <div class="nav_bottom_content">
+                <img src="../../image/discover/icon_shouc.png" alt="">
+                <span>收藏</span>
+              </div>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        $('#share').on('click',function(){
+          var sharedModule = api.require('shareAction');
+          sharedModule.share({
+            path: 'https://www.baidu.com/',
+            type: 'url',
+            text: '点击注册'
+          });
+        });
+        // $('.fan').on('click',function(){
+        //   $(this).addClass('selected').siblings().removeClass('selected');
+        // })
+
+
+        //活动详情数据请求
+        getNowActivity();
+        function getNowActivity(){
+          $('.activity_recharge').html('');
+          api.ajax({
+              url: TOPIC_URL+'lottery-web/activity/getNowActivity',
+              method: 'get',
+          }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+              if (ret) {
+                var activitylist=ret.activityList;
+                for(var i=0;i<activitylist.length;i++){
+                  var start=activitylist[i].startDate;
+                  var end=activitylist[i].endDate;
+                  var chong=activitylist[i].credit;
+                  var add=activitylist[i].addition;
+                  var str='<div class="time">'+
+                            '<span><b>【 时间 】</b>&nbsp;&nbsp;</span><span>'+start+' 至 '+end+'</span>'+
+                            '<p class="number">参与人数:&nbsp;&nbsp;&nbsp;12062</p>'+
+                            '<div class="fram">'+
+                              '<span>活动详情：充值活动再次开启。</span>'+
+                              '<span>'+start+ '至' +end+' 只要您充值达到指定金额即可获得相应的充值奖励。感谢您对我们游戏的支持，<br>祝您游戏愉快。</span>'+
+                              '<div>'+
+                                '<p class="song">充'+chong+'<b>“送”</b>'+add+'</p>'+
+                                '<div class="transfer">'+
+                                  '<p >确认充值</p>'+
+                                '</div>'+
+                              '</div>'+
+                            '</div>'+
+                          '</div>'
+
+                  $('.activity_recharge').append(str);
+
+                  // alert(JSON.stringify(ret));
+                }
+              } else {
+                  //alert(JSON.stringify(err));
+              }
+          });
+        }
+         //  点击完成时，将isJoined改为true
+
+        var userInfo=$api.getStorage('userInfo');
+        $('.activity_recharge').on('click','.transfer',function(){
+          //判断用户是否参加过活动
+          userJion();
+          function userJion(){
+            api.ajax({
+                url: TOPIC_URL+'lottery-web/activity/isJoined?userId=11111&activityId=11111',
+                method: 'get',
+            }, function(ret, err) {
+              console.log(JSON.stringify(ret));
+                var join=ret.isJoined;
+
+                if (join==true) {
+                  console.log(ret.isJoined);
+                  alert("您已参加过此活动");
+                  console.log(JSON.stringify(ret));
+                } else {
+                  api.openWin({
+                  name: 'transfer',
+                  url: '../../html/mine/activerecharge.html',
+                  pageParam: {
+                      titleID: $(this).attr("topId"),
+                      content: $(this).attr("cont"),
+                      phone:userInfo.lophone
+              }
+            });
+                    // alert(JSON.stringify(err));
+                }
+            });
+          }
+          // api.openWin({
+          //     name: 'transfer',
+          //     url: '../../html/mine/activerecharge.html',
+          //     pageParam: {
+          //         titleID: $(this).attr("topId"),
+          //         content: $(this).attr("cont"),
+          //         phone:userInfo.lophone
+          //     }
+          // });
+        });
+        // $('.transfer').on('click',function(){
+        //   console.log(transfer);
+        //   api.openWin({
+        //       name: 'transfer',
+        //       url: '../../html/mine/addMoney.html'
+        //       // pageParam: {
+        //       //     titleID: $(this).attr("topId"),
+        //       //     content: $(this).attr("cont"),
+        //       // }
+        //   });
+        // })
+
+     }
+  </script>
+  </html>

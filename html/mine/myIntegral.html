@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的积分</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <style>
+        html{
+          font-size: 10px;
+          background-color: #efefef;
+        }
+        #wrap{
+          background: #ebebeb;
+        }
+         header{
+           background-color: #D71D34;
+         }
+         header ul li {
+           height: 7.5rem;
+           text-align: center;
+           color: #fff;
+           position: relative;
+           font-size: 18px;
+          }
+          .myMine{
+            padding-top: 4rem;
+          }
+          .myPiC{
+            position: absolute;
+            left: 0rem;
+            top: 0rem;
+            width: 10%;
+            padding-top: 3.7rem;
+            height: 7.5rem;
+          }
+          .myWhat{
+            position: absolute;
+            right:1rem;
+            top:0rem;
+            padding-top:3.7rem;
+            width:2.5rem;
+            height:2.5rem;
+          }
+          .sumBox{
+            background: #fff;
+            width:100%;
+            height:4.4rem;
+            font-size: 1.6rem;
+          }
+          .sumBox .zong{
+            color: #9d9d9d;
+            margin-left: 1rem;
+            line-height: 4.4rem;
+          }
+          .sumBox .sum{
+            color: #d81e35;
+            margin-left: 0.9rem;
+            line-height: 4.4rem;
+          }
+          section ul{
+            list-style: none;
+            margin-top:1rem;
+            background-color: #fff;
+            
+          }
+          section ul li{
+            overflow: hidden;
+            width:100%;
+            height:5.7rem;
+            border-bottom:1px solid #eeeeee;
+            line-height: 5.7rem;
+          }
+          section ul li .img{
+            float:left;
+            height:4.3rem;
+            width:4.3rem;
+            border-radius: 5rem;
+            margin-left:1.1rem;
+            margin-top:1rem;
+          }
+          section ul li .cont{
+            float:left;
+            margin-left: 0.9rem;
+            width:20rem;
+            height:5.7rem;
+            line-height: 1.5rem;
+          }
+          section ul li .cont .tit{
+            font-size: 1.5rem;
+            color: #000;
+            height:1.5rem;
+            margin-top:1.5rem;
+          }
+          section ul li .cont .time{
+            font-size:1.2rem;
+            color: #9c9c9c;
+            height:1.2rem;
+            margin-top:0.8rem;
+          }
+          section ul li .right{
+            float:right;
+            line-height: 5.7rem;
+            margin-right:1rem;
+            font-size: 1.5rem;
+          }
+          .red{
+            color: red;
+          }
+          .black{
+            color: #000;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">我的积分</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                    <div class="myWhat">
+                      <img src="../../icon/mine/what.png" style=" width: 2.5rem;height: 2.5rem;" alt="">
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <div class="sumBox">
+            <span class="zong">总积分:</span>
+            <span class="sum">3654积分</span>
+          </div>
+          <ul id = "wp">
+           <!--  <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">红包游戏-抢红包</p>
+                <p class="time">2017-07-06</p>
+              </div>
+              <span class="red right">+10积分</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">开宝箱-积分宝箱</p>
+                <p class="time">2017-07-06</p>
+              </div>
+              <span class="black right">-300积分</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">红包游戏-抢红包</p>
+                <p class="time">2017-07-06</p>
+              </div>
+              <span class="red right">+10积分</span>
+            </li>
+            <li>
+              <img class="img" src="../../image/tou.png" alt="" />
+              <div class="cont">
+                <p class="tit">开宝箱-积分宝箱</p>
+                <p class="time">2017-07-06</p>
+              </div>
+              <span class="black right">-300积分</span>
+            </li> -->
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src = "../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var userInfo = $api.getStorage('userInfo');
+        console.log(userInfo.id)
+
+           api.ajax({
+               url:propBaseUrl + 'user/getUserById?id='+userInfo.id,
+               methods:'get'
+           },function(ret,err){
+             $('.sum').html(ret.lotteryUserBean.lointegral+'积分')
+           })
+
+           
+         api.ajax({
+             url:propBaseUrl+'box/getUserAllBoxRecord?userId='+userInfo.id,
+             methods:'get'
+         },function(ret,err){
+              if(ret.stateCode == 1){
+                 var list = ret.result1;
+                 var html = '';
+                 for(var i = 0;i<list.length;i++){
+                     if(list[i].boxName == "一星积分宝箱"){
+                         html = html + ' <li>\
+                                    <img class="img" src="../../image/tou.png" alt="" />\
+                                    <div class="cont">\
+                                      <p class="tit">宝箱游戏-开宝箱</p>\
+                                      <p class="time">'+list[i].lotteryTime+'</p>\
+                                    </div>\
+                                    <span class="red right">-100积分</span>\
+                                  </li>'
+                     }else if(list[i].boxName == "二星积分宝箱"){
+                          html = html + ' <li>\
+                                    <img class="img" src="../../image/tou.png" alt="" />\
+                                    <div class="cont">\
+                                      <p class="tit">宝箱游戏-开宝箱</p>\
+                                      <p class="time">'+list[i].lotteryTime+'</p>\
+                                    </div>\
+                                    <span class="red right">-200积分</span>\
+                                  </li>'
+                     }else if(list[i].boxName == "三星积分宝箱"){
+                          html = html + ' <li>\
+                                    <img class="img" src="../../image/tou.png" alt="" />\
+                                    <div class="cont">\
+                                      <p class="tit">宝箱游戏-开宝箱</p>\
+                                      <p class="time">'+list[i].lotteryTime+'</p>\
+                                    </div>\
+                                    <span class="red right">-300积分</span>\
+                                  </li>'
+                      }
+                 }
+                 $('#wp').html(html);
+              }else{
+                 $('#wp').html('<li>您没有积分的记录</li>').css('textAlign','center')
+              }
+         })
+
+
+
+         // api.ajax({
+         //     url:GAMEDATABASE_URL+'lottery-web/JieLong/getRedresult?rid=',
+         //     methods:'get'
+         // },function(ret,err){
+         //      if(ret.stateCode == 0){
+         //           $('#wp').html('<li>您没有积分的记录</li>').css('textAlign','center')
+         //      }else{
+
+         //      }
+         // })
+        //退出返回
+        $(".myPiC").on("click",function(){
+          api.closeWin({
+          });
+        });
+        
+        var querstion = $api.dom('.allMoneyEvt')
+        $api.addEvt(querstion,'click',function(ret,err){
+            console.log(this)
+        })
+      };
+  </script>
+  </html>

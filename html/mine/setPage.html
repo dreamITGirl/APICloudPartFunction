@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>设置</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <style>
+        html{
+          font-size: 10px;
+          background-color: #efefef;
+        }
+        #wrap{
+          background: #ebebeb;
+        }
+         header{
+           background-color: #D71D34;
+         }
+         header ul li {
+           height: 7.5rem;
+           text-align: center;
+           color: #fff;
+           position: relative;
+           font-size: 18px;
+          }
+          .myMine{
+            padding-top: 4rem;
+          }
+          .myPiC{
+            position: absolute;
+            left: 0rem;
+            top: 0rem;
+            width: 10%;
+            padding-top: 3.7rem;
+            height: 7.5rem;
+          }
+          section ul{
+            list-style: none;
+            margin-top:1rem;
+            background-color: #fff;
+          }
+          section ul li{
+            height:4.5rem;
+            border-bottom:1px solid #e4e4e4;
+            overflow: hidden;
+            line-height: 4.5rem;
+          }
+          section ul li .left{
+            float: left;
+            margin-left:1.6rem;
+            font-size: 1.6rem;
+          }
+          section ul li .right{
+            float: right;
+            margin-right:1.5rem;
+            font-size: 1.5rem;
+            color: #969696;
+          }
+          section ul li img{
+            width:1.5rem;
+            height:1.5rem;
+            float: right;
+            margin-right:1.5rem;
+            margin-top:1.6rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">设置</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <ul>
+            <li>
+              <span class="left">版本</span>
+              <span class="right" id = "versions">1.2.10</span>
+            </li>
+            <li>
+              <span class="left">关于彩票</span>
+              <img src="../../icon/go_right.png" alt="">
+            </li>
+            <li>
+              <span class="left">功能介绍</span>
+              <img src="../../icon/go_right.png" alt="">
+            </li>
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        $(".myPiC").on("click",function(){
+          api.closeWin({
+          });
+        })
+        var appVersion = api.appVersion
+        // alert(appVersion)
+        $('#versions').html(appVersion)
+
+		function checkVersion() {
+			var mam = api.require('mam');
+			mam.checkUpdate(function(ret, err) {
+				if (ret) {
+					var result = ret.result;
+					if (result) {
+						if (result.update) {
+							api.confirm({
+								title : '发现新版本' + result.version + '是否更新？',
+								msg : result.versionDes,
+								buttons : ['更新', '取消']
+							}, function(ret, err) {
+								if (ret.buttonIndex == "1") {
+									//点击更新
+									var url = result.source;
+									api.download({
+										url : url,
+										report : true
+									}, function(ret, err) {
+										if (ret && 0 == ret.state) {/* 下载进度 */
+											api.toast({
+												msg : "正在下载应用" + ret.percent + "%",
+												duration : 2000
+											});
+										}
+										if (ret && 1 == ret.state) {/* 下载完成 */
+											var savePath = ret.savePath;
+											api.installApp({
+												appUri : savePath
+											});
+										}
+									});
+								} else {
+									alert('您取消了本次更新')
+								}
+							});
+						} else {
+							api.toast({
+								msg : '当前版本是最新版本！',
+								location : 'middle'
+							});
+						}
+					}
+				} else {
+					api.alert({
+						msg : err.msg
+					});
+				}
+			});
+		}
+
+		// 点击关于彩票
+       $('section>ul>li:nth-child(2)').on('click',function(){
+            // var $span = $(this).find("span:first");
+
+           //点击关于彩票：打开
+             api.openWin({
+               name:'关于彩票',
+               url: 'aboutLottery.html',
+           });
+       });
+       $('section>ul>li:nth-child(3)').on('click',function(){
+          api.openWin({
+              name: '功能介绍',
+              url: 'functionsIntroduce.html',
+          });
+
+
+       })
+      };
+  </script>
+  </html>

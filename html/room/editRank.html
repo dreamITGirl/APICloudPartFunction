@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>设置成员头衔</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         body{
+          background: #EBEBEB;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           section ul{
+            margin-top: 1rem;
+           }
+           section ul li{
+            position: relative;
+            background: #fff;
+            height: 4.4rem;
+            width: 100%;
+            border-bottom: 0.1rem solid #EBEBEB;
+            font-size: 1.4rem;
+            line-height: 4.4rem;
+           }
+           .text_left{
+            position: absolute;left: 3%;width: 80%;
+           }
+           .text_right{
+            position: absolute;right: 3%
+           }
+           .text_right img{
+            width: 1.5rem;
+           }
+          .text_left input{
+            height: 3rem;width: 100%;
+            outline: none;
+          }
+          .myService{
+            position: absolute;right: 3%;top:4.3rem;
+            font-size: 1.5rem;
+          }
+          .edit{
+            display: none;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">设置成员头衔</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                    <div class="myService" id="myMenu">
+                      完成
+                    </div>
+                </li>
+            </ul>
+        </header>
+      <section>
+        <ul>
+          <li>
+            <div class="text_left">
+              <input type="text" placeholder="请输入成员头衔" class="inputEdit">
+            </div>
+            <div class="text_right" style="top:0.3rem;">
+              <img src="../../icon/room/clear.png" class="clear">
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        $('.clear').click(function(){
+          $('.inputEdit').val('');
+        });
+        var editJson = api.pageParam;
+        $('.inputEdit').val(editJson.id);
+        console.log(JSON.stringify(editJson));
+        var index=api.pageParam.index;
+        // 编辑完成
+        $('.myService').on('click',function(){
+          api.sendEvent({
+              name: 'myEditRank',
+              extra: {
+                  name: $('.inputEdit').val(),
+                  index: index
+              }
+          });
+          api.closeWin({});
+        })
+        $('.myPiC').on('click',function(){
+          api.closeWin({});
+        })
+      };
+  </script>
+  </html>

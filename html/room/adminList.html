@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>管理员列表</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         body{
+          background: #F5F5F5;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           .myService{
+            position: absolute;right: 3%;top:4.3rem;
+            font-size: 1.5rem;
+           }
+           section ul{
+            margin-top: 1rem;
+           }
+           section ul li{
+            height: 6rem;
+            width: 100%;
+            border-bottom: 0.1rem solid #f5f5f5;
+            position: relative;
+            line-height: 6rem;
+            background: #fff;
+           }
+           .logoImg{
+            position: absolute;
+            top: 1rem;
+            width: 20%;
+            left: 4%;
+            height: 4rem;
+           }
+           .adminName{
+            position: absolute;
+            left: 22%;
+            font-size: 1.6rem;
+           }
+           .adminDel{
+            width: 17%;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: #D71D34;
+            text-align: center;
+            border-bottom: 0.1rem solid #fff;
+           }
+           .adminDel img{
+            height: 2.4rem;margin-top: 1.8rem;
+           }
+           .hide{
+            display: none;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">管理员列表</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                    <div class="myService" id="myMenu">
+                      编辑
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <ul class="adminList">
+
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var roomId=api.pageParam.roomId;
+        getAdminList();
+        function getAdminList(){
+          api.ajax({
+              url: DATABASE_URL+'lottery-web/lottery/getRoomManagers?cpfj_id='+roomId,
+              method: 'post'
+          },function(ret, err){
+              console.log(JSON.stringify(ret));
+              console.log(JSON.stringify(err));
+              if (ret) {
+                console.log(ret.list);
+                for(var i=0;i<ret.list.length;i++){
+                  console.log(i);
+                  var str='<li name='+ret.list[i].lophone+' limit='+ret.list[i].lophone+'>\
+                            <div class="logoImg">\
+                              <img src="../../image/tou.png" style="height: 4rem;">\
+                            </div>\
+                            <div class="adminName">'+ret.list[i].louserName+'</div>\
+                            <div class="adminDel hide">\
+                              <img src="../../icon/room/cj_del.png">\
+                            </div>\
+                          </li>';
+                  $('.adminList').append(str);
+                }
+              } else {
+                  console.log( JSON.stringify( err ) );
+              }
+          });
+        }
+        var editMenu = $api.dom('#myMenu'),
+            adminDel = $api.dom('.adminDel');
+        $api.addEvt(editMenu, 'click', function(){
+          if($api.html(editMenu) == "编辑"){
+            $('.adminDel').show();
+            $api.html(myMenu,'完成');
+          }else{
+            $('.adminDel').hide();
+            $api.html(myMenu,'编辑');
+          }
+        });
+      };
+  </script>
+  </html>

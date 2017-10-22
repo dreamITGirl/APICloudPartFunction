@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>游戏创建房间</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+      <style>
+         html{
+           font-size: 10px;
+         }
+         #wrap{
+           background:#ebebeb;
+         }
+          header{
+            background-color: #D71D34;
+            position: fixed;
+            top: 0rem;
+            z-index: 1111111;
+            width: 100%;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 1.8rem;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+          .cont{
+            margin-top: 1rem;
+            width:100%;
+            background: #fff;
+          }
+          .cont ul{
+            list-style: none;
+            font-size: 1.5rem;
+            background-color: #ebebeb;
+          }
+          .cont ul .list{
+            overflow: hidden;
+            line-height: 4rem;
+            background: #fff;
+            border-bottom:1px solid #e4e4e4;
+            position: relative;
+          }
+          .cont ul .list .left{
+            float: left;
+            margin-left: 2rem;
+          }
+          .cont ul .list .img{
+            position: absolute;
+            top:1rem;
+            right:2rem;
+            width:2rem;
+            height:2rem;
+          }
+          .cont ul .list .right{
+            float: right;
+            margin-right: 5rem;
+          }
+          .cont ul .list .word{
+            float: right;
+            margin-right: 5rem;
+          }
+          .cont ul .list .wordG{
+            float: right;
+            margin-right: 5rem;
+          }
+          .cont ul .list .wordR{
+            float: right;
+            margin-right: 5rem;
+          }
+          .cont .kinds{
+            list-style: none;
+            overflow: auto;
+            background: #fff;
+          }
+          .cont .kinds li{
+            float: left;
+            width:11.9rem;
+            border-right:1px solid #f1f1ef;
+          }
+          .cont .kinds li:hover{
+            background:#f7fff2;
+          }
+          .cont .kinds .box{
+            width:100%;
+            margin-top:1.7rem;
+            text-align: center;
+          }
+          .cont .kinds .box img{
+            width:6.1rem;
+            height:6.1rem;
+          }
+          .cont .kinds .box .tit{
+            font-size: 1.6rem;
+            color: #8c918b;
+            line-height: 1.6rem;
+            margin-bottom:1rem;
+          }
+          .cont .kind{
+            list-style: none;
+            overflow: auto;
+            background: #fff;
+            width:47.7rem;
+          }
+          .cont .kind li{
+            float: left;
+            width:12rem;
+            padding:1rem 0;
+
+          }
+          .cont .kind li:hover{
+            background:#f7fff2;
+          }
+          .cont .kind .boxs{
+            overflow: hidden;
+            width:100%;
+            border-right:1px solid #f1f1ef;
+          }
+          .cont .kind .boxs img{
+            float: left;
+            margin-left: 0.9rem;
+            width:3.8rem;
+            height:3.8rem;
+            margin-top:1rem;
+          }
+          .cont .kind .boxs .tit{
+            font-size: 1.4rem;
+            float: left;
+            color: #363833;
+            line-height: 4.8rem;
+            margin-top:0.5rem;
+            margin-left: 0.9rem;
+          }
+          .cont .props{
+            width:100%;
+            overflow: auto;
+            background: #fff;
+
+          }
+          ::-webkit-scrollbar {height: 0px;width: 0px}
+          .cont .props .kind1{
+            list-style: none;
+            width:43.3rem;
+            overflow: hidden;
+            background: #fff;
+          }
+          .cont .props .kind1 li{
+            height:8rem;
+            float: left;
+            border:1px solid #edeee9;
+            overflow: hidden;
+            float: left;
+            width:14.2rem;
+            height:11.5rem;
+            padding:1rem 0;
+          }
+          .cont .props .kind1 li .action{
+            width:9rem;
+            margin:0.5rem auto;
+            font-size: 1.1rem;
+            color: #999;
+          }
+          .cont .props .kind1 li:hover{
+            background:#f7fff2;
+          }
+          .cont .props .kind1 .box1{
+            overflow: hidden;
+            width:96%;
+            margin:auto;
+            height:7.5rem;
+            position: relative;
+            border-radius: 1rem;
+            background-color:#f6f6f6;
+          }
+          .cont .props .kind1 .box1 .check{
+            position: absolute;
+            right:0.8rem;
+            bottom:1.6rem;
+            width:2.4rem;
+            height:2.4rem;
+          }
+          .cont .props .kind1 .box1 img{
+            float: left;
+            margin-left: 1.2rem;
+            width:4.4rem;
+            height:4rem;
+            margin-top:1rem;
+          }
+          .cont .props .kind1 .box1 .rig{
+            float: left;
+            width:7.1rem;
+            margin-left: 0.5rem;
+          }
+          .cont .props .kind1 .box1 .tit{
+            font-size: 1.4rem;
+            color: #363833;
+            line-height: 4rem;
+          }
+          .cont .props .kind1 .box1 .rig .two{
+            font-size: 1.5rem;
+            background: #c6eafa;
+            border-radius: 1rem;
+            width:4.5rem;
+            padding-left: 0.7rem;
+            height:2.3rem;
+            color: #000;
+            line-height: 2.3rem;
+          }
+          .next{
+            height: 5rem;
+            width: 100%;
+            position: fixed;
+            z-index: 1111;
+            background: #fff;
+            bottom: 0;
+            text-align: center;
+            line-height: 5rem;
+            font-size: 1.4rem;
+            color: #d71d34;
+          }
+          #rule{
+            outline: none;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+      <header>
+          <ul>
+              <li class="border-b mine" >
+                  <div class="myMine">创建游戏房间</div>
+                  <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+              </li>
+          </ul>
+      </header>
+      <!-- <div style="width:100%;height:9.5rem;"></div> -->
+      <div class="cont" style="margin-top: 8rem;">
+        <ul>
+          <li class="list">
+            <span class="left">名称</span><input class="lottName" style="outline: none;text-align:right;margin-top:1rem;" placeholder = "请填写房间名称" class="right" value="" />
+          </li>
+          <li class="list">
+            <span class="left">类别</span><img class="img" src="../../icon/go_right.png" alt=""><span class="right">游戏</span>
+          </li>
+          <li class="list">
+            <span class="left">类型</span><img class="img" src="../../icon/go_right.png" alt=""><span class="word"></span><br>
+          </li>
+          <li class="list" style="overflow:auto;">
+            <ul class="kinds">
+              <li>
+                <div class="box">
+                  <img src="../../image/createRoom/cehua_long.png" alt="">
+                  <p class="tit">接龙</p>
+                </div>
+              </li>
+              <li>
+                <div class="box">
+                  <img src="../../image/createRoom/cehua_lei.png" alt="">
+                  <p class="tit">扫雷</p>
+                </div>
+              </li>
+              <li>
+                <div class="box">
+                  <img src="../../image/createRoom/cehua_-niu.png" alt="">
+                  <p class="tit">牛牛</p>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- 红包类型 -->
+          <li class="list" style="border-bottom:0px;">
+            <span class="left">红包类型</span><img class="img" src="../../icon/go_right.png" alt=""><span class="wordR"></span><br>
+          </li>
+          <li class="list" style="overflow:auto;">
+            <ul class="kind kindR">
+              <li class="redone">
+                <div class="boxs">
+                  <img src="../../image/createRoom/cehua_-niu.png" alt="">
+                  <p class="tit" value='1'>3元5包</p>
+                </div>
+              </li>
+              <li class="redtwo">
+                <div class="boxs">
+                  <img src="../../image/createRoom/cehua_-niu.png" alt="">
+                  <p class="tit" value='2'>5元8包</p>
+                </div>
+              </li>
+              <li class="redthree">
+                <div class="boxs">
+                  <img src="../../image/createRoom/cehua_-niu.png" alt="">
+                  <p class="tit" value='2'>10元12包</p>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- 游戏金额 -->
+          <li class="list" style="border-bottom:0px;">
+            <span class="left">游戏金额</span><img class="img" src="../../icon/go_right.png" alt=""><span class="wordG"></span><br>
+          </li>
+          <li class="list" style="overflow:auto;">
+            <ul class="kind kindG">
+              <li class="kindone">
+                <div class="boxs">
+                  <img src="../../image/createRoom/cehua_-niu.png" alt="">
+                  <p class="tit tit_contentone" value='1'>牛牛0.1元</p>
+                </div>
+              </li>
+              <li class="kindtwo">
+                <div class="boxs">
+                  <img src="../../image/createRoom/cehua_-niu.png" alt="">
+                  <p class="tit tit_contenttwo" value='1'>牛牛1元</p>
+                </div>
+              </li>
+              <li class="kindthree">
+                <div class="boxs">
+                  <img src="../../image/createRoom/cehua_-niu.png" alt="">
+                  <p class="tit tit_contentthree" value='1'>牛牛5元</p>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="list"  style="margin-top:1rem;">
+            <span class="left">道具</span><img class="img" src="../../icon/go_right.png" alt=""><span class="right" style="color:#9a9a9a;">请选择道具</span>
+          </li>
+          <!--道具-->
+          <li class="props">
+            <ul class="kind1">
+              <li>
+                <div class="box1">
+                  <img src="../../image/createRoom/tu_jiqiren.png" alt="">
+                  <div class="rig">
+                    <p class="tit">智能小方</p>
+                    <p class="two">￥20</p>
+                  </div>
+                  <img style="display:none;" class="check" src="../../icon/room/dui.png" alt="">
+                </div>
+                <p class="action">功能介绍：能够与人简单的对话，代替房主来管理房间</p>
+              </li>
+              <li style="background:#f7fff2;">
+                <div class="box1">
+                  <img src="../../image/createRoom/tu_jiqiren.png" alt="">
+                  <div class="rig">
+                    <p class="tit">预测功能</p>
+                    <p class="two">￥20</p>
+                  </div>
+                  <img style="display:block;" class="check" src="../../icon/room/dui.png" alt="">
+                </div>
+                <p class="action">功能介绍：能够与人简单的对话，代替房主来管理房间</p>
+              </li>
+              <li>
+                <div class="box1">
+                  <img src="../../image/createRoom/tu_jiqiren.png" alt="">
+                  <div class="rig">
+                    <p class="tit">智能小方</p>
+                    <p class="two">￥20</p>
+                  </div>
+                  <img style="display:none;" class="check" src="../../icon/room/dui.png" alt="">
+                </div>
+                <p class="action">功能介绍：能够与人简单的对话，代替房主来管理房间</p>
+              </li>
+            </ul>
+          </li>
+          <li class="list" style="margin-top:1rem;">
+            <input type="text" name="" value="" id="rule" placeholder="请输入规则..." >
+            <span class="left">规则</span><img class="img" src="../../icon/go_right.png" alt="">
+          </li>
+          <li style="height:6rem;"></li>
+        </ul>
+      </div>
+      <footer class="next" onclick="nextRoom()">下一步</footer>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        //gameList(index);
+         var userInfo = $api.getStorage('userInfo');
+          console.log(JSON.stringify(userInfo));
+
+      };
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+      $(".box").on("click",function(){
+        var tag=$(this).children("p.tit").html();
+        $(".word").html(tag);
+
+      });
+      //
+      var MULTIPLE;
+      var NAME;
+      $(".kindG").on("click","li",function(){
+        //alert($(this).attr("name"));
+        MULTIPLE = $(this).attr("name");
+        var dom = $(this).children().children("p.tit");
+        var tag=dom.html();
+        NAME = dom.html();
+        $(".wordG").html(tag);
+        $(".wordG").attr('name',dom.attr('value'));
+      })
+
+      $(".kindR").on("click","li",function(){
+        //alert($(this).attr("name"));
+        var dom = $(this).children().children("p.tit");
+        var tag=dom.html();
+        $(".wordR").html(tag);
+        $(".wordR").attr('name',dom.attr('value'));
+        $('.wordR').attr('playType',$(this).attr('playType'))
+      })
+      //下一步跳转
+      function nextRoom(){
+        var userInfo = $api.getStorage('userInfo');
+        console.log($(".lottName").val()+"==========="+userInfo.lophone);
+        if($('.lottName').val() == ''){
+           toast('请填写房间名称');
+           return;
+        };
+        api.ajax({
+            url: GAMEDATABASE_URL+'lottery-web/NNgame/checkRoomname?uid='+userInfo.id+'&roomName='+$(".lottName").val(),
+            method: 'get'
+        }, function(ret, err) {
+           console.log(JSON.stringify(ret));
+
+            if (ret.code==2) {
+              //游戏房间
+
+              createGameRoom();
+            } else if(ret.code == 1){
+              toast('房间名称重复');
+            }else{
+              toast('房间名称错误');
+            }
+        });
+      }
+      function createGameRoom(){
+        var userInfo = $api.getStorage('userInfo');
+        var lottName = $(".lottName").val();
+        var rule = $("#rule").val();
+        var multiple = $(".wordG").attr('name');
+        var playType = $(".wordR").attr('playType');
+        var gameCode = 1;
+        var newRedType = '';
+        var newRedMonet = '';
+        var redNum = '';
+           // alert(playType)
+        console.log('创建房间='+userInfo.lophone+'=='+lottName+"=="+$(".wordR").attr('name')+"=="+rule+"=="+NAME+"=="+multiple);
+         if($(".wordR").attr('name') == 1){
+             newRedMonet = '0003'
+         }else if($(".wordR").attr('name') == 2){
+            newRedMonet = '0005'
+         }else{
+            newRedMonet = '0010'
+         }
+        if($(".word").html() == "牛牛"){
+            newRedType = '01'
+             gameCode = 1;
+             redNum = '0006'
+        }else if($('.word').html() == '接龙'){
+            newRedType = '02'
+             gameCode = 2;
+             redNum = '0006'
+        }else{
+             newRedType = '03'
+             gameCode = 3;
+             redNum = "0007"
+        }
+        // alert(playType);
+        // alert(newRedType+newRedMonet+redNum);
+        // return;
+          // alert(playType)
+        if($('.word').html() == ''|| lottName == '' || multiple == ''){
+          toast('信息不能为空')
+        }else{
+          console.log(userInfo.lophone+"名称："+lottName+"游戏类型"+$(".wordR").attr('name')+"规则："+rule+"类型："+NAME+"倍率："+multiple+"房间类型:"+$('.word').html()+"不知道啥code"+gameCode);
+          api.ajax({
+              url: GAMEDATABASE_URL+'lottery-web/NNgame/createRoom',
+              method: 'post',
+              data: {
+                  values: {
+                      userId:userInfo.lophone,
+                      groupName:lottName,
+                      gameway:$(".wordR").attr('name'),
+                      rule:rule,
+                      gametype:NAME,
+                      gameMultiple:multiple,
+                      roomType:$('.word').html(),
+                      gametypecode:gameCode,
+                      numbercode:playType
+                  }
+              }
+          },function(ret, err){
+
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+            console.log(ret.groupId);
+            console.log((ret.password));
+            // return;
+              if(ret.status == 1){
+                api.sendEvent({
+                  name: 'createLotteryTicket',//创建游戏房间发送监听
+                  extra: {
+                    key1: 'value1',
+                    key2: 'value2'
+                  }
+                });
+                  api.toast({
+                      msg: '创建成功',
+                      duration: 2000,
+                      location: 'bottom'
+                  });
+                  setTimeout(nextRoomUrl(ret.password),2000);
+                }else {
+                toast('房间创建失败');
+                }
+            });
+        }
+
+      }
+      // 跳转房间
+      function nextRoomUrl(ret){
+        api.closeWin({
+        });
+        api.openWin({
+            name: 'createSuccess',
+            url: './createSuccess.html',
+            pageParam: {
+                name: ret
+            }
+        });
+      };
+      //点击切换
+      $(".kinds").on("click","li",function(){
+        console.log($(".kindone").attr("multiple"));
+        var indexL = $(this).index();
+        gameList(indexL);
+      })
+      function gameList(index){
+        api.ajax({
+            url:GAMEDATABASE_URL+'lottery-web/NNgame/getAllGame',
+            method: 'get'
+        },function(ret, err){
+            // alert(index);
+            // return;
+            console.log(JSON.stringify(ret));
+            // return;
+            if (ret) {
+              var long=1,lei=1,niu=1;
+                for(var i=0;i<ret.length;i++){
+                  if(ret[i].typeName == '接龙'){
+                    long = i;
+                  }else if (ret[i].typeName == '扫雷') {
+                    lei = i;
+                  }else{
+                    niu = i;
+                  }
+                }
+                console.log( JSON.stringify( ret ) );
+                $(".tit_contentone").html(ret[0].list[0].playName);
+                $(".tit_contenttwo").html(ret[0].list[1].playName);
+                // $(".tit_contentthree").html(ret[0].list[2].playName);
+                console.log(ret[0].list[0].multiple);
+                $(".kindone").attr("name",ret[0].list[0].multiple);
+                console.log($(".kindone").attr("name"));
+                $(".kindtwo").attr("name",ret[0].list[1].multiple);
+                // $(".kindthree").attr("name",ret[0].list[2].multiple);
+
+                 $(".redone").attr("playType",ret[0].list[0].playType);
+                  $(".redtwo").attr("playType",ret[0].list[1].playType);
+                  // $(".redthree").attr("playType",ret[0].list[2].playType);
+                if(index == 0){
+                  // 接龙
+                  $(".tit_contentone").html(ret[long].list[0].playName);
+                  $(".tit_contenttwo").html(ret[long].list[1].playName);
+                  // $(".tit_contentthree").html(ret[long].list[2].playName);
+                  $(".kindone").attr("name",ret[long].list[0].multiple);
+                  $(".kindtwo").attr("name",ret[long].list[1].multiple);
+                  // $(".kindthree").attr("name",ret[long].list[2].multiple);
+
+                   $(".redone").attr("playType",ret[long].list[0].playType);
+                  $(".redtwo").attr("playType",ret[long].list[1].playType);
+                  // $(".redthree").attr("playType",ret[long].list[2].playType);
+                  /*$(".redone").attr("name",ret[1].list[0].multiple);
+                  $(".redtwo").attr("name",ret[1].list[1].multiple);
+                  $(".redthree").attr("name",ret[1].list[2].multiple);*/
+                }else if (index == 1) {
+                  // 牛牛
+                  $(".tit_contentone").html(ret[lei].list[0].playName);
+                  $(".tit_contenttwo").html(ret[lei].list[1].playName);
+                  // $(".tit_contentthree").html(ret[lei].list[2].playName);
+                  $(".kindone").attr("name",ret[lei].list[0].multiple);
+                  $(".kindtwo").attr("name",ret[lei].list[1].multiple);
+                  // $(".kindthree").attr("name",ret[lei].list[2].multiple);
+
+                  $(".redone").attr("playType",ret[lei].list[0].playType);
+                  $(".redtwo").attr("playType",ret[lei].list[1].playType);
+                  // $(".redthree").attr("playType",ret[lei].list[2].playType);
+                  /*$(".redone").attr("name",ret[2].list[0].multiple);
+                  $(".redtwo").attr("name",ret[2].list[1].multiple);
+                  $(".redthree").attr("name",ret[2].list[2].multiple);*/
+                }else {
+                  $(".tit_contentone").html(ret[niu].list[0].playName);
+                  $(".tit_contenttwo").html(ret[niu].list[1].playName);
+                  // $(".tit_contentthree").html(ret[niu].list[2].playName);
+                  $(".kindone").attr("name",ret[niu].list[0].multiple);
+                  $(".kindtwo").attr("name",ret[niu].list[1].multiple);
+                  // $(".kindthree").attr("name",ret[niu].list[2].multiple);
+
+                  $(".redone").attr("playType",ret[niu].list[0].playType);
+                  $(".redtwo").attr("playType",ret[niu].list[1].playType);
+                  // $(".redthree").attr("playType",ret[niu].list[2].playType);
+                  /*$(".redone").attr("name",ret[0].list[0].multiple);
+                  $(".redtwo").attr("name",ret[0].list[1].multiple);
+                  $(".redthree").attr("name",ret[0].list[2].multiple);*/
+                }
+            } else {
+                toast( JSON.stringify( err ) );
+            }
+        });
+      }
+  </script>
+  </html>

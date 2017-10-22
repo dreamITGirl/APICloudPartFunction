@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>1-5球赔率设置</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css" href="../../css/style.css">
+      <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+      <style>
+        html{
+          font-size: 10px;
+        }
+        #wrap{
+          background:#f2f2f2;
+          height:100%;
+        }
+         header{
+           background-color: #D71D34;
+           position: fixed;
+           top: 0rem;
+           z-index: 1000;
+           width: 100%;
+         }
+         header ul li {
+           height: 7.5rem;
+           text-align: center;
+           color: #fff;
+           position: relative;
+           font-size: 1.8rem;
+          }
+          .myMine{
+            padding-top: 4rem;
+          }
+          .myPiC{
+            position: absolute;
+            left: 0rem;
+            top: 0rem;
+            width: 10%;
+            padding-top: 3.7rem;
+            height: 7.5rem;
+          }
+          .save{
+            position: absolute;
+            right:1rem;
+            top:4rem;
+            font-size: 1.8rem;
+            color: #fff;
+          }
+          .title{
+            width:100%;
+            height:4.5rem;
+            background-color:#e6e5e5;
+            overflow: hidden;
+            list-style: none;
+            margin-top:2rem;
+          }
+          .title li{
+            float: left;
+            text-align: center;
+            width:5.9rem;
+            height:4.5rem;
+            line-height: 4.5rem;
+            font-size: 1.6rem;
+          }
+          .topT{
+            overflow: hidden;
+            width:100%;
+            padding:1rem 0;
+            height:3.5rem;
+            background-color: #fff;
+          }
+          .topT input{
+            float: right;
+            text-align: center;
+            margin-top:0.5rem;
+            margin-right:1.4rem;
+            font-size: 1.4rem;
+          }
+          .topT span{
+            float: right;
+            line-height: 2.3rem;
+            margin-top:0.5rem;
+            text-align: center;
+            font-size:1.4rem;
+            margin-right:1.4rem;
+            width:3.9rem;
+            height:2.3rem;
+            border:1px solid #aeaeae;
+          }
+          .top{
+            width:100%;
+            list-style: none;
+          }
+          .top li{
+            height:4.3rem;
+            width:100%;
+          }
+          .top li span{
+            font-size:1.7rem;
+            color: #df2238;
+            margin-top:1.3rem;
+            margin-left:1.3rem;
+          }
+          .top li input{
+            width:4rem;
+            height:2.2rem;
+            margin-top:0.9rem;
+            margin-left: 2rem;
+            text-align: center;
+            font-size:1.4rem;
+          }
+          .contT{
+            overflow: hidden;
+            width:100%;
+            padding:1rem 0;
+            height:3.5rem;
+            margin-top:1rem;
+            background-color: #fff;
+          }
+          .contT input{
+            float: right;
+            text-align: center;
+            margin-top:0.5rem;
+            margin-right:1.4rem;
+            font-size: 1.4rem;
+          }
+          .contT span{
+            float: right;
+            line-height: 2.3rem;
+            margin-top:0.5rem;
+            text-align: center;
+            font-size:1.4rem;
+            margin-right:1.4rem;
+            width:3.9rem;
+            height:2.3rem;
+            border:1px solid #aeaeae;
+          }
+          .cont{
+            width:100%;
+            list-style: none;
+          }
+          .cont li{
+            height:4.3rem;
+            width:100%;
+          }
+          .cont li span{
+            font-size:1.7rem;
+            width:2.4rem;
+            height:2.4rem;
+            color: #fff;
+            text-align: center;
+            line-height: 2.4rem;
+            background-color: #df2238;
+            border-radius:3rem;
+            margin-top:1.3rem;
+            margin-left:1.3rem;
+          }
+          .cont li input{
+            width:4rem;
+            height:2.2rem;
+            margin-top:0.9rem;
+            margin-left: 2rem;
+            text-align: center;
+            font-size:1.4rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+      <header>
+          <ul>
+              <li class="border-b mine" >
+                  <div class="myMine">1-5球设置</div>
+                  <div class="myPiC">
+                    <img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;">
+                  </div>
+                  <div class="save">保存</div>
+              </li>
+          </ul>
+      </header>
+      <!-- <div style="height:8rem;width:100%;"></div> -->
+      <section style="margin-top:6rem">
+        <ul class="title">
+          <li>组合</li>
+          <li>第一球</li>
+          <li>第二球</li>
+          <li>第三球</li>
+          <li>第四球</li>
+          <li>第五球</li>
+        </ul>
+        <div class="topT">
+          <span class="cancelT">清除</span><span class="allT">全填</span>
+          <input class="oddsT" type="text" style="outline:1px solid #df2238;height:2.75rem;width:10.6rem;" placeholder="请填写赔率" value='1.98'>
+        </div>
+        <ul class="top">
+          <li style="background-color:#f2f2f2;">
+            <span class="red">大</span>
+            <input class="oneBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#fff;">
+            <span class="red">小</span>
+            <input class="oneBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#f2f2f2;">
+            <span class="red">单</span>
+            <input class="oneBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#fff;">
+            <span class="red">双</span>
+            <input class="oneBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="1.98" style="outline:1px solid #aeaeae;">
+          </li>
+        </ul>
+        <div class="contT">
+          <span class="cancelC">清除</span><span class="allC">全填</span>
+          <input class="oddsC" type="text" style="outline:1px solid #df2238;height:2.75rem;width:10.6rem;" placeholder="请填写赔率" value="9.8">
+        </div>
+        <ul class="cont">
+          <li style="background-color:#f2f2f2;">
+            <span class="red">0</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#fff;">
+            <span class="red">1</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#f2f2f2;">
+            <span class="red">2</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#fff;">
+            <span class="red">3</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#f2f2f2;">
+            <span class="red">4</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#fff;">
+            <span class="red">5</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#f2f2f2;">
+            <span class="red">6</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#fff;">
+            <span class="red">7</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#f2f2f2;">
+            <span class="red">8</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+          <li style="background-color:#fff;">
+            <span class="red">9</span>
+            <input class="oneBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="twoBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="threeBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fourBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+            <input class="fiveBall" type="text" value="9.8" style="outline:1px solid #aeaeae;">
+          </li>
+        </ul>
+        <div style="width:100%;height:3rem;background-color:#f2f2f2;"></div>
+      </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        // var type=api.pageParam.type;
+        // if(type){
+        //   console.log(type);
+          var getBalls = $api.getStorage('allBall');
+          console.log(getBalls);
+          if(getBalls){
+            setVal(getBalls.oneBall,'.cont .oneBall','.top .oneBall');
+            setVal(getBalls.twoBall,'.cont .twoBall','.top .twoBall');
+            setVal(getBalls.threeBall,'.cont .threeBall','.top .threeBall');
+            setVal(getBalls.fourBall,'.cont .fourBall','.top .fourBall');
+            setVal(getBalls.fiveBall,'.cont .fiveBall','.top .fiveBall');
+          }
+          else{}
+        // }
+        $('.myPiC').on('click',function(){
+          api.closeWin({});
+        });
+
+//--------------判断赔率是否设置-------------
+        $('ul input').on('blur',function(){
+          if($(this).val()=="")
+          {
+            $('.save').attr('disabled',true);
+            alert('赔率不能为空！');
+          }
+          else{}
+        });
+
+//-----------大小单双 全填/清除-------------
+        $('.allT').on('click',function(){
+          var word=$('.oddsT').val();
+          $('.top input').val(word);
+        })
+        $('.cancelT').on('click',function(){
+          $('.top input').val("1");
+        })
+//-----------大小单双 全填/清除-------------
+        $('.allC').on('click',function(){
+          var word=$('.oddsC').val();
+          $('.cont input').val(word);
+        })
+        $('.cancelC').on('click',function(){
+          $('.cont  input').val("1");
+        })
+
+//----------保存按钮----------------------
+        function addArry(arr,clas1,clas2){
+          for(var i=0;i<$(clas1).length;i++)
+          {
+            arr.push($(clas1).eq(i).val());
+          }
+          for(var j=0;j<$(clas2).length;j++)
+          {
+            arr.push($(clas2).eq(j).val());
+          }
+        }
+//-----------将本地的1-5球赔率放到页面-方法----
+        function setVal(arr,clas1,clas2){
+          for(var i=0;i<10;i++)
+          {
+            $(clas1).eq(i).val(arr[i]);
+          }
+          for(var j=0;j<4;j++)
+          {
+            $(clas2).eq(j).val(arr[10+j]);
+          }
+        }
+
+        $('.save').on('click',function(){
+
+          var oneStr=[];
+          addArry(oneStr,'.cont .oneBall','.top .oneBall')
+          var twoStr=[];
+          addArry(twoStr,'.cont .twoBall','.top .twoBall')
+          var threeStr=[];
+          addArry(threeStr,'.cont .threeBall','.top .threeBall')
+          var fourStr=[];
+          addArry(fourStr,'.cont .fourBall','.top .fourBall')
+          var fiveStr=[];
+          addArry(fiveStr,'.cont .fiveBall','.top .fiveBall')
+          var allBall = {
+            oneBall:oneStr,
+            twoBall:twoStr,
+            threeBall:threeStr,
+            fourBall:fourStr,
+            fiveBall:fiveStr
+          }
+          var leng=$('ul input').length;
+          var h=0;
+          for(var i=0;i<leng;i++)
+          {
+            if($('ul input').eq(i).val()=='')
+            {
+              h=1;
+            }
+          }
+          if(h==1)
+          {
+            api.toast({
+              msg : '赔率不能为空！',
+              duration : 2000,
+              location : 'top'
+            });
+          }
+          else{
+            $api.setStorage('allBall',allBall);//一到五球设置
+            api.sendEvent({
+                name: 'saveSettings',
+                extra: {
+                    key1: 'value1'
+                }
+            });
+            api.toast({
+              msg : '保存成功！',
+              duration : 2000,
+              location : 'top'
+            });
+            api.closeWin({});
+          }
+        })
+      };
+  </script>
+  </html>

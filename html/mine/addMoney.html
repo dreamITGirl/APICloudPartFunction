@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>充值</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+
+         }
+         #wrap{
+           background: #ebebeb;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+            section ul{
+              margin-top: 0.5rem;
+            }
+            section ul li{
+              height: 5rem;
+              line-height: 5rem;
+              background: #fff;
+              position: relative;
+              border-bottom: 0.1rem solid #EBEBEB;
+            }
+            section ul li p{
+              position: absolute;
+              left: 3%;
+              width: 25%;
+              height: 100%;
+              font-size: 1.5rem;
+              color: #333333;
+            }
+            section ul li .cardInput{
+              width: 70%;
+              height: 100%;
+              position: absolute;
+              font-size: 1.5rem;
+              color: #666666;
+              background: #fff;
+              right: 3%;
+              outline: none;
+              border: none;
+            }
+            section ul li img{
+              right: 3%;
+              height: 2rem;
+              position: absolute;
+              top: 1.5rem;
+            }
+            .submitBtn{
+              width: 95%;height: 4.5rem;line-height: 4.5rem;
+              margin: 1rem auto;
+              background: #D71D34;
+              border-radius: 0.4rem;
+              color: #fff;
+              font-size: 1.5rem;
+              text-align: center;
+            }
+             /*遮罩层*/
+             .addAddressTo{
+              width: 100%;
+              height: 100%;
+              position: fixed;
+              bottom: 0rem;
+              left: 0rem;
+              z-index: 100;
+              display:none;
+            }
+            .addAddressTo .shade{
+              width: 100%;
+              height: 100%;
+              background: rgba(0,0,0,0.5)
+            }
+            .passInput{
+              width: 16.2%;height:4rem;border-right: 0.1rem solid #ebebeb;outline: none;
+              line-height: 4rem;
+              font-size: 1.6rem;
+              float: left;
+              font-weight: 600;
+              text-align: center;
+              /*top: 0;*/
+              /*position: absolute;*/
+            }
+            .allPassInput{
+              width: 92%!important;height: 100%!important;letter-spacing:3rem;font-size: 1.7rem;outline: hidden;padding-left: 8%;
+              outline: none;z-index: 6666;position: absolute;top: 0;left: 0;
+            }
+
+            .shadeBox{
+              width: 80%;position: absolute;height: 19rem;background: #fafafa;top: 20%;left: 10%;
+            }
+            .shadeText{
+              height: 5rem;border-bottom: 0.1rem solid #999999;width: 95%;line-height: 5rem;padding-left: 5%;font-size: 1.6rem;
+            }
+            .shadeInput{
+              height: 10rem;text-align: center;width: 100%;
+            }
+            .shadeInput .divBox{
+              position:relative;width: 90%;margin: 0.8rem auto;height: 4rem;border: 0.1rem solid #999999
+            }
+            .shadeInput p:first-child{
+              font-size: 1.4rem;margin:0.8rem 0;
+            }
+            .shadeInput p:nth-child(2){
+              font-size: 2.2rem;color: #333333;font-weight: 600;
+            }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">充值</div>
+                    <div class="myPiC" onclick="closeWin()">
+                      <img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;">
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <ul>
+            <li>
+              <p>金额 (￥)</p>
+              <input type="number" class="cardInput" id="moneyNum" name="money" placeholder="请填写充值金额">
+              <!-- <img src="../../icon/go_right.png"> -->
+            </li>
+            <li>
+              <p>支付方式</p>
+              <select id='payType' class="cardInput">
+                <option class="option-choose" value="0">支付宝</option>
+                <option class="option-choose" value="1">微信</option>
+                <option class="option-choose" value="2">银行卡</option>
+              </select>
+              <!-- <img src="../../icon/go_right.png"> -->
+            </li>
+          </ul>
+          <div class="submitBtn">下一步</div>
+        </section>
+    </div>
+    <div class="addAddressTo" >
+      <!-- style="display: none;" -->
+        <div class="shade"></div>
+        <div class="shadeBox">
+          <img src="../../icon/dingdan_guanbi.png" class="closeMoney" style="position: absolute;top: 1.5rem;height: 2rem;right: 5%">
+          <div class="shadeText">
+            请输入支付密码
+          </div>
+          <div class="shadeInput">
+            <p>充值</p>
+            <p id="moneyIn">￥200</p>
+            <div class="divBox">
+              <input type="number" maxlength="1" class="passInput">
+              <input type="number" maxlength="1" class="passInput">
+              <input type="number" maxlength="1" class="passInput">
+              <input type="number" maxlength="1" class="passInput">
+              <input type="number" maxlength="1" class="passInput">
+              <input type="number" maxlength="1" class="passInput">
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        api.addEventListener({
+            name: 'addMoneySend'
+        }, function(ret, err) {
+            $('#moneyNum').val('');
+        });
+        var userInfo = $api.getStorage('userInfo');
+        //点击下一步
+        $('.submitBtn').on('click',function(){
+          var num = $('#moneyNum').val();
+          if(num == ''||num == 0){
+            toast("请输入正确金额...");
+          }else{
+            var payType = $('#payType').val();
+            addMoneyFun(num,payType);
+          }
+        });
+
+        //点击下一步-------------------------------------
+        /*$('.submitBtn').on('click',function(){
+          var num = $('#moneyNum').val();
+          if(num == ''||num == 0){
+            toast("请输入正确金额...");
+          }else{
+            $('#moneyIn').text('￥'+num);
+            $('.addAddressTo').show();
+          }
+        });
+        // 隐藏----------------------------------------
+        $('.closeMoney').on('click',function(){
+          $('.addAddressTo').hide();
+        });
+
+        //判断输入密码时的正确性-----------------------------
+        var value=0,pass="111111";
+        $('.divBox').click(function(){
+          $('.passInput').eq(0).focus();
+        });
+        var arr=[];
+        $('.passInput').keyup(function(){
+          //数组存值
+          var num = $(this).index(),
+              text = $(this).val(),
+              testVal = /^\d+$/;
+          if(!testVal.test(text)){
+            $(this).val('')
+          }else if($(this).val()==''){
+            $(this).prev().focus();
+            $(this).attr('type','number');
+          }else{
+            arr[num] = text;
+            $(this).attr('type','text').val('*');
+            $(this).next().focus();
+          }
+          // 获取输入的六位密码
+          var valuePass='';
+          if($(this).index()==5){
+            for(var i=0;i<6;i++){
+              valuePass = valuePass + arr[i];
+            }
+            // 判断输入的密码是否正确
+            if(valuePass == pass){
+              // 密码输入正确进行下一步操作
+              api.toast({
+                msg:'请稍后',
+                duration: 2000,
+                location: 'bottom'
+              });
+              addMoneyFun($('#moneyNum').val());
+            }else{
+              // 密码输入错误，请重新操作
+              api.toast({
+                msg:'错误',
+                duration: 2000,
+                location: 'bottom'
+              });
+              $('.passInput').val('');
+            }
+          }
+        });*/
+
+        function addMoneyFun(num,type){
+          api.ajax({
+              url: baseUrl+'bankcard/addRecharge',
+              method: 'post',
+              data: {
+                  values: {
+                      topUpMoney: num,
+                      id: userInfo.id,
+                      type: 1
+                  }
+              }
+          }, function(ret, err) {
+            if(ret){
+              if (ret.stateCode) {
+                alert('充值成功');
+                console.log(JSON.stringify(ret));
+                // $('.addAddressTo').hide();
+                api.sendEvent({
+                  name: 'allMoneyEvt',
+                  extra: {
+                    value: num
+                  }
+                });
+                var n = Math.random()*100;
+                api.openWin({
+                  name: 'sendSuccess',
+                  url: 'sendSuccess.html?num='+n,
+                  pageParam: {
+                    type: type,
+                    value: num,
+                    phone: userInfo.lophone,
+                    add: 1
+                  }
+                });
+              } else {
+                toast('网络错误，重新试试');
+                $('.passInput').attr('type','number');
+                $('.passInput').val('');
+                $('.addAddressTo').hide();
+                console.log(JSON.stringify(err));
+              }
+            }
+
+          });
+        }
+      };
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+  </script>
+  </html>

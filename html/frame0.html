@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../css/zui.css">
+    <link rel="stylesheet" type="text/css" href="../css/zui.zui.lite.css"> -->
+    <link rel="stylesheet" type="text/css" href="../css/swiper.css">
+
+
+    <script type="text/javascript" src="../script/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/public.js"></script>
+    <!-- <script type="text/javascript" src="../script/swiper.jquery.js"></script> -->
+    <script type="text/javascript" src="../script/swiper.js"></script>
+    <style>
+        body{
+            background: #EFEFEF;
+        }
+        /*轮播图*/
+        .swiper-container {
+            width: 100%;
+            height: 17.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .swiper-slide {
+            text-align: center;
+            background: #fff;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        .swiper-container .back{
+            position: fixed;
+            top: 0;
+            width: 3rem;
+            height: 3rem;
+            z-index: 666;
+            margin: 3rem 2%;
+        }
+        /*开箱信息*/
+        .nav{
+            height: 2.4rem;
+            width: 95%;
+            margin-bottom: 0.5rem;
+            background: #fff;
+            line-height: 2.4rem;
+            padding: 1rem 2.5%;
+        }
+        .nav .mess_btn{
+            height: 2.4rem;
+            width: 16%;
+            border: 0.1rem solid #D51C2C;
+            color: #D51C2C;
+            border-radius: 0.4rem;
+            text-align: center;
+            font-size: 1.25rem;
+            float: left;
+        }
+        .nav .mess_detail{
+            float: left;
+            height:2.4rem;
+            overflow:hidden;
+            margin-left: 3%;
+            font-size: 1.2rem;
+            color: #333333;
+            position:relative;
+            width:23rem;
+        }
+        .mess_detail ul{
+            position:absolute;
+        }
+        .mess_detail ul li{
+            height:100%;
+        }
+
+        /*游戏及房间*/
+        .contain{
+            width: 100%;
+        }
+        .contain .contain_part{
+            background: #fff;
+            height: 4rem;
+            width: 95%;
+            padding: 0.75rem 2.5%;
+        }
+        .game_img{
+            width: 12%;float: left;
+        }
+        .game_detail{
+            margin:0 3%;
+            width: 70%;height: 3.8rem;
+            float: left;
+        }
+        .game_detail p{
+            font-size: 1.3rem;
+            color: #333333;
+            height: 1.9rem;width: 100%;margin-bottom: 0.3rem;
+        }
+        .game_detail p:nth-child(2){
+            font-size: 1.1rem;
+            color: #999999;
+        }
+        .change_btn{
+            width: 7%;
+            /*height: 2.2rem;*/
+            margin-top: 0.7rem;
+            float: left;
+        }
+        /*房间*/
+        .home_part{
+            /*width: 50%;*/
+            height: 5rem;
+            background: #F9F7FA;
+            border-top: 0.1rem solid #efefef;
+        }
+        .home_img{
+            margin:0.8rem 1.5% 0 7%;float: left;
+            height: 3rem;
+            border-radius: 50%;
+        }
+        .home_detail{
+            width: 25%;margin-top: 0.7rem;
+        }
+
+        /*遮罩层*/
+        .addAddressTo{
+        width: 100%;
+        height: 60rem;
+        position: fixed;
+        bottom: 0rem;
+        left: 0rem;
+        z-index: 1000000;
+      }
+      .addAddressTo .shade{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5)
+      }
+      .shadeClose{
+        z-index: 666;
+        position: fixed;top: 2rem;width: 6%;margin-left: 89%;
+      }
+      .login_btn{
+        position: fixed;
+        height: 55%;
+        top: 20rem;
+        display: none;
+        width: 67%;
+        margin-left: 15%;
+      }
+      .addAddressTo .shadeAddress{
+        width: 88%;
+        margin-left: 10%;
+        position: fixed;
+        display: none;
+        top: 2rem;
+      }
+      .addAddressTo .redOpen{
+        width: 90%;
+        color: #FFDE00;font-size: 3rem;font-weight: 600;
+        margin-left: 5%;
+        position: fixed;
+        top: 10rem;
+      }
+      .redPrice{
+        width:90%;text-align:center;position: absolute;font-size: 6rem;top: 42%;
+      }
+      .redText{
+        position: absolute;top: 50%;right: 25%;
+      }
+      .addAddressTo ul li {
+        width: 100%;
+        height: 5rem;
+        font-size: 1.5rem;
+        line-height: 5rem;
+        border-bottom: 0.1rem solid #f3f3f3;
+      }
+
+    </style>
+</head>
+<body>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../image/banner1.png" width="100%" height="100%">
+            </div>
+            <div class="swiper-slide">
+                <img src="../image/banner2.png" width="100%" height="100%">
+            </div>
+           <!--  <div class="swiper-slide">
+                <img src="../image/banner1.png" width="100%" height="100%">
+            </div> -->
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="nav">
+        <div class="mess_btn">开箱信息</div>
+        <div class="mess_detail">
+            <ul id= "tab_content">
+               <!--  <li>
+                    130****3658 开了8.5元asdfasdfasdfasdfasdf
+                </li>
+                  <li>
+                    暂无开箱信息
+                </li> -->
+                <!--  <li>
+                    130****3658 开了1元
+                </li>
+                 <li>
+                    130****3658 开了2元
+                </li>
+                 <li>
+                    130****3658 开了3元
+                </li>
+                 <li>
+                    130****3658 开了4元
+                </li>
+                 <li>
+                    130****3658 开了5元
+                </li> -->
+            </ul>
+        </div>
+    </div>
+
+    <section class="contain">
+        <ul id="NNgame">
+            <li class="contain_part">
+                <img class="game_img" src="../icon/room/cehua_-niu.png">
+                <div class="game_detail">
+                    <p>牛牛</p>
+                    <p id = "Nnpeople">人数 0 人</p>
+                </div>
+                <img src="../icon/turnDown.png" value="1" class="change_btn" />
+            </li>
+            <li class="home_part">
+                <img src="../icon/tu_niuniu1.png" class="home_img">
+                <div class="game_detail home_detail  NN_game" name='111111' type='1' value='1'>
+                    <p>三元五包</p>
+                    <p id = "NnOne">在线： 0/0 人</p>
+                </div>
+                <img src="../icon/tu_niuniu1.png" class="home_img">
+                <div class="game_detail home_detail  NN_game" name='111111' type='1' value='2'>
+                    <p>五元八包</p>
+                    <p id = "NnTwo">在线： 0/0 人</p>
+                </div>
+            </li>
+        </ul>
+        <ul id='JLgame'>
+             <li class="contain_part">
+                <img class="game_img" src="../icon/room/cehua_long.png">
+                <div class="game_detail">
+                    <p>接龙</p>
+                    <p id = "JlPeople">人数 0 人</p>
+                </div>
+                <img src="../icon/turnDown.png" value="1" class="change_btn" />
+            </li>
+            <li class="home_part">
+                <img src="../icon/tu_niuniu1.png" class="home_img">
+                <div class="game_detail home_detail  NN_game" name='111111' type='2' value='1'>
+                    <p>三元五包</p>
+                    <p id = "JlOne">在线： 0/0 人</p>
+                </div>
+                <img src="../icon/tu_niuniu1.png" class="home_img">
+                <div class="game_detail home_detail  NN_game" name='111111' type='2' value='2'>
+                    <p>五元八包</p>
+                    <p id = "JlTwo">在线： 0/0 人</p>
+                </div>
+            </li>
+        </ul>
+        <ul id='SLgame'>
+              <li class="contain_part">
+                <img class="game_img" src="../icon/room/cehua_lei.png">
+                <div class="game_detail">
+                    <p>扫雷</p>
+                    <p id = "SlPeople">人数 0 人</p>
+                </div>
+                <img src="../icon/turnDown.png" value="1" class="change_btn" />
+            </li>
+            <li class="home_part">
+                <img src="../icon/tu_niuniu1.png" class="home_img">
+                <div class="game_detail home_detail NN_game" name='111111' type='3' value='1'>
+                    <p>三元五包</p>
+                    <p id = "SlOne">在线： 0/0 人</p>
+                </div>
+                <img src="../icon/tu_niuniu1.png" class="home_img">
+                <div class="game_detail home_detail NN_game" name='111111' type='3' value='2'>
+                    <p>五元八包</p>
+                    <p id = "SlTwo">在线： 0/0 人</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <div class="addAddressTo" style="display: block">
+        <div class="shade"></div>
+        <img src="../icon/dingdan_guanbi.png" class="shadeClose">
+        <div class="shadeAddress">
+            <img src="../icon/money_packet.png" width="100%">
+        </div>
+        <div class="login_btn" id="login"></div>
+        <div class="redOpen" style="display: none">
+            <img src="../icon/openmoney.png" width="100%">
+            <div class="redPrice">100</div>
+            <div class="redText">元</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    apiready = function(){
+
+        var userInfo = $api.getStorage("userInfo");
+        console.log(JSON.stringify(userInfo));
+       // alert(JSON.stringify(userInfo))
+        // findAllRoom();
+       if(userInfo){
+          var userId = userInfo.id;
+       };
+       // 开箱记录---------------------------------------------------------
+        api.ajax({
+            // http://127.0.0.1:8080/lottery-web/box/getAllUserBoxRecord
+            //  url:Box_URL+'box/getAllUserBoxRecord',
+               url:propBaseUrl+'box/getAllUserBoxRecord',
+             method:'get'
+        },function(ret,err){
+            console.log(JSON.stringify(ret));//undefined
+            // return;
+            if(ret){
+              if(ret.stateCode == 1){
+               var html = '';
+               var html1 = '';
+                for(var i = 0;i<ret.result1.length;i++){
+                   var openString = ret.result1[i].openProp;
+                   console.log(ret.result1[i].userId);
+                   console.log(JSON.stringify(ret.result1[i]));
+                   // alert(openString)
+                    api.ajax({
+                   //    url:Box_URL+'user/getUserById?id='+ret.result1[i].userId,
+                       url:propBaseUrl+'user/getUserById?id='+ret.result1[i].userId,
+                       method:'get'
+                    },function(ret,err){
+                      if(ret){
+                        console.log(JSON.stringify(ret));
+                        console.log(JSON.stringify(ret.lotteryUserBean));
+                        if(ret.lotteryUserBean){
+                          var userLouserName = ret.lotteryUserBean.louserName;
+                          console.log(ret.lotteryUserBean.louserName);
+                              if(userLouserName == "无昵称" || userLouserName == ''){
+                                 userLouserName = '用户'+ret.lotteryUserBean.id.slice(0,5);
+                              }
+                              html = html +'<li>'+userLouserName+' 开了'+openString+'</li>' ;
+                              $('#tab_content').html(html);
+                              console.log(html);
+                        }
+                        // UserPhone = UserPhone.slice(0,3)+'****'+UserPhone.slice(7);
+
+                      }
+                    });
+                }
+                // $('#activity').html('<ul id = "award" class="tab_ul">'+html1+'</ul>');
+              }else{
+                $('#tab_content').html('<li>系统繁忙暂无开箱信息</li><li>系统繁忙暂无开箱信息</li>');
+              }
+            }
+
+        })
+        // 开箱记录---------------------------------------------------------
+        // 开箱信息--------------------------------------------
+         setInterval(function(){
+                $('.mess_detail ul').animate({top:'-2.4rem'},1000,function(){
+                 $('.mess_detail ul').append($('.mess_detail ul>li:first'));
+                 $('.mess_detail ul').css({top:0})
+             })
+
+         },3000);
+        // 开箱信息--------------------------------------------
+        //大厅房间总人数和在线人数----------------------------------------
+        api.ajax({
+             url:GAMEDATABASE_URL+'lottery-web/NNgame/peopleNum',
+             method:'get',
+        },function(ret,err){
+          console.log(JSON.stringify(ret));
+             if(ret){
+                var Nnpeople = ret['牛牛三元五包']+ret['牛牛五元八包'] || 0;
+                var NnOne = ret['牛牛三元五包'] || 0;
+                var NnTwo = ret['牛牛五元八包'] || 0;
+                var NnOneRoom = ret["牛牛三元五包房间数"]*30;
+                var NnTwoRoom = ret["牛牛五元八包房间数"]*30;
+                var JlPeople = ret['接龙三元五包']+ret['接龙五元八包'] || 0;
+                var JlOne = ret['接龙三元五包'] || 0;
+                var JlTwo = ret['接龙五元八包'] || 0;
+                var JlOneRoom = ret["接龙三元五包房间数"]*30;
+                var JlTwoRoom = ret["接龙五元八包房间数"]*30;
+                var SlPeople = ret['扫雷三元五包']+ret['扫雷五元八包'] || 0;
+                var SlOne = ret['扫雷三元五包'] || 0;
+                var SlTwo = ret['扫雷五元八包'] || 0;
+                var SlOneRoom = ret["扫雷三元五包房间数"]*30;
+                var SlTwoRoom = ret["扫雷五元八包房间数"]*30;
+                $('#Nnpeople').html('人数 '+Nnpeople+' 人');
+                $('#NnOne').html('在线： '+NnOne+'/'+NnOneRoom+' 人');
+                $('#NnTwo').html('在线： '+NnTwo+'/'+NnTwoRoom+' 人');
+                $('#JlPeople').html('人数 '+JlPeople+' 人');
+                $('#JlOne').html('在线： '+JlOne+'/'+JlOneRoom+' 人');
+                $('#JlTwo').html('在线： '+JlTwo+'/'+JlTwoRoom+' 人');
+                $('#SlPeople').html('人数 '+SlPeople+' 人');
+                $('#SlOne').html('在线： '+SlOne+'/'+SlOneRoom+' 人');
+                $('#SlTwo').html('在线： '+SlTwo+'/'+SlTwoRoom+' 人');
+             }
+        })
+        //大厅房间总人数和在线人数----------------------------------------
+
+        // 轮播图跳转页面-------------------------------------
+         $('.swiper-slide').on('click',function(){
+              var index = $(this).index();
+               console.log(index)
+             if(index == 1){
+                 api.openWin({
+                    name: 'activity_list',
+                    url: 'discover/discoverActivityDetails.html'
+                 });
+             }else if(index == 2){
+                 if(userInfo){
+                    api.openWin({
+                         name:'telRegister',
+                         url:'telRegister.html'
+                    })
+                 }else{
+                    api.openWin({
+                         name:'telRegister',
+                         url:'telRegister.html'
+                    })
+                 }
+             }
+         })
+        // 轮播图跳转页面-------------------------------------
+        if(userInfo!=undefined){
+        var userPhone = userInfo.lophone;
+            api.ajax({
+                url: GAMEDATABASE_URL+'lottery-web/user/getUserById?id='+userInfo.id,
+                method: 'get'
+            }, function(ret, err) {
+                if (ret) {
+                    inforTest(ret.lotteryUserBean);
+                } else {
+                    toast('请稍后重试...');
+                }
+            });
+            api.addEventListener({
+                name: 'doLogin'
+            }, function(ret, err) {
+                if (ret) {
+                    var type = 1;
+                    userInfo = ret.value.userInfo;
+                    inforTest(userInfo);
+                    type = userInfo.loredEnvelope;
+                }
+            });
+        }else{
+            inforTest(userInfo);
+        }
+
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            loop: true
+        });
+
+        //隐藏提示
+        var shadeClose = $api.dom('.shadeClose');
+        $api.addEvt(shadeClose, 'click', function(){
+            $('.addAddressTo').hide();
+        });
+
+        //点击登录
+        var login = $api.dom('#login');
+        $api.addEvt(login, 'click', function(){
+            api.openWin({
+                name: 'login',
+                url: 'login.html'
+            });
+        });
+
+        //点击展开及收起
+        $('.change_btn').on('click',function(){
+            if($(this).attr('value')==1){
+                $(this).parent('li').siblings().hide();
+                $(this).attr('value','0');
+                $(this).attr('src','../icon/turnUp.png');
+            }else{
+                $(this).parent('li').siblings().show();
+                $(this).attr('value','1');
+                $(this).attr('src','../icon/turnDown.png');
+            }
+        });
+// 点击进入游戏房间部分=========================================================
+
+        var NNname1 = '三元五包',
+            NNgameway1 = 1,
+            NNname2 = '五元八包',
+            NNgameway2 = 2;
+        var NNhtml = '<li class="contain_part">\
+                        <img class="game_img" src="../icon/tu_niuniu.png">\
+                        <div class="game_detail">\
+                            <p>牛牛</p>\
+                            <p>人数 25 人</p>\
+                        </div>\
+                        <img src="../icon/turnDown.png" value="1" class="change_btn" />\
+                    </li>';
+            JLhtml = '<li class="contain_part">\
+                        <img class="game_img" src="../icon/room/cehua_long.png">\
+                        <div class="game_detail">\
+                            <p>接龙</p>\
+                            <p>人数 25 人</p>\
+                        </div>\
+                        <img src="../icon/turnDown.png" value="1" class="change_btn" />\
+                    </li>';
+            SLhtml = '<li class="contain_part">\
+                        <img class="game_img" src="../icon/room/cehua_lei.png">\
+                        <div class="game_detail >\
+                            <p>扫雷</p>\
+                            <p>人数 25 人</p>\
+                        </div>\
+                        <img src="../icon/turnUp.png" value="0" class="change_btn" />\
+                    </li>';
+        var NN = 0,
+            JL = 0,
+            SL = 0;
+        var NN1 = 0,
+            JL1 = 0,
+            SL1 = 0;
+
+        // 点击进入牛牛游戏房间
+        $('#NNgame').on('click','.NN_game',function(){
+            var gid = $(this).attr('name'),
+                pass = $(this).attr('pass'),
+                name = $(this).attr('type'),
+                type = $(this).attr('value');
+            // 加入房间
+            var num = Math.random()*1009;
+            var openname = 'NNWindow',
+                openurl = '../html/room/chat_window.html?num='+num;
+
+            var roomName = "";
+            if(type == 1){
+                roomName = "牛牛：三元五包";
+            }else{
+                roomName = "牛牛：五元八包";
+            }
+            joinRoom(gid,name,type,openname,openurl,roomName);
+        });
+        // 点击进入接龙游戏房间
+        $('#JLgame').on('click','.NN_game',function(){
+            var gid = $(this).attr('name'),
+                name = $(this).attr('type'),
+                type = $(this).attr('value');
+            // 加入房间
+            var num = Math.random()*1009;
+            var openname = 'JLWindow',
+                openurl = '../html/room/chat_addwin.html?num='+num;
+                var roomName = "";
+            if(type == 1){
+                roomName = "接龙：三元五包";
+            }else{
+                roomName = "接龙：五元八包";
+            }
+            joinRoom(gid,name,type,openname,openurl,roomName);
+        });
+        // 点击进入扫雷游戏房间
+        $('#SLgame').on('click','.NN_game',function(){
+            var gid = $(this).attr('name'),
+                name = $(this).attr('type'),
+                type = $(this).attr('value');
+            // 加入房间
+            var num = Math.random()*1009;
+
+            var openname = 'SLWindow',
+                openurl = '../html/room/chat_winLei.html?num='+num;
+            var roomName = "";
+            if(type == 1){
+                roomName = "扫雷：三元五包";
+            }else{
+                roomName = "扫雷：五元八包";
+            }
+            joinRoom(gid,name,type,openname,openurl,roomName);
+        });
+        // 查找系统创建的房间
+        function findAllRoom(){
+            api.ajax({
+                 url: GAMEDATABASE_URL+'lottery-web/NNgame/findAllRoom?uid=18888888889',
+                method: 'get'
+            }, function(ret, err) {
+                if (ret.status == 0) {
+                    // 还没有创建任何房间
+                } else if(ret.status==1){
+                    var list = ret.list;
+                    for(var i=0;i<list.length;i++){
+                        if(list[i].roomType == '牛牛'){
+                            NN1 = NN1 + 1;
+                        }else if(list[i].roomType == '接龙'){
+                            JL1 = JL1 + 1;
+                        }else if(list[i].roomType == '扫雷'){
+                            SL1 = SL1 + 1;
+                        }
+                    }
+                    for(var i=0;i<list.length;i++){
+                        if(list[i].roomType == '牛牛'){
+                            NN = NN + 1;
+                            if(NN%2 == 1 && NN == NN1){
+                                NNhtml = NNhtml+'<li class="home_part">\
+                                        <img src="../icon/tu_niuniu.png" class="home_img">\
+                                        <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+' pass='+list[i].password+'>\
+                                            <p>'+list[i].roomName+'</p>\
+                                            <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                        </div>\
+                                        </li>';
+                            }else if(NN%2==1){
+                                NNhtml = NNhtml+'<li class="home_part">\
+                                        <img src="../icon/tu_niuniu.png" class="home_img">\
+                                        <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+'  pass='+list[i].password+'>\
+                                            <p>'+list[i].roomName+'</p>\
+                                            <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                        </div>'
+                            }else{
+                                NNhtml = NNhtml+'<img src="../icon/tu_niuniu.png" class="home_img">\
+                                            <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+'  pass='+list[i].password+'>\
+                                                <p>'+list[i].roomName+'</p>\
+                                                <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                            </div>\
+                                        </li>'
+                            }
+                        }else if(list[i].roomType == '接龙'){
+                            JL = JL + 1;
+                            if(JL%2 == 1 && JL == JL1){
+                                JLhtml = JLhtml+'<li class="home_part">\
+                                        <img src="../icon/room/cehua_long.png" class="home_img">\
+                                        <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+' pass='+list[i].password+'>\
+                                            <p>'+list[i].roomName+'</p>\
+                                            <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                        </div>\
+                                        </li>';
+                            }else if(JL%2==1){
+                                JLhtml = JLhtml+'<li class="home_part">\
+                                        <img src="../icon/room/cehua_long.png" class="home_img">\
+                                        <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+'  pass='+list[i].password+'>\
+                                            <p>'+list[i].roomName+'</p>\
+                                            <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                        </div>'
+                            }else{
+                                JLhtml = JLhtml+'<img src="../icon/room/cehua_long.png" class="home_img">\
+                                            <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+'  pass='+list[i].password+'>\
+                                                <p>'+list[i].roomName+'</p>\
+                                                <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                            </div>\
+                                        </li>'
+                            }
+                        }else if(list[i].roomType == '扫雷'){
+                            SL = SL + 1;
+                            if(SL%2 == 1 && SL == SL1){
+                                SLhtml = SLhtml+'<li class="home_part">\
+                                        <img src="../icon/room/cehua_lei.png" class="home_img">\
+                                        <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+' pass='+list[i].password+'>\
+                                            <p>'+list[i].roomName+'</p>\
+                                            <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                        </div>\
+                                        </li>';
+                            }else if(SL%2==1){
+                                SLhtml = SLhtml+'<li class="home_part">\
+                                        <img src="../icon/room/cehua_lei.png" class="home_img">\
+                                        <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+'  pass='+list[i].password+'>\
+                                            <p>'+list[i].roomName+'</p>\
+                                            <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                        </div>'
+                            }else{
+                                SLhtml = SLhtml+'<img src="../icon/room/cehua_lei.png" class="home_img">\
+                                            <div class="game_detail home_detail NN_game" name='+list[i].id+' type='+list[i].roomName+' value='+list[i].gameway+'  pass='+list[i].password+'>\
+                                                <p>'+list[i].roomName+'</p>\
+                                                <p>在线： <span class="NNnum">'+list[i].ulist.length+'</span>/30 人</p>\
+                                            </div>\
+                                        </li>'
+                            }
+                        }
+                    }
+                        $('#SLgame').html(SLhtml);
+                        $('#JLgame').html(JLhtml);
+                        $('#NNgame').html(NNhtml);
+                    }
+            });
+        }
+
+        // 加入房间
+        function joinRoom(gid,name,type,openname,openurl,roomName){
+            // var num = Math.random()*1000;
+            var newName = name;
+            var numbercode;
+            var newRedType;
+            var newRedMonet;
+            var redNum;
+            if(name == 1){
+                   newRedType = '01' ;
+                   if(type == 1){
+                         newRedMonet = '0003';
+                          redNum = '0005';
+                    }else if(type == 2){
+                         newRedMonet = "0005";
+                         redNum = '0008';
+                    }
+            }else if(name == 2){
+                newRedType = '02';
+
+                 if(type == 1){
+                         newRedMonet = '0003';
+                          redNum = '0006';
+                    }else if(type == 2){
+                         newRedMonet = "0005";
+                         redNum = '0009';
+                    }
+            }else{
+                newRedType = '03';
+
+                if(type == 1){
+                         newRedMonet = '0003';
+                          redNum = '0006';
+                    }else if(type == 2){
+                         newRedMonet = "0005";
+                         redNum = '0009';
+                    }
+            }
+
+
+            numbercode = newRedType+newRedMonet+redNum;
+            // alert(numbercode)
+            api.ajax({
+                // url: GAMEDATABASE_URL+'lottery-web/NNgame/accessRoom?gametypecode='+name+'&gameway='+type+'&userId='+userInfo.lophone+'&num='+num,
+                // url: GAMEDATABASE_URL+'lottery-web/NNgame/accessRoom?gametypecode='+name+'&gameway='+type+'&userId='+userInfo.lophone+'&numbercode'+numbercode,
+                // url: GAMEDATABASE_URL+'lottery-web/NNgame/accessRoom?userId='+userInfo.lophone+'&numbercode='+numbercode+'&roomid=',
+                 url: GAMEDATABASE_URL+'lottery-web/NNgame/accessRoom?userId='+userPhone+'&numbercode='+numbercode,
+                method: 'get'
+            }, function(ret, err) {
+                 console.log(JSON.stringify(ret));
+                 // alert(JSON.stringify(ret))
+                 // return;
+                if (ret) {
+                    gid = ret.gameroom.id;
+                    name = roomName;
+                    type = ret.gameroom.gameway;
+                    openWindow(gid,name,type,openname,openurl,newName,numbercode);
+                } else {
+                    toast('请稍后重试...');
+                }
+            });
+        }
+        // 打开牛牛接龙扫雷游戏房间
+        function openWindow(gid,name,type,openname,openurl,newName,numbercode){
+            api.openWin({
+              name: openname,
+              url: openurl,
+              pageParam: {
+                  groupId:gid,
+                  name:name,
+                  NNmultiple: 1,
+                  type:type,
+                  pass:0,
+                  creatType:1,
+                  newName:newName,
+                  enterType:1,
+                  numbercode:numbercode
+              }
+            });
+        }
+
+        //下拉刷新模块
+        api.setCustomRefreshHeaderInfo({
+            bgColor: '#C0C0C0'
+          }, function() {
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            window.location.reload();
+        });
+        $("dom").on('touchstart',function(){
+          api.refreshHeaderLoading();
+        })
+        api.refreshHeaderLoadDone();
+// =============================================================================
+    }
+    //更改是否获得新人红包
+    function editRedAjax(id){
+        api.ajax({
+           url: baseUrl+'user/getRedEnvelope?phone='+id,
+           method: 'get'
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+           if (ret.stateCode == 1) {
+            // $('.addAddressTo').hide(1000);
+
+            $('.shadeAddress').hide();
+            $('.login_btn').hide();
+            $('.redOpen').show();
+            $('.redPrice').html(ret.monry);
+           } else {
+            $('.addAddressTo').hide();
+           }
+       });
+    }
+
+    function inforTest(userInfo){
+        //console.log('11111');
+        //console.log(JSON.stringify(userInfo));
+        if(userInfo == null || userInfo == ''){
+            $('.redOpen').hide();
+            $('.shadeAddress').show();
+            $('.login_btn').show();
+        }else if(userInfo.lomoney == 0){
+            editRedAjax(userInfo.lophone);
+        }else{
+            $('.addAddressTo').hide();
+        }
+    }
+</script>
+</html>

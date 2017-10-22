@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>消息房间</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/chat.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/chat_win.css">
+
+      <style>
+        .appends{
+          width:25%;height:12rem;
+          position:fixed;background:#fff;z-index:666;
+          border:0.1rem solid #D2D2D2;
+          display: none
+        }
+        .appends ul li{
+          height: 3.6rem;
+          line-height: 3.6rem;
+          font-size: 1.4rem;
+          padding: 0 10%;
+          border-bottom: 0.1rem solid #fafafa;
+        }
+        /*附加面板*/
+      .appendAction{
+        display: flex;
+        padding-top: 3.2rem;
+        padding-bottom: 3.2rem;
+      }
+      .appendAction_content img{
+        width: 5.5rem;
+        height: 5.5rem;
+        margin-left:28%;
+      }
+      .appendAction_content p{
+        text-align: center;
+        font-size: 1.4rem;
+        color: #8a8a8a;
+        margin-top: 1rem;
+      }
+      .appendAction_content{
+        flex: 1;
+        //background: red;
+      }
+
+      .myRedImg{
+        padding: 0.5rem!important;
+        width: 60%;
+      }
+      .myRedImg .redImg{
+        background: url('../../image/redImg/beijing2.png') no-repeat;background-size:100% 100%;width: 100%;height: 8rem;position: relative;
+      }
+      .myRedImg .redImg img{
+        height: 50%;top: 10%;left: 5%;position: absolute;
+      }
+      .myRedImg .redImg p{
+        position: absolute;font-size: 1.3rem;
+      }
+
+      /*开红包遮罩层----------------------------------------------*/
+    .addAddressTo{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        bottom: 0rem;
+        left: 0rem;
+        color: #DDC69A;
+        font-size: 1.6rem;
+        text-align: center;
+        z-index: 1000000;
+      }
+      .addAddressTo .shade{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5)
+      }
+      .addAddressTo .shadeAddress{
+        width: 84%;
+        height: 70%;
+        margin-left: 8%;
+        position: absolute;
+        line-height: 2.5rem;
+        background: url('../../image/redImg/hongbao-beijing.png') no-repeat;
+        background-size: 100% 100%;
+        top: 11rem;
+      }
+
+      /*红包关闭图片*/
+      .red_close{
+        width: 1.5rem;height: 1.5rem;
+        top:1.5rem;
+        left: 4%;position: absolute;
+      }
+      .red_person{
+        width: 7.6rem;margin: 2.5rem auto;
+        margin-bottom: 0;
+      }
+      .red_person img{
+        width: 7.6rem;height: 7.6rem;border-radius: 50%;
+      }
+      .red_more{
+        font-size: 1.9rem;margin-top: 1rem;
+      }
+      .red_open{
+        left:10%;position: absolute;width: 80%;
+        height:10rem;top: 48.5%;
+      }
+      .red_open img{
+        width: 10rem;border-radius: 50%;
+      }
+      .red_name{
+        font-weight: 600;
+      }
+      .look_more{
+        width:100%;text-align:center;
+        position: absolute;
+        bottom: 5rem;font-size: 1.4rem;
+      }
+
+      .msg{
+        width: 70%!important;
+        padding: 0.5rem!important;
+        margin-left: 15%!important;text-align: center;background: #d0d0d0!important;color: #fff;
+      }
+
+      .text_blue{
+        color: #49CFFF;
+      }
+      .text_red{
+        color: #D81D07;
+      }
+      .text_ff{
+        color: #666666;
+      }
+      .text_green{
+        color: #0F9E3F;
+      }
+      .maskBlack {
+         width:100%;
+         height:100%;
+         background-color:rgba(0, 255, 255,0);
+         z-index:1000;
+         display:none;
+         position:fixed;
+      }
+    .checked{
+       background-color:purple;
+    }
+     .maskLayer{
+      width:100%;
+      height:100%;
+      background-color:rgba(225,225,225,.5);
+      position:absolute;
+      top:0;
+      left:0;
+      border-radius:0.5rem;
+    }
+    #diaplayNone {
+       display:none;
+    }
+      </style>
+  </head>
+  <body>
+    <div class = "maskBlack"></div>
+     <div id = "diaplayNone"></div>
+     <div class="appends"></div>
+    <div id="wrap" class="flex-wrap flex-vertical" >
+      <header id="header">
+          <ul>
+              <li class="border-b mine" >
+                  <div class="myMine"></div>
+                  <div class="myPiC" ><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                  <div style="position: absolute;width: 100%;text-align: center;" class="roomName"></div>
+                  <div style="position: absolute;width: 15%;right: 21%;line-height: 2.3rem;" class="btnAdd"></div>
+                  <div class="myService" id="myMenu">
+                    <img src="../../icon/room/caidan.png">
+                  </div>
+                  <div class="myService myMenu">
+                    <img src="../../icon/room/kefu.png">
+                  </div>
+              </li>
+          </ul>
+      <!--  菜单管理-->
+      <section class="menu hide">
+        <ul>
+          <li id="memberInfor">
+            <div class="menuIcon"><img src="../../icon/room/cj_chengyuan.png" style="height: 1.4rem"></div>
+            <div class="menuText">房间成员</div>
+          </li>
+         <!--  <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_zt.png" style="height: 1.4rem"></div>
+            <div class="menuText">暂停</div>
+          </li> -->
+          <li id="manageRoom">
+            <div class="menuIcon"><img src="../../icon/room/cj_guanli.png" style="height: 1.4rem"></div>
+            <div class="menuText">房间管理</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_fenx.png" style="height: 1.4rem"></div>
+            <div class="menuText" id = "fenShear">分享</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_fuzhi.png" style="height: 1.4rem"></div>
+            <div class="menuText" id = "copayPass">复制房间链接</div>
+          </li>
+          <li>
+            <div class="menuIcon"><img src="../../icon/room/cj_tuichu.png" style="height: 1.4rem"></div>
+            <div class="menuText" id = "goBack">退出房间</div>
+          </li>
+        </ul>
+      </section>
+      </header>
+
+      <!--侧边栏 -->
+      <section class="menuRight" falg="true">
+        <ul id = "sidebar">
+          <li class = "setting">
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>未设置</p>
+            <!-- <span style="display:block">9</span> -->
+          </li>
+          <li name = "111111" type = "1" value = "1" newType = "牛牛：三元五包">
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>牛牛:3元5包</p>
+            <!-- <span style="display:block">9</span> -->
+          </li>
+          <li name = "111111" type = "2" value ="1" newType = "接龙：三元五包">
+            <img src="../../image/createRoom/cehua_long.png" alt="">
+            <p>接龙:3元5包</p>
+            <!-- <span style="display:block">11</span> -->
+          </li>
+          <li name = "111111" type = "3" value ="1" newType = "扫雷：三元五包">
+            <img src="../../image/createRoom/cehua_lei.png" alt="">
+            <p>扫雷:3元5包</p>
+            <!-- <span style="display:block">11</span> -->
+          </li>
+          <li name = "111111" type = "1" value ="2" newType = "牛牛：五元八包">
+            <img src="../../image/createRoom/cehua_-niu.png" alt="">
+            <p>牛牛:5元8包</p>
+            <!-- <span style="display:block">11</span> -->
+          </li>
+          <li name = "111111" type = "2" value ="2" newType = "接龙：五元八包">
+            <img src="../../image/createRoom/cehua_long.png" alt="">
+            <p>接龙:5元8包</p>
+            <!-- <span style="display:block">11</span> -->
+          </li>
+          <li name = "111111" type = "3" value ="2" newType = "扫雷：五元八包">
+            <img src="../../image/createRoom/cehua_lei.png" alt="">
+            <p>扫雷:5元8包</p>
+            <!-- <span style="display:block">11</span> -->
+          </li>
+         <!--  <li>
+            <img style="margin-top:1.7rem" src="../../icon/room/add.png" alt="">
+          </li> -->
+        </ul>
+      </section>
+      <section class="moveOut" id="move"></section>
+<!--  -->
+     <div style="width:100%;height:8rem;"></div>
+<!-- 聊天页面 -->
+      <div id="convo">
+         <ul class="chat-thread" id="chatThread">
+            <!-- <li class="msg">ssssssssssssssss</li>
+            <li class="resultMsg msg" style="text-align: left;">
+
+            </li> -->
+        </ul>
+        <div id="msg_end"></div>
+     </div>
+
+<!--底部工具栏  -->
+     <footer class="footer">
+       <div class="chatTool">
+            <div class="record"><img src="../../icon/chat/luyin.png" alt=""></div>
+            <div class="inputBox" ><textarea class="text" id="inputText" name="name" rows="1" cols="2" ></textarea></div>
+            <div class="face"   id="face" flag="ture"><img src="../../icon/chat/face.png" alt=""></div>
+            <div class="append" id="append" flag="ture"><img src="../../icon/chat/append.png" alt=""></div>
+            <div class="state"><span class="send" id="send" style="display:none">发送</span><span class="bet sendYes" id='sendRed'>红包</span></div>
+       </div>
+       <article class="tool">
+            <div class="faceEmoticons" style="display:none">
+                  <ul id="Emoticons">
+
+                  </ul>
+            </div>
+            <div class="appendAction" style="display: none">
+              <div class="appendAction_content" id='cameraAdd'>
+                <img src="../../icon/room/icon_paizhao.png" alt="">
+                <p>拍照</p>
+              </div>
+              <div class="appendAction_content" id="imgAddAll">
+                <img src="../../icon/room/icon_zhaopian.png" alt="">
+                <p>图片</p>
+              </div>
+              <div class="appendAction_content sendYes" id="redSend">
+                <img src="../../icon/room/icon_hongbao.png" alt="">
+                <p>红包</p>
+              </div>
+            </div>
+       </article>
+     </footer>
+    </div>
+
+    <!-- 遮罩层 -->
+    <div class="addAddressTo" style="display: none">
+      <div class="shade"></div>
+      <div class="shadeAddress">
+        <img class="red_close" src="../../image/redImg/guanbi.png">
+
+        <div class="red_person">
+          <img class="red_image" src="../../image/tou.png">
+        </div>
+
+        <div class="red_name">Sudsjks</div>
+        <div class="red_send">给你发了一个红包，金额随机</div>
+        <div class="red_more">恭喜发财，大吉大利！</div>
+
+        <div class="red_open">
+          <img id="imgTest" src="../../image/redImg/kai.png">
+        </div>
+
+        <div class="look_more">看看大家的手气 ></div>
+      </div>
+    </div>
+
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/jquery-touch.js"></script>
+  <script type="text/javascript" src="../../script/keyBoard.js"></script>
+  <script type="text/javascript" src="../../script/chatBox.js"></script>
+  <script type="text/javascript" src="../../script/clipboard.min.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <!-- <script type="text/javascript" src="../../script/conversation.js"></script> -->
+  <script type="text/javascript" src="../../script/chat.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+           
+          var userInfo = $api.getStorage('userInfo'); // 用户登录信息
+          if(userInfo.louserName == '无昵称' || userInfo.louserName == '' || userInfo.louserName == userInfo.id){
+            var id=userInfo.id;
+            $('.red_name').html("用户"+id.substring(id.length-4));
+          }else{
+            $('.red_name').html(userInfo.louserName);
+          }
+          if(userInfo.loimg == 'img' || userInfo.loimg == '' || userInfo.loimg == undefined){
+
+          }else{
+            $('.red_image').attr('src',baseUrl+userInfo.loimg);
+          }
+          var game = api.pageParam;
+          var groupId = game.groupId;
+            //用户登录信息
+          var userInfo = $api.getStorage('userInfo');
+          console.log(JSON.stringify(userInfo))
+          var userIdMsg = userInfo.id.substring(0,22);
+           console.log(groupId);
+          // alert(groupId);
+          // return;
+          var bankerId='';
+          var pass = api.pageParam.pass;
+            // alert(groupId)
+          console.log(groupId);
+          api.sendEvent({
+            name: 'refreshWin',
+          });
+          var tCode = 1;
+          judgeBanker(groupId);
+
+          var pass = api.pageParam.pass;
+          // 大厅进来的房间得到对应的 游戏编号numbercode；
+          var numbercode = api.pageParam.numbercode;
+          console.log(numbercode);
+          // alert(numbercode)
+           var newName = api.pageParam.newName;
+           var newType = api.pageParam.type;
+
+            // 得到抢过红包的记录-----------------------------
+            var getRedNum = [];
+            var RedNumStr = "";
+            getRedNum = $api.getStorage('clickRedNum');
+            console.log(getRedNum);
+            if(getRedNum){
+              RedNumStr = getRedNum.join("");
+            }
+            console.log(RedNumStr)
+            // 得到抢过红包的记录-----------------------------
+            // 返回按钮-----------------------------------------
+           $('.myPiC').click(function(){
+                  if(pass == '0'){
+
+                  // var url = GAMEDATABASE_URL+'lottery-web/NNgame/quitRoom?userId='+userInfo.lophone+'&groupId='+groupId+'&roomid='+groupId;
+                  var url = GAMEDATABASE_URL+'lottery-web/NNgame/quitHallroom?userId='+userInfo.lophone+'&groupId='+groupId+'&roomid='+groupId;
+                  var msg = '您确定要退出房间吗？'
+                  confirmRoom(msg,url);
+                 
+                }else{
+                   api.closeWin({})
+                }
+            });
+            // 返回按钮-----------------------------------------
+         // 从大厅进入的房间-------------------------------------------
+         if(pass == '0'){
+            $('#sidebar>li').each(function(index,val){
+                if($(this).attr('type') == newName){
+                   if($(this).attr('value') == newType){
+                       $(this).addClass('checked')
+                   }
+                }
+            })
+         }
+         // 从大厅进入的房间-------------------------------------------
+
+          // 复制房间--------------------------------------
+            $('#copayPass').on('click',function(){
+                if(pass == '0'){
+                     alert('大厅房间不可以分享和复制');
+                     return;
+                   }
+                var clipBoard = api.require('clipBoard');
+                  clipBoard.set({
+                    value: pass
+                  }, function(ret, err) {
+                    if (ret) {
+                      toast('复制成功');
+                    }
+                  });
+            })
+          // 复制房间--------------------------------------
+      // alert(pass)
+          // 监听点击返回退出房间的事件
+          api.addEventListener({
+            name: 'keyback'
+          }, function(ret, err) {
+
+            if(pass == '0'){
+
+              // var url = GAMEDATABASE_URL+'lottery-web/NNgame/quitRoom?userId='+userInfo.lophone+'&groupId='+groupId+'&roomid='+groupId;
+              var url = GAMEDATABASE_URL+'lottery-web/NNgame/quitHallroom?userId='+userInfo.lophone+'&groupId='+groupId+'&roomid='+groupId;
+              var msg = '您确定要退出房间吗？'
+              confirmRoom(msg,url)
+            }else{
+               api.closeWin({})
+            }
+          });
+
+          // 退出房间--------------------------------------
+
+
+           $('#goBack').on('click',function(){
+            var url = GAMEDATABASE_URL+'lottery-web/NNgame/quitRoom?userId='+userInfo.lophone+'&groupId='+groupId+'&roomid='+groupId;
+            var msg = '您确定要退出房间吗？'
+            if(game.createType == 1){
+              url= GAMEDATABASE_URL+'lottery-web/NNgame/dismiss?userId='+userInfo.lophone+'&groupId='+groupId+'&roomid='+groupId;
+              msg = "您是群主，退出房间将解散本群，您确定要退出吗？"
+            }
+            confirmRoom(msg,url)
+          })
+
+           function confirmRoom(msg,url){
+            api.confirm({
+              title: '退出房间',
+              msg: msg,
+              buttons: ['确定', '取消']
+            }, function(ret, err) {
+              var index = ret.buttonIndex;
+              if(index == 1){
+                missRoom(url,function(ret,err){
+                  // 解散房间
+                  if(ret.status == 1){
+                    api.sendEvent({
+                      name: 'createLotteryTicket',
+                      extra: {
+                        key1: 'value1',
+                        key2: 'value2'
+                      }
+                    });
+                    api.closeWin({});
+                  }else{
+                    toast("网络错误，请稍后重试")
+                  }
+                })
+              }
+            })
+           }
+          // 退出房间--------------------------------------
+      // 点击头像跳转到详细信息页---------------------------------------------------
+        $('#convo').on('click','.headPhoto',function(){
+            //   alert($(this).attr('Uid'));
+            // alert($(this).attr('Uiphone'));
+            // return;
+            if($(this).attr('Uiphone') == "system"){
+              return
+            };
+            if($(this).attr('Uiphone') == 'undefined'){
+               return;
+             };
+            api.openWin({
+                name: 'memberInfor',
+                url: 'memberInfor.html',
+                pageParam: {
+                  name: $(this).attr('Uiphone'),
+                  groupId:groupId,
+                  typeStatus:2,
+                  userId:$(this).attr('Uid')
+                }
+            });
+         })
+// 点击头像跳转到详细信息页---------------------------------------------------
+
+//  第零步==============================================查看是否有没有抢完的红包
+
+         // 判断房间中有没有没有抢完的红包
+        function judgerRed(gid,code){
+          api.ajax({
+              url: GAMEDATABASE_URL+'lottery-web/NNgame/incompleteRed?id='+gid,
+              method: 'get'
+          }, function(ret, err) {
+            console.log(JSON.stringify(ret))
+            console.log(code)
+            if(code==1&&ret.code==0){
+              //没有未抢完的红包切没有庄家
+              sendRedSystem();
+            }else{
+              for(var i=0;i<ret.length;i++){
+                var html='<div class="info redImg" name="'+ret[i][0].redId+'">\
+                     <img src="../../image/redImg/fahongbao.png">\
+                     <p style="top: 10%;color:#fff;left: 30%;">恭喜发财，大吉大利</p>\
+                     <p style="top: 40%;color:#fff;left: 30%;">未抢完红包</p>\
+                     <p style="bottom: 2%;left: 5%;">牛牛红包</p>\
+                     </div>';
+                var reHtml = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto" src="../../image/tou.png" alt="">'+html+'</li>';
+                 $("#chatThread").append(html);
+                // sendRedFun(groupId,html,reHtml,'H');
+              }
+            }
+          });
+        }
+        // 判断该房间有没有庄家
+        function judgeBanker(gid){
+          api.ajax({
+              url: GAMEDATABASE_URL+'lottery-web/NNgame/haveBanker?id='+gid,
+              method: 'get'
+          }, function(ret, err) {
+              if (ret.code==2) {
+                tCode = ret.code;
+                  // 房间有庄家
+                  // judgerRed(gid,ret.code);
+                  bankerId=ret.bankerId;
+                  if(bankerId == userInfo.id){
+                    $('.btnAdd').html('下庄');
+                  }
+                // judgerRed(groupId,ret.code);
+              }else if(ret.code==1){
+                // 房间没有庄家
+                tCode = ret.code;
+                // judgerRed(groupId,ret.code);
+              }
+          });
+        }
+        // alert(groupId)
+
+//====================聊天========功能===========消息=====================-
+      rongFunListener(function(ret,err){
+          console.log(JSON.stringify(ret))
+          if(ret.result.message.hasOwnProperty("targetId")){            // 判断是否还有当前targetID 属性
+              if(ret.result.message.targetId==groupId){          //  判断接受的 targetID 和当前的房间 id 是否一样
+                if(ret.result.message.hasOwnProperty("content")){      //判端 接受的消息 是否还有 content 的属性
+                  var html = '';
+                  if(ret.result.message.content.extra=='T'){            // 文字消息
+                    $('#diaplayNone').html(ret.result.message.content.text);
+                            var specialRedId = $('#diaplayNone').find('.info').attr('name');
+                            var Uid = $('#diaplayNone').find('.info').attr('Uid');
+                            var Uiphone = $('#diaplayNone').find('.info').attr('Uiphone');
+                    html  = '<li class="othersInfo"><img class="headPhoto otherHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'"   src="../../image/tou.png" alt="" >'+ret.result.message.content.text+'</li>'
+                  }else if(ret.result.message.content.extra=='R'||ret.result.message.content.extra=='S'){      // 红包消息
+                    html  = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'"   src="../../image/tou.png" alt="" >'+ret.result.message.content.text+'</li>'
+                  }else if(ret.result.message.content.extra=='M'){      // 提示消息
+                    html = ret.result.message.content.text;
+                  }
+                  $("#chatThread").append(html)
+                }
+              }
+          }
+      })
+//==========================================================================================
+
+
+
+// 第一步===============================================获取历史聊天信息
+
+         getHistoryMessages("GROUP",groupId,function(ret,err){
+             console.log('b'+groupId);
+             console.log(JSON.stringify(err));
+             console.log("历史消息"+JSON.stringify(ret));
+             // alert(111)
+             if(ret.status == "error"){
+               console.log(1)
+                window.location.reload();
+             }
+             console.log(tCode)
+             if(ret.status=="error" && tCode == 1){
+                // sendRedSystem();
+                judgerRed(groupId,tCode)
+             }else if(ret.status=="success"){
+                 var result = ret.result;
+                 if(result == '' && tCode == 1){
+                  judgerRed(groupId,tCode)
+                 }else{
+                  console.log(JSON.stringify(result))
+                    for(var i= result.length-1;i>=0;i--){           //  这里是倒序 输出历史消息
+                      var  data = result[i];
+                      console.log(JSON.stringify(data.content))
+                      if(data.content.extra=='S'){
+                                      $('#diaplayNone').html(data.content.text);
+                                      var specialRedId = $('#diaplayNone').find('.info').attr('name');
+                                      var Uid = $('#diaplayNone').find('.info').attr('Uid');
+                                      var Uiphone = $('#diaplayNone').find('.info').attr('Uiphone');
+                                      $('#diaplayNone').find('.info').append('<div class = "maskLayer"></div>');
+                                      // alert(specialRedId)
+                                      if(RedNumStr.indexOf(specialRedId)>-1){
+
+                                        var html = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" src="../../image/tou.png" alt="">'+$('#diaplayNone').html()+'</li>';
+                                      }else{
+                                        var html = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" src="../../image/tou.png" alt="">'+data.content.text+'</li>';
+                                      }
+
+                                    $api.append($api.byId("chatThread"),html);
+                                  }else if(data.senderUserId==userInfo.lophone){            //  判断发送消息的用户手机 和 当前用户的手机 是否相同 如果是则是自己发送的消息  则消息列表 显示在左侧
+                                        var flag = data.content.hasOwnProperty("text")  //  判断是否还有文本信息的属性   对应的是  用户发送的图片信息
+                                        if(flag){
+                                          var  text = data.content.text
+                                          var extra = data.content.extra;
+                                          var html  = '';
+                                          if(extra=='H'){
+                                            // alert(111);
+                                            $('#diaplayNone').html(text);
+                                            var specialRedId = $('#diaplayNone').find('.info').attr('name');
+                                            var Uid = $('#diaplayNone').find('.info').attr('Uid');
+                                            var Uiphone = $('#diaplayNone').find('.info').attr('Uiphone');
+                                            $('#diaplayNone').find('.info').append('<div class = "maskLayer"></div>');
+                                            if(RedNumStr.indexOf(specialRedId)>-1){
+
+                                        if(data.content.senderUserId == userInfo.lophone){
+                                              if(userInfo.loimg == '' || userInfo.loimg == 'img'){
+                                                var html = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'"  userId = "'+userInfo.id+'" src="../../image/tou.png" alt="">'+$('#diaplayNone').html()+'</li>';
+                                              }else{
+                                                var html = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" userId = "'+userInfo.id+'"  src="'+baseUrl+userInfo.loimg+'" alt="">'+$('#diaplayNone').html()+'</li>';
+                                              }
+                                            }else{
+                                              var html = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'"  userId = "'+userInfo.id+'" src="../../image/tou.png" alt="">'+$('#diaplayNone').html()+'</li>';
+                                            }
+                                      }else{
+                                         if(data.content.senderUserId == userInfo.lophone){
+                                              if(userInfo.loimg == '' || userInfo.loimg == 'img'){
+                                                var html = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'"  userId = "'+userInfo.id+'" src="../../image/tou.png" alt="">'+text+'</li>';
+                                              }else{
+                                                var html = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" userId = "'+userInfo.id+'"  src="'+baseUrl+userInfo.loimg+'" alt="">'+text+'</li>';
+                                              }
+                                            }else{
+                                              var html = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto"  Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" userId = "'+userInfo.id+'" src="../../image/tou.png" alt="">'+text+'</li>';
+                                            }
+                                      }
+                              }else if(extra=='R'){
+                                // 红包消息
+                                  $('#diaplayNone').html(text);
+                                  var specialRedId = $('#diaplayNone').find('.info').attr('name');
+                                  var Uid = $('#diaplayNone').find('.info').attr('Uid');
+                                  var Uiphone = $('#diaplayNone').find('.info').attr('Uiphone');
+                                  $('#diaplayNone').find('.info').append('<div class = "maskLayer"></div>');
+                                  if(RedNumStr.indexOf(specialRedId)>-1){
+                                       if(userInfo.loimg == '' || userInfo.loimg == 'img'){
+                                        html  = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" userId = "'+userInfo.id+'" src="../../image/tou.png" alt="">'+$('#diaplayNone').html()+'</li>'
+                                      }else{
+                                        html  = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" userId = "'+userInfo.id+'" src="'+baseUrl+userInfo.loimg+'" alt="">'+$('#diaplayNone').html()+'</li>'
+                                      }
+                                  }else{
+
+                                      if(userInfo.loimg == '' || userInfo.loimg == 'img'){
+                                        html  = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" userId = "'+userInfo.id+'" src="../../image/tou.png" alt="">'+text+'</li>'
+                                      }else{
+                                        html  = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto"  Uiphone = "'+Uiphone+'" Uid = "'+Uid+'"userId = "'+userInfo.id+'" src="'+baseUrl+userInfo.loimg+'" alt="">'+text+'</li>'
+                                      }
+                                  }
+
+
+                              }else if(extra=='T'){
+                                   $('#diaplayNone').html(text);
+                                    var specialRedId = $('#diaplayNone').find('.info').attr('name');
+                                    var Uid = $('#diaplayNone').find('.info').attr('Uid');
+                                    var Uiphone = $('#diaplayNone').find('.info').attr('Uiphone');
+                                if(userInfo.loimg == '' || userInfo.loimg == 'img'){
+                                  html = '<li class="myInfo"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" userId = "'+userInfo.id+'" src="../../image/tou.png" alt="">'+text+'</li>'
+                                }else{
+                                  html = '<li class="myInfo"><img class="headPhoto myHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" userId = "'+userInfo.id+'" src="'+baseUrl+userInfo.loimg+'" alt="">'+text+'</li>'
+                                }
+                              }else if(extra == 'M'){
+                                html = text;
+                              }
+                              $api.append($api.byId("chatThread"),html);
+                            }
+                            //  else {
+                            //   var imgsrc =data.content.imageUrl;
+                            //   console.log(imgsrc)
+                            //   console.log(imgsrc)
+                            //   var picture = '<img src="'+imgsrc+'"   width="100" height="150"  style="border-radius:10px"   alt=""/>'
+                            //   var html = '<li class="myInfo" style="padding:5px 5px 3px 5px">'+
+                            //                  '<img class="headPhoto myHeadPhoto" src="'+imgPath+'" alt="">'+
+                            //                  '<div class="info">'+picture+'</div>'+
+                            //           '</li>';
+                            //  $api.append($api.byId("chatThread"),html);
+                            // }
+                       }else {
+                             // alert(444444)
+                           var flag = data.content.hasOwnProperty("text")  //  判断是否还有文本信息的属性
+                           if(flag){
+                             var  text = data.content.text;
+                             var extra = data.content.extra;
+                             var html = '';
+                             console.log(text)
+                             if(extra=='T'){
+                                    // 文字消息
+                                    $('#diaplayNone').html(text);
+                                    var specialRedId = $('#diaplayNone').find('.info').attr('name');
+                                    var Uid = $('#diaplayNone').find('.info').attr('Uid');
+                                    var Uiphone = $('#diaplayNone').find('.info').attr('Uiphone');
+                                html  = '<li class="othersInfo"><img class="headPhoto otherHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" src="../../image/tou.png" alt="" >'+text+'</li>'
+                              }else if(extra=='R' || extra=="H"){
+                                   // 红包消息
+                                   // alert(222)
+                                   $('#diaplayNone').html(text);
+                                  var specialRedId = $('#diaplayNone').find('.info').attr('name');
+                                   var Uid = $('#diaplayNone').find('.info').attr('Uid');
+                                  var Uiphone = $('#diaplayNone').find('.info').attr('Uiphone');
+                                  $('#diaplayNone').find('.info').append('<div class = "maskLayer"></div>');
+                                  if(RedNumStr.indexOf(specialRedId)>-1){
+                                    html  = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto" Uiphone = "'+Uiphone+'" Uid = "'+Uid+'" src="../../image/tou.png" alt="" >'+$('#diaplayNone').html()+'</li>'
+                                  }else{
+                                   html  = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto"  Uiphone = "'+Uiphone+'" Uid = "'+Uid+'"src="../../image/tou.png" alt="" >'+$('#diaplayNone').html()+'</li>'
+                                  }
+                              }else if(extra=='M'){      // 提示消息
+                                html = text;
+                              }
+                             $api.append($api.byId("chatThread"),html);
+                           }
+                       }
+                   }
+                 }
+
+             }
+
+         })
+
+
+
+// 第二步===============================================判断房间有无庄家
+         /* judgeBanker(groupId);
+        // 判断该房间有没有庄家
+        function judgeBanker(gid){
+          api.ajax({
+              url: GAMEDATABASE_URL+'lottery-web/NNgame/haveBanker?id='+gid,
+              method: 'get'
+          }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+              if (ret.code==2) {
+                  // 房间有庄家
+                  bankerId=ret.bankerId;
+              }else if(ret.code==1){
+                // 房间没有庄家
+              }
+          });
+        }*/
+// ============================================================================
+
+// 第三步=============================================================发红包
+
+        //点击发红包
+          $('.sendYes').on('click',function(){
+            judgeBanker(groupId);
+            api.openWin({
+              name: 'redEnvelope',
+              url: 'redEnvelopes.html',
+              pageParam: {
+                redType: game.type,
+                multiple:game.NNmultiple,
+                bankerId:bankerId,
+                type:'0',
+                numbercode:numbercode
+              }
+            });
+
+          });
+
+        // 发送红包---------------------------------------------
+        api.addEventListener({
+          name: 'sendRedMoney'
+        }, function(ret, err) {
+          var money = ret.value.money,
+          text = ret.value.text,
+          num = ret.value.num,
+          type = ret.value.type;
+          multiple = ret.value.multiple;
+          if(type == 1){
+            // 三元五包
+            var url = GAMEDATABASE_URL+'lottery-web/NNgame/fiveRed?id='+groupId+'&NNmultiple='+multiple;
+            sendRedUser(url,groupId);
+          }else if(type == 2){
+            // 五元八包
+            var url = GAMEDATABASE_URL+'lottery-web/NNgame/eightRed?id='+groupId+'&NNmultiple='+multiple;
+            sendRedUser(url,groupId);
+          }
+        });
+
+
+        // 用户发红包.................................
+        function sendRedUser(url,groupId){
+          api.ajax({
+             url: url,
+             method: 'get'
+           }, function(ret, err) {
+             console.log(JSON.stringify(ret));
+            if (ret.code==1) {
+              // userRed.sendNNRed  = userRed.sendNNRed+1;
+              // userRed.allSendRed  = userRed.allSendRed+1;
+              // userRed.allRed  = userRed.allRed+1;
+              // $api.setStorage('userRed',userRed);
+              // userRed = $api.getStorage('userRed');
+              var html='<div class="info redImg" Uiphone = "'+userInfo.lophone+'" Uid = "'+userInfo.id+'"  name="'+ret.rid+'">\
+                     <img src="../../image/redImg/fahongbao.png">\
+                     <p style="top: 10%;color:#fff;left: 30%;">恭喜发财，大吉大利</p>\
+                     <p style="top: 40%;color:#fff;left: 30%;">游戏红包</p>\
+                     <p style="bottom: 2%;left: 5%;">双试试娱乐</p>\
+                     </div>'
+              if(userInfo.loimg == '' || userInfo.loimg == 'img'){
+                var reHtml = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto" Uiphone = "'+userInfo.lophone+'" Uid = "'+userInfo.id+'"  src="../../image/tou.png" alt="">'+html+'</li>'
+              }else{
+                var reHtml = '<li class="myInfo myRedImg"><img class="headPhoto myHeadPhoto"  Uiphone = "'+userInfo.lophone+'" Uid = "'+userInfo.id+'"  src="'+baseUrl+userInfo.loimg+'" alt="">'+html+'</li>'
+              }
+              sendRedFun(groupId,html,reHtml,'R',ret.rid,ret.bankerId);
+            } else {
+              api.toast({msg:'网络错误，红包发送失败'});
+            }
+          });
+        }
+
+        //  发送文本消息------------
+        $("#send").on("click",function(){
+          var Message = $("#inputText").val();
+          if(Message=="" || Message=="null" || Message==undefined){
+             toast("没有输入")
+           }else{
+                var html = '<div class="info" Uiphone = "'+userInfo.lophone+'" Uid = "'+userInfo.id+'" >'+transText(Message)+'</div>'
+                if(userInfo.loimg == '' || userInfo.loimg == 'img'){
+                  var reHtml = '<li class="myInfo"><img class="headPhoto myHeadPhoto" Uiphone = "'+userInfo.lophone+'" Uid = "'+userInfo.id+'"  src="../../image/tou.png" alt="" >'+html+'</li>';
+                }else{
+                  var reHtml = '<li class="myInfo"><img class="headPhoto myHeadPhoto" Uiphone = "'+userInfo.lophone+'" Uid = "'+userInfo.id+'" src="'+baseUrl+userInfo.loimg+'" alt="" >'+html+'</li>';
+                }
+                sendRedFun(groupId,html,reHtml,'T');
+           }
+        })
+
+
+     // 点击表情--------------------------------------------------------------------
+        //  保存表情存放的
+        var sourcePath = "widget://res/emoticons/append1";//表情存放目录
+        //  调用转化路径方法 获得转换数据
+        getImgsPaths(sourcePath, function (emotion) {
+        emotionData = emotion;
+        return emotionData;   // 返回数据
+        });
+        $('#Emoticons').on("click","li",function(){
+              var text = $(this).attr("text");
+              $("#inputText").val($("#inputText").val()+text);
+        })
+        // 点击表情--------------------------------------------------------------------
+
+// 第四步==========================================================用户抢红包
+        //点击红包
+          var redId = '',
+              redType=game.type;
+
+        $('#chatThread').on('click','.redImg',function(){
+            redId = $(this).attr('name');
+            $(this).addClass(redId)
+            console.log(redId)
+            console.log(groupId)
+              // 判断红包是否过期-----------------------------------------
+               // api.ajax({
+               //    url:GAMEDATABASE_URL+'lottery-web/NNgame/getRoomRed?id='+groupId,
+               //    method:'get'
+               // },function(ret,err){
+               //   console.log(JSON.stringify(ret));
+               //   console.log(JSON.stringify(err))
+               //   //正好点中即没有抢完又没有过期的红包
+               //    if(redId == ret.list[0]){
+               //           console.log(11111111111111111)
+               //           api.ajax({
+               //               url:GAMEDATABASE_URL+'lottery-web/NNgame/panDuan?userId='+userInfo.id+'&rid='+redId,
+               //               method: 'get'
+               //              },function(ret,err){
+               //                console.log(JSON.stringify(ret));
+
+               //                  if(ret.code == 2){
+               //                            api.ajax({
+               //                                  url: GAMEDATABASE_URL+'lottery-web/NNgame/getRed?roomId='+game.groupId+'&userId='+userInfo.id+'&rid='+redId+'&NNmultiple='+game.NNmultiple,
+               //                                  method: 'get'
+               //                                }, function(ret, err) {
+               //                                    if(ret.code == 3 && ret.status == 1){
+               //                                      if(bankerId == ''){
+               //                                        // 调用抢庄结果接口-------------------------------------
+               //                                        ajaxGetBanker(game.groupId,redId,userInfo.id);
+               //                                      }else{
+               //                                        // 房间已经有庄家，调用庄家红包接口--------------
+               //                                        ajaxGetRedFun(game.groupId,redId);
+               //                                      }
+               //                                    }
+               //                                    if (ret.code==3) {
+               //                                      //查询本用户抢了多少红包———————————————————
+               //                                      // ajaxGetMoney(userInfo.id,redId,userInfo.louserName,userInfo.lophone,game.groupId);// 打开红包查看拆包金额
+               //                                      // $('.red_send').fadeIn(500);
+               //                                      // $('.red_open').fadeIn(500);
+               //                                      // $('.look_more').fadeOut(500);
+               //                                      // $('.red_more').html("恭喜发财，大吉大利！");
+               //                                      // $('.addAddressTo').fadeIn(500);
+               //                                      // $('#imgTest').shake(2, 10, 400);
+
+               //                                      // $('.addAddressTo').fadeOut(500);
+               //                                      // api.openWin({
+               //                                      //   name: 'redDetail',
+               //                                      //   url: 'redDetails.html',
+               //                                      //   pageParam: {
+               //                                      //     groupId:game.groupId,
+               //                                      //     rid:redId,
+               //                                      //     type:redType  //1表示抢完了
+               //                                      //   }
+               //                                      // });
+
+               //                                      var name = userInfo.lophone;
+               //                                      var nameShow = name.substring(0,3)+" **** "+name.substring(7);
+               //                                      var html= ' <li class="msg">'+nameShow+'领取了红包</li>';
+               //                                      // 发送提示信息
+               //                                      sendRedFun(groupId,html,html,'M');
+               //                                    }else if (ret.code==4) {
+               //                                      toast('您已经抢过该红包');
+               //                                      $('.red_send').fadeOut(500);
+               //                                      $('.red_open').fadeOut(500);
+               //                                      $('.look_more').fadeIn(500);
+               //                                      $('.red_more').html("您已经抢过该红包");
+               //                                      $('.addAddressTo').fadeIn(500);
+               //                                    } else if(ret.code == 1){
+               //                                      toast('您的金币不足以抢红包，请充值');
+               //                                    }else if(ret.code == 2){
+               //                                      console.log(JSON.stringify(ret));
+               //                                      $('.red_send').fadeOut(500);
+               //                                      $('.red_open').fadeOut(500);
+               //                                      $('.look_more').fadeIn(500);
+               //                                      $('.red_more').html("手慢了，红包派完了");
+               //                                      $('.addAddressTo').fadeIn(500);
+               //                                    }else{
+               //                                      toast("请稍后......")
+               //                                    }
+               //                           });
+               //                  }else{
+               //                          $('.red_send').fadeIn(500);
+               //                          $('.red_open').fadeIn(500);
+               //                          $('.look_more').fadeOut(500);
+               //                          $('.red_more').html("恭喜发财，大吉大利！");
+               //                          $('.addAddressTo').fadeIn(500);
+               //                  }
+               //            });
+               //      // 房间红包全过期m
+               //    }else if(ret.list.length == 0){
+               //            console.log(2222222222222222)
+               //            toast('来晚一步红包已经过期');
+               //            $('.red_send').fadeOut(500);
+               //            $('.red_open').fadeOut(500);
+               //            $('.addAddressTo').fadeIn(500);
+               //            $('.look_more').fadeIn(500);
+               //            $('.red_more').html("红包已经过期");
+               //            $('#chatThread').find('.'+redId).find('.haveFinish').html('红包已经过期');
+               //            var html= ' <li class="msg">游戏包过期 游戏停止</li>';
+               //            sendRedFun(groupId,html,html,'M');
+               //            sendRedSystem()
+               //       // 房间有没过期的红包但是你点的是过期的红包
+               //    }else{
+               //            console.log(333333333333333)
+               //            toast('来晚一步红包已经过期');
+               //            $('.red_send').fadeOut(500);
+               //            $('.red_open').fadeOut(500);
+               //            $('.addAddressTo').fadeIn(500);
+               //            $('.look_more').fadeIn(500);
+               //            $('.red_more').html("红包已经过期");
+               //            $('#chatThread').find('.'+redId).find('.haveFinish').html('红包已经过期');
+               //    }
+
+               // })
+            // 判断红包是否过期-----------------------------------------
+            // 正常拆红包----------------------------------------------
+                api.ajax({
+                   url:GAMEDATABASE_URL+'lottery-web/NNgame/panDuan?userId='+userInfo.id+'&rid='+redId,
+                   method: 'get'
+                  },function(ret,err){
+                    console.log(JSON.stringify(ret));
+
+                      if(ret.code == 2){
+                                api.ajax({
+                                      url: GAMEDATABASE_URL+'lottery-web/NNgame/getRed?roomId='+game.groupId+'&userId='+userInfo.id+'&rid='+redId+'&NNmultiple='+game.NNmultiple,
+                                      method: 'get'
+                                    }, function(ret, err) {
+                                        if(ret.code == 3 && ret.status == 1){
+                                          if(bankerId == ''){
+                                            // 调用抢庄结果接口-------------------------------------
+                                            ajaxGetBanker(game.groupId,redId,userInfo.id);
+                                          }else{
+                                            // 房间已经有庄家，调用庄家红包接口--------------
+                                            ajaxGetRedFun(game.groupId,redId);
+                                          }
+                                        }
+                                        if (ret.code==3) {
+                                          //查询本用户抢了多少红包———————————————————
+                                          ajaxGetMoney(userInfo.id,redId,userInfo.louserName,userInfo.lophone,game.groupId);// 打开红包查看拆包金额
+                                          // $('.red_send').fadeIn(500);
+                                          // $('.red_open').fadeIn(500);
+                                          // $('.look_more').fadeOut(500);
+                                          // $('.red_more').html("恭喜发财，大吉大利！");
+                                          // $('.addAddressTo').fadeIn(500);
+                                          // $('#imgTest').shake(2, 10, 400);
+
+                                          // $('.addAddressTo').fadeOut(500);
+                                          // api.openWin({
+                                          //   name: 'redDetail',
+                                          //   url: 'redDetails.html',
+                                          //   pageParam: {
+                                          //     groupId:game.groupId,
+                                          //     rid:redId,
+                                          //     type:redType  //1表示抢完了
+                                          //   }
+                                          // });
+
+                                          var name = userInfo.lophone;
+                                          var nameShow = name.substring(0,3)+" **** "+name.substring(7);
+                                          var html= ' <li class="msg">'+nameShow+'领取了红包</li>';
+                                          // 发送提示信息
+                                          sendRedFun(groupId,html,html,'M');
+                                        }else if (ret.code==4) {
+                                          toast('您已经抢过该红包');
+                                          $('.red_send').fadeOut(500);
+                                          $('.red_open').fadeOut(500);
+                                          $('.look_more').fadeIn(500);
+                                          $('.red_more').html("您已经抢过该红包");
+                                          $('.addAddressTo').fadeIn(500);
+                                        } else if(ret.code == 1){
+                                          toast('您的金币不足以抢红包，请充值');
+                                        }else if(ret.code == 2){
+                                          console.log(JSON.stringify(ret));
+                                          $('.red_send').fadeOut(500);
+                                          $('.red_open').fadeOut(500);
+                                          $('.look_more').fadeIn(500);
+                                          $('.red_more').html("手慢了，红包派完了");
+                                          $('.addAddressTo').fadeIn(500);
+                                        }else{
+                                          toast("请稍后......")
+                                        }
+                               });
+                      }else{
+                              $('.red_send').fadeIn(500);
+                              $('.red_open').fadeIn(500);
+                              $('.look_more').fadeOut(500);
+                              $('.red_more').html("恭喜发财，大吉大利！");
+                              $('.addAddressTo').fadeIn(500);
+                      }
+                });
+             // 正常拆红包----------------------------------------------
+            return;
+
+        });
+            //点击'开'按钮，，打开红包
+        $('.red_open').click(function(){
+          console.log(game.groupId+"="+userInfo.id+"="+redId+"="+game.NNmultiple);
+          $('#imgTest').shake(2, 10, 400);
+
+          getRedNum.push(redId);
+          $api.setStorage('clickRedNum',getRedNum);
+              api.ajax({
+                  url: GAMEDATABASE_URL+'lottery-web/NNgame/getRed?roomId='+game.groupId+'&userId='+userInfo.id+'&rid='+redId+'&NNmultiple='+game.NNmultiple,
+                  method: 'get'
+                }, function(ret, err) {
+                   console.log(JSON.stringify(ret))
+                    if(ret.code == 3 && ret.status == 1){
+                      if(bankerId == ''){
+                        // 调用抢庄结果接口-------------------------------------
+                        ajaxGetBanker(game.groupId,redId,userInfo.id);
+                      }else{
+                        // 房间已经有庄家，调用庄家红包接口--------------
+                        // ajaxGetRedFun(game.groupId,redId);
+                        ajaxGetMoney(userInfo.id,redId,userInfo.louserName,userInfo.lophone,game.groupId,1);// 打开红包查看拆包金额
+                      }
+                    }else if(ret.code==3) {
+                      // redCount();
+                      getAllRedNum(numbercode,userIdMsg);
+                       $('#chatThread').find('.'+redId).append('<div class = "maskLayer"></div>');
+                       // alert(333)
+                      //查询本用户抢了多少红包———————————————————
+                      ajaxGetMoney(userInfo.id,redId,userInfo.louserName,userInfo.lophone,game.groupId);// 打开红包查看拆包金额
+
+                      var louserName = userInfo.louserName;
+                      if(louserName == "无昵称"){
+                         louserName = "用户"+userInfo.id.substring(userInfo.id.length-4)
+                      }
+                      var name = userInfo.lophone;
+                      var nameShow = name.substring(0,3)+" **** "+name.substring(7);
+                      var html= ' <li class="msg">'+louserName+'领取了红包</li>';
+                      // 发送提示信息
+                     setTimeout(function(){
+                       $('.addAddressTo').fadeOut(500);
+                       api.openWin({
+                          name: 'redDetail',
+                          url: 'redDetails.html',
+                          pageParam: {
+                            groupId:game.groupId,
+                            rid:redId,
+                            type:redType  //1表示抢完了
+                          }
+                        });
+                       sendRedFun(groupId,html,html,'M');
+                     },700)
+                    }else if (ret.code==4) {
+                      toast('您已经抢过该红包');
+                      $('.red_send').fadeOut(500);
+                      $('.red_open').fadeOut(500);
+                      $('.look_more').fadeIn(500);
+                      $('.red_more').html("您已经抢过该红包");
+                      $('.addAddressTo').fadeIn(500);
+                    } else if(ret.code == 1){
+                      toast('您的金币不足以抢红包，请充值');
+                    }else if(ret.code == 2){
+                      console.log(JSON.stringify(ret));
+                      $('.red_send').fadeOut(500);
+                      $('.red_open').fadeOut(500);
+                      $('.look_more').fadeIn(500);
+                      $('.red_more').html("手慢了，红包派完了");
+                      $('.addAddressTo').fadeIn(500);
+                    }else{
+                      toast("请稍后......")
+                    }
+                  });
+        });
+
+     // 用户发红包后记录下来发红包的次数
+        function redCount(){
+            getNewTime()
+            var userRedMsg = $api.getStorage(userIdMsg);
+            console.log(JSON.stringify($api.getStorage(userIdMsg)));
+            console.log(typeof userRedMsg);
+            console.log(userRedMsg[2]);
+            if(userRedMsg[2]){
+            }else{
+              userRedMsg[2] = {};
+            };
+            var userRedNum = userRedMsg[2][numbercode];
+            if(userRedNum){
+              userRedNum = userRedNum+1;
+              userRedMsg[2][numbercode] = userRedNum;
+            }else{
+              userRedMsg[2][numbercode] = 1;
+            }
+            $api.setStorage(userIdMsg,userRedMsg);
+            var userRedMsg = $api.getStorage(userIdMsg);
+            console.log(JSON.stringify(userRedMsg));
+        }
+
+        //点击'开'按钮，，打开红包
+        // $('.red_open').click(function(){
+        //   console.log(game.groupId+"="+userInfo.id+"="+redId+"="+game.NNmultiple);
+        //   $('#imgTest').shake(2, 10, 400);
+        //   $('.addAddressTo').fadeOut(500);
+        //   api.openWin({
+        //     name: 'redDetail',
+        //     url: 'redDetails.html',
+        //     pageParam: {
+        //       groupId:game.groupId,
+        //       rid:redId,
+        //       type:redType  //1表示抢完了
+        //     }
+        //   });
+        // });
+
+        //看看大家的手气
+        var lookMore = $api.dom('.look_more');
+        $api.addEvt(lookMore,'click',function(){
+            $('.addAddressTo').hide();
+            api.openWin({
+              name: 'redDetail',
+              url: 'redDetails.html',
+              pageParam: {
+                  groupId:game.groupId,
+                  rid:redId,
+                  type:redType  //1表示抢完了
+              }
+            });
+          });
+// 第不知道第几部 =================================================  下庄
+          $('.btnAdd').on('click',function(){
+            if(bankerId == userInfo.id){
+              api.ajax({
+                  url: GAMEDATABASE_URL+'lottery-web/NNgame/lostBanker?id='+groupId,
+                  method: 'get'
+              }, function(ret, err) {
+                if(ret){
+                  $('.btnAdd').html('');
+                  toast('下庄成功');
+                  bankerId='';
+                  sendRedSystem();
+                }
+              });
+            }
+          });
+
+//  方法调用==========================================================================
+        // 系统发红包=================================系统发红包
+        function sendRedSystem(){
+            // 初始化
+            api.ajax({
+               url: GAMEDATABASE_URL+'lottery-web/NNgame/systemRedpacket?id='+groupId,
+               method: 'get'
+             }, function(ret, err) {
+                 console.log(JSON.stringify(ret))
+              if (ret.code==1) {
+                bankerId='';
+                var html='<div class="info redImg" Uiphone = "system"  name="'+ret.rid+'">\
+                     <img src="../../image/redImg/fahongbao.png">\
+                     <p style="top: 10%;color:#fff;left: 30%;">恭喜发财，大吉大利</p>\
+                     <p style="top: 40%;color:#fff;left: 30%;">抢庄红包</p>\
+                     <p style="bottom: 2%;left: 5%;">双试试娱乐</p>\
+                     </div>';
+                var reHtml = '<li class="othersInfo myRedImg"><img class="headPhoto otherHeadPhoto"  Uiphone = "system"  src="../../image/tou.png" alt="" >'+html+'</li>'
+                sendRedFun(groupId,html,reHtml,'S',ret.rid);
+              } else {
+                api.toast({msg:'网络错误，红包发送失败'});
+              }
+            });
+        }
+
+        // 发送红包、、、、文字、、、、、、、提示信息
+        function sendRedFun(groupId,html,reHtml,rtype,nextRed){
+          sendTextMessage('GROUP',groupId,html,rtype,function(ret,err){
+             console.log(JSON.stringify(ret));
+             console.log(JSON.stringify(err));
+              if(ret.status=="prepare"){
+                     console.log(111111111)
+                     var message= ret.result.message
+                     if(message.hasOwnProperty("content")){
+                      content =  ret.result.message.content
+                      }
+              }else if(ret.status=="success"){
+                      console.log(333333333)
+                      if(content==""||content=="null"||content==undefined){
+                          toast("发送失败")
+                      }else{
+                         $("#inputText").val("")
+                         $("#chatThread").append(reHtml);
+                         document.getElementById('msg_end').scrollIntoView();
+                         if(rtype == "R"){
+                              // getNewTime()
+                               getAllRedNum(numbercode,userIdMsg);
+                              // var userRedMsg = $api.getStorage(userIdMsg);
+                              // console.log(JSON.stringify($api.getStorage(userIdMsg)));
+                              // console.log(typeof userRedMsg);
+                              // console.log(userRedMsg[2]);
+                              // alert(111111111)
+                              // if(userRedMsg[2]){
+                              // }else{
+                                // userRedMsg[2] = {};
+                              // };
+                              // var userRedNum = userRedMsg[2][numbercode];
+                              // if(userRedNum){
+                                // userRedNum = userRedNum+1;
+                                // userRedMsg[2][numbercode] = userRedNum;
+                              // }else{
+                                // userRedMsg[2][numbercode] = 1;
+                              // }
+                              // $api.setStorage(userIdMsg,userRedMsg);
+                              // var userRedMsg = $api.getStorage(userIdMsg);
+                              // console.log(JSON.stringify(userRedMsg));
+                         }
+                           //   if(rtype == "S"){
+                           //      alert('系统或最少');
+                           //      // alert('牛牛');
+                           //      // alert(nextRed);
+                           //      // alert(bankerId);
+                           //      // alert(groupId);
+                           //       if(bankerId){
+                           //          bankerId = bankerId;
+                           //       }else{
+                           //          bankerId = '';
+                           //       }
+                           //      // 开启定时器，rid为红包id，uid为发红包人的id，roomid为房间id
+                           //      api.ajax({
+                           //         // url:GAMEDATABASE_URL+'lottery-web/NNgame/timekeeper?rid='+nextRed+'&uid='+bankerId+'&roomid='+groupId,
+                           //         url:GAMEDATABASE_URL+'lottery-web/NNgame/NNtimekeeper?rid='+nextRed+'&uid='+bankerId+'&roomid='+groupId,
+                           //         method:'get'
+                           //      },function(ret,err){
+                           //         console.log(JSON.stringify(ret))
+                           //      })
+                           // }
+                      }
+              }else if(ret.status == 'error'){
+                       console.log(22222222222222)
+                     toast("请稍后")
+                      // if(rtype=='S'||rtype=='H'){
+                      //   window.location.reload();
+                      // }
+              }
+          })
+        }
+        // 抢庄结束，查看庄家-----------------------------------------------------------------
+        function ajaxGetBanker(gid,rid,uid){
+          console.log(gid);
+          console.log(rid);
+          api.ajax({
+              url: GAMEDATABASE_URL+'lottery-web/NNgame/getBanker?id='+gid+'&rid='+rid,
+              method: 'get'
+          }, function(ret, err) {
+              console.log(JSON.stringify(ret))
+              if (ret) {
+                var banker = ret.bankerId;
+                bankerId=ret.bankerId;
+                if(bankerId == userInfo.id){
+                  $('.btnAdd').html('下庄');
+                }
+                // 发送庄家消息==============================
+                var name = ret.bankerId;
+                var nameShow = "用户"+name.substring(uid.length-4);
+                var html= ' <li class="msg">恭喜'+nameShow+'成为庄家</li>';
+                // 发送提示信息
+                sendRedFun(groupId,html,html,'M');
+              } 
+
+          });
+        }
+
+        // 抢红包结束，判断结果---------------------------------------
+        function ajaxGetRedFun(id,rid){
+          api.ajax({
+              url: GAMEDATABASE_URL+'lottery-web/NNgame/getRedresult?id='+id+'&rid='+rid,
+              method: 'get'
+          }, function(ret, err) {
+                console.log(JSON.stringify(ret))
+                console.log(JSON.stringify(err))
+              if (ret) {
+                var html = '',
+                    bankHtml='';
+                for(var i=0;i<ret.length;i++){
+                  if(ret[i].bankerRed==1){
+                    var name = ret[i].uname,
+                        uid = ret[i].uid;
+                    if(name == uid || name == '无昵称'){
+                      name = "用户"+uid.substring(uid.length-4);
+                    }
+                    bankHtml=bankHtml+'<div  class="text_red">\
+                              <span>[庄]</span>\
+                              <span>'+name+'</span>\
+                              <span>（'+ret[i].price+'）</span>\
+                              <span>'+ret[i].gname+'</span>\
+                              <span>'+ret[i].bunko+'</span>\
+                            </div>'
+                  }else{
+                    var name = ret[i].uname,
+                        uid = ret[i].uid;
+                    if(name == uid || name == '无昵称'){
+                      name = "用户"+uid.substring(uid.length-4);
+                    }
+
+                    html = html+'<div>\
+                                <span class="text_blue">[闲]</span>\
+                                <span class="text_blue">'+name+'</span>\
+                                <span class="text_blue">（'+ret[i].price+'）</span>\
+                                <span>'+ret[i].gname+'</span>\
+                                <span>'+ret[i].bunko+'</span>\
+                              </div>'
+                  }
+                }
+                html ='<li class="resultMsg msg" style="text-align: left;">'+html+bankHtml+'</li>';
+                // 发送红包抢完后的提示信息
+                sendRedFun(groupId,html,html,'M');
+                getSysMoney(rid,id);
+              } else {
+                  toast('网络错误，请稍后重试');
+              }
+          });
+        }
+//===============================================================================================
+         //点击别处 菜单隐藏------------------------------------
+          $('header').siblings().on('touchstart',function(){
+            $('.menu').addClass('hide');
+          })
+        //点击别处 菜单隐藏------------------------------------
+         // 给系统确定钱币--------------------------------------------
+           function getSysMoney(ridId,roomId){
+                  api.ajax({
+                      url:GAMEDATABASE_URL+'lottery-web/NNgame/transferAccount?rid='+ridId+'&id='+roomId,
+                      method:'get'
+                  },function(ret,err){
+                      if(ret){
+
+                         console.log(JSON.stringify(ret))
+                      }
+                  })
+           }
+        // 给系统确定钱币--------------------------------------------
+          console.log(JSON.stringify(game));
+          $('.roomName').text(game.name);
+           api.sendEvent({
+               name: 'addRoomEvt',
+           });
+//--------------------
+          drawFace();// 表情读取
+//---------------------
+          // 点击图片
+          $('#imgAddAll').on('click',function(){
+            var name = 'album';
+            imgAdd(name);
+          });
+          //点击相机
+          $('#cameraAdd').on('click',function(){
+            var name = 'camera';
+            imgAdd(name);
+          })
+          // 从图库或相机发送图片-----------------------------------
+          function imgAdd(album){
+            api.getPicture({
+                sourceType: album,
+                encodingType: 'jpg',
+                mediaValue: 'pic',
+                destinationType: 'url',
+                allowEdit: true,
+                quality: 50,
+                targetWidth: 100,
+                targetHeight: 100,
+                saveToPhotoAlbum: false
+            }, function(ret, err) {
+                /*if (ret) {
+                    alert(JSON.stringify(ret));
+                } else {
+                    alert(JSON.stringify(err));
+                }*/
+            });
+          }
+
+
+
+          //跳转到房间管理
+          var manageRoom = $api.dom('#manageRoom');
+          clickWin(manageRoom,'manageRoom','manageNNroom.html');
+
+          //房间成员
+          var memberInfor = $api.dom('#memberInfor');
+          $api.addEvt(memberInfor,'click',function(){
+              api.openWin({
+                name: 'memberRoom',
+                url: 'memberRoom.html',
+                pageParam: {
+                  groupId: game.groupId,
+                  typeStatus:2,
+                  name:userInfo.lophone,
+                  userId:userInfo.id
+                }
+              });
+            });
+
+          function clickWin(dom,name,url){
+            $api.addEvt(dom,'click',function(){
+              api.openWin({
+                name: name,
+                url: url,
+                pageParam:{
+                   message:game,
+                   numbercode:numbercode
+                }
+
+              });
+            });
+          }
+          var type=0;
+
+          //长按列表
+          $("#chatThread").on('longTap','.myInfo',function(){
+            var top = $(this).offset().top+$(this).height();
+            var left = $(this).offset().left+$(this).width()/2;
+            var win = $(window).height()-top+$(this).height();
+            $(this).addClass('clip');
+            $('.appends').fadeIn();
+            if(win>200){
+              $('.appends').css('top',top+'px');
+            }else{
+              $('.appends').css('top','auto');
+              $('.appends').css('bottom',win+'px');
+            }
+            $('.appends').css('left',left+'px');
+            var html='<ul>\
+                      <li>复制</li>\
+                      <li>删除</li>\
+                      <li>撤回</li>\
+                    </ul>';
+            $('.appends').html(html);
+            type=1;
+          });
+          //选择文本框的操作
+          $('.appends').on('click','li',function(e){
+            type = 0;
+            if($(this).index()==0){
+              clicpBord($('.clip').text());
+            }else if($(this).index()==1){
+              alert('操作删除');
+            }else{
+              alert('操作撤回');
+            }
+            e.stopPropagation();
+            $('.appends').fadeOut();
+            $('.clip').removeClass('clip');
+          });
+
+          //下拉框消失
+          $('#wrap').on('touchstart',function(){
+             // $('.menu').addClass('hide');
+              if(type==1){
+                $('.clip').removeClass('clip');
+                $('.appends').hide();
+                type = 0;
+              }
+          });
+
+
+          //复制-------------------------------------
+          function clicpBord(value){
+            var clipBoard = api.require('clipBoard');
+            clipBoard.set({
+              value: value
+            }, function(ret, err) {
+              if (ret) {
+                toast('复制成功');
+              } else {
+                  toast('网络错误，请稍后重试');
+              }
+            });
+          }
+
+          ListenerkeyBoard(function(data,height){
+             var keyBoardStatus = data.keyBoardStatus
+            //  console.log($api.jsonToStr(data));
+               if(keyBoardStatus==1){   //键盘打开
+                  $(".bet").hide();
+                  $(".send").show();
+                  $(".tool").css("height","0px");
+                  $("#convo").css("max-height",(openHeight-150)+"px");
+               }else if (keyBoardStatus==0) {  //键盘关闭
+                  $(".bet").show();
+                  $(".send").hide();
+                  $(".tool").css("height","0px");
+                  $("#convo").css("max-height",($(window).height()-150)+"px");
+               }
+          })
+
+          // 点击表情
+          $('#Emoticons').on("click","li",function(){
+                  console.log($(this))
+                  var text= $(this).attr("text")
+                  $api.append($api.byId("inputText"),text);
+          })
+
+
+        $('.look_more').hide();
+
+        //隐藏提示
+        var shadeClose = $api.dom('.red_close');
+        $api.addEvt(shadeClose, 'click', function(){
+            $('.addAddressTo').hide();
+        });
+// 分享-------------------------------------------------------------------
+       $('#fenShear').on('click',function(){
+              if(pass == '0'){
+                   alert('大厅房间不可以分享和复制');
+                   return;
+                 }
+             shareText(pass)
+                   function shareText(_text){
+                       var sharedModule = api.require('shareAction');
+                       sharedModule.share({
+                              text:_text,
+                              type:'text'
+                        });
+                   }
+       })
+// 分享-------------------------------------------------------------------
+
+        // 打开红包查看拆包金额
+        function ajaxGetMoney(id,rid,name,phone,groupId,num){
+            console.log(id);
+            console.log(rid);
+            // alert(id);
+            // alert(rid);
+            api.ajax({
+                url: GAMEDATABASE_URL+'lottery-web/NNgame/getMoney?userId='+id+'&rid='+rid,
+                method: 'get'
+            }, function(ret, err) {
+                console.log(JSON.stringify(ret));
+                 // alert(222);
+                 // alert(num);
+                if(num){
+                     api.ajax({
+                          url: GAMEDATABASE_URL+'lottery-web/NNgame/calculateMoney?rid='+rid+'&id='+groupId,
+                          method: 'get'
+                      }, function(ret, err){
+                           // alert(333)
+                          if(ret){
+                            ajaxGetRedFun(game.groupId,rid);
+                          }
+                      })
+                };
+                if (ret) {
+
+                    var price = ret.price,
+                        code = ret.code;
+                } else {
+                   // alert(1111)
+                  // toast('网络错误，请稍后重试');
+
+                }
+            });
+        }
+      }
+          function redHide(){
+            $('.red_send').fadeOut(500);
+            $('.red_open').fadeOut(500);
+            $('.look_more').fadeIn(500);
+            $('.red_more').html("手慢了，红包派完了");
+          }
+          function closeWin(){
+            api.closeWin({
+            });
+          }
+  </script>
+  </html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的设置</title>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" href="../../css/public.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css">
+
+    <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/rem.js"></script>
+    <script type="text/javascript" src="../../script/jquery-form.js"></script>
+    <script type="text/javascript" src="../../script/ajaxfileupload.js"></script>
+
+
+
+    <style type="text/css">
+        html{
+            font-size: 10px!important;
+        }
+        .floatleft{
+            float:left;
+        }
+        .floatright{
+            float:right;
+        }
+        .width50{
+            width: 50%;
+        }
+        header{
+          background-color: #D71D34;
+        }
+        header ul li {
+          height: 7.5rem;
+          text-align: center;
+          color: #fff;
+          position: relative;
+          font-size: 18px;
+        }
+        .myMine{
+         padding-top: 4rem;
+       }
+       .myPiC{
+         position: absolute;
+         left: 0rem;
+         top: 0rem;
+         width: 10%;
+         padding-top: 3.7rem;
+         height: 7.5rem;
+       }
+        .nav{
+            background: #FFFFFF;
+        }
+        .nav ul{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .nav ul li{
+            height: 8rem;
+            padding: 0 4%;
+            line-height: 4.5rem;
+            font-size: 1.4rem;
+            border-top: 0.1rem solid #F3F3F3;
+            color:#8a8a8a;
+        }
+        .nav ul li p{
+            font-size: 1.5rem
+        }
+        .nav ul li .downimg{
+            position: relative;margin:1.7rem 1%;height: 1rem;width: 0.9rem;
+        }
+        select {
+            font-size: 1.4rem;
+            color: #8a8a8a;
+            height: 4.5rem;
+        }
+        .scroll-parent{
+            width: 6rem;
+            padding-left: 1rem;
+            overflow: hidden;
+        }
+
+        /*退出按钮*/
+        .exit_btn{
+            height: 5rem;line-height: 5rem;background: #D71D34;
+            text-align: center;color:#fff;
+            font-size: 1.6rem;margin: 2rem auto;
+            width: 96%;
+            border-radius: 0.4rem;
+        }
+
+        /*提示信息*/
+        .addAddressTo{
+        width: 100%;
+        height: 60rem;
+        position: fixed;
+        bottom: 0rem;
+        left: 0rem;
+        z-index: 1000000;
+      }
+      .addAddressTo .shade{
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5)
+      }
+      .addAddressTo .shadeAddress{
+        padding: 1rem  2rem;
+        width: 80%;
+        margin: -40rem auto;
+        height: 16rem;
+        background: #fff;
+        z-index: 666;
+      }
+      .addAddressTo ul li {
+        width: 100%;
+        height: 5rem;
+        font-size: 1.5rem;
+        line-height: 5rem;
+        border-bottom: 0.1rem solid #f3f3f3;
+      }
+      .takeOut{
+        float: left;
+        position: absolute;
+        right: 1.5rem;
+        top: 1.2rem;
+        font-size: 1.5rem;
+        border: 1px solid #0091E0;
+        background: #0091E0;
+        color: #fff;
+        border-radius: 5px;
+        width: 5rem;
+        text-align: center;
+        height: 3rem;
+        line-height: 3rem;
+      }
+      .fileInput{
+        position: absolute;
+        top: 9rem;
+        width: 68%;
+        height: 7rem;
+        opacity: 0;
+      }
+    </style>
+</head>
+<body>
+  <header>
+    <ul>
+      <li class="border-b mine" >
+        <div class="myMine">个人资料</div>
+        <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+      </li>
+    </ul>
+  </header>
+    <section>
+      <form id="form" action="" method="post" enctype="multipart/form-data" class="position:relative;top:0rem;left:0rem;">
+        <div class="nav">
+            <ul>
+                <li>
+                    <div class="floatleft" style="width: 30%;height:100%;line-height:8rem;font-size: 1.6rem; color: #333333;">
+                        头像
+                    </div>
+                    <div class="floatleft" style="width: 68%;height: 7rem;">
+                       <div style="margin-top:0.5rem;float:right;border-radius: 50%">
+                           <img id="changeImg" style="border-radius: 50%;height: 6.5rem;width: 6.5rem;" src="../../icon/userLogo.png" data="">
+                       </div>
+                       <input class="fileInput" accept="image/*" type="file" name="img_url" id='img_url'>
+                    </div>
+                </li>
+                <li style="height: 5rem">
+                    <div class="floatleft "  style="width: 30%;height:100%;margin: 0rem 0;line-height:5rem;font-size: 1.6rem; color: #333333;">
+                        昵称
+                    </div>
+                    <input class="floatleft" id= "nickName" style="width: 68%;height: 5rem;font-size: 1.6rem;text-align: right;line-height:5rem;border-bottom:1px solid #F3F3F3">
+                </li>
+                <li style="height: 5rem;position: relative;">
+                    <div style="position:absolute;width: 30%;height:100%;line-height:5rem;font-size: 1.6rem; color: #333333;">
+                        性别
+                    </div>
+                    <select id='sign' style="position:absolute;width: 10%;right:2%;height: 5rem;font-size: 1.6rem;text-align: right;line-height:5rem;">
+                      <option class="option-choose" value="0">男</option>
+                      <option class="option-choose" value="1">女</option>
+                    </select>
+                    <!-- <input class="floatleft" id= "sign" style="width: 68%;height: 5rem;font-size: 1.6rem;text-align: right;line-height:5rem;border-bottom:1px solid #F3F3F3"> -->
+                </li>
+                <li id="editBtn" style="height: 6rem;border-top: 1rem solid #F5F5F5;position: relative;">
+                    <div  style="width: 30%;height:100%;line-height:5rem;font-size: 1.6rem; color: #333333;">
+                        修改密码
+                    </div>
+                    <img src="../../icon/go_right.png" style="position: absolute;right: 3%;height: 2rem;top: 1.5rem;">
+                </li>
+            </ul>
+        </div>
+        <div class="exit_btn" id="exitBtn">
+            保存
+        </div>
+      </form>
+
+    </section>
+    <!-- <div class="addAddressTo" style="display: none">
+        <div class="shade"></div>
+        <div class="shadeAddress">
+            <ul>
+                <li>修改头像</li>
+                <li id="photograph">
+                    <img src="../../icon/photograph.png" class="floatleft" style="width: 10%;margin: 1rem 3% 0 0;">
+                   <div>拍照</div>
+                </li>
+                <li id="photoes">
+                    <img src="../../icon/photo.png" class="floatleft" style="width: 9%;margin: 1rem 3% 0 0;">
+                    <div>相册</div>
+                </li>
+            </ul>
+        </div>
+
+    </div> -->
+</body>
+<script src="../../script/zipPic.js" charset="utf-8"></script>
+<script type="text/javascript">
+    apiready = function(){
+        // var FNImageClip = api.require('FNImageClip');
+        //获取登录用户的信息
+        var userInfo = $api.getStorage('userInfo');
+
+        ajaxDetail(userInfo.id);
+        //修改密码
+        var editBtn = $api.dom('#editBtn');
+        $api.addEvt(editBtn, 'click', function(){
+          openWin('editPass','editPass.html');
+        });
+        //修改图片
+        var url=null;
+        var fileId='changeImg';
+        $("input[type='file']").change(function(){
+          var formData = new FormData(),
+          oFile = this.files[0];
+          imgSize = oFile.size;
+
+          if(imgSize < 256 * 1024){
+              var reader = new FileReader();
+              reader.readAsDataURL(oFile);//读取文件
+              //监听文件读取结束后事件
+            	reader.onload = function(e) {
+                $("#changeImg").attr("src",e.target.result);    //e.target.result就是最后的路径地址
+                url=e.target.result;//图片base64
+              }
+          } else {    // 图片压缩处理
+          	var reader   = new FileReader(),
+          	    maxWidth = 50,
+          	    maxHeight= 50;
+          	    // suffix = oFile.name.substring(oFile.name.lastIndexOf('.') + 1);
+
+          	if(imgSize > 2 * 1024 * 1024){
+          	    maxWidth = 800;
+          	    maxHeight= 800;
+          	}
+          	reader.onload = function(e) {
+          	    var base64Img= e.target.result;
+          	    //--执行resize。
+          	    var _ir=ImageResizer({
+          	        resizeMode:"auto",
+          	        dataSource:base64Img,
+          	        dataSourceType:"base64",
+          	        maxWidth:maxWidth, //允许的最大宽度
+          	        maxHeight:maxHeight, //允许的最大高度。
+          	        onTmpImgGenerate:function(img){
+          	        },
+          	        success:function(resizeImgBase64,canvas){
+          	            var blob = dataURLtoBlob(resizeImgBase64);
+          	            formData.append(fileId, blob, oFile['name']);
+          				      // uploadPic(formData, picNum);
+                        // console.log(resizeImgBase64);
+                        // console.log(JSON.stringify(resizeImgBase64));
+                        // console.log(blob);
+                        // console.log(JSON.stringify(blob));
+                        // console.log(oFile['name']);
+                        // console.log(JSON.stringify(oFile['name']));
+                        $("#changeImg").attr("src",resizeImgBase64);    //e.target.result就是最后的路径地址
+                        url=resizeImgBase64;//压缩后的图片base64
+          	        }
+          	    });
+              };
+              reader.readAsDataURL(oFile);
+          }
+        });
+        //  点击保存用户信息
+        $("#exitBtn").on("click",function(){
+             var userId = userInfo.id;
+             var avatar = $("#changeImg").attr("data");
+
+             var nick = $("#nickName").val();
+             var sign = $("#sign").val();
+             if(url==null){
+               url='img';
+             }
+             console.log(url);
+            ajaxFileUpload(nick,sign,userId,url);
+        })
+        // 发送保存的用户信息
+        function ajaxFileUpload(username,sex,userid,imgUrl){
+          console.log(url);
+          api.ajax({
+              url: DATABASE_URL+'lottery-web/user/updateUserById',
+              method: 'post',
+              data:{
+                values:{
+                  id:userid,
+                  userName:username,
+                  sex:sex,
+                  loimg:imgUrl//头像
+                }
+              }
+          }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+              if (ret.stateCode==1) {
+                  toast('信息保存成功！')
+                  searchUserInfo(userInfo.id);
+                  closeWin();
+                  api.sendEvent({
+                      name: 'userInfo',
+                      extra: {
+                          key1: 'value1',
+                          key2: 'value2'
+                      }
+                  });
+
+              } else {
+                  toast('网络错误，请稍后重试');
+              }
+          });
+        }
+        //查询用户详细信息
+        function ajaxDetail(userId){
+          console.log('查询用户详细信息');
+          api.ajax({
+              url: baseUrl+'user/getUserById?id='+userId,
+              method: 'get',
+          }, function(ret, err) {
+              if (ret) {
+                // console.log(JSON.stringify(ret));
+                  var userDetailInfo = ret.lotteryUserBean;
+                     console.log(userDetailInfo.loimg);
+                  if(userDetailInfo.losex!=''&&userDetailInfo.losex!=undefined){
+                    testInfo(userDetailInfo.louserName,userDetailInfo.loimg,userDetailInfo.id,userDetailInfo.losex);
+                  }else{
+                    testInfo(userDetailInfo.louserName,userDetailInfo.loimg,userDetailInfo.id,0);
+                  }
+              } else {
+                  console.log(JSON.stringify(err));
+              }
+          });
+        }
+        // 判断用户信息显示
+        function testInfo(name,imgsrc,id,sex){
+          if(id == name){
+            $('#nickName').val('');
+          }else{
+            $('#nickName').val(name);
+            $('#sign').val(sex);
+          }
+          console.log(imgsrc);
+          if(imgsrc == 'img'){
+            $('#changeImg').attr('src','../../icon/userLogo.png');
+          }else{
+            $('#changeImg').attr('src',imgsrc);
+          }
+        }
+    }
+    function toast(obj){
+        api.toast({
+            msg: obj,
+            duration: 1500,
+            location: 'button'
+        });
+    }
+
+    function ajax(options) {
+            options = options || {};
+            options.type = (options.type || "GET").toUpperCase();
+            options.dataType = options.dataType || "json";
+            var params = formatParams(options.data);
+
+            //创建 - 非IE6 - 第一步
+            if (window.XMLHttpRequest) {
+                var xhr = new XMLHttpRequest();
+            } else { //IE6及其以下版本浏览器
+                var xhr = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+
+            //接收 - 第三步
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    var status = xhr.status;
+                    if (status >= 200 && status < 300) {
+                        options.success && options.success(xhr.responseText, xhr.responseXML);
+                    } else {
+                        options.fail && options.fail(status);
+                    }
+                }
+            }
+
+            //连接 和 发送 - 第二步
+            if (options.type == "GET") {
+                xhr.open("GET", options.url + "?" + params, true);
+                xhr.send(null);
+            } else if (options.type == "POST") {
+                xhr.open("POST", options.url, true);
+                //设置表单提交时的内容类型
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send(params);
+            }
+        }
+        //格式化参数
+        function formatParams(data) {
+            var arr = [];
+            for (var name in data) {
+                arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+            }
+            arr.push(("v=" + Math.random()).replace(".",""));
+            return arr.join("&");
+        }
+</script>
+</html>

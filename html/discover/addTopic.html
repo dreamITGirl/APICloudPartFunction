@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>发布话题</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+          header{
+            background-color: #D71D34;
+            position: fixed;
+            top: 0rem;
+            z-index: 1111111;
+            width: 100%;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           /*话题样式*/
+           #discover_content{
+             float: left;
+             width: 100%;
+             background: #fff;
+             margin-top:1rem;
+           }
+           .title{
+             width:100%;
+             //background: red;
+             padding-top: 2rem;
+
+
+           }
+           .content{
+             width: 100%;
+
+           }
+           .title_t{
+             min-height: 2rem;
+             width: 80%;
+             resize: none;
+             font-size: 1.8rem;
+             outline: none;
+             margin-left: 3rem;
+             color: #666666;
+           }
+           .content_t{
+             width: 80%;
+             resize: none;
+             font-size: 1.4rem;
+             outline: none;
+             margin-left: 3rem;
+             //min-height: 10rem;
+             color: #666666;
+             //background: red;
+             line-height: 2rem;
+           }
+          .img{
+            width: 100%;
+          }
+          .add_img{
+            width: 8rem;
+            height: 8rem;
+            margin: 1rem 9%;
+          }
+          .pic{
+              width: 80%;
+              /*height: 10rem;*/
+              margin: 1rem 9%;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">发布话题</div>
+                    <div class="myPiC" onclick="api.closeWin({});"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                    <span style="float:right;margin-top:-2.2rem;margin-right:1rem;">发布</span>
+                </li>
+            </ul>
+        </header>
+        <section style="margin-top: 7.5rem;" id="discover_content">
+            <div class="title">
+                <textarea  placeholder="加个标题哦~~" class="title_t"></textarea>
+            </div>
+            <div class="content">
+                <textarea  placeholder="把你想说的发布出去吧..." class="content_t"></textarea>
+            </div>
+            <div class="img" id="addImg">
+                <img src="../../icon/addimg.png" alt="" class="add_img">
+            </div>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/textarea.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        $(".content_t").autoTextarea(
+          {
+            maxHeight:200
+          }
+        )
+          $(".add_img").click(function(){
+              api.getPicture({
+                  sourceType: 'album',
+                  encodingType: 'jpg',
+                  mediaValue: 'pic',
+                  destinationType: 'base64',
+                  allowEdit: true,
+                  quality: 100,
+                  saveToPhotoAlbum: true
+              }, function(ret, err) {
+                  if (ret) {
+                    console.log(JSON.stringify(ret));
+                    if(ret.data != ""){
+                      var html='<div class="content">\
+                        <textarea  placeholder="把你想说的发布出去吧..." class="content_t"></textarea>\
+                      </div>';
+                      var img = '<img src='+ret.base64Data+' alt="" class="pic" >'
+                      $('#addImg').before(img);
+                      $('#addImg').before(html);
+                    }
+                  } else {
+                      alert(JSON.stringify(err));
+                  }
+              });
+            //获取标题
+              $('.title_t').blur(function(){
+                var titleText = $('.title_t').val();
+                console.log(titleText);
+              })
+
+            // 获取要发布的内容
+          })
+      };
+  </script>
+  </html>

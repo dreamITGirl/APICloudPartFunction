@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>房间管理</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         body{
+          background: #f8f9fb;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           section{
+             margin-top:0.9rem;
+             background: #f8f9fb;
+           }
+           section .time{
+             width:100%;
+             height:4.2rem;
+             line-height: 4.2rem;
+             border-bottom: 1px solid #dcdddf;
+             color: #dcdddf;
+             font-size: 1.4rem;
+             padding-left:1.7rem;
+           }
+           section ul{
+             list-style: none;
+             background: #f8f9fb;
+             color: #000002;
+           }
+           section ul li{
+             height:5.1rem;
+             width:100%;
+             line-height: 5.1rem;
+             padding-left:4.5rem;
+           }
+           .backg{
+             background-image: url(../../icon/room/sure.png);
+             background-repeat: no-repeat;
+             background-size: 2.5rem 2.5rem;
+             background-position:1.5rem 1.5rem;
+           }
+           section ul li span{
+             height:5.1rem;
+             width:100%;
+             margin-left: 1.2rem;
+             display: inline-block;
+             border-bottom: 1px solid #dcdddf;
+             font-size: 1.4rem;
+           }
+          .footer_OK{
+            margin:2.1rem auto;
+            width: 34.4rem;
+            height: 4.6rem;
+            background:#d71d34;
+            text-align: center;
+            font-size: 1.6rem;
+            line-height: 4.6rem;
+            color: #fff;
+            border-radius: 0.5rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">禁言时长</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+      <section>
+        <div class="time">选择禁言时长</div>
+        <ul id="timer">
+          <li class="backg"><span>10分钟</span></li>
+          <li><span>1小时</span></li>
+          <li><span>12小时</span></li>
+          <li><span>1天</span></li>
+          <li><span>自定义</span></li>
+        </ul>
+        <div class="footer_OK">确认</div>
+      </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        //页面关闭
+        function closeWin(){
+          api.closeWin({
+          });
+        }
+      }
+//--------------选中样式-------------
+      $("#timer li").on("click",function(){
+        $(this).addClass("backg").siblings().removeClass("backg");
+      });
+  </script>
+  </html>

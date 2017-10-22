@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+
+      <title>话题详情</title>
+
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+      <style>
+         html{
+           font-size: 10px;
+           height:auto;
+           width:100%;
+         }
+          header{
+            background-color: #D71D34;
+            position: fixed;
+            top: 0rem;
+            z-index: 1111111;
+            width: 100%;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           /*话题详情*/
+           #topic{
+             /*position: absolute;*/
+             float: left;
+             width:94%;
+             background: #fff;
+             padding-left: 1rem;
+             /*font-size: 0;*/
+             margin-top:2rem;
+           }
+           .topic_title{
+             text-align: left;
+             font-size: 1.5rem;
+             /*padding-top: 2rem;*/
+             padding-bottom: 2rem;
+             color: #333333;
+             font-weight: bold;
+           }
+           .topic_time{
+             text-align: left;
+             font-size: 1.3rem;
+             color: #333333;
+           }
+           .topic_banner{
+            float: left;
+            width: 100%;
+            height: 18.1rem;
+            margin-top: 2.25rem;
+             /*display: block;
+             width: 50%;
+             height: auto;*/
+
+           }
+           .topic_content{
+             width: 100%;
+             /*min-height:auto;*/
+             float: left;
+             font-size: 1.5rem;
+             color: #333333;
+             line-height: 2.5rem;
+             margin-top: 2.25rem;
+             margin-bottom: 5.5rem;
+
+           }
+           .topic_content img{
+             display: block;
+              max-width: 100%;
+             height: auto;
+           }
+           .topic_segmentation{
+             /*width: 130%;*/
+             width:100%;
+             height: 1.5rem;
+             background: #f7f7f7;
+             float: right;
+             margin-top: 2.25rem;
+             position: relative;
+             left: 1rem;
+           }
+           .topic_comment_title{
+             width: 100%;
+             float: left;
+             color: #333333;
+             font-size: 1.5rem;
+             padding-top: 1.25rem;
+             padding-bottom: 1.25rem;
+           }
+           .topic_comment_title span:nth-child(2){
+             float: right;
+           }
+           .topic_comment{
+             width: 100%;
+             float: left;
+             /*height: 20.3rem;*/
+             /*height:50rem;*/
+             margin-right: -1rem;
+             padding-bottom: 2.6rem;
+             /*background-color: #ddd;*/
+             /*margin-top: 60rem;*/
+           }
+           .topic_comment_img{
+             float: left;
+             /*display:flex;*/
+             /*height: 100%;*/
+             width: 15%;
+           }
+           .topic_comment_content{
+             float: left;
+             height: 100%;
+             width: 85%;
+           }
+           .topic_comment_img img{
+             width: 4.5rem;
+             height: 4.5rem;
+             float: left;
+             border-radius: 50%;
+             margin-left: 0rem;
+             margin-top: 1.6rem;
+           }
+           .topic_comment_content_title{
+             margin-top: 1.6rem;
+           }
+           .topic_comment_content_title img{
+             width: 1.7rem;
+             height: 1.7rem;
+           }
+           .topic_comment_content_title img:nth-child(2){
+             float: right;
+             margin-right: 1.3rem;
+           }
+           .topic_comment_content_title img:nth-child(3){
+             float: right;
+             margin-right: 2.5rem;
+           }
+           .topic_comment_content_title span{
+             font-size: 1.3rem;
+           }
+           .topic_comment_content_time{
+             font-size: 1.3rem;
+             margin-top: 0.9rem;
+           }
+           .topic_comment_content_message{
+             font-size: 1.5rem;
+             margin-top: 1.3rem;
+             /*color: #333333;*/
+             color: #000;
+           }
+           .topic_comment_content_container{
+             width:100%;
+             float: left;
+             font-size: 1.5rem;
+             margin-top: 1.3rem;
+             padding-top: 1.3rem;
+             /*padding-left: 1rem;*/
+             padding-right: 1rem;
+             padding-bottom: 1.3rem;
+             /*background: rgba(240,240,240,0.9);*/
+             border-radius: 0.7rem;
+             opacity: 0.7;
+           }
+           .topic_comment_content_container p{
+             float:left;
+           }
+           .topic_comment_content_container p:nth-child(2){
+             padding-top: 1.3rem;
+           }
+           .topic_comment_content_container_message{
+             display: inline;
+           }
+           #nav_bottom{
+             width: 100%;
+             position: fixed;
+             bottom: 0;
+             float: left;
+             display: flex;
+             bottom:0;
+             height: 5rem;
+             border-top: 1px solid #e4e4e4;
+             margin-top: 0.5rem;
+             background: #fff;
+             left: -1rem;
+             z-index: 10000;
+           }
+          .nav_bottom_content{
+            flex: 1;
+            background: #fff;
+            width: 100%;
+            text-align: center;
+            height: 2rem;
+            margin-top: 1.3rem;
+            line-height: 2rem;
+            font-size: 1.5rem;
+            color: #656565;
+          }
+          .nav_bottom_content span{
+            padding-left: 1rem;
+            position: relative;
+            top:-0.3rem;
+          }
+          #nav_bottom div:nth-child(2){
+            border-left: 1px solid #9e9e9e;
+            border-right: 1px solid #9e9e9e;
+          }
+          .nav_bottom_content img{
+            width: 1.8rem;
+            height: 1.8rem;
+            /*position: relative;*/
+            /*top: 0.5rem;*/
+          }
+          .collect{
+            color:red;
+          }
+          /*评论*/
+          .disContent{
+            /*float:left;*/
+            position:absolute;;
+            /*top:73%;*/
+            bottom:30%;
+            width:100%;
+            left:0;
+            background-color: #fff;
+            /*margin-top: 100%;*/
+            /*margin-top: 20rem;
+            padding-top: 5rem;
+            margin-bottom:3rem;
+            background-color: #ddd;
+            height:30rem;*/
+          }
+          .discussPart{
+            float:left;
+            /*margin-top: 115rem;*/
+            height: auto;
+            /*border: 1px solid #ddd;*/
+            /*position: absolute;
+            left: 0;*/
+            margin-bottom: 5rem;
+            padding:0.5rem;
+            /*background-color: #aaa;*/
+          }
+          #writeDiscuss{
+            margin-left: 15px;
+           border-radius: 15px;
+           border: 1px solid #aaa;
+           padding:5px;
+           outline: none;
+          }
+          #btn,#btnReplay{
+                display: inline-block;
+                padding: 6px 12px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                touch-action: manipulation;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 12px;
+                color: #fff;
+                background-color: #5cb85c;
+                border-color: #4cae4c;
+                margin-top: -48px;
+                margin-left: 10px;
+                outline: none;
+          }
+          /*.disContent {
+            float:left;
+          }*/
+          /*回复样式的设计*/
+          .responsePart{
+             position:absolute;
+             left:0;
+             width:100%;
+             /*border:1px solid #aaa;*/
+          }
+          .responseInput{
+              height: 4rem;
+              width: 60%;
+              margin-left: 4.5rem;
+              border:1px solid #000;
+              outline: none;
+              border-radius: 5px;
+          }
+          .submitBtn{
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            touch-action: manipulation;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+            outline: none;
+          }
+          .addDiscuss{
+            width:100%;
+            height:auto;
+            /*border:1px solid #ddd;*/
+            width:100%;
+            float: left;
+
+          }
+          /*回复内容的样式*/
+          .replayText{
+            background: rgba(240,240,240,0.9);
+
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">话题</div>
+                    <div class="myPiC" onclick="api.closeWin({});"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <div style="width:100%;height:7.5rem;"></div>
+        <scetion id="topic">
+            <!-- <p class="topic_title">有什么游戏适合在俩个人没有话题的时候玩？</p>
+            <p class="topic_time"><span>2017年12月30日</span><span>14:57:56</span></p>
+            <img src="../../image/banner2.png" alt="" class="topic_banner">
+            <div class="topic_content">
+                 APP测试是必不可少的、只有通过各种测试、了解其中的一些细节问题来达到满足市场需要的产品才能做到无懈可击，与此同时，也要做好日常的参数策划，诸如APP客户端是什么类型的，软件的变体，英文名字，软件大小、分类、语言等等，做好这些准备可以更好的为后面的推广服务
+            </div>
+
+            <div style="width:100%;height:5rem;float:left;">
+
+            </div> -->
+        </scetion>
+
+      <!-- 添加评论输入框  -->
+        <div class="disContent ">
+           <!-- <textarea  id="writeDiscuss" cols="35" rows="5"></textarea>
+           <button type="button" id="btn" >发表评论</button> -->
+        </div>
+        <!-- 新增 -->
+        <section class="discussPart ">
+          <!-- <div class="add">
+            <div class="topic_comment_title ">
+                 <span>评论</span><span class="praises-total">赞</span>
+             </div>
+             <div class="topic_segmentation" style="margin-top:0;"></div>
+          </div>
+         <div class="topic_comment">
+         <div class = 'addDiscuss'> -->
+            <!-- <div class="topic_comment_img">
+              <img src="../../image/tou.png" alt="">
+            </div>
+            <div class="topic_comment_content">
+              <div class="topic_comment_content_title">
+                <span>sy237u</span><img src="../../image/discover/icon_dianzan.png">
+                <img src="../../image/discover/icon_huifu.png" alt="" class="response">
+              </div>
+              <div class="topic_comment_content_time">7-25 18:06</div>
+              <div class="topic_comment_content_message">......这个游戏好玩吗？有人玩过吗？</div>
+              <div class="topic_comment_content_container">
+                <p>
+                  <span class="topic_comment_content_container_message">疯子在左天才在右:</span>
+                  <span class="topic_comment_content_container_message">里面的小游戏很好玩而且有优惠</span>
+                </p>
+                <p>
+                  <span class="topic_comment_content_container_message">疯子在左天才在右:</span>
+                  <span class="topic_comment_content_container_message">里面的小游戏很好玩而且有优惠</span>
+                </p>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class = 'addDiscuss'>
+             <div class="topic_comment_img">
+               <img src="../../image/tou.png" alt="">
+             </div>
+             <div class="topic_comment_content">
+               <div class="topic_comment_content_title">
+                 <span>sy237u</span><img src="../../image/discover/icon_dianzan.png">
+                 <img src="../../image/discover/icon_huifu.png" alt="" class="response">
+               </div>
+               <div class="topic_comment_content_time">7-25 18:06</div>
+               <div class="topic_comment_content_message">......这个游戏好玩吗？有人玩过吗？</div>
+               <div class="topic_comment_content_container">
+                 <p>
+                   <span class="topic_comment_content_container_message">疯子在左天才在右:</span>
+                   <span class="topic_comment_content_container_message">里面的小游戏很好玩而且有优惠</span>
+                 </p>
+                 <p>
+                   <span class="topic_comment_content_container_message">疯子在左天才在右:</span>
+                   <span class="topic_comment_content_container_message">里面的小游戏很好玩而且有优惠</span>
+                 </p>
+               </div>
+             </div>
+           </div> -->
+          </div>
+        </section>
+        <!-- 回复模块 -->
+        <div class="responsePart">
+           <!-- <input type="text" class="responseInput">
+           <button type="button" name="button" class='submitBtn'>提交</button> -->
+        </div>
+        <!-- 底部按钮 -->
+        <section id="nav_bottom">
+              <div id="share" class="nav_bottom_content "><img src="../../image/discover/icon_fenxiang.png" alt=""><span>分享</span></div>
+              <div class="nav_bottom_content" id='discuss'><img src="../../image/discover/icon_pinglun.png" alt=""><span>评论</span></div>
+              <div class="nav_bottom_content" id="collect"><img src="../../image/discover/icon_shouc.png" alt=""><span>收藏</span></div>
+        </section>
+
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+
+  <script type="text/javascript">
+      apiready = function(){
+        var topicId=api.pageParam.titleID;
+        console.log(topicId);
+        var userInfo = $api.getStorage('userInfo');
+        console.log(userInfo);
+        if(userInfo==null){
+<<<<<<< .mine
+||||||| .r595
+          // api.openWin({
+          //     name: 'login',
+          //     url: '../login.html',
+          // });
+          // return ;
+=======
+          //用户未登录时的数据获取
+>>>>>>> .r598
+          api.ajax({
+            url: propBaseUrl+'topic/getAllDiscussByTopic?topicId='+topicId+'&&userId=56455',
+              method: 'get',
+          },function(ret, err){
+              if (ret) {
+                  console.log(JSON.stringify(ret));
+                  var detailslist=ret.topic;
+                  //console.log(JSON.stringify(detailslist));
+                  var cont=detailslist.content;
+                  var title=detailslist.title;
+                  console.log(title);
+                  var time=detailslist.createTime;
+                  var src=detailslist.imglogo;
+                  var html='<p class="topic_title">'+title+'</p>'+
+                          '<p class="topic_time"><span>'+time+'</span></p>'+
+                          '<img src="'+propBaseUrl+src+'" alt="" class="topic_banner">'+
+                          '<div class="topic_content">'+cont+'</div>'
+                  $("#topic").append(html);
+              } else {
+                  console.log(JSON.stringify(err));
+                  // alert('网络连接错误')
+                  toast('网络连接错误')
+              }
+          });
+         return ;
+        }
+        console.log(JSON.stringify(userInfo));
+        var userId = userInfo.id;
+
+        // console.log(userId);
+        var userName = userInfo.louserName;
+        console.log(userName);
+
+//分享功能
+        function shareAction(_text){
+          var sharedModule = api.require('shareAction');
+          sharedModule.share({
+            text:_text,
+           type:'text',
+        //   path:_text
+         });
+       }
+        $('#share').click(function(){
+
+          // 后台获取分享的数据
+          var wx = api.require('wx')
+          wx.isInstalled(function(ret, err) {
+            if (ret.installed) {
+              console.log('当前设备已安装微信');
+                shareAction('http://www.baidu.com');
+                 var myshare=$api.getStorage('myshareR');
+                 if(myshare){
+                  $api.setStorage('myshareR',myshare++);
+                 }
+                 else{
+                  $api.setStorage('myshareR',1);
+                 }
+                 console.log($api.getStorage('myshareR'));
+            } else {
+              alert('当前设备未安装微信客户端');
+            }
+          }
+        );
+        });
+// //----------- 点赞------------
+//         function praiseBox(box,elem){
+//         var praiseElement=box.getElementsByClassName('praises-total')[0];
+//         var oldTotal=parseInt(praiseElement.getAttribute('total'));
+//         var txt=elem.innerHTML;
+//         var newTotal;
+//         if (txt == '赞') {
+//             newTotal=oldTotal+1;
+//             praiseElement.innerHTML=(newTotal==1)?'我觉得很赞':'我和'+oldTotal+'个人觉得很赞';
+//             elem.innerHTML='取消赞';
+//         }else{//取消赞
+//             newTotal=oldTotal-1;
+//             praiseElement.innerHTML=(newTotal==0)?'':newTotal+'个人觉得很赞';
+//             elem.innerHTML='赞';
+//         }
+//         praiseElement.setAttribute('total',newTotal);
+//         praiseElement.style.display=(newTotal==0)?'none':'block';
+    // }
+
+
+//----------话题详情数据---------
+        getTopicDetails();
+        function getTopicDetails(){
+          // console.log(userId);
+          api.ajax({
+              url: propBaseUrl+'topic/getAllDiscussByTopic?topicId='+topicId+'&&userId='+userId,
+              method: 'get',
+          }, function(ret, err) {
+              if (ret) {
+                  console.log(JSON.stringify(ret));
+                //  alert(JSON.stringify(ret))
+                  var detailslist=ret.topic;
+                  var cont=detailslist.content;
+                  var title=detailslist.title;
+                  console.log(title);
+                  var time=detailslist.createTime;
+                  var src=detailslist.imglogo;
+                  console.log(src);
+                  var html='<p class="topic_title">'+title+'</p>'+
+                          '<p class="topic_time"><span>'+time+'</span></p>'+
+                          '<img src="'+propBaseUrl+src+'" alt="" class="topic_banner">'+
+                          '<div class="topic_content">'+cont+'</div>'+'
+                          <div class="add">'+
+                          '<div class="topic_comment_title ">'+
+                          '<span>评论</span><span class="praises-total">赞</span>'+
+                          '</div> <div class="topic_segmentation" style="margin-top:0;"></div>'+'
+                          </div>'
+                  $("#topic").append(html);
+                   var topicDiscussList = ret.topicDiscussList;
+                   console.log(JSON.stringify(topicDiscussList));
+                   var discussReplay = ret.discussReply;
+                   console.log(JSON.stringify(discussReplay));undefined
+                   var marked = JSON.stringify(discussReplay);
+                   var createTimeArray = [];
+                   var discussContentArray = [];
+                   var userIdArray = [];
+                   var discussIdArray = [];//回复id数组
+                   var userNameArray = [];//用户名的昵称
+                   var discussReplayArray = [];//回复人的昵称
+                   var discussReplayContentArray = [];//回复的内容
+                   var str="";
+                   var topicId = [];
+                   //处理后台获得的数据
+                   for(var i=0;i<topicDiscussList.length;i++){
+                        createTimeArray.push(topicDiscussList[i].createTime);
+                        discussContentArray.push(topicDiscussList[i].discussContent);
+                        userIdArray.push(topicDiscussList[i].userId);
+                        discussIdArray.push(topicDiscussList[i].id);
+                        userNameArray.push(topicDiscussList[i].userName);
+                        topicId.push(topicDiscussList[i].id);
+                   };
+                   alert(discussIdArray+'12345');
+                   $api.setStorage('discussIdArray', discussIdArray);
+
+                   console.log(marked!=undefined);
+                   if(marked!=undefined){
+                     for(var i=0;i<discussReplay.length;i++){
+                       discussReplayArray.push(discussReplay[i].fromUserName);
+                       discussReplayContentArray.push(discussReplay[i].replyContent)
+                     }
+                     console.log(discussReplayArray);//用户昵称（可获取）
+                     console.log(discussReplayContentArray);//用户评论的内容（可获取）
+                   }else{
+                     toast('暂无评论')
+                   }
+<<<<<<< .mine
+                   console.log(createTimeArray);
+                   console.log(discussContentArray);
+                   console.log(userIdArray);
+                   console.log(discussIdArray);
+                   console.log(userNameArray);
+
+                    // 拼接回复信息循环开始
+                    console.log(discussReplayArray);//可获取
+                    console.log(discussReplayContentArray);//可获取
+            //  console.log(discussReplayContentArray);
+                    // for(var j=0;j<discussReplayArray.length;j++){
+                    //    var html =
+                    //         '<p index='+j+' class="replayText"><span class="topic_comment_content_container_message">'+discussReplayContentArray[j]+':</span><span class="topic_comment_content_container_message">'+discussReplayContentArray[j]+'</span></p>'+
+                    //           '</div>'+'</div>'+
+                    //            '</div>'+
+                    //              '</div>';
+                    //     // var textContent = html+str
+                    //     //   $('.topic_comment_content_container').html(html);
+                    //       console.log(html);
+                    //   // $('.replayText').insertAfter('.topic_comment_content_container');
+                    //   // console.log(str);
+                    // }
+                    console.log(html);
+||||||| .r595
+                   console.log(createTimeArray);
+                   console.log(discussContentArray);
+                   console.log(userIdArray);
+                   console.log(discussIdArray);
+                   console.log(userNameArray);
+                    // 拼接回复信息循环开始
+                    console.log(discussReplayArray);//可获取
+                    console.log(discussReplayContentArray);//可获取
+                    // for(var j=0;j<discussReplay.length;j++){
+                    //    var html =
+                    //         '<p index='+j+' class="replayText"><span class="topic_comment_content_container_message">'+discussReplayContentArray[j]+':</span><span class="topic_comment_content_container_message">'+discussReplayContentArray[j]+'</span></p>'+  '</div>'+
+                    //      ;
+                    //     // var textContent = html+str
+                    //     //   $('.topic_comment_content_container').html(html);
+                    //       console.log(html);
+                    //   // $('.replayText').insertAfter('.topic_comment_content_container');
+                    //   // console.log(str);
+                    // }
+                    // console.log(html);
+=======
+
+
+                    console.log(html);
+>>>>>>> .r598
+                    //处理发表时间的数组
+                    var dates;
+                    var createTime = [];
+                     for(var k=0;k<createTimeArray.length;k++){
+                       dates = createTimeArray[k].toString();
+                          var year=dates.substring(0,4);
+                          var month=dates.substring(4,6);
+                          var day=dates.substring(6,8);
+                          var hour=dates.substring(8,10);
+                          var min=dates.substring(10,12);
+                          var sec=dates.substring(12,14);
+                            var times = year+'-'+month+'-'+day+' '+hour+':'+min+':'+sec;
+                           //  console.log(times)
+                            createTime.push(times);
+                     }
+                //拼接评论信息
+                alert(topicDiscussList.length);
+                    for(var i=0;i<topicDiscussList.length;i++){
+<<<<<<< .mine
+                      if(userNameArray[i]==undefined){
+                        userNameArray[i]='无昵称';
+                      }
+                      console.log(userNameArray[i]);
+                      console.log(discussReplayContentArray);
+                         str +='<div class="addDiscuss" index='+i+'>'+
+                         '<div class="topic_comment_img"><img src="../../image/tou.png" alt=""></div>'+
+                                '<div class="topic_comment_content">'+
+                                    '<div class="topic_comment_content_title">'+
+                                       '<span>'+userNameArray[i]+'</span><img src="../../image/discover/icon_dianzan.png">'+
+                                       '<img src="../../image/discover/icon_huifu.png" alt="" class="response">'+
+                                    '</div>'+
+                                '<div class="topic_comment_content_time">'+createTime[i]+'</div>'+
+                                '<div class="topic_comment_content_message">'+discussContentArray[i]+'</div>'+
+                                '<div class="replayPart" index='+i+'>'+
+                                  '<div class="topic_comment_content_container">'+
+                                  // '<p index='+i+' class="replayText"><span class="topic_comment_content_container_message">'+discussReplayArray[i]+':</span><span class="topic_comment_content_container_message">'+discussReplayContentArray[i]+'</span></p>'+
+                                   '</div>'+
+                                   '</div>'+
+                                     '</div>';
+                      // console.log(str);
+                      $('.discussPart').html(str);
+                      $('topic_comment_img').css('float','left');
+                      if(discussReplayContentArray[i]==undefined){
+                        $('.topic_comment_content_container').hide();
+                      }else{
+                        $('.topic_comment_content_container').show();
+                        if(discussReplayArray[i]==undefined){
+                            discussReplayArray[i]='无昵称'
+                        }
+                      }
+                    }//评论信息循环结束
+              }
+               else {
+||||||| .r595
+                         str +='<div class="addDiscuss" index='+i+'>'+
+                         '<div class="topic_comment_img"><img src="../../image/tou.png" alt=""></div>'+
+                                '<div class="topic_comment_content">'+
+                                    '<div class="topic_comment_content_title">'+
+                                       '<span>'+userNameArray[i]+'</span><img src="../../image/discover/icon_dianzan.png">'+
+                                       '<img src="../../image/discover/icon_huifu.png" alt="" class="response">'+
+                                    '</div>'+
+                                '<div class="topic_comment_content_time">'+createTime[i]+'</div>'+
+                                '<div class="topic_comment_content_message">'+discussContentArray[i]+'</div>'+
+                                '<div class="replayPart" index='+i+'>'+
+                                  '<div class="topic_comment_content_container">'+ '</div>'+
+                                   '</div>'+
+                                     '</div>';
+                      // console.log(str);
+                      $('.discussPart').html(str);
+                      $('topic_comment_img').css('float','left');
+                    }//评论信息循环结束
+              } else {
+=======
+                      if(ret.topicDiscussList[i].discussReplay){
+                            alert(ret.topicDiscussList[i].discussReplay.length+'回复长度');
+                            console.log(ret.topicDiscussList[i].discussReplay.length+'回复长度');
+                              for(var j=0;j<ret.topicDiscussList[i].discussReplay.length;j++){
+                                 str +='<div class="addDiscuss" index='+i+'>'+
+                                 '<div class="topic_comment_img"><img src="../../image/tou.png" alt=""></div>'+
+                                        '<div class="topic_comment_content" id='+topicId[i]+'>'+
+                                            '<div class="topic_comment_content_title" >'+
+                                               '<span>'+userNameArray[i]+'</span><img src="../../image/discover/icon_dianzan.png">'+
+                                               '<img src="../../image/discover/icon_huifu.png" alt="" class="response" index='+i+'>'+
+                                            '</div>'+
+                                        '<div class="topic_comment_content_time">'+createTime[i]+'</div>'+
+                                        '<div class="topic_comment_content_message">'+discussContentArray[i]+'</div>'+
+                                        '<div class="replayPart" index='+i+'>'+
+                                        '<div class="topic_comment_content_container">'+
+                                          '<p index='+i+' class="replayText"><span class="topic_comment_content_container_message">'+userIdName+':</span><span class="topic_comment_content_container_message">'+responseContent+'</span></p>'+
+                                             '</div>'
+                                           '</div>'+
+                                           '</div>'+
+                                         '</div>';
+                              }
+                      }
+                      if(userNameArray[i]==undefined){
+                        userNameArray[i]='无昵称';
+                      }
+
+                  }
+                      console.log(userNameArray[i]);
+                      console.log(discussReplayContentArray);
+                        //  str +='<div class="addDiscuss" index='+i+'>'+
+                        //  '<div class="topic_comment_img"><img src="../../image/tou.png" alt=""></div>'+
+                        //         '<div class="topic_comment_content" id='+topicId[i]+'>'+
+                        //             '<div class="topic_comment_content_title" >'+
+                        //                '<span>'+userNameArray[i]+'</span><img src="../../image/discover/icon_dianzan.png">'+
+                        //                '<img src="../../image/discover/icon_huifu.png" alt="" class="response" index='+i+'>'+
+                        //             '</div>'+
+                        //         '<div class="topic_comment_content_time">'+createTime[i]+'</div>'+
+                        //         '<div class="topic_comment_content_message">'+discussContentArray[i]+'</div>'+
+                        //         '<div class="replayPart" index='+i+'>'+
+                        //
+                        //            '</div>'+
+                        //            '</div>'+
+                        //          '</div>';
+                      console.log(str);
+                      // $('.discussPart').html(str);
+                      // $('topic_comment_img').css('float','left');
+                      // if(discussReplayContentArray[i]==undefined){
+                      //   $('.topic_comment_content_container').hide();
+                      // }else{
+                      //   $('.topic_comment_content_container').show();
+                      //   if(discussReplayArray[i]==undefined){
+                      //       discussReplayArray[i]='无昵称'
+                      //   }
+                      // }
+                    // }//评论信息循环结束
+              }
+               else {
+>>>>>>> .r598
+                  alert(JSON.stringify(err));
+              }
+          });
+        }
+var discussIdArray =   $api.getStorage('discussIdArray');
+  // alert(discussIdArray+'123654');
+  // console.log(discussIdArray+'123654');
+
+//---------话题评论--------
+    $('.discussPart').css('margin-bottom','45rem')
+    // .css('margin-top','120rem')
+     $('.disContent').hide();
+   var softInput = api.require('softInputMgr');
+       $('#discuss').click(function(){
+          $('.disContent').show();
+         var html = '<textarea  id="writeDiscuss" cols="35" rows="5"></textarea><button type="button" id="btn" >发表评论</button>';
+         console.log(html);
+          $('.disContent').html(html);
+          softInput.toggleKeyboard();
+               //点击发表评论按钮时提交数据
+               $('.disContent').on('click','#btn',function(){
+<<<<<<< .mine
+                 topicDiscussList(topicId,userId,discussContent);
+||||||| .r595
+                 console.log(1234567);
+                 topicDiscussList(topicId,userId,discussContent);
+                        // document.location.reload();
+=======
+                 $('.disContent').hide();
+                topicDiscussListFunc(topicId,userId,discussContent);
+                  //  window.location.reload();
+
+>>>>>>> .r598
+                       $('body').load('discoverTopicDetails.html');
+               })
+
+       });
+
+       var discussContent='';
+        console.log(topicId);
+        console.log(userId);
+        console.log(discussContent);
+        //向后台发送数据，将用户的评论信息提交至后台
+        function topicDiscussListFunc(topicId,userId,discussContent){
+          discussContent +=$('.disContent #writeDiscuss').val()
+          console.log(discussContent);
+         api.ajax({
+              url: propBaseUrl+'topic/addDiscussForTopic?topicId='+topicId+'&&userId='+userId+'&&discussContent='+discussContent,
+              method: 'post',
+          }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+              if (ret) {
+              //  window.location.reload();
+              //document.location.reload();//重新加载当前页面
+              } else {
+                  console.log(JSON.stringify(err));
+              }
+          });
+        }
+
+//追加评论
+ // console.log(createTimeArray);
+ // console.log(discussContentArray);
+ // console.log(userIdArray);
+ // console.log(discussIdArray);
+ api.ajax({
+     url: propBaseUrl+'topic/getAllDiscussByTopic?topicId='+topicId+'&&userId='+userId,
+     method: 'get',
+ },function(ret, err){
+     if (ret) {
+         console.log( JSON.stringify(ret));
+          var topicDiscussList = ret.topicDiscussList;
+         var discussIdArray=[];
+         var userIdArray = [];
+         var userNameArray = [];
+         for(var i=0;i<topicDiscussList.length;i++){
+              userIdArray.push(ret.topicDiscussList[i].userId);
+              discussIdArray.push(ret.topicDiscussList[i].id);
+              userNameArray.push(ret.topicDiscussList[i].userName);
+         };
+         console.log(discussIdArray);//[d760aef7fe44459b56ec5bd000a862b,7ac842135fff46cfb40ee3926ec6020d,3b20dbf556414a2c8ee41b4937414ca9 ]
+         console.log(userIdArray);//[41ade842aeff49ec8bf0ce4ca38eec0d,e2bca41e42c942deb0c82d5ddbd3e595,41ade842aeff49ec8bf0ce4ca38eec0d]
+         console.log(userNameArray);//[用户1,,用户1]
+
+         //点击回复图片事件
+         $('.discussPart').on('click','.response',function(){
+          //  $('.addDiscuss').on('click','.response',function(){
+          //  var discussId =addDiscuss
+          var index = $(this).attr('index');
+          // $api.setStorage('index', index);
+          alert(index);
+           $('.disContent').show();
+          var html = '<textarea  id="writeDiscuss" cols="35" rows="5"></textarea><button type="button" id="btnReplay" >提交回复</button>';
+          console.log(html);
+           $('.disContent').html(html);
+           //获取输入框的高度
+           $('.disContent').css('bottom','-100%')
+           softInput.toggleKeyboard();
+<<<<<<< .mine
+           $('.disContent').on('click','#btnReplay',function(){
+             var responseContent = $('#writeDiscuss').val();
+             if(responseContent===""){
+                  alert('输入内容不能为空');
+             }
+             $('#btnReplay').hide();
+             // else{
+               console.log(responseContent);//回复的内容
+               console.log(userId);//当前人的id
+               console.log(discussIdArray);//当前评论的id可用
+               console.log(userIdArray);//可用
+               //var i = $('.addDiscuss').index();
+               var m = $(this)
+               console.log($(this));
+               console.log(String(m));
+               $(this).attr('id','replayP');
+               var discussId = discussIdArray[i];//当前话题的id
+                console.log(discussId);
+                var userInfo = $api.getStorage('userInfo');
+                console.log(JSON.stringify(userInfo));
+                var userId = userInfo.id;
+                console.log(userId);
+                console.log(responseContent);
+               api.ajax({
+                   url: propBaseUrl+'topic/addReplyForDiscuss?discussId='+discussId+'&&fromUserId='+userId+'&&replyContent='+responseContent,
+                   method: 'post'
+               },function(ret, err){
+                   if (ret) {
+                           console.log( JSON.stringify(ret));
+                           if(ret.stateCode==1){
+                               console.log('回复成功');
+                              //  console.log(discussId);
+                              //请求获取回复内容，然后插入到评论内容中
+                              // api.ajax({
+                              //     url: propBaseUrl+'topic/getAllDiscussByTopic?topicId='+topicId+'&&userId='+userId,
+                              //     method: 'post',
+                              // },function(ret, err){
+                              //     if (ret) {
+                              //         console.log( JSON.stringify( ret ));
+                              //         alert(111);
+                              //       console.log(responseContent);
+                              //       console.log(userId);
+                              //       var userIdName = userInfo.louserName;
+                              //       console.log(userIdName);
+                              //       var strs="";
+                              //       strs+='<p index='+i+' class="replayText"><span class="topic_comment_content_container_message">'+userIdName+':</span><span class="topic_comment_content_container_message">'+responseContent+'</span></p>'
+                              //       console.log(strs);
+                              //       $('.topic_comment_content_container').append(sres);
+                              //     } else {
+                              //         console.log( JSON.stringify( err ));
+                              //     }
+                              // });
+||||||| .r595
+                //点击发表评论按钮时提交数据
+                $('.disContent').on('click','#btn',function(){
+                  var responseContent = $('#writeDiscuss').val();
+                  if(responseContent===""){
+                       alert('输入内容不能为空');
+                  }else{
+                    console.log(responseContent);//回复的内容
+                    console.log(userId);//当前人的id
+                    console.log(discussIdArray);//当前评论的id可用
+                    console.log(userIdArray);//可用
+                    //var i = $('.addDiscuss').index();
+                    var m = $(this)
+                    console.log($(this));
+                    console.log(String(m));
+                    $(this).attr('id','replayP');
+                    var discussId = discussIdArray[i];//当前话题的id
+                     console.log(discussId);
+                     var userInfo = $api.getStorage('userInfo');
+                     console.log(JSON.stringify(userInfo));
+                     var userId = userInfo.id;
+                     console.log(userId);
+                     console.log(responseContent);
+                    api.ajax({
+                        url: propBaseUrl+'topic/addReplyForDiscuss?discussId='+discussId+'&&fromUserId='+userId+'&&replyContent='+responseContent,
+                        method: 'post'
+                    },function(ret, err){
+                        if (ret) {
+                            console.log( JSON.stringify( ret ) );
+                        } else {
+                            console.log( JSON.stringify( err ) );
+                        }
+                    });
+                  }
+=======
+           $('.disContent').on('click','#btnReplay',function(){
+>>>>>>> .r598
+
+<<<<<<< .mine
+                              // document.location.reload();
+                           }else{
+                             console.log('回复失败，请检查网络');
+                             return ;
+                           }
+||||||| .r595
+=======
+             var responseContent = $('#writeDiscuss').val();
+             if(responseContent===""){
+                  alert('输入内容不能为空');
+             }
+             $('.disContent').hide();
+             // else{
+               console.log(responseContent);//回复的内容
+               console.log(userId);//当前人的id
+               console.log(discussIdArray);//当前评论的id可用
+               console.log(userIdArray);//可用
+               //var i = $('.addDiscuss').index();
+               var m = $(this)
+              //  console.log($(this));
+              //  console.log(String(m));
+               $(this).attr('id','replayP');
+              //  var discussId = discussIdArray[i];//当前话题的id
+                console.log(discussId);
+                var userInfo = $api.getStorage('userInfo');
+                console.log(JSON.stringify(userInfo));
+                var userId = userInfo.id;
+                console.log(userId);
+                console.log(responseContent);
+                var discussIdArray =   $api.getStorage('discussIdArray');
+                alert(discussIdArray);
+              var   discussId = discussIdArray[index]
+                 alert(discussId+'评论id');
+                 alert(userId+'用户id')
+                    alert(responseContent+'回复内容')
+                 //传回复内容
+                 api.ajax({
+                     url: propBaseUrl+'topic/addReplyForDiscuss?discussId='+discussId+'&&fromUserId='+userId+'&&replyContent='+responseContent,
+                     method: 'post'
+                 },function(ret, err){
+                     if (ret) {
+                             console.log( JSON.stringify(ret));
+                             if(ret.stateCode==1){
+                                 console.log('回复成功');
+                                //  console.log(discussId);
+                                //请求获取回复内容，然后插入到评论内容中
+                                api.ajax({
+                                    url: propBaseUrl+'topic/getAllDiscussByTopic?topicId='+topicId+'&&userId='+userId,
+                                    method: 'post',
+                                },function(ret, err){
+                                    if (ret) {
+                                        console.log( JSON.stringify(ret));
+                                       alert(111);
+                                      console.log(responseContent);
+                                      console.log(userId);
+                                      var userIdName = userInfo.louserName;
+                                      console.log(userIdName);
+                                      var strs="";
+                                      // strs+='<p index='+i+' class="replayText"><span class="topic_comment_content_container_message">'+userIdName+':</span><span class="topic_comment_content_container_message">'+responseContent+'</span></p>'
+                                        strs +=  '<div class="topic_comment_content_container">'+
+                                          '<p index='+i+' class="replayText"><span class="topic_comment_content_container_message">'+userIdName+':</span><span class="topic_comment_content_container_message">'+responseContent+'</span></p>'+
+                                             '</div>'
+                                      console.log(strs);
+                                       $('.replayPart').eq(index).append(strs)
+                                    } else {
+                                        console.log( JSON.stringify( err ));
+                                    }
+                                });
+>>>>>>> .r598
+
+<<<<<<< .mine
+                   } else {
+                       console.log( JSON.stringify(err));
+                   }
+               });
+             // }
+             //获取当前评论的序号
+             // console.log($('.addDiscuss').index());
+||||||| .r595
+                  //获取当前评论的序号
+                  // console.log($('.addDiscuss').index());
+=======
+                                // document.location.reload();
+                             }else{
+                               console.log('回复失败，请检查网络');
+                               return ;
+                             }
+>>>>>>> .r598
+
+<<<<<<< .mine
+           })//click 结束
+||||||| .r595
+                })
+=======
+                     } else {
+                         console.log( JSON.stringify(err));
+                     }
+                 });
+>>>>>>> .r598
+
+<<<<<<< .mine
+
+||||||| .r595
+=======
+
+             // }
+             //获取当前评论的序号
+             // console.log($('.addDiscuss').index());
+
+           })//click 结束
+
+
+>>>>>>> .r598
+         })
+     } else {
+         console.log( JSON.stringify(err));
+     }
+ });
+<<<<<<< .mine
+//回复功能的函数
+||||||| .r595
+=======
+//回复功能的函数-----------------
+>>>>>>> .r598
+
+
+
+<<<<<<< .mine
+//收藏功能的实现--------------完成
+||||||| .r595
+
+//收藏功能的实现--------------完成
+=======
+//收藏功能的实现--------------完成------------------------------------------------------------------------------------------------
+>>>>>>> .r598
+     api.ajax({
+        url: propBaseUrl+'topic/getTopicEnshrine?userId='+userId,
+         method: 'get',
+     },function(ret, err){
+         if (ret) {
+             console.log( JSON.stringify(ret));
+            //  console.log(ret.topicList[0].id);
+             //判断该话题是否已经收藏
+                var istopicCollect =[];
+               if(ret.topicList==undefined){
+                 return ;
+               }
+            for(var i=0;i<ret.topicList.length;i++){
+                istopicCollect.push(ret.topicList[i].id);
+                // console.log(topicId);
+                if(topicId==istopicCollect[i]){
+                  $('#collect').addClass('collect')
+                }else{
+                  console.log('你没有收藏');
+                }
+            }
+          //  console.log(istopicCollect);
+
+         } else {
+             console.log( JSON.stringify( err ) );
+         }
+     });
+        function isCollect(propBaseUrl,userId,topicId){
+          api.ajax({
+              url: propBaseUrl+'topic/addEnshrine?userId='+userId+'&topicId='+topicId,
+              method: 'post',
+          },function(ret, err){
+              if (ret) {
+                  console.log( JSON.stringify(ret));
+              } else {
+                  console.log( JSON.stringify(err));
+              }
+          });
+        };
+//-------------------点击收藏事件----------------
+           $('#collect').click(function(){
+             console.log(userId);
+             console.log(topicId);
+             if($(this).hasClass('collect')){
+               $(this).removeClass('collect');
+                isCollect(propBaseUrl,userId,topicId);
+              //  alert('取消收藏');
+             }else{
+                $(this).addClass('collect');
+                isCollect(propBaseUrl,userId,topicId);
+                // alert('已收藏')
+             }
+
+            // $(this).css("color","red");
+          });
+
+      }
+
+
+
+
+  </script>
+  </html>

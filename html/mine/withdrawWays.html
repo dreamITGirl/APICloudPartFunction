@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>提现方式</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+
+         }
+         #wrap{
+           background: #ebebeb;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           
+           section ul{
+            margin-top: 0.5rem;
+           }
+           section ul li{
+            height: 4.4rem;
+            width: 100%;
+            background: #fff;
+            border-bottom: 0.1rem solid #f0f0f0;
+            position: relative;
+           }
+           .position{
+            height: 2rem;
+            top: 1.1rem;
+           }
+           section ul li .ways{
+            position: relative;
+            left: 3%;
+           }
+           section ul li p{
+            position: absolute;
+            left: 13%;
+            line-height: 2rem;
+            font-size: 1.4rem;
+           }
+           section ul li .more{
+            position: absolute;
+            right: 3%;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">提现方式</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <ul>
+            <li id="getMoneyAlipay">
+              <img class="ways position" src="../../icon/mine/wodezhanghu_zhifubao_icon.png">
+              <p class="position">支付宝提现</p>
+              <img src="../../icon/go_right.png" class="more position">
+            </li>
+            <!-- <li>
+              <img class="ways position" src="../../icon/mine/wodezhanghu_weixin_icon.png">
+              <p class="position">微信提现</p>
+              <img src="../../icon/go_right.png" class="more position">
+            </li> -->
+            <li id="getMoneyCard">
+              <img class="ways position" src="../../icon/mine/wodezhanghu_yinhangka_icon.png">
+              <p class="position">银行卡提现</p>
+              <img src="../../icon/go_right.png" class="more position">
+            </li>
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        //银行卡提现
+        var num = Math.random()*100;
+        var getMoneyCard = $api.dom('#getMoneyCard');
+        $api.addEvt(getMoneyCard, 'click', function(){
+          openWin('getMoneyCard','getMoneyCard.html?num='+num);
+        });
+
+        //支付宝提现
+        getMoneyAlipay
+        var getMoneyAlipay = $api.dom('#getMoneyAlipay');
+        $api.addEvt(getMoneyAlipay, 'click', function(){
+          openWin('getMoneyAlipay','getMoneyAlipay.html?num='+num);
+        });
+      };
+      function openWin(name,url){
+        api.openWin({
+          name:name,
+          url: url,
+        });
+      }
+      function closeWin(){
+        api.closeWin({
+        });
+
+      }
+  </script>
+  </html>

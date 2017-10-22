@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的收藏</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+          header{
+            background-color: #D71D34;
+            position: fixed;
+            top: 0rem;
+            z-index: 1111111;
+            width: 100%;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           /*话题样式*/
+           #discover_content{
+             float: left;
+             width: 100%;
+             background: #fff;
+             margin-top:1rem;
+           }
+           .discover_content_topic{
+             width: 100%;
+             float: left;
+           }
+           .discover_content_topic_title{
+             width: 94%;
+             float: left;
+             margin-left: 1rem;
+             border-bottom: 1px solid #e0e0e0;
+             padding-top: 1.4rem;
+             padding-bottom: 1.4rem;
+           }
+           .discover_content_topic_title_left{
+             width: 19.1rem;
+             height: 7.65rem;
+             float: left;
+           }
+           .discover_content_topic_title_left p{
+             font-size: 1.3rem;
+             color: #333333;
+           }
+           .discover_content_topic_title_left p:nth-child(2){
+             font-size: 1rem;
+             margin-top: 2.25rem;
+             line-height: 0.8rem;
+           }
+           .discover_content_topic_title_left_img{
+             width: 2.3rem;
+             height: 1.8rem;
+             float: right;
+             //margin-top:0.2rem;
+           }
+           .discover_content_topic_title_img{
+             width: 13.35rem;
+             height: 7.65rem;
+             float: right;
+           }
+           .discover_content_topic_container{
+             width: 94%;
+             float: left;
+             margin-left: 1rem;
+           }
+           .discover_content_topic_container p:nth-child(1){
+             font-size: 1.3rem;
+             padding-top: 1.3rem;
+             padding-bottom: 1.3rem;
+           }
+           .discover_content_topic_container p:nth-child(3){
+             font-size: 1rem;
+             padding-top: 1.3rem;
+             padding-bottom: 1.3rem;
+           }
+           .discover_content_topic_container_img{
+             width: 100%;
+             height: 16.5rem;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">我的收藏</div>
+                    <div class="myPiC" onclick="api.closeWin({});"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <div style="width:100%;height:7.5rem;"></div>
+        <section id="discover_content">
+            <section class="discover_content_topic">
+                  <!-- <div class="discover_content_topic_title">
+                      <div class="discover_content_topic_title_left">
+                          <p>有什么游戏适合俩个人没有话题的时候玩？</p>
+                          <p><span>7032万阅读</span></p>
+                      </div>
+                      <img src="../../image/discover/discover_02.png" class="discover_content_topic_title_img">
+                  </div> -->
+                  <!-- <div class="discover_content_topic_title">
+                      <div class="discover_content_topic_title_left">
+                          <p>有什么游戏适合俩个人没有话题的时候玩？</p>
+                          <p><span>7032万阅读</span></p>
+                      </div>
+                      <img src="../../image/discover/discover_01.png" class="discover_content_topic_title_img">
+                  </div> -->
+            </section>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+    <script src="../../script/jquery-3.2.1.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+            //本地获取用户id
+             var userInfo = $api.getStorage('userInfo');
+             console.log(JSON.stringify(userInfo));
+             var userId = userInfo.id;
+             console.log(userId);
+
+//话题数据请求
+getTopic();
+function getTopic(){
+  $('.discover_content_topic').html('');
+  api.ajax({
+    url: propBaseUrl+'topic/getTopicEnshrine?userId='+userId,
+    method: 'get'
+  }, function(ret, err) {
+    console.log(JSON.stringify(ret));
+      if (ret) {
+        if(ret.topicList===[]){
+            alert("您没有收藏内容");
+            return;
+        }
+          var list=ret.topicList;
+          if(list==undefined){
+            return;
+          }
+          for(var i = 0 ; i< list.length ; i++){
+            // console.log(list);
+              var title=list[i].title;
+              var src=list[i].imglogo;
+              console.log(src);
+              var topicId=list[i].id;
+              var str='<div class="discover_content_topic_title" topId="'+topicId+'">'+
+                      '<div class="discover_content_topic_title_left">'+
+                      '<p>'+title+'</p>'+
+                      '<p><span>7032万阅读</span></p>'+
+                      '</div>'+
+                      '<img src="'+propBaseUrl+src+'" class="discover_content_topic_title_img">'
+                      '</div>'
+              $('.discover_content_topic').append(str);
+             console.log(str);
+          }
+      } else {
+         alert('您没有收藏任何话题，快去收藏吧')
+      }
+  });
+}
+  //点击收藏的列表项时，获取该话题的详情页
+        $('.discover_content_topic').on('click','.discover_content_topic_title',function(){
+          api.openWin({
+            name: 'discoverTopicDetails',
+            url: '../discover/discoverTopicDetails.html',
+            pageParam: {
+              titleID: $(this).attr("topId"),
+              content: $(this).attr("cont"),
+                      }
+                  });
+                })
+
+
+      };
+  </script>
+  </html>

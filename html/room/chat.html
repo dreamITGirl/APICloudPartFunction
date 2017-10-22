@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>****</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/chat.css">
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+
+      <style>
+         html{
+           font-size: 10px;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+          .chatTool{
+              width: 100%;
+              position: fixed;
+              bottom: 0rem;
+              border-top: 1px solid #ededed;
+              height: 5rem;
+          }
+          .chatTool div{
+            float: left;
+          }
+         .inputBox{
+             width: 50%;
+             height: 5rem;
+         }
+         .inputBox .input{
+           width: 100%;
+           height: 3rem;
+           max-height: 3rem;
+           outline: none;
+           border-bottom: 1px solid #1AAD19;
+           background: #fff;
+           font-size: 1.4rem;
+           margin-top: 1rem;
+           word-wrap: break-word;
+           overflow: scroll;
+         }
+         .face,.append,.record{
+            width: 10%;
+            height: 5rem;
+            margin-left: 1%;
+         }
+         .face img,.append img,.record img {
+           width: 2.5rem;
+           height: 2.5rem;
+           margin-top: 1.25rem;
+           margin-left: 0.6rem;
+         }
+         .state{
+           width: 10%;
+           height: 5rem;
+           margin-left: 3%;
+         }
+         .state span{
+            display: block;
+            width: 100%;
+            height: 3rem;
+            margin-top: 1rem;
+            text-align: center;
+            line-height: 3rem;
+            background: #129611;
+            color: #fff;
+            border-radius: 5px;
+            border: 1px solid #129611;
+
+         }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">回话</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <div></div>
+        <div id="convo" data-from="Sonu Joshi">
+         <ul class="chat-thread" id="chatThread">
+          <li class="myInfo">
+              <img class="headPhoto myHeadPhoto" src="../../image/tou.png" alt="">
+             <div class="info">fgfdgafgfdgafafga</div>
+        </li>
+       <li class="othersInfo">
+          <img class="headPhoto otherHeadPhoto"  src="../../image/tou.png" alt="">
+            <div class="info">ffdsfasdafadfadfasdf</div>
+      </li>
+       </ul>
+     </div>
+     <footer class="chatTool">
+          <div class="record"><img src="../../icon/chat/luyin.png" alt=""></div>
+          <!-- <div class="inputBox" ><input type="text" name="" value=""></div> -->
+          <div class="inputBox" ><div class="input" contenteditable="plaintext-only"></div></div>
+          <div class="face"><img src="../../icon/chat/face.png" alt=""></div>
+          <div class="append"><img src="../../icon/chat/append.png" alt=""></div>
+          <div class="state"><span class="send">发送</span><span class="bet" style="display:none">投注</span></div>
+     </footer>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+
+//         api.addEventListener({
+//             name:'keyboardshow'
+//         },function(ret, err){
+//           alert(1);
+//             api.alert({
+//                 msg:ret.h
+//             });
+//         });
+//         api.addEventListener({
+//     name:'keyboardhide'
+// },function(ret, err){
+//   alert(2);
+//     api.alert({
+//         msg:'键盘隐藏'
+//     });
+// });
+        openChatToll();
+          function openChatToll(){
+            var UIChatTools = api.require('UIChatTools');
+              UIChatTools.open({
+                  chatBox: {
+                      placeholder: '聊天内容',
+                      autoFocuse: false,
+                      maxRows: 6
+                  },
+                  styles: {
+                      bgColor: '#D1D1D1',
+                      margin: 10,
+                      mask: {
+                         bgColor:'rgba(0,0,0,0.5)'
+                      }
+                  },
+                  tools: {
+                      h: 44,
+                      iconSize: 30,
+                      recorder: {
+                         normal: 'fs://UIChatTolls/recorder.png',
+                         selected: 'fs://UIChatTolls/recorder1.png'
+                      },
+                      image: {
+                         normal: 'fs://UIChatTolls/image.png',
+                         selected: 'fs://UIChatTolls/image1.png'
+                      },
+                      video: {
+                         normal: 'fs://UIChatTolls/video.png',
+                         selected: 'fs://UIChatTolls/video1.png'
+                      },
+                      packet: {
+                         normal: 'fs://UIChatTolls/packet.png',
+                         selected: 'fs://UIChatTolls/packet1.png'
+                      },
+                      face: {
+                         normal: 'fs://UIChatTolls/face.png',
+                         selected: 'fs://UIChatTolls/face1.png'
+                      },
+                      append: {
+                         normal: 'fs://UIChatTolls/append.png',
+                         selected: 'fs://UIChatTolls/append1.png'
+                      }
+                  },
+                  emotions:['widget://res/emotions/basic','widget://res/emotions/append1','widget://res/emotions/append2']
+              }, function(ret) {
+                  if (ret) {
+                      alert($api.jsonToStr(ret));
+                      toolsListenerAppend();
+                      toolsListenerFace();
+
+                      // var UIChatTools = api.require('UIChatTools');
+                      // UICharTools = addEventListener({
+                      //   target:'inputBar',
+                      //   name:'move'
+                      // },function(ret,err){
+                      //   var _h = ret.inputBarHeight + ret.panelHeight;
+                      //   alert(ret);
+                      // })
+                      // UIChatTools.chatBoxListener({
+                      //     name:'valueChanged'
+                      // }, function(ret){
+                      //     alert(ret.value);
+                      // });
+
+
+                  }
+              });
+
+
+          }
+
+
+          function  toolsListenerAppend(){
+            var UIChatTools = api.require('UIChatTools');
+            UIChatTools.toolsListener(function(ret) {
+               if (ret.eventType == 'append') {
+                  alert(11111111);
+               }
+            });
+          }
+
+          function faceListener(){
+            var UIChatTools = api.require('UIChatTools');
+            UIChatTools.faceListener({
+                name: 'face'
+            }, function(ret) {
+               alert({msg:JSON.stringify(ret)});
+            });
+
+            var UIChatTools = api.require('UIChatTools');
+            UIChatTools.faceListener({
+                name: 'appendFace'
+            }, function(ret) {
+
+               //
+               if(ret.emoticonName == undefined){
+                 //打开添加表情页面
+                 //打开添加表情页面
+                   api.openWin({
+                        name: 'face',
+                        url: './face.html'
+                });
+                //选择表情后调用addFace接口添加表情包
+                var UIChatTools = api.require('UIChatTools');
+                UIChatTools.addFace({
+                    path: 'fs://newFace'
+                });
+               } else{
+                // 点击表情
+               }
+
+            });
+          }
+
+          function toolsListenerFace(){
+            var UIChatTools = api.require('UIChatTools');
+            UIChatTools.toolsListener(function(ret) {
+               if (ret.eventType == 'face') {
+                    faceListener();
+               }
+            });
+          }
+
+
+      };
+      function  open(){
+        var initBodyHeight = $(window).height();
+        var keyBoardStatus = false;
+        var getKeyBoardStatus = function(){
+           setTimeout(function(){
+               if(initBodyHeight != $(window).height() && keyBoardStatus == false){
+                   keyBoardStatus = true;
+                   api.sendEvent({
+                       name: 'keyBoardOpen'
+                   });
+                   getKeyBoardStatus();
+                   return false;
+               }
+               if(initBodyHeight == $(window).height() && keyBoardStatus == true){
+                   keyBoardStatus = false;
+                   api.sendEvent({
+                       name: 'keyBoardClose'
+                   });
+                   getKeyBoardStatus();
+                   return false;
+               }
+               getKeyBoardStatus();
+           },150);
+        }
+        getKeyBoardStatus();
+
+        api.addEventListener({
+           name: 'keyBoardOpen'
+        }, function(ret, err){
+           alert("keyBoardOpen");
+           toPageBottom();
+        });
+        api.addEventListener({
+           name: 'keyBoardClose'
+        }, function(ret, err){
+           alert("keyBoardClose");
+           toPageBottom();
+        });
+
+      }
+
+  </script>
+  </html>

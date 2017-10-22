@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>房间管理（？？）</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         body{
+          background: #EBEBEB;
+         }
+          header{
+            background-color: #D71D34;
+            position:fixed;
+            width: 100%;
+            z-index:666;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           .save{
+             position: absolute;
+             right:1rem;
+             top:4rem;
+             font-size: 1.8rem;
+             color: #fff;
+           }
+           section ul{
+            margin-bottom: 1rem;
+           }
+           /*section ul li{
+            position: relative;
+            background: #fff;
+            height: 4.4rem;
+            width: 100%;
+            border-bottom: 0.1rem solid #EBEBEB;
+            font-size: 1.4rem;
+            line-height: 4.4rem;
+           }*/
+           section ul .list{
+             position: relative;
+             background: #fff;
+             height: 4.4rem;
+             width: 100%;
+             border-bottom: 0.1rem solid #EBEBEB;
+             font-size: 1.4rem;
+             line-height: 4.4rem;
+           }
+           .methodLi{
+             position: relative;
+             background: #fff;
+             width: 100%;
+             border-bottom: 0.1rem solid #EBEBEB;
+             font-size: 1.4rem;
+           }
+           .text_left{
+            position: absolute;left: 3%
+           }
+           .text_right{
+            position: absolute;
+            right: 3%;
+            color: #999;
+           }
+           .text_right img{
+            width: 1.5rem;
+           }
+           .text_more{
+            color: #666666;
+            position: absolute;right: 10%;
+           }
+           .props{
+             width:100%;
+             overflow: auto;
+             background: #fff;
+
+           }
+           ::-webkit-scrollbar {height: 0px;width: 0px}
+           .props .kind1{
+             list-style: none;
+             width:43.3rem;
+             overflow: hidden;
+             background: #fff;
+           }
+           .props .kind1 li{
+             height:8rem;
+             float: left;
+             border:1px solid #edeee9;
+             overflow: hidden;
+             float: left;
+             width:14.2rem;
+             height:11.5rem;
+             padding:1rem 0;
+           }
+           .props .kind1 li .action{
+             width:9rem;
+             margin:0.5rem auto;
+             font-size: 1.1rem;
+             color: #999;
+           }
+           .props .kind1 li:hover{
+             background:#f7fff2;
+           }
+           .props .kind1 .box1{
+             overflow: hidden;
+             width:96%;
+             margin:auto;
+             height:7.5rem;
+             position: relative;
+             border-radius: 1rem;
+             background-color:#f6f6f6;
+           }
+           .props .kind1 .box1 .check{
+             position: absolute;
+             right:0.8rem;
+             bottom:1.6rem;
+             width:2.4rem;
+             height:2.4rem;
+           }
+           .props .kind1 .box1 img{
+             float: left;
+             margin-left: 1.2rem;
+             width:4.4rem;
+             height:4rem;
+             margin-top:1rem;
+           }
+           .props .kind1 .box1 .rig{
+             float: left;
+             width:7.1rem;
+             margin-left: 0.5rem;
+           }
+           .props .kind1 .box1 .tit{
+             font-size: 1.4rem;
+             color: #363833;
+             line-height: 4rem;
+           }
+           .props .kind1 .box1 .rig .two{
+             font-size: 1.5rem;
+             color: #999;
+             line-height: 1.5rem;
+           }
+          input{
+            margin-top:1.5rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+    <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">房间管理</div>
+                    <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                    <div class="save">保存</div>
+                </li>
+            </ul>
+        </header>
+      <section style="margin-top: 7.5rem; ">
+        <ul>
+          <li class='list'>
+            <div class="text_left">房间ID</div>
+            <div class="text_right roomId">326589</div>
+          </li>
+          <li class='list'>
+            <div class="text_left">房间名称</div>
+            <div class="text_right roomName">接龙</div>
+          </li>
+          <li class='list'>
+            <div class="text_left">房间种类</div>
+            <div class="text_right lotteryId">3元5包</div>
+          </li>
+          <li class='list'>
+            <div class="text_left">房间钱币</div>
+            <div class="text_right roomMoney">0</div>
+          </li>
+          <li class='list'>
+            <div class="text_left">单位</div>
+            <div class="text_right coin">金币</div>
+          </li>
+         </ul>
+      
+        <div class="footer_more"></div>
+      </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script src="../../script/jquery-3.2.1.js" charset="utf-8"></script>
+  <script src="../../script/public.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+          $(".myPiC").on("click",function(){
+              api.closeWin({
+              });
+           });
+           var game = api.pageParam;
+            var redMoney = api.pageParam.numbercode;
+             var moneyNum = Number(redMoney.substr(2,4));
+             var redNum = Number(redMoney.substr(6))-1;
+              $('.lotteryId').html(moneyNum+'元'+redNum+'包');
+              $('.roomId').html(game.message.name);
+     // 根据房间ID确定系统的金额-------------------------------------------------
+        var roomId = game.message.groupId;
+         api.ajax({
+            url:GAMEDATABASE_URL+'lottery-web/NNgame/enterRoom?id='+roomId,
+            method:'get'
+         },function(ret,err){
+             if(ret){
+                $('.roomMoney').html(ret.gameroom.price.toString().substring(0,ret.gameroom.price.toString().indexOf('.')+3))
+             }
+         })
+    // 根据房间ID确定系统的金额-------------------------------------------------
+      };
+  </script>
+  </html>

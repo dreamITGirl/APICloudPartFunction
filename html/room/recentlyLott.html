@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>最近彩票记录</title>
+      <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+      <style>
+        html{
+          font-size: 10px;
+        }
+         header{
+           background-color: #D71D34;
+           width: 100%;
+           position: fixed;
+           top:0;
+           left:0;
+         }
+         header ul li {
+           height: 7.5rem;
+           text-align: center;
+           color: #fff;
+           position: relative;
+           font-size: 18px;
+          }
+          .myMine{
+            padding-top: 4rem;
+          }
+          .myPiC{
+            position: absolute;
+            left: 0rem;
+            top: 0rem;
+            width: 10%;
+            padding-top: 3.7rem;
+            height: 7.5rem;
+          }
+          .list{
+            height:52rem;
+            overflow: auto;
+            background-color: #efefef;
+            margin-top:7.5rem;
+          }
+          .list .record{
+            list-style: none;
+            background-color: #fff;
+            text-align: center;
+          }
+          .list .record li{
+            width:96%;
+            height:6.6rem;
+            margin: auto;
+            border-bottom: 1px solid #e6e6e6;
+          }
+          .list .record li img{
+            width:4.3rem;
+            height:4.3rem;
+            border-radius: 5rem;
+            margin-top:1.3rem;
+            margin-left: 0.8rem;
+            float: left;
+          }
+          .list .record li .cont{
+            float: left;
+            margin-top:1rem;
+            text-align: left;
+            margin-left:1rem;
+          }
+          .list .record li .cont .title{
+            font-size: 1.5rem;
+            line-height: 3.4rem;
+            color: #434343;
+          }
+          .list .record li .cont .time{
+            font-size: 1.2rem;
+            color: #727272;
+          }
+          .list .record li .money{
+            font-size:1.4rem;
+            float: right;
+            line-height: 6.6rem;
+            margin-right:0.5rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+      <header>
+          <ul>
+              <li class="border-b mine" >
+                  <div class="myMine">最近彩票记录</div>
+                  <div class="myPiC"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+              </li>
+          </ul>
+      </header>
+      <div class="list">
+        <ul class="record">
+          <!-- <li>
+            <img src="../../image/tou.png" alt="">
+            <div class="cont">
+              <p class="title">投注百分百</p>
+              <p class="time">2017-07-25 22:16</p>
+            </div>
+            <p class='money'>-50金币</p>
+          </li>
+          <li>
+            <img src="../../image/tou.png" alt="">
+            <div class="cont">
+              <p class="title">投注百分百</p>
+              <p class="time">2017-07-25 22:00</p>
+            </div>
+            <p class='money' style="color:red">+90金币</p>
+          </li>
+          <li>
+            <img src="../../image/tou.png" alt="">
+            <div class="cont">
+              <p class="title">投注百分百</p>
+              <p class="time">2017-07-25 20:20</p>
+            </div>
+            <p class='money'>-60金币</p>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var userInfo=$api.getStorage('userInfo');
+        var roomId=api.pageParam.roomId;
+        var lotteryId=api.pageParam.lotteryId;
+        getLottList();
+        function getLottList(){
+          api.ajax({
+              url: DATABASE_URL+'lottery-web/lottery/getBetResult?userId='+userInfo.lophone+'&cpfj_id='+roomId+'&lotteryId='+lotteryId,
+              method: 'post'
+          },function(ret, err){
+              if (ret) {
+                if(ret.status==1){
+                  var list=ret.list;
+                  for(var i=0;i<list.length;i++){
+                    var date=list[i].addTime;
+                    var year=date.substring(0,4);
+                    var month=date.substring(4,6);
+                    var day=date.substring(6,8);
+                    var hour=date.substring(8,10);
+                    var min=date.substring(10,12);
+                    var sec=date.substring(12,14);
+                    var time=year+'-'+month+'-'+day+' '+hour+':'+min;
+                    // console.log(year+'-'+month+'-'+day+' '+hour+':'+min+':'+sec);
+                    var type=list[i].bettingtype;
+                    var word=null;
+                    if(lotteryId==1){
+                      switch(type){
+                        case '1':word='1~5球';break;
+                        case '2':word='定位胆';break;
+                        case '3':word='1~5星';break;
+                        case '4':word='龙虎和';break;
+                        default:console.log('case');break;
+                      }
+                    }
+                    else{
+                      switch (type) {
+                        case '1':word='1~5';break;
+                        case '2':word='6~10';break;
+                        case '3':word='冠亚和';break;
+                      }
+                    }
+                    var str='<li name='+list[i].id+' str='+word+'>'+
+                            '<img src="../../image/tou.png" alt="">'+
+                            '<div class="cont">'+
+                              '<p class="title">'+word+'('+list[i].expect+')</p>'+
+                              '<p class="time">'+time+'</p>'+
+                            '</div>'+
+                            '<p class="money">-'+list[i].bettotalmoney+'金币</p>'+
+                          '</li>'
+                    $('.record').append(str);
+                  }
+                }
+              } else {
+                  console.log( JSON.stringify( err ) );
+              }
+          });
+
+
+        }
+        $('.record').on('click','li',function(){
+          api.openWin({
+              name: 'lotteryRecond',
+              url: './lotteryRecond.html',
+              pageParam: {
+                  buyingId: $(this).attr('name'),
+                  lophone:userInfo.lophone,
+                  lotteryId:lotteryId,
+                  roomId:roomId,
+                  message:$(this).attr('str')
+              }
+          });
+
+        })
+        $('.myPiC').on('click',function(){
+          api.closeWin({});
+        })
+      };
+  </script>
+  </html>

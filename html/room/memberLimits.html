@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>权限设置</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+         }
+         #wrap{
+           background: #EFEFEF;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+          section ul{
+            margin-top: 0.5rem;
+          }
+          section ul li{
+            height: 4.4rem;
+            width: 100%;
+            background: #fff;
+          }
+          section ul li .img{
+            position: absolute;
+            width: 7%;
+            left: 3%;
+          }
+          section ul li .do_thing{
+            position: absolute;
+            left: 10%;
+            font-size: 1.5rem;
+            border-bottom: 0.1rem solid #efefef;
+            width: 90%;
+            line-height: 4.4rem;
+          }
+
+          .submit{
+            width: 94%;margin: 1.5rem auto;
+            height: 4.4rem;text-align: center;
+            line-height: 4.4rem;
+            color: #fff;
+            background: #D81E35;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+          }
+          .check{
+            height: 1.5rem;margin-top: 1.4rem;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">权限设置</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <ul>
+            <li class='oli'>
+              <div class="img">
+                <img src="../../icon/room/check.png" class="check">
+              </div>
+              <div class="do_thing">踢人</div>
+            </li>
+            <li class='oli'>
+              <div class="img">
+                <img src="../../icon/room/check.png" class="check">
+              </div>
+              <div class="do_thing">禁言/取消禁言</div>
+            </li>
+            <li class='oli'>
+              <div class="img">
+                <img src="../../icon/room/check.png" class="check">
+              </div>
+              <div class="do_thing">暂停/恢复游戏</div>
+            </li>
+            <!-- <li>
+              <div class="img">
+                <img src="../../icon/room/check.png" class="check">
+              </div>
+              <div class="do_thing">私聊</div>
+            </li> -->
+            <li class='oli'>
+              <div class="img">
+                <img src="../../icon/room/check.png" class="check">
+              </div>
+              <div class="do_thing">增加/减少会员余额</div>
+            </li>
+            <!-- <li>
+              <div class="img">
+                <img src="../../icon/room/check.png" class="check">
+              </div>
+              <div class="do_thing">撤销信息</div>
+            </li> -->
+            <li class='oli'>
+              <div class="img">
+                <img src="../../icon/room/check.png" class="check">
+              </div>
+              <div class="do_thing">房间管理</div>
+            </li>
+            <li class='oli'>
+              <div class="img">
+                <img src="../../icon/room/check.png" class="check">
+              </div>
+              <div class="do_thing">会员权限管理</div>
+            </li>
+          </ul>
+          <div class="submit">
+            确 定
+          </div>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var roomId=api.pageParam.roomId;//房间id
+        var namePhone=api.pageParam.namePhone;//用户电话
+        var limits=0;
+        getLimit();//获得用户权限
+        function getLimit(){
+          api.ajax({
+              url: DATABASE_URL+'lottery-web/lottery/getRoomUserQX',
+              method: 'post',
+              data:{
+                values:{
+                  cpfj_id:roomId,
+                  userId:namePhone
+                }
+              }
+          },function(ret, err){
+              if (ret) {
+                if(ret.status==1){
+                  limits=ret.jurisdiction;
+                  for(var i=0;i<6;i++){
+                    var qq=limits&1<<i;
+                    if(qq!=0){
+                      $('.oli').eq(i).find('.check').attr('src','../../icon/room/checked.png');
+                      $('.oli').eq(i).find('.check').addClass('checked');
+                    }
+                  }
+                }
+              } else {
+                  console.log( JSON.stringify( err ) );
+              }
+          });
+
+        }
+        //选中框判断
+        $('.check').on('click',function(){
+          if($(this).hasClass('checked')){
+            $(this).attr('src','../../icon/room/check.png');
+            $(this).removeClass('checked');
+            limits=limits&(~(1<<$(this).parent().parent().index()));
+          }else{
+            $(this).attr('src','../../icon/room/checked.png');
+            $(this).addClass('checked');
+            limits=limits|(1<<$(this).parent().parent().index());
+          }
+        });
+        $('.submit').click(function(){
+          api.ajax({
+              url: DATABASE_URL+'lottery-web/lottery/updateRoomUserQX',
+              method: 'post',
+              data:{
+                values:{
+                  cpfj_id:roomId,
+                  userId:namePhone,
+                  jurisdiction:limits
+                }
+              }
+          },function(ret, err){
+              if (ret) {
+                if(ret.status==1){
+                  api.toast({
+                      msg: '设置成功',
+                      duration: 2000,
+                      location: 'bottom'
+                  });
+                  api.closeWin({});
+                }
+              } else {
+                  console.log( JSON.stringify( err ) );
+              }
+          });
+
+        });
+      };
+
+      function closeWin(){
+        api.closeWin({});
+      }
+  </script>
+  </html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>我的账户</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+
+         }
+         #wrap{
+           background: #ebebeb;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+
+           .head_main{
+            height: 16rem;
+            width: 100%;
+            text-align: center;
+            background: #fff;
+           }
+           .head_img{
+            height: 11.5rem;
+            width: 100%;
+            border-bottom: 0.1rem solid #f0f0f0;
+            position: relative;
+           }
+           .head_img img{
+            height: 2.8rem;position: absolute;left: 30%;top: 3.5rem;
+           }
+           .head_img .price{
+            position: absolute;left: 41%;
+            font-size: 2.5rem;line-height: 2.8rem;top: 3.5rem;
+           }
+           .head_img .text{
+            position:absolute;width:100%;top: 7.45rem;font-size: 1.4rem;color: #999999;
+           }
+           .head_box{
+            font-size: 1.4rem;
+            line-height: 4.5rem;
+            color: #333333;
+            height: 4.5rem;
+            width: 49.5%;
+            float: left;
+            border-right: 0.1rem solid #f0f0f0;
+           }
+           .border_r{
+            border-right: 0.1rem solid #f0f0f0;
+           }
+
+           section ul li{
+            height: 4.5rem;
+            width: 100%;
+            background: #fff;
+            margin-top: 1rem;
+            position: relative;
+            font-size: 1.4rem;
+            line-height: 4.5rem;
+            color: #343434;
+           }
+           section ul li img{
+            position: absolute;right: 3%;height: 1.5rem;top: 1.5rem;
+           }
+           section ul li p{
+            margin-left: 3%;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">我的账户</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section class="head_main">
+          <div class="head_img">
+            <img src="../../icon/mine/wodezhanghu_jinbi_icon.png">
+            <div class="price">3254.20</div>
+            <div class="text">余额（金币）</div>
+          </div>
+          <div class="head_box" id="withdrawWays">
+            提现
+          </div>
+          <div class="head_box" id="addMoney">
+            充值
+          </div>
+        </section>
+        <section>
+          <ul>
+            <li id="bank_card">
+              <p>我的银行卡</p>
+              <img src="../../icon/go_right.png">
+            </li>
+            <li id="checkDetail">
+              <p>账单明细</p>
+              <img src="../../icon/go_right.png">
+            </li>
+            <li id="editPass">
+              <p>修改密码</p>
+              <img src="../../icon/go_right.png">
+            </li>
+          </ul>
+        </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script src="../../script/jquery-3.2.1.js" charset="utf-8"></script>
+  <script src="../../script/public.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var userInfo = $api.getStorage('userInfo');
+        getInfo(userInfo.id,baseUrl);
+        //监听事件
+        api.addEventListener({
+          name: 'allMoneyEvt'
+        }, function(ret, err) {
+          getInfo(userInfo.id,baseUrl);
+        });
+        //账单详情
+        var checkDetail = $api.dom('#checkDetail');
+        $api.addEvt(checkDetail, 'click', function(){
+          openWin('checkDetail','checkDetail.html');
+        });
+        // 充值
+        var addMoney = $api.dom('#addMoney');
+        $api.addEvt(addMoney, 'click', function(){
+          api.sendEvent({
+            name: 'addMoneySend'
+          });
+          openWin('addMoney','addMoney.html');
+        });
+
+        //提现
+        var withdrawWays = $api.dom('#withdrawWays');
+        $api.addEvt(withdrawWays, 'click', function(){
+          openWin('withdrawWays','withdrawWays.html');
+        });
+
+        //修改密码
+        var editPass = $api.dom('#editPass');
+        $api.addEvt(editPass, 'click', function(){
+          openWin('editPassMoney','editPassMoney.html');
+        });
+
+        var bankCard = $api.dom('#bank_card');
+        $api.addEvt(bankCard, 'click', function(){
+          openWin('bankCard','bankCard.html');
+        });
+      };
+      //获取用户基本信息
+      function getInfo(id,baseUrl){
+        var num=Math.random()*100;
+        api.ajax({
+            url: baseUrl+'user/getUserById?id='+id+'&num='+num,
+            method: 'get'
+        }, function(ret, err) {
+          console.log(JSON.stringify(ret));
+            if (ret) {
+                $('.price').html(ret.lotteryUserBean.lomoney.toFixed(2));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+      }
+
+
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+      function openWin(name,url){
+            api.openWin({
+                name:name,
+                url: url,
+            });
+        }
+  </script>
+  </html>

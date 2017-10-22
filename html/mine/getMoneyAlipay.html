@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>支付宝提现</title>
+      <link rel="stylesheet" type="text/css"     href="../../css/api.css"/>
+      <link rel="stylesheet" type="text/css"     href="../../css/style.css">
+      <style>
+         html{
+           font-size: 10px;
+
+         }
+         #wrap{
+           background: #ebebeb;
+         }
+          header{
+            background-color: #D71D34;
+          }
+          header ul li {
+            height: 7.5rem;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            font-size: 18px;
+           }
+           .myMine{
+             padding-top: 4rem;
+           }
+           .myPiC{
+             position: absolute;
+             left: 0rem;
+             top: 0rem;
+             width: 10%;
+             padding-top: 3.7rem;
+             height: 7.5rem;
+           }
+           section ul{
+            margin-top: 0.5rem;
+           }
+           section ul li{
+            height: 4.4rem;
+            line-height: 4.4rem;
+            position: relative;
+            width: 100%;background: #fff;
+            font-size: 1.4rem;
+            border-bottom: 0.1rem solid #f0f0f0;
+           }
+           .li_text{
+            position: absolute;left: 3%;width: 20%;
+           }
+           .li_input{
+            position: absolute;
+            right: 3%;
+            height: 4.4rem;
+            width: 74%;
+            outline: none;
+            border:none;
+           }
+           .select{
+            font-size: 1.4rem;background: #fff;
+           }
+           .footer{
+            width: 94%;margin: 0 auto;height: 4.4rem;
+            line-height: 4.4rem;border-radius: 0.5rem;
+            background: #D81E35;color: #fff;
+            font-size: 1.4rem;text-align: center;margin-top: 1rem;
+           }
+      </style>
+  </head>
+  <body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b mine" >
+                    <div class="myMine">支付宝提现</div>
+                    <div class="myPiC" onclick="closeWin()"><img src="../../icon/mine/go_left.png" alt="" style=" width: 2.5rem;height: 2.5rem;"></div>
+                </li>
+            </ul>
+        </header>
+        <section>
+          <ul>
+            <li>
+              <div class="li_text">账号</div>
+              <input type="text" id="bank" class="li_input" placeholder="请输入支付宝账号">
+            </li>
+            <li>
+              <div class="li_text">姓名</div>
+              <input type="text" id="cardName" class="li_input" placeholder="请输入绑定的真实姓名">
+            </li>
+            <li>
+              <div class="li_text" id="prices">金额</div>
+              <input type="number" id="cardPrice" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" class="li_input" placeholder="请输入提现金额">
+            </li>
+          </ul>
+        </section>
+        <div id="submit" class="footer">
+          提 现
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="../../script/public.js"></script>
+  <script type="text/javascript">
+      apiready = function(){
+        var userInfo = $api.getStorage('userInfo');
+        var bank = $api.dom('#bank'),
+            cardName = $api.dom('#cardName'),
+            cardPrice = $api.dom('#cardPrice');
+
+        var submit = $api.dom('#submit');
+        $api.addEvt(submit, 'click', function(){
+          var alipayN = $api.val(bank),  //账号
+              cardNa = $api.val(cardName),  //姓名
+              cardP = $api.val(cardPrice);  //金额
+          
+          var tell = /^1[34578]\d{9}$/,
+              maill = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;  
+
+          if(alipayN == "" || cardNa == "" || cardP == ""){
+            toast("输入不能为空");
+          }else if(!tell.test(alipayN) && !maill.test(alipayN)){
+            toast("账号输入格式错误");
+          }else{
+            //提交信息进行提现
+            addMoneyFun(0,cardP,alipayN)
+            // openWin('sendSuccess','sendSuccess.html',0);
+          }
+        });
+        
+      // 保存到数据库实现提现
+      function addMoneyFun(type,num,tel){
+          api.ajax({
+              url: baseUrl+'bankcard/addRecharge',
+              method: 'post',
+              data: {
+                  values: { 
+                      topUpMoney: num,
+                      id: userInfo.id,
+                      type: 2,
+                  } 
+              }
+          }, function(ret, err) {
+              if (ret.stateCode) {
+                // alert('充值成功');
+                console.log(JSON.stringify(ret));
+                // $('.addAddressTo').hide();
+                api.sendEvent({
+                  name: 'allMoneyEvt',
+                  extra: {
+                    value: num
+                  }
+                });
+                var n = Math.random()*100;
+                api.openWin({
+                  name: 'sendSuccess',
+                  url: 'sendSuccess.html?num='+n,
+                  pageParam: {
+                    type: type,
+                    value: num,
+                    phone: tel,
+                    add: 0
+                  }
+                });
+              } else {
+                toast('网络错误，重新试试');
+              }
+          });
+        }
+      };
+      //跳转页面
+      function openWin(name,url,value){
+        api.openWin({
+          name:name,
+          url: url,
+          pageParam: {
+            type: value
+          }
+        });
+      }
+      function closeWin(){
+        api.closeWin({
+        });
+      }
+  </script>
+  </html>
